@@ -1,25 +1,28 @@
-import { forwardRef, useId, useEffect, useRef, useCallback } from 'react'
-import type { TextareaHTMLAttributes, ChangeEvent } from 'react'
-import { clsx } from 'clsx'
-import * as styles from './TextArea.css'
+import { forwardRef, useId, useEffect, useRef, useCallback } from 'react';
+import type { TextareaHTMLAttributes, ChangeEvent } from 'react';
+import { clsx } from 'clsx';
+import * as styles from './TextArea.css';
 
-export interface TextAreaProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'size'> {
+export interface TextAreaProps extends Omit<
+  TextareaHTMLAttributes<HTMLTextAreaElement>,
+  'size'
+> {
   /** 레이블 텍스트 */
-  label: string
+  label: string;
   /** TextArea size */
-  size?: 'sm' | 'md' | 'lg'
+  size?: 'sm' | 'md' | 'lg';
   /** 높이 자동 조정 */
-  autoResize?: boolean
+  autoResize?: boolean;
   /** 최소 높이 (px 또는 문자열) */
-  height?: string | number
+  height?: string | number;
   /** 에러 상태 */
-  error?: boolean
+  error?: boolean;
   /** 에러 메시지 */
-  errorMessage?: string
+  errorMessage?: string;
   /** 도움말 텍스트 */
-  helperText?: string
+  helperText?: string;
   /** 전체 너비 사용 */
-  fullWidth?: boolean
+  fullWidth?: boolean;
 }
 
 export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
@@ -41,63 +44,65 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
     },
     ref
   ) => {
-    const textareaId = useId()
-    const helperId = useId()
-    const internalRef = useRef<HTMLTextAreaElement>(null)
+    const textareaId = useId();
+    const helperId = useId();
+    const internalRef = useRef<HTMLTextAreaElement>(null);
 
     // 개발 환경에서 label 검증
     if (process.env.NODE_ENV === 'development') {
       if (!label) {
-        console.error('TextArea: label prop은 필수입니다. 접근성을 위해 label을 제공하세요.')
+        console.error(
+          'TextArea: label prop은 필수입니다. 접근성을 위해 label을 제공하세요.'
+        );
       }
     }
 
     // ref 병합 (forwardRef와 내부 ref 모두 지원)
     const setRefs = useCallback(
       (element: HTMLTextAreaElement | null) => {
-        internalRef.current = element
+        internalRef.current = element;
         if (typeof ref === 'function') {
-          ref(element)
+          ref(element);
         } else if (ref) {
-          ref.current = element
+          ref.current = element;
         }
       },
       [ref]
-    )
+    );
 
     // 자동 높이 조정 함수
     const adjustHeight = useCallback(() => {
-      const textarea = internalRef.current
-      if (!textarea || !autoResize) return
+      const textarea = internalRef.current;
+      if (!textarea || !autoResize) return;
 
-      textarea.style.height = 'auto'
-      textarea.style.height = `${textarea.scrollHeight}px`
-    }, [autoResize])
+      textarea.style.height = 'auto';
+      textarea.style.height = `${textarea.scrollHeight}px`;
+    }, [autoResize]);
 
     // autoResize 활성화 시 초기 높이 조정
     useEffect(() => {
       if (autoResize) {
-        adjustHeight()
+        adjustHeight();
       }
-    }, [autoResize, adjustHeight])
+    }, [autoResize, adjustHeight]);
 
     // onChange 핸들러 래핑 (자동 높이 조정 포함)
     const handleChange = useCallback(
       (e: ChangeEvent<HTMLTextAreaElement>) => {
         if (autoResize) {
-          adjustHeight()
+          adjustHeight();
         }
-        onChange?.(e)
+        onChange?.(e);
       },
       [autoResize, adjustHeight, onChange]
-    )
+    );
 
     // helperText 또는 errorMessage 표시
-    const showHelper = !error && helperText
-    const showError = error && errorMessage
+    const showHelper = !error && helperText;
+    const showError = error && errorMessage;
 
     // height를 px 단위로 변환
-    const minHeight = typeof height === 'number' ? `${height}px` : height
+    const minHeight = typeof height === 'number' ? `${height}px` : height;
 
     return (
       <div className={clsx(styles.wrapper, fullWidth && styles.fullWidth)}>
@@ -108,7 +113,13 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
         </label>
 
         {/* TextArea Container */}
-        <div className={clsx(styles.textareaContainer, styles.size[size], error && styles.error)}>
+        <div
+          className={clsx(
+            styles.textareaContainer,
+            styles.size[size],
+            error && styles.error
+          )}
+        >
           <textarea
             ref={setRefs}
             id={textareaId}
@@ -117,7 +128,12 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
             aria-invalid={error}
             aria-disabled={disabled}
             aria-describedby={showHelper || showError ? helperId : undefined}
-            className={clsx(styles.textarea, styles.size[size], error && styles.error, className)}
+            className={clsx(
+              styles.textarea,
+              styles.size[size],
+              error && styles.error,
+              className
+            )}
             style={{
               minHeight,
               overflow: autoResize ? 'hidden' : 'auto',
@@ -143,8 +159,8 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
           </div>
         )}
       </div>
-    )
+    );
   }
-)
+);
 
-TextArea.displayName = 'TextArea'
+TextArea.displayName = 'TextArea';

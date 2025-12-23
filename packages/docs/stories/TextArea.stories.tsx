@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { TextArea } from '@designsystem/core'
-import { useState } from 'react'
+import type { Meta, StoryObj } from '@storybook/react';
+import { TextArea } from '@designsystem/core';
+import { useState } from 'react';
 
 const meta = {
   title: 'Components/TextArea',
@@ -56,10 +56,10 @@ const meta = {
       description: '읽기 전용',
     },
   },
-} satisfies Meta<typeof TextArea>
+} satisfies Meta<typeof TextArea>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 // 기본
 export const Default: Story = {
@@ -67,29 +67,50 @@ export const Default: Story = {
     label: '설명',
     placeholder: '내용을 입력하세요',
   },
-}
+};
 
 // Sizes
 export const Sizes: Story = {
   args: { label: '' },
   parameters: { controls: { disable: true } },
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '400px' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1.5rem',
+        width: '400px',
+      }}
+    >
       <TextArea label="Small" size="sm" placeholder="Small size" />
       <TextArea label="Medium (기본)" size="md" placeholder="Medium size" />
       <TextArea label="Large" size="lg" placeholder="Large size" />
     </div>
   ),
-}
+};
 
 // Fixed Height (고정 높이)
 export const FixedHeight: Story = {
   args: { label: '' },
   parameters: { controls: { disable: true } },
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '400px' }}>
-      <TextArea label="기본 높이 (120px)" placeholder="기본 높이는 120px입니다" />
-      <TextArea label="높이 200px" height={200} placeholder="높이가 200px로 설정되었습니다" />
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1.5rem',
+        width: '400px',
+      }}
+    >
+      <TextArea
+        label="기본 높이 (120px)"
+        placeholder="기본 높이는 120px입니다"
+      />
+      <TextArea
+        label="높이 200px"
+        height={200}
+        placeholder="높이가 200px로 설정되었습니다"
+      />
       <TextArea
         label="높이 300px"
         height="300px"
@@ -97,14 +118,21 @@ export const FixedHeight: Story = {
       />
     </div>
   ),
-}
+};
 
 // Auto Resize (자동 높이 조정)
 const AutoResizeExample = () => {
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState('');
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '400px' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1.5rem',
+        width: '400px',
+      }}
+    >
       <TextArea
         label="자동 높이 조정"
         autoResize
@@ -121,35 +149,49 @@ const AutoResizeExample = () => {
         placeholder="최소 높이는 100px이고, 내용에 따라 자동으로 늘어납니다"
       />
     </div>
-  )
-}
+  );
+};
 
 export const AutoResize: Story = {
   args: { label: '' },
   parameters: { controls: { disable: true } },
   render: () => <AutoResizeExample />,
-}
+};
 
 // States
 export const States: Story = {
   args: { label: '' },
   parameters: { controls: { disable: true } },
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '400px' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1.5rem',
+        width: '400px',
+      }}
+    >
       <TextArea label="기본" placeholder="기본 상태" />
       <TextArea label="필수" required placeholder="필수 입력" />
       <TextArea label="비활성화" disabled placeholder="비활성화 상태" />
       <TextArea label="읽기 전용" readOnly value="읽기 전용 내용" />
     </div>
   ),
-}
+};
 
 // Error State
 export const ErrorState: Story = {
   args: { label: '' },
   parameters: { controls: { disable: true } },
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '400px' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1.5rem',
+        width: '400px',
+      }}
+    >
       <TextArea label="에러 상태" error errorMessage="내용이 너무 짧습니다" />
       <TextArea
         label="에러 + 필수"
@@ -160,19 +202,30 @@ export const ErrorState: Story = {
       />
     </div>
   ),
-}
+};
 
 // Helper Text
 export const HelperText: Story = {
   args: { label: '' },
   parameters: { controls: { disable: true } },
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '400px' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1.5rem',
+        width: '400px',
+      }}
+    >
       <TextArea label="설명" helperText="최대 500자까지 입력 가능합니다" />
-      <TextArea label="상세 설명" helperText="구체적으로 작성해주세요" height={150} />
+      <TextArea
+        label="상세 설명"
+        helperText="구체적으로 작성해주세요"
+        height={150}
+      />
     </div>
   ),
-}
+};
 
 // Full Width
 export const FullWidth: Story = {
@@ -188,14 +241,21 @@ export const FullWidth: Story = {
       />
     </div>
   ),
-}
+};
 
 // Controlled Component
 const ControlledExample = () => {
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState('');
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '400px' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1rem',
+        width: '400px',
+      }}
+    >
       <TextArea
         label="제어 컴포넌트"
         value={value}
@@ -206,16 +266,18 @@ const ControlledExample = () => {
       <p style={{ fontSize: '0.875rem', color: '#666' }}>
         입력된 내용: {value || '(없음)'}
       </p>
-      <p style={{ fontSize: '0.875rem', color: '#666' }}>글자 수: {value.length}자</p>
+      <p style={{ fontSize: '0.875rem', color: '#666' }}>
+        글자 수: {value.length}자
+      </p>
     </div>
-  )
-}
+  );
+};
 
 export const Controlled: Story = {
   args: { label: '' },
   parameters: { controls: { disable: true } },
   render: () => <ControlledExample />,
-}
+};
 
 // Form Example
 const FormExampleComponent = () => {
@@ -223,25 +285,25 @@ const FormExampleComponent = () => {
     title: '',
     content: '',
     note: '',
-  })
+  });
 
   const [errors, setErrors] = useState({
     content: false,
-  })
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
     const newErrors = {
       content: formData.content.length < 10,
-    }
+    };
 
-    setErrors(newErrors)
+    setErrors(newErrors);
 
     if (!newErrors.content) {
-      alert('폼 제출 성공!')
+      alert('폼 제출 성공!');
     }
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit} style={{ width: '500px' }}>
@@ -262,12 +324,16 @@ const FormExampleComponent = () => {
         <TextArea
           label="내용"
           value={formData.content}
-          onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+          onChange={(e) =>
+            setFormData({ ...formData, content: e.target.value })
+          }
           placeholder="내용을 입력하세요"
           required
           height={200}
           error={errors.content}
-          errorMessage={errors.content ? '최소 10자 이상 입력하세요' : undefined}
+          errorMessage={
+            errors.content ? '최소 10자 이상 입력하세요' : undefined
+          }
           helperText="구체적으로 작성해주세요"
         />
 
@@ -298,21 +364,28 @@ const FormExampleComponent = () => {
         </button>
       </div>
     </form>
-  )
-}
+  );
+};
 
 export const FormExample: Story = {
   args: { label: '' },
   parameters: { controls: { disable: true } },
   render: () => <FormExampleComponent />,
-}
+};
 
 // All Combinations
 export const AllCombinations: Story = {
   args: { label: '' },
   parameters: { controls: { disable: true } },
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', width: '500px' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '2rem',
+        width: '500px',
+      }}
+    >
       <div>
         <h3 style={{ marginBottom: '1rem' }}>기본</h3>
         <TextArea label="설명" placeholder="내용을 입력하세요" />
@@ -325,12 +398,19 @@ export const AllCombinations: Story = {
 
       <div>
         <h3 style={{ marginBottom: '1rem' }}>도움말 포함</h3>
-        <TextArea label="상세 설명" helperText="최대 500자까지 입력 가능합니다" />
+        <TextArea
+          label="상세 설명"
+          helperText="최대 500자까지 입력 가능합니다"
+        />
       </div>
 
       <div>
         <h3 style={{ marginBottom: '1rem' }}>고정 높이 (200px)</h3>
-        <TextArea label="내용" height={200} placeholder="높이가 200px로 고정되었습니다" />
+        <TextArea
+          label="내용"
+          height={200}
+          placeholder="높이가 200px로 고정되었습니다"
+        />
       </div>
 
       <div>
@@ -358,4 +438,4 @@ export const AllCombinations: Story = {
       </div>
     </div>
   ),
-}
+};

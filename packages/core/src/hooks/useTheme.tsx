@@ -27,10 +27,7 @@ interface ThemeProviderProps {
   defaultTheme?: Theme;
 }
 
-export function ThemeProvider({
-  children,
-  defaultTheme,
-}: ThemeProviderProps) {
+export function ThemeProvider({ children, defaultTheme }: ThemeProviderProps) {
   // 초기 테마 결정: localStorage > defaultTheme > prefers-color-scheme
   const [theme, setThemeState] = useState<Theme>(() => {
     if (typeof window === 'undefined') {

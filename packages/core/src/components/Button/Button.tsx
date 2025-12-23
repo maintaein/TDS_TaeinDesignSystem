@@ -1,8 +1,4 @@
-import {
-  forwardRef,
-  type ButtonHTMLAttributes,
-  type ReactNode,
-} from 'react';
+import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
 import clsx from 'clsx';
 import {
   buttonBase,
@@ -77,13 +73,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             <span className={clsx(dot, dot3)} />
           </div>
         )}
-        {!loading && leftIcon && (
-          <span aria-hidden="true">{leftIcon}</span>
-        )}
+        {!loading && leftIcon && <span aria-hidden="true">{leftIcon}</span>}
         {!loading && <span>{children}</span>}
-        {!loading && rightIcon && (
-          <span aria-hidden="true">{rightIcon}</span>
-        )}
+        {!loading && rightIcon && <span aria-hidden="true">{rightIcon}</span>}
       </button>
     );
   }

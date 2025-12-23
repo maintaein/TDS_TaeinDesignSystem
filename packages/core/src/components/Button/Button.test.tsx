@@ -35,7 +35,11 @@ describe('Button', () => {
     });
 
     it('buttonStyle="weak"일 때 weakVariants 클래스가 적용된다', () => {
-      render(<Button buttonStyle="weak" variant="danger">삭제</Button>);
+      render(
+        <Button buttonStyle="weak" variant="danger">
+          삭제
+        </Button>
+      );
       const button = screen.getByRole('button');
       expect(button).toHaveClass(styles.weakVariants.danger);
     });
@@ -44,7 +48,9 @@ describe('Button', () => {
       const sizes = ['sm', 'md', 'lg', 'xl'] as const;
       sizes.forEach((size) => {
         const { unmount } = render(<Button size={size}>{size}</Button>);
-        expect(screen.getByRole('button')).toHaveClass(styles.sizeVariants[size]);
+        expect(screen.getByRole('button')).toHaveClass(
+          styles.sizeVariants[size]
+        );
         unmount();
       });
     });
@@ -58,35 +64,45 @@ describe('Button', () => {
   describe('상태(Disabled, Loading) 테스트', () => {
     it('disabled 속성이 true일 때 버튼이 비활성화된다', () => {
       const handleClick = vi.fn();
-      render(<Button disabled onClick={handleClick}>비활성</Button>);
-      
+      render(
+        <Button disabled onClick={handleClick}>
+          비활성
+        </Button>
+      );
+
       const button = screen.getByRole('button');
       expect(button).toBeDisabled();
       expect(button).toHaveAttribute('aria-disabled', 'true');
-      
+
       fireEvent.click(button);
       expect(handleClick).not.toHaveBeenCalled();
     });
 
     it('loading 속성이 true일 때 로딩 애니메이션을 보여주고 텍스트를 숨긴다', () => {
       render(<Button loading>저장 중</Button>);
-      
+
       const button = screen.getByRole('button');
       // aria-busy 확인
       expect(button).toHaveAttribute('aria-busy', 'true');
       // 로딩 점들(dot)이 렌더링되는지 확인
-      expect(button.querySelector(`.${styles.loadingDots}`)).toBeInTheDocument();
+      expect(
+        button.querySelector(`.${styles.loadingDots}`)
+      ).toBeInTheDocument();
       // 구현상 !loading && children 이므로 텍스트는 없어야 함
       expect(screen.queryByText('저장 중')).not.toBeInTheDocument();
     });
 
     it('loading 속성이 true일 때 버튼이 비활성화된다', () => {
       const handleClick = vi.fn();
-      render(<Button loading onClick={handleClick}>로딩</Button>);
-      
+      render(
+        <Button loading onClick={handleClick}>
+          로딩
+        </Button>
+      );
+
       const button = screen.getByRole('button');
       expect(button).toBeDisabled();
-      
+
       fireEvent.click(button);
       expect(handleClick).not.toHaveBeenCalled();
     });
@@ -95,14 +111,14 @@ describe('Button', () => {
   describe('아이콘 테스트', () => {
     it('leftIcon과 rightIcon을 렌더링한다', () => {
       render(
-        <Button 
-          leftIcon={<span data-testid="left">L</span>} 
+        <Button
+          leftIcon={<span data-testid="left">L</span>}
           rightIcon={<span data-testid="right">R</span>}
         >
           아이콘
         </Button>
       );
-      
+
       expect(screen.getByTestId('left')).toBeInTheDocument();
       expect(screen.getByTestId('right')).toBeInTheDocument();
       expect(screen.getByText('아이콘')).toBeInTheDocument();
@@ -114,7 +130,7 @@ describe('Button', () => {
           텍스트
         </Button>
       );
-      
+
       expect(screen.queryByTestId('left')).not.toBeInTheDocument();
     });
   });
@@ -123,7 +139,7 @@ describe('Button', () => {
     it('클릭 이벤트를 정상적으로 호출한다', async () => {
       const handleClick = vi.fn();
       render(<Button onClick={handleClick}>클릭</Button>);
-      
+
       await userEvent.click(screen.getByRole('button'));
       expect(handleClick).toHaveBeenCalledTimes(1);
     });
@@ -131,11 +147,11 @@ describe('Button', () => {
     it('Enter 키 입력 시 동작한다', async () => {
       const handleClick = vi.fn();
       render(<Button onClick={handleClick}>키보드</Button>);
-      
+
       const button = screen.getByRole('button');
       button.focus();
       await userEvent.keyboard('{Enter}');
-      
+
       expect(handleClick).toHaveBeenCalledTimes(1);
     });
   });
@@ -156,7 +172,11 @@ describe('Button', () => {
     });
 
     it('추가적인 HTML 속성(...props)이 버튼에 전달된다', () => {
-      render(<Button name="submit-btn" data-info="test">속성</Button>);
+      render(
+        <Button name="submit-btn" data-info="test">
+          속성
+        </Button>
+      );
       const button = screen.getByRole('button');
       expect(button).toHaveAttribute('name', 'submit-btn');
       expect(button).toHaveAttribute('data-info', 'test');

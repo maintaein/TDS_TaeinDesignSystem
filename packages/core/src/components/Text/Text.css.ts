@@ -1,4 +1,4 @@
-import { style, styleVariants } from '@vanilla-extract/css'
+import { style, styleVariants } from '@vanilla-extract/css';
 
 // 기본 스타일
 export const base = style({
@@ -6,7 +6,7 @@ export const base = style({
   padding: 0,
   fontFamily: 'inherit',
   lineHeight: 1.5,
-})
+});
 
 // variant 스타일
 export const variant = styleVariants({
@@ -55,7 +55,7 @@ export const variant = styleVariants({
     fontWeight: 400,
     lineHeight: 1.5,
   },
-})
+});
 
 // color 스타일
 export const color = styleVariants({
@@ -74,7 +74,7 @@ export const color = styleVariants({
   disabled: {
     color: '#CCCCCC',
   },
-})
+});
 
 // weight 스타일
 export const weight = styleVariants({
@@ -90,7 +90,7 @@ export const weight = styleVariants({
   bold: {
     fontWeight: 700,
   },
-})
+});
 
 // align 스타일
 export const align = styleVariants({
@@ -103,7 +103,7 @@ export const align = styleVariants({
   right: {
     textAlign: 'right',
   },
-})
+});
 
 // truncate 스타일
 export const truncate = style({
@@ -111,4 +111,4 @@ export const truncate = style({
   textOverflow: 'ellipsis',
   display: '-webkit-box',
   WebkitBoxOrient: 'vertical',
-})
+});

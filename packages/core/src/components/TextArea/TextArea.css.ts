@@ -1,15 +1,15 @@
-import { style, styleVariants } from '@vanilla-extract/css'
+import { style, styleVariants } from '@vanilla-extract/css';
 
 // 전체 wrapper 스타일
 export const wrapper = style({
   display: 'inline-flex',
   flexDirection: 'column',
   gap: '0.5rem',
-})
+});
 
 export const fullWidth = style({
   width: '100%',
-})
+});
 
 // label 스타일
 export const label = style({
@@ -17,19 +17,19 @@ export const label = style({
   fontWeight: 500,
   color: '#333333',
   marginBottom: '0.25rem',
-})
+});
 
 export const required = style({
   color: '#F04452',
   marginLeft: '0.25rem',
-})
+});
 
 // textarea container 스타일
 export const textareaContainer = style({
   position: 'relative',
   display: 'flex',
   flexDirection: 'column',
-})
+});
 
 // size variants
 export const size = styleVariants({
@@ -45,7 +45,7 @@ export const size = styleVariants({
     fontSize: '1.125rem',
     padding: '1rem 1.25rem',
   },
-})
+});
 
 // textarea 기본 스타일
 export const textarea = style({
@@ -81,7 +81,7 @@ export const textarea = style({
       cursor: 'default',
     },
   },
-})
+});
 
 // error 상태
 export const error = style({
@@ -93,7 +93,7 @@ export const error = style({
       boxShadow: '0 0 0 3px rgba(240, 68, 82, 0.1)',
     },
   },
-})
+});
 
 // footer (helperText/errorMessage)
 export const footer = style({
@@ -102,17 +102,17 @@ export const footer = style({
   alignItems: 'flex-start',
   gap: '0.5rem',
   marginTop: '0.25rem',
-})
+});
 
 // helperText / errorMessage 스타일
 export const helperText = style({
   fontSize: '0.75rem',
   color: '#666666',
   flex: 1,
-})
+});
 
 export const errorMessage = style({
   fontSize: '0.75rem',
   color: '#F04452',
   flex: 1,
-})
+});

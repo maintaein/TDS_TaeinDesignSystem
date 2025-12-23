@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { Text } from '@designsystem/core'
+import type { Meta, StoryObj } from '@storybook/react';
+import { Text } from '@designsystem/core';
 
 const meta = {
   title: 'Components/Text',
@@ -39,17 +39,17 @@ const meta = {
       description: '텍스트 줄 수 제한',
     },
   },
-} satisfies Meta<typeof Text>
+} satisfies Meta<typeof Text>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 // 기본
 export const Default: Story = {
   args: {
     children: '기본 텍스트입니다',
   },
-}
+};
 
 // Heading Variants
 export const Headings: Story = {
@@ -63,7 +63,7 @@ export const Headings: Story = {
       <Text variant="h6">Heading 6 - 1rem (16px)</Text>
     </div>
   ),
-}
+};
 
 // Body Variants
 export const Bodies: Story = {
@@ -74,7 +74,7 @@ export const Bodies: Story = {
       <Text variant="body3">Body 3 - 0.75rem (12px)</Text>
     </div>
   ),
-}
+};
 
 // Colors
 export const Colors: Story = {
@@ -87,7 +87,7 @@ export const Colors: Story = {
       <Text color="disabled">Disabled 텍스트 (연회색)</Text>
     </div>
   ),
-}
+};
 
 // Weights
 export const Weights: Story = {
@@ -99,44 +99,64 @@ export const Weights: Story = {
       <Text weight="bold">Bold 굵기 (700)</Text>
     </div>
   ),
-}
+};
 
 // Alignments
 export const Alignments: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '400px' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1rem',
+        width: '400px',
+      }}
+    >
       <Text align="left">왼쪽 정렬 텍스트</Text>
       <Text align="center">가운데 정렬 텍스트</Text>
       <Text align="right">오른쪽 정렬 텍스트</Text>
     </div>
   ),
-}
+};
 
 // Truncate
 export const Truncate: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', width: '300px' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '2rem',
+        width: '300px',
+      }}
+    >
       <div>
         <Text variant="h6">1줄 제한</Text>
         <Text truncate={1}>
-          이것은 매우 긴 텍스트입니다. 이 텍스트는 한 줄을 초과하면 말줄임표(...)로 표시됩니다. 계속해서 더 많은 내용을 작성하고 있습니다.
+          이것은 매우 긴 텍스트입니다. 이 텍스트는 한 줄을 초과하면
+          말줄임표(...)로 표시됩니다. 계속해서 더 많은 내용을 작성하고 있습니다.
         </Text>
       </div>
       <div>
         <Text variant="h6">2줄 제한</Text>
         <Text truncate={2}>
-          이것은 매우 긴 텍스트입니다. 이 텍스트는 두 줄을 초과하면 말줄임표(...)로 표시됩니다. 계속해서 더 많은 내용을 작성하고 있습니다. 더 많은 텍스트를 추가합니다.
+          이것은 매우 긴 텍스트입니다. 이 텍스트는 두 줄을 초과하면
+          말줄임표(...)로 표시됩니다. 계속해서 더 많은 내용을 작성하고 있습니다.
+          더 많은 텍스트를 추가합니다.
         </Text>
       </div>
       <div>
         <Text variant="h6">3줄 제한</Text>
         <Text truncate={3}>
-          이것은 매우 긴 텍스트입니다. 이 텍스트는 세 줄을 초과하면 말줄임표(...)로 표시됩니다. 계속해서 더 많은 내용을 작성하고 있습니다. 더 많은 텍스트를 추가합니다. 계속해서 더 많은 내용을 작성하고 있습니다.
+          이것은 매우 긴 텍스트입니다. 이 텍스트는 세 줄을 초과하면
+          말줄임표(...)로 표시됩니다. 계속해서 더 많은 내용을 작성하고 있습니다.
+          더 많은 텍스트를 추가합니다. 계속해서 더 많은 내용을 작성하고
+          있습니다.
         </Text>
       </div>
     </div>
   ),
-}
+};
 
 // As Prop
 export const AsProp: Story = {
@@ -150,12 +170,19 @@ export const AsProp: Story = {
       </Text>
     </div>
   ),
-}
+};
 
 // 조합 예시
 export const Combination: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '600px' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1.5rem',
+        maxWidth: '600px',
+      }}
+    >
       <Text variant="h1" color="primary" weight="bold" align="center">
         토스증권 디자인 시스템
       </Text>
@@ -173,4 +200,4 @@ export const Combination: Story = {
       </Text>
     </div>
   ),
-}
+};

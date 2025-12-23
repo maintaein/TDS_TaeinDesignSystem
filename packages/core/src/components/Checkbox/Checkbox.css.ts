@@ -1,11 +1,11 @@
-import { style, styleVariants } from '@vanilla-extract/css'
+import { style, styleVariants } from '@vanilla-extract/css';
 
 // 전체 wrapper 스타일
 export const wrapper = style({
   display: 'inline-flex',
   flexDirection: 'column',
   gap: '0.25rem',
-})
+});
 
 // label 스타일 (checkbox + 텍스트 포함)
 export const checkboxLabel = style({
@@ -21,7 +21,7 @@ export const checkboxLabel = style({
       opacity: 0.5,
     },
   },
-})
+});
 
 // checkbox container 스타일
 export const checkboxContainer = style({
@@ -30,7 +30,7 @@ export const checkboxContainer = style({
   alignItems: 'center',
   justifyContent: 'center',
   flexShrink: 0,
-})
+});
 
 // size variants
 export const size = styleVariants({
@@ -46,7 +46,7 @@ export const size = styleVariants({
     width: '24px',
     height: '24px',
   },
-})
+});
 
 // checkbox 기본 스타일 (숨김)
 export const checkbox = style({
@@ -61,7 +61,7 @@ export const checkbox = style({
       cursor: 'not-allowed',
     },
   },
-})
+});
 
 // checkmark 스타일 (커스텀 checkbox)
 export const checkmark = style({
@@ -136,7 +136,7 @@ export const checkmark = style({
       borderColor: '#BBBBBB',
     },
   },
-})
+});
 
 // error 상태
 export const error = style({
@@ -148,7 +148,7 @@ export const error = style({
       boxShadow: '0 0 0 3px rgba(240, 68, 82, 0.1)',
     },
   },
-})
+});
 
 // label text 스타일
 export const labelText = style({
@@ -156,23 +156,23 @@ export const labelText = style({
   fontWeight: 500,
   color: '#333333',
   lineHeight: 1.5,
-})
+});
 
 // required 표시
 export const required = style({
   color: '#F04452',
   marginLeft: '0.25rem',
-})
+});
 
 // helperText / errorMessage 스타일
 export const helperText = style({
   fontSize: '0.75rem',
   color: '#666666',
   marginLeft: 'calc(16px + 0.5rem)', // checkbox 너비 + gap
-})
+});
 
 export const errorMessage = style({
   fontSize: '0.75rem',
   color: '#F04452',
   marginLeft: 'calc(16px + 0.5rem)', // checkbox 너비 + gap
-})
+});

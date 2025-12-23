@@ -4,3 +4,7 @@ export * from './TextField';
 export * from './TextArea';
 export * from './Checkbox';
 export * from './Switch';
+export * from './NumericSpinner';
+export * from './IconButton';
+export * from './SegmentedButtons';
+export * from './Slider';

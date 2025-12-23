@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { Checkbox } from '@designsystem/core'
-import { useState } from 'react'
+import type { Meta, StoryObj } from '@storybook/react';
+import { Checkbox } from '@designsystem/core';
+import { useState } from 'react';
 
 const meta = {
   title: 'Components/Checkbox',
@@ -48,17 +48,17 @@ const meta = {
       description: '필수 입력',
     },
   },
-} satisfies Meta<typeof Checkbox>
+} satisfies Meta<typeof Checkbox>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 // 기본
 export const Default: Story = {
   args: {
     label: '이용약관에 동의합니다',
   },
-}
+};
 
 // Sizes
 export const Sizes: Story = {
@@ -71,7 +71,7 @@ export const Sizes: Story = {
       <Checkbox label="Large" size="lg" />
     </div>
   ),
-}
+};
 
 // States
 export const States: Story = {
@@ -86,7 +86,7 @@ export const States: Story = {
       <Checkbox label="Disabled Checked" disabled checked onChange={() => {}} />
     </div>
   ),
-}
+};
 
 // Error State
 export const ErrorState: Story = {
@@ -103,7 +103,7 @@ export const ErrorState: Story = {
       />
     </div>
   ),
-}
+};
 
 // Helper Text
 export const HelperText: Story = {
@@ -118,7 +118,7 @@ export const HelperText: Story = {
       />
     </div>
   ),
-}
+};
 
 // Required
 export const Required: Story = {
@@ -126,7 +126,7 @@ export const Required: Story = {
     label: '필수 약관에 동의합니다',
     required: true,
   },
-}
+};
 
 // Disabled
 export const Disabled: Story = {
@@ -134,7 +134,7 @@ export const Disabled: Story = {
     label: '비활성화된 체크박스',
     disabled: true,
   },
-}
+};
 
 // Indeterminate
 export const Indeterminate: Story = {
@@ -142,11 +142,11 @@ export const Indeterminate: Story = {
     label: '부분 선택됨',
     indeterminate: true,
   },
-}
+};
 
 // Controlled Component
 const ControlledExample = () => {
-  const [checked, setChecked] = useState(false)
+  const [checked, setChecked] = useState(false);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -159,14 +159,14 @@ const ControlledExample = () => {
         상태: {checked ? '체크됨 ✓' : '체크 안됨'}
       </p>
     </div>
-  )
-}
+  );
+};
 
 export const Controlled: Story = {
   args: { label: '' },
   parameters: { controls: { disable: true } },
   render: () => <ControlledExample />,
-}
+};
 
 // Select All Example
 const SelectAllExample = () => {
@@ -174,19 +174,19 @@ const SelectAllExample = () => {
     option1: false,
     option2: false,
     option3: false,
-  })
+  });
 
-  const allChecked = Object.values(checkedItems).every((v) => v)
-  const someChecked = Object.values(checkedItems).some((v) => v) && !allChecked
+  const allChecked = Object.values(checkedItems).every((v) => v);
+  const someChecked = Object.values(checkedItems).some((v) => v) && !allChecked;
 
   const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newChecked = e.target.checked
+    const newChecked = e.target.checked;
     setCheckedItems({
       option1: newChecked,
       option2: newChecked,
       option3: newChecked,
-    })
-  }
+    });
+  };
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -209,28 +209,34 @@ const SelectAllExample = () => {
         <Checkbox
           label="옵션 1"
           checked={checkedItems.option1}
-          onChange={(e) => setCheckedItems({ ...checkedItems, option1: e.target.checked })}
+          onChange={(e) =>
+            setCheckedItems({ ...checkedItems, option1: e.target.checked })
+          }
         />
         <Checkbox
           label="옵션 2"
           checked={checkedItems.option2}
-          onChange={(e) => setCheckedItems({ ...checkedItems, option2: e.target.checked })}
+          onChange={(e) =>
+            setCheckedItems({ ...checkedItems, option2: e.target.checked })
+          }
         />
         <Checkbox
           label="옵션 3"
           checked={checkedItems.option3}
-          onChange={(e) => setCheckedItems({ ...checkedItems, option3: e.target.checked })}
+          onChange={(e) =>
+            setCheckedItems({ ...checkedItems, option3: e.target.checked })
+          }
         />
       </div>
     </div>
-  )
-}
+  );
+};
 
 export const SelectAll: Story = {
   args: { label: '' },
   parameters: { controls: { disable: true } },
   render: () => <SelectAllExample />,
-}
+};
 
 // Form Example
 const FormExampleComponent = () => {
@@ -238,37 +244,41 @@ const FormExampleComponent = () => {
     terms: false,
     privacy: false,
     marketing: false,
-  })
+  });
 
   const [errors, setErrors] = useState({
     terms: false,
     privacy: false,
-  })
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
     const newErrors = {
       terms: !formData.terms,
       privacy: !formData.privacy,
-    }
+    };
 
-    setErrors(newErrors)
+    setErrors(newErrors);
 
     if (!newErrors.terms && !newErrors.privacy) {
-      alert('가입 완료!')
+      alert('가입 완료!');
     }
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit} style={{ width: '400px' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-        <h3 style={{ margin: 0, fontSize: '1.125rem', fontWeight: 600 }}>약관 동의</h3>
+        <h3 style={{ margin: 0, fontSize: '1.125rem', fontWeight: 600 }}>
+          약관 동의
+        </h3>
 
         <Checkbox
           label="[필수] 이용약관 동의"
           checked={formData.terms}
-          onChange={(e) => setFormData({ ...formData, terms: e.target.checked })}
+          onChange={(e) =>
+            setFormData({ ...formData, terms: e.target.checked })
+          }
           required
           error={errors.terms}
           errorMessage={errors.terms ? '필수 항목입니다' : undefined}
@@ -278,7 +288,9 @@ const FormExampleComponent = () => {
         <Checkbox
           label="[필수] 개인정보 처리방침 동의"
           checked={formData.privacy}
-          onChange={(e) => setFormData({ ...formData, privacy: e.target.checked })}
+          onChange={(e) =>
+            setFormData({ ...formData, privacy: e.target.checked })
+          }
           required
           error={errors.privacy}
           errorMessage={errors.privacy ? '필수 항목입니다' : undefined}
@@ -288,7 +300,9 @@ const FormExampleComponent = () => {
         <Checkbox
           label="[선택] 마케팅 정보 수신 동의"
           checked={formData.marketing}
-          onChange={(e) => setFormData({ ...formData, marketing: e.target.checked })}
+          onChange={(e) =>
+            setFormData({ ...formData, marketing: e.target.checked })
+          }
           helperText="이메일, SMS로 혜택 정보를 받을 수 있습니다"
         />
 
@@ -309,21 +323,28 @@ const FormExampleComponent = () => {
         </button>
       </div>
     </form>
-  )
-}
+  );
+};
 
 export const FormExample: Story = {
   args: { label: '' },
   parameters: { controls: { disable: true } },
   render: () => <FormExampleComponent />,
-}
+};
 
 // All Combinations
 export const AllCombinations: Story = {
   args: { label: '' },
   parameters: { controls: { disable: true } },
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', width: '400px' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '2rem',
+        width: '400px',
+      }}
+    >
       <div>
         <h3 style={{ marginBottom: '1rem' }}>기본</h3>
         <Checkbox label="이용약관에 동의합니다" />
@@ -355,4 +376,4 @@ export const AllCombinations: Story = {
       </div>
     </div>
   ),
-}
+};

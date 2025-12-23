@@ -1,4 +1,4 @@
-import { style, styleVariants } from '@vanilla-extract/css'
+import { style, styleVariants } from '@vanilla-extract/css';
 
 // Wrapper
 export const wrapper = style({
@@ -6,7 +6,7 @@ export const wrapper = style({
   flexDirection: 'column',
   gap: '0.5rem',
   width: 'fit-content',
-})
+});
 
 // Switch Label
 export const switchLabel = style({
@@ -15,7 +15,7 @@ export const switchLabel = style({
   gap: '0.75rem',
   cursor: 'pointer',
   userSelect: 'none',
-})
+});
 
 // Label Text
 export const labelText = style({
@@ -23,20 +23,20 @@ export const labelText = style({
   fontWeight: 500,
   color: '#212121',
   order: -1,
-})
+});
 
 // Required Indicator
 export const required = style({
   color: '#D32F2F',
   marginLeft: '0.125rem',
-})
+});
 
 // Switch Container (Track)
 export const switchContainer = style({
   position: 'relative',
   display: 'inline-block',
   flexShrink: 0,
-})
+});
 
 // Hidden Native Input
 export const switchInput = style({
@@ -51,7 +51,7 @@ export const switchInput = style({
       cursor: 'not-allowed',
     },
   },
-})
+});
 
 // Size Variants for Container (Track)
 const baseSizeContainer = {
@@ -79,7 +79,7 @@ const baseSizeContainer = {
     border: '2px solid transparent',
     transition: 'all 150ms ease-in-out',
   },
-}
+};
 
 export const size = styleVariants(baseSizeContainer, (baseStyle) => [
   baseStyle,
@@ -119,7 +119,7 @@ export const size = styleVariants(baseSizeContainer, (baseStyle) => [
       },
     },
   },
-])
+]);
 
 // Thumb Size Variants
 export const thumbSize = styleVariants({
@@ -153,7 +153,8 @@ export const thumbSize = styleVariants({
       },
 
       'input:focus + &': {
-        boxShadow: '0 0 0 3px rgba(30, 136, 229, 0.1), 0 2px 4px rgba(0, 0, 0, 0.2)',
+        boxShadow:
+          '0 0 0 3px rgba(30, 136, 229, 0.1), 0 2px 4px rgba(0, 0, 0, 0.2)',
       },
     },
   },
@@ -187,7 +188,8 @@ export const thumbSize = styleVariants({
       },
 
       'input:focus + &': {
-        boxShadow: '0 0 0 3px rgba(30, 136, 229, 0.1), 0 2px 4px rgba(0, 0, 0, 0.2)',
+        boxShadow:
+          '0 0 0 3px rgba(30, 136, 229, 0.1), 0 2px 4px rgba(0, 0, 0, 0.2)',
       },
     },
   },
@@ -221,11 +223,12 @@ export const thumbSize = styleVariants({
       },
 
       'input:focus + &': {
-        boxShadow: '0 0 0 3px rgba(30, 136, 229, 0.1), 0 2px 4px rgba(0, 0, 0, 0.2)',
+        boxShadow:
+          '0 0 0 3px rgba(30, 136, 229, 0.1), 0 2px 4px rgba(0, 0, 0, 0.2)',
       },
     },
   },
-})
+});
 
 // Error State
 export const error = style({
@@ -237,18 +240,18 @@ export const error = style({
       boxShadow: '0 0 0 3px rgba(211, 47, 47, 0.1) !important',
     },
   },
-})
+});
 
 // Helper Text
 export const helperText = style({
   fontSize: '0.75rem',
   color: '#666666',
   marginLeft: '0.25rem',
-})
+});
 
 // Error Message
 export const errorMessage = style({
   fontSize: '0.75rem',
   color: '#D32F2F',
   marginLeft: '0.25rem',
-})
+});
