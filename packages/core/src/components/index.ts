@@ -14,3 +14,8 @@ export * from './Skeleton';
 export * from './Snackbar';
 export * from './Tooltip';
 export * from './Modal';
+export * from './BottomSheet';
+export * from './SideSheet';
+export * from './HeaderBar';
+export * from './Divider';
+export * from './Border';

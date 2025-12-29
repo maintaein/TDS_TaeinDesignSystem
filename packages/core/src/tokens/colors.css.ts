@@ -1,5 +1,5 @@
 // 색상 토큰 정의
-// 토스증권 스타일 Primary 색상 (Blue 계열)
+// Primary 색상 (Blue 계열)
 
 export const primary = {
   50: '#E3F2FD',

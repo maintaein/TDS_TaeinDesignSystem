@@ -5,7 +5,7 @@ import { spacing, borderRadius } from './spacing.css';
 import { shadows } from './shadows.css';
 import { duration, easing } from './animation.css';
 
-// Theme Contract 정의 (타입 안전한 테마 변수)
+// Theme Contract 정의
 export const themeContract = createThemeContract({
   color: {
     // Primary 색상
