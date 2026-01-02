@@ -72,68 +72,73 @@ export const Default: Story = {
   },
 }
 
+const WidthsComponents = () => {
+  const [openSm, setOpenSm] = useState(false)
+  const [openMd, setOpenMd] = useState(false)
+  const [openLg, setOpenLg] = useState(false)
+  const [openFull, setOpenFull] = useState(false)
+
+  return (
+    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+      <button onClick={() => setOpenSm(true)} style={{ padding: '8px 16px' }}>
+        Small (300px)
+      </button>
+      <button onClick={() => setOpenMd(true)} style={{ padding: '8px 16px' }}>
+        Medium (400px)
+      </button>
+      <button onClick={() => setOpenLg(true)} style={{ padding: '8px 16px' }}>
+        Large (600px)
+      </button>
+      <button onClick={() => setOpenFull(true)} style={{ padding: '8px 16px' }}>
+        Full Width
+      </button>
+
+      <SideSheet open={openSm} onClose={() => setOpenSm(false)} width="sm" title="Small SideSheet">
+        <p>Width: 300px</p>
+      </SideSheet>
+      <SideSheet open={openMd} onClose={() => setOpenMd(false)} width="md" title="Medium SideSheet">
+        <p>Width: 400px (default)</p>
+      </SideSheet>
+      <SideSheet open={openLg} onClose={() => setOpenLg(false)} width="lg" title="Large SideSheet">
+        <p>Width: 600px</p>
+      </SideSheet>
+      <SideSheet open={openFull} onClose={() => setOpenFull(false)} width="full" title="Full Width SideSheet">
+        <p>Width: 100vw</p>
+      </SideSheet>
+    </div>
+  )
+  
+}
+
 export const Widths: Story = {
-  render: () => {
-    const [openSm, setOpenSm] = useState(false)
-    const [openMd, setOpenMd] = useState(false)
-    const [openLg, setOpenLg] = useState(false)
-    const [openFull, setOpenFull] = useState(false)
+  render: () => <WidthsComponents/>
+}
 
-    return (
-      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-        <button onClick={() => setOpenSm(true)} style={{ padding: '8px 16px' }}>
-          Small (300px)
-        </button>
-        <button onClick={() => setOpenMd(true)} style={{ padding: '8px 16px' }}>
-          Medium (400px)
-        </button>
-        <button onClick={() => setOpenLg(true)} style={{ padding: '8px 16px' }}>
-          Large (600px)
-        </button>
-        <button onClick={() => setOpenFull(true)} style={{ padding: '8px 16px' }}>
-          Full Width
-        </button>
+const PositionsComponent = () => {
+  const [openRight, setOpenRight] = useState(false)
+  const [openLeft, setOpenLeft] = useState(false)
 
-        <SideSheet open={openSm} onClose={() => setOpenSm(false)} width="sm" title="Small SideSheet">
-          <p>Width: 300px</p>
-        </SideSheet>
-        <SideSheet open={openMd} onClose={() => setOpenMd(false)} width="md" title="Medium SideSheet">
-          <p>Width: 400px (default)</p>
-        </SideSheet>
-        <SideSheet open={openLg} onClose={() => setOpenLg(false)} width="lg" title="Large SideSheet">
-          <p>Width: 600px</p>
-        </SideSheet>
-        <SideSheet open={openFull} onClose={() => setOpenFull(false)} width="full" title="Full Width SideSheet">
-          <p>Width: 100vw</p>
-        </SideSheet>
-      </div>
-    )
-  },
+  return (
+    <div style={{ display: 'flex', gap: '8px' }}>
+      <button onClick={() => setOpenRight(true)} style={{ padding: '8px 16px' }}>
+        Right (Default)
+      </button>
+      <button onClick={() => setOpenLeft(true)} style={{ padding: '8px 16px' }}>
+        Left
+      </button>
+
+      <SideSheet open={openRight} onClose={() => setOpenRight(false)} position="right" title="Right SideSheet">
+        <p>Slides from the right side</p>
+      </SideSheet>
+      <SideSheet open={openLeft} onClose={() => setOpenLeft(false)} position="left" title="Left SideSheet">
+        <p>Slides from the left side</p>
+      </SideSheet>
+    </div>
+  )
 }
 
 export const Positions: Story = {
-  render: () => {
-    const [openRight, setOpenRight] = useState(false)
-    const [openLeft, setOpenLeft] = useState(false)
-
-    return (
-      <div style={{ display: 'flex', gap: '8px' }}>
-        <button onClick={() => setOpenRight(true)} style={{ padding: '8px 16px' }}>
-          Right (Default)
-        </button>
-        <button onClick={() => setOpenLeft(true)} style={{ padding: '8px 16px' }}>
-          Left
-        </button>
-
-        <SideSheet open={openRight} onClose={() => setOpenRight(false)} position="right" title="Right SideSheet">
-          <p>Slides from the right side</p>
-        </SideSheet>
-        <SideSheet open={openLeft} onClose={() => setOpenLeft(false)} position="left" title="Left SideSheet">
-          <p>Slides from the left side</p>
-        </SideSheet>
-      </div>
-    )
-  },
+  render: () => <PositionsComponent/>
 }
 
 export const WithCloseButton: Story = {
