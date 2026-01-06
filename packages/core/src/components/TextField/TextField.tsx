@@ -1,6 +1,7 @@
-import { forwardRef, useId } from 'react';
+import { forwardRef } from 'react';
 import type { InputHTMLAttributes } from 'react';
 import { clsx } from 'clsx';
+import { FormField } from '../FormField';
 import * as styles from './TextField.css';
 
 export interface TextFieldProps extends Omit<
@@ -40,69 +41,43 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     },
     ref
   ) => {
-    const inputId = useId();
-    const helperId = useId();
-
-    // 개발 환경에서 label 검증
-    if (process.env.NODE_ENV === 'development') {
-      if (!label) {
-        console.error(
-          'TextField: label prop은 필수입니다. 접근성을 위해 label을 제공하세요.'
-        );
-      }
-    }
-
-    // helperText 또는 errorMessage 표시
-    const showHelper = !error && helperText;
-    const showError = error && errorMessage;
-
     return (
-      <div className={clsx(styles.wrapper, fullWidth && styles.fullWidth)}>
-        {/* Label */}
-        <label htmlFor={inputId} className={styles.label}>
-          {label}
-          {required && <span className={styles.required}>*</span>}
-        </label>
-
-        {/* Input Container */}
-        <div
-          className={clsx(
-            styles.inputContainer,
-            styles.size[size],
-            error && styles.error
-          )}
-        >
-          <input
-            ref={ref}
-            id={inputId}
-            type={type}
-            required={required}
-            disabled={disabled}
-            aria-invalid={error}
-            aria-disabled={disabled}
-            aria-describedby={showHelper || showError ? helperId : undefined}
+      <FormField
+        label={label}
+        helperText={helperText}
+        error={error}
+        errorMessage={errorMessage}
+        required={required}
+        fullWidth={fullWidth}
+      >
+        {({ inputId, helperId, hasHelper, isError }) => (
+          <div
             className={clsx(
-              styles.input,
+              styles.inputContainer,
               styles.size[size],
-              error && styles.error,
-              className
+              isError && styles.error
             )}
-            {...rest}
-          />
-        </div>
-
-        {/* Helper Text or Error Message */}
-        {showHelper && (
-          <span id={helperId} className={styles.helperText}>
-            {helperText}
-          </span>
+          >
+            <input
+              ref={ref}
+              id={inputId}
+              type={type}
+              required={required}
+              disabled={disabled}
+              aria-invalid={isError}
+              aria-disabled={disabled}
+              aria-describedby={hasHelper ? helperId : undefined}
+              className={clsx(
+                styles.input,
+                styles.size[size],
+                isError && styles.error,
+                className
+              )}
+              {...rest}
+            />
+          </div>
         )}
-        {showError && (
-          <span id={helperId} className={styles.errorMessage}>
-            {errorMessage}
-          </span>
-        )}
-      </div>
+      </FormField>
     );
   }
 );

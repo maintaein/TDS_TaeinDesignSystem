@@ -1,6 +1,7 @@
-import { forwardRef, useId, useEffect, useRef, useCallback } from 'react';
+import { forwardRef, useEffect, useRef, useCallback } from 'react';
 import type { TextareaHTMLAttributes, ChangeEvent } from 'react';
 import { clsx } from 'clsx';
+import { FormField } from '../FormField';
 import * as styles from './TextArea.css';
 
 export interface TextAreaProps extends Omit<
@@ -44,18 +45,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
     },
     ref
   ) => {
-    const textareaId = useId();
-    const helperId = useId();
     const internalRef = useRef<HTMLTextAreaElement>(null);
-
-    // 개발 환경에서 label 검증
-    if (process.env.NODE_ENV === 'development') {
-      if (!label) {
-        console.error(
-          'TextArea: label prop은 필수입니다. 접근성을 위해 label을 제공하세요.'
-        );
-      }
-    }
 
     // ref 병합 (forwardRef와 내부 ref 모두 지원)
     const setRefs = useCallback(
@@ -97,68 +87,50 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
       [autoResize, adjustHeight, onChange]
     );
 
-    // helperText 또는 errorMessage 표시
-    const showHelper = !error && helperText;
-    const showError = error && errorMessage;
-
     // height를 px 단위로 변환
     const minHeight = typeof height === 'number' ? `${height}px` : height;
 
     return (
-      <div className={clsx(styles.wrapper, fullWidth && styles.fullWidth)}>
-        {/* Label */}
-        <label htmlFor={textareaId} className={styles.label}>
-          {label}
-          {required && <span className={styles.required}>*</span>}
-        </label>
-
-        {/* TextArea Container */}
-        <div
-          className={clsx(
-            styles.textareaContainer,
-            styles.size[size],
-            error && styles.error
-          )}
-        >
-          <textarea
-            ref={setRefs}
-            id={textareaId}
-            required={required}
-            disabled={disabled}
-            aria-invalid={error}
-            aria-disabled={disabled}
-            aria-describedby={showHelper || showError ? helperId : undefined}
+      <FormField
+        label={label}
+        helperText={helperText}
+        error={error}
+        errorMessage={errorMessage}
+        required={required}
+        fullWidth={fullWidth}
+      >
+        {({ inputId, helperId, hasHelper, isError }) => (
+          <div
             className={clsx(
-              styles.textarea,
+              styles.textareaContainer,
               styles.size[size],
-              error && styles.error,
-              className
+              isError && styles.error
             )}
-            style={{
-              minHeight,
-              overflow: autoResize ? 'hidden' : 'auto',
-            }}
-            onChange={handleChange}
-            {...rest}
-          />
-        </div>
-
-        {/* Footer: Helper Text / Error Message */}
-        {(showHelper || showError) && (
-          <div className={styles.footer}>
-            {showHelper && (
-              <span id={helperId} className={styles.helperText}>
-                {helperText}
-              </span>
-            )}
-            {showError && (
-              <span id={helperId} className={styles.errorMessage}>
-                {errorMessage}
-              </span>
-            )}
+          >
+            <textarea
+              ref={setRefs}
+              id={inputId}
+              required={required}
+              disabled={disabled}
+              aria-invalid={isError}
+              aria-disabled={disabled}
+              aria-describedby={hasHelper ? helperId : undefined}
+              className={clsx(
+                styles.textarea,
+                styles.size[size],
+                isError && styles.error,
+                className
+              )}
+              style={{
+                minHeight,
+                overflow: autoResize ? 'hidden' : 'auto',
+              }}
+              onChange={handleChange}
+              {...rest}
+            />
           </div>
         )}
-      </div>
+      </FormField>
     );
   }
 );

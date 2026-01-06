@@ -321,22 +321,6 @@ describe('TextArea', () => {
   });
 
   describe('엣지 케이스 테스트', () => {
-    it('label이 없으면 console.error를 호출한다 (개발 환경)', () => {
-      const consoleError = vi
-        .spyOn(console, 'error')
-        .mockImplementation(() => {});
-      const originalEnv = process.env.NODE_ENV;
-
-      process.env.NODE_ENV = 'development';
-      render(<TextArea label="" />);
-      expect(consoleError).toHaveBeenCalledWith(
-        'TextArea: label prop은 필수입니다. 접근성을 위해 label을 제공하세요.'
-      );
-
-      process.env.NODE_ENV = originalEnv;
-      consoleError.mockRestore();
-    });
-
     it('매우 긴 텍스트를 입력할 수 있다', () => {
       render(<TextArea label="설명" />);
       const textarea = screen.getByLabelText('설명');
