@@ -9,6 +9,8 @@ import {
   actions,
   closeButton,
 } from './Snackbar.css'
+import { IconButton } from '../IconButton'
+import { Icon } from '../Icon'
 
 export interface SnackbarProps extends Omit<HTMLAttributes<HTMLDivElement>, 'content'> {
   open: boolean
@@ -77,14 +79,16 @@ export const Snackbar = ({
         <span className={messageClass}>{message}</span>
         <div className={actions}>
           {action}
-          <button
-            type="button"
+          <IconButton
+            variant="dark"
+            buttonStyle="weak"
+            size="sm"
+            onClick={handleClose}
             aria-label="닫기"
             className={closeButton}
-            onClick={handleClose}
           >
-            ✕
-          </button>
+            <Icon name="close" size="sm" />
+          </IconButton>
         </div>
       </div>
     </div>

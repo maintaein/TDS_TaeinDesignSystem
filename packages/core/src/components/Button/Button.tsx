@@ -6,12 +6,8 @@ import {
   fillVariants,
   weakVariants,
   fullWidth,
-  loadingDots,
-  dot,
-  dot1,
-  dot2,
-  dot3,
 } from './Button.css';
+import { LoadingSpinner } from '../LoadingSpinner';
 
 type ButtonVariant = 'primary' | 'dark' | 'danger' | 'light';
 type ButtonStyle = 'fill' | 'weak';
@@ -67,11 +63,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {loading && (
-          <div className={loadingDots} aria-hidden="true">
-            <span className={clsx(dot, dot1)} />
-            <span className={clsx(dot, dot2)} />
-            <span className={clsx(dot, dot3)} />
-          </div>
+          <LoadingSpinner
+            type="dots"
+            size="sm"
+            color="currentColor"
+            aria-label="로딩 중"
+          />
         )}
         {!loading && leftIcon && <span aria-hidden="true">{leftIcon}</span>}
         {!loading && <span>{children}</span>}

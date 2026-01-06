@@ -1,4 +1,4 @@
-import { style, styleVariants, keyframes } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 import { themeContract } from '../../tokens/theme.css';
 import { primary, gray, error } from '../../tokens/colors.css';
 
@@ -185,42 +185,4 @@ export const weakVariants = styleVariants({
 // Full Width
 export const fullWidth = style({
   width: '100%',
-});
-
-// Loading Dots Animation
-const dotPulse = keyframes({
-  '0%, 80%, 100%': {
-    opacity: 0.3,
-  },
-  '40%': {
-    opacity: 1,
-  },
-});
-
-// Loading Dots Container
-export const loadingDots = style({
-  display: 'inline-flex',
-  alignItems: 'center',
-  gap: '4px',
-});
-
-// Single Dot
-export const dot = style({
-  width: '6px',
-  height: '6px',
-  borderRadius: '50%',
-  backgroundColor: 'currentColor',
-  animation: `${dotPulse} 1.4s ease-in-out infinite`,
-});
-
-export const dot1 = style({
-  animationDelay: '0s',
-});
-
-export const dot2 = style({
-  animationDelay: '0.2s',
-});
-
-export const dot3 = style({
-  animationDelay: '0.4s',
 });

@@ -1,4 +1,4 @@
-import { style, styleVariants, keyframes } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 import { themeContract } from '../../tokens/theme.css';
 import { primary, gray, error } from '../../tokens/colors.css';
 
@@ -170,31 +170,4 @@ export const weakVariants = styleVariants({
       },
     },
   },
-});
-
-// Loading Spinner Animation
-const spinAnimation = keyframes({
-  '0%': {
-    transform: 'rotate(0deg)',
-  },
-  '100%': {
-    transform: 'rotate(360deg)',
-  },
-});
-
-// Loading Spinner Container
-export const loadingSpinner = style({
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-});
-
-// Spinner
-export const spinner = style({
-  width: '16px',
-  height: '16px',
-  border: '2px solid currentColor',
-  borderTopColor: 'transparent',
-  borderRadius: '50%',
-  animation: `${spinAnimation} 0.6s linear infinite`,
 });

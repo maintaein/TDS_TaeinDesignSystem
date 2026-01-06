@@ -1,5 +1,8 @@
-import { type ReactNode, type MouseEvent, type KeyboardEvent } from 'react'
+import { type ReactNode } from 'react'
 import clsx from 'clsx'
+import { useClickable } from '../../_internal/useClickable'
+import { Icon } from '../Icon'
+import { themeContract } from '../../tokens/theme.css'
 import {
   chip,
   sizeStyles,
@@ -13,7 +16,6 @@ import {
   label as labelStyle,
   iconContainer,
   deleteButton,
-  deleteIcon,
 } from './Chip.css'
 
 export interface ChipProps {
@@ -49,23 +51,23 @@ export const Chip = ({
   const colorStyleClass =
     variant === 'filled' ? filledColorStyles[color] : outlinedColorStyles[color]
 
-  // 클릭 핸들러
-  const handleClick = () => {
-    if (disabled) return
-    onClick?.()
-  }
+  // 선택된 상태일 때 색상별 boxShadow 계산
+  const getSelectedBoxShadow = () => {
+    if (!selected) return undefined
 
-  // 키보드 핸들러
-  const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement | HTMLDivElement>) => {
-    if (disabled) return
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault()
-      onClick?.()
+    const colorMap = {
+      default: themeContract.color.border.default,
+      primary: themeContract.color.primary.main,
+      success: themeContract.color.success.main,
+      error: themeContract.color.error.main,
+      warning: themeContract.color.warning.main,
     }
+
+    return `inset 0 0 0 2px ${colorMap[color]}`
   }
 
   // 삭제 버튼 클릭 핸들러
-  const handleDelete = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleDelete = (e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
     e.stopPropagation()
     if (disabled) return
     onDelete?.()
@@ -73,6 +75,24 @@ export const Chip = ({
 
   // 클릭 가능 여부에 따라 button 또는 div로 렌더링
   const isClickable = clickable && onClick
+
+  // useClickable 훅으로 클릭 가능한 div 처리
+  const clickableProps = useClickable({
+    onClick: onClick
+      ? () => {
+          onClick()
+        }
+      : undefined,
+    disabled,
+    role: 'button',
+  })
+
+  // 삭제 버튼용 useClickable
+  const deleteButtonProps = useClickable({
+    onClick: onDelete ? handleDelete : undefined,
+    disabled,
+    role: 'button',
+  })
 
   const chipClasses = clsx(
     chip,
@@ -95,33 +115,11 @@ export const Chip = ({
       <span className={labelStyle}>{label}</span>
       {onDelete && (
         <span
-          role="button"
-          tabIndex={disabled ? -1 : 0}
+          {...deleteButtonProps}
           className={deleteButton}
-          onClick={handleDelete}
-          onKeyDown={(e) => {
-            if (disabled) return
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault()
-              handleDelete(e as unknown as MouseEvent<HTMLButtonElement>)
-            }
-          }}
           aria-label={`${label} 삭제`}
-          aria-disabled={disabled}
-          style={{ pointerEvents: disabled ? 'none' : 'auto' }}
         >
-          <svg
-            className={deleteIcon}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
+          <Icon name="close" size="sm" />
         </span>
       )}
     </>
@@ -132,18 +130,23 @@ export const Chip = ({
       <button
         type="button"
         className={chipClasses}
-        onClick={handleClick}
-        onKeyDown={handleKeyDown}
+        onClick={clickableProps.onClick}
+        onKeyDown={clickableProps.onKeyDown}
         disabled={disabled}
         aria-disabled={disabled}
         aria-label={label}
+        style={{ boxShadow: getSelectedBoxShadow() }}
       >
         {chipContent}
       </button>
     )
   }
 
-  return <div className={chipClasses}>{chipContent}</div>
+  return (
+    <div className={chipClasses} style={{ boxShadow: getSelectedBoxShadow() }}>
+      {chipContent}
+    </div>
+  )
 }
 
 Chip.displayName = 'Chip'

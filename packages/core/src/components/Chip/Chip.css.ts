@@ -135,14 +135,14 @@ export const clickable = style({
   },
 
   ':focus-visible': {
-    outline: `3px solid ${themeContract.color.border.focus}`,
-    outlineOffset: '2px',
+    outline: `2px solid ${themeContract.color.border.focus}`,
+    outlineOffset: '0px',
   },
 })
 
-// 선택된 상태
+// 선택된 상태 - 색상별로 동적으로 처리해야 하므로 기본 스타일만 제공
 export const selected = style({
-  boxShadow: `0 0 0 2px ${themeContract.color.primary.main}`,
+  // 색상별 border는 인라인 스타일로 처리
 })
 
 // 비활성화 상태

@@ -1,5 +1,6 @@
-import { type ReactNode, type KeyboardEvent, type HTMLAttributes } from 'react'
+import { type ReactNode, type HTMLAttributes } from 'react'
 import clsx from 'clsx'
+import { useClickable } from '../../_internal/useClickable'
 import {
   card,
   variantStyles,
@@ -38,22 +39,18 @@ export const Card = ({
   className,
   ...props
 }: CardProps) => {
-  // 클릭 핸들러
-  const handleClick = () => {
-    if (disabled) return
-    onClick?.()
-  }
-
-  // 키보드 핸들러
-  const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement | HTMLElement>) => {
-    if (disabled) return
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault()
-      onClick?.()
-    }
-  }
-
   const isClickable = !!onClick
+
+  // useClickable 훅으로 클릭 가능한 Card 처리
+  const clickableProps = useClickable({
+    onClick: onClick
+      ? () => {
+          onClick()
+        }
+      : undefined,
+    disabled,
+    role: 'button',
+  })
 
   const cardClasses = clsx(
     card,
@@ -83,8 +80,8 @@ export const Card = ({
       <button
         type="button"
         className={cardClasses}
-        onClick={handleClick}
-        onKeyDown={handleKeyDown}
+        onClick={clickableProps.onClick}
+        onKeyDown={clickableProps.onKeyDown}
         disabled={disabled}
         aria-disabled={disabled}
         {...props}

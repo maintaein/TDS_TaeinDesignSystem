@@ -2,23 +2,16 @@ import type { HTMLAttributes } from 'react'
 import clsx from 'clsx'
 import {
   loaderContainer,
-  loader,
-  typeStyles,
-  sizeStyles,
-  colorStyles,
   fullScreenStyles,
   overlayStyles,
   label as labelClass,
-  spinner,
-  dotsContainer,
-  dot,
   bar,
   barFill,
-  dotSize,
-  dotDelay,
   barSizeStyles,
-  barReset,
+  colorStyles,
 } from './Loader.css'
+import { LoadingSpinner } from '../LoadingSpinner'
+import { primary, gray } from '../../tokens/colors.css'
 
 export interface LoaderProps extends Omit<HTMLAttributes<HTMLDivElement>, 'color'> {
   type?: 'spinner' | 'dots' | 'bar'
@@ -40,54 +33,54 @@ export const Loader = ({
   overlay = false,
   'aria-label': ariaLabel,
   className,
-  ...props
 }: LoaderProps) => {
-
-  const renderLoader = () => {
-    // 공통 컬러 변수 적용을 위해 colorStyles[color]를 여기서 활용
-    const colorClass = colorStyles[color];
-
-    switch (type) {
-      case 'dots':
-        return (
-          <div className={dotsContainer}>
-            <span className={clsx(dot, dotSize[size], colorStyles[color], dotDelay.first)} />
-            <span className={clsx(dot, dotSize[size], colorStyles[color], dotDelay.second)} />
-            <span className={clsx(dot, dotSize[size], colorStyles[color], dotDelay.third)} />
-          </div>
-        )
-      case 'bar':
-        return (
-          <div className={clsx(bar, barSizeStyles[size])}>
-            <div className={clsx(barFill, colorClass)} />
-          </div>        
-          )
-      case 'spinner':
-      default:
-        return <div className={clsx(spinner, sizeStyles[size], colorClass)} />
+  // color preset을 실제 색상 값으로 변환
+  const getColorValue = (colorPreset: 'primary' | 'secondary' | 'white') => {
+    switch (colorPreset) {
+      case 'primary':
+        return primary[600]
+      case 'secondary':
+        return gray[600]
+      case 'white':
+        return '#FFFFFF'
     }
   }
-  
-  const loaderElement = (
-    <div
-      role="status"
-      aria-live="polite"
-      aria-busy="true"
-      aria-label={ariaLabel || label || '로딩 중'}
-      // 테스트가 찾는 모든 클래스(type, size, color)를 이 레벨에 부여
-      className={clsx(
-        loader,
-        typeStyles[type],
-        sizeStyles[size],
-        colorStyles[color],
-        type === 'bar' ? barReset : sizeStyles[size],
-      )}
-      {...props}
-    >
-      {renderLoader()}
-    </div>
-  )
-  
+
+  const renderLoader = () => {
+    const colorClass = colorStyles[color];
+
+    // bar 타입은 LoadingSpinner가 지원하지 않으므로 기존 구현 유지
+    if (type === 'bar') {
+      return (
+        <div
+          role="status"
+          aria-live="polite"
+          aria-busy="true"
+          aria-label={ariaLabel || label || '로딩 중'}
+          data-type="bar"
+          data-size={size}
+          data-color={color}
+        >
+          <div className={clsx(bar, barSizeStyles[size])}>
+            <div className={clsx(barFill, colorClass)} />
+          </div>
+        </div>
+      )
+    }
+
+    // spinner와 dots는 LoadingSpinner 사용
+    return (
+      <LoadingSpinner
+        type={type}
+        size={size}
+        color={getColorValue(color)}
+        aria-label={ariaLabel || label || '로딩 중'}
+      />
+    )
+  }
+
+  const loaderElement = renderLoader()
+
   if (!label && !fullScreen && !overlay) {
     return <div className={className}>{loaderElement}</div>
   }

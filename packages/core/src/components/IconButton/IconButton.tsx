@@ -5,9 +5,8 @@ import {
   sizeVariants,
   fillVariants,
   weakVariants,
-  loadingSpinner,
-  spinner,
 } from './IconButton.css';
+import { LoadingSpinner } from '../LoadingSpinner';
 
 type IconButtonVariant = 'primary' | 'dark' | 'danger' | 'light';
 type IconButtonStyle = 'fill' | 'weak';
@@ -79,9 +78,12 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         {...props}
       >
         {loading ? (
-          <div className={loadingSpinner} aria-hidden="true">
-            <span className={spinner} />
-          </div>
+          <LoadingSpinner
+            type="spinner"
+            size="sm"
+            color="currentColor"
+            aria-label="로딩 중"
+          />
         ) : (
           <span aria-hidden="true">{children}</span>
         )}

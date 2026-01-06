@@ -84,10 +84,9 @@ describe('Button', () => {
       const button = screen.getByRole('button');
       // aria-busy 확인
       expect(button).toHaveAttribute('aria-busy', 'true');
-      // 로딩 점들(dot)이 렌더링되는지 확인
-      expect(
-        button.querySelector(`.${styles.loadingDots}`)
-      ).toBeInTheDocument();
+      // LoadingSpinner가 렌더링되는지 확인 (role="status"로 찾기)
+      expect(screen.getByRole('status')).toBeInTheDocument();
+      expect(screen.getByLabelText('로딩 중')).toBeInTheDocument();
       // 구현상 !loading && children 이므로 텍스트는 없어야 함
       expect(screen.queryByText('저장 중')).not.toBeInTheDocument();
     });

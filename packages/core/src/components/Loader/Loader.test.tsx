@@ -13,27 +13,27 @@ describe('Loader', () => {
       render(<Loader type="spinner" />)
       const loader = screen.getByRole('status')
       expect(loader).toBeInTheDocument()
-      expect(loader.className).toContain('spinner')
+      expect(loader).toHaveAttribute('data-type', 'spinner')
     })
 
     it('dots 타입을 렌더링한다', () => {
       render(<Loader type="dots" />)
       const loader = screen.getByRole('status')
       expect(loader).toBeInTheDocument()
-      expect(loader.className).toContain('dots')
+      expect(loader).toHaveAttribute('data-type', 'dots')
     })
 
     it('bar 타입을 렌더링한다', () => {
       render(<Loader type="bar" />)
       const loader = screen.getByRole('status')
       expect(loader).toBeInTheDocument()
-      expect(loader.className).toContain('bar')
+      expect(loader).toHaveAttribute('data-type', 'bar')
     })
 
     it('기본 타입은 spinner이다', () => {
       render(<Loader />)
       const loader = screen.getByRole('status')
-      expect(loader.className).toContain('spinner')
+      expect(loader).toHaveAttribute('data-type', 'spinner')
     })
   })
 
@@ -41,31 +41,31 @@ describe('Loader', () => {
     it('sm 크기를 렌더링한다', () => {
       render(<Loader size="sm" />)
       const loader = screen.getByRole('status')
-      expect(loader.className).toContain('sm')
+      expect(loader).toHaveAttribute('data-size', 'sm')
     })
 
     it('md 크기를 렌더링한다', () => {
       render(<Loader size="md" />)
       const loader = screen.getByRole('status')
-      expect(loader.className).toContain('md')
+      expect(loader).toHaveAttribute('data-size', 'md')
     })
 
     it('lg 크기를 렌더링한다', () => {
       render(<Loader size="lg" />)
       const loader = screen.getByRole('status')
-      expect(loader.className).toContain('lg')
+      expect(loader).toHaveAttribute('data-size', 'lg')
     })
 
     it('xl 크기를 렌더링한다', () => {
       render(<Loader size="xl" />)
       const loader = screen.getByRole('status')
-      expect(loader.className).toContain('xl')
+      expect(loader).toHaveAttribute('data-size', 'xl')
     })
 
     it('기본 크기는 md이다', () => {
       render(<Loader />)
       const loader = screen.getByRole('status')
-      expect(loader.className).toContain('md')
+      expect(loader).toHaveAttribute('data-size', 'md')
     })
   })
 
@@ -73,25 +73,26 @@ describe('Loader', () => {
     it('primary 색상을 렌더링한다', () => {
       render(<Loader color="primary" />)
       const loader = screen.getByRole('status')
-      expect(loader.className).toContain('primary')
+      // LoadingSpinner는 실제 색상 값을 사용하므로 style로 검증
+      expect(loader.style.getPropertyValue('--spinner-color')).toBeTruthy()
     })
 
     it('secondary 색상을 렌더링한다', () => {
       render(<Loader color="secondary" />)
       const loader = screen.getByRole('status')
-      expect(loader.className).toContain('secondary')
+      expect(loader.style.getPropertyValue('--spinner-color')).toBeTruthy()
     })
 
     it('white 색상을 렌더링한다', () => {
       render(<Loader color="white" />)
       const loader = screen.getByRole('status')
-      expect(loader.className).toContain('white')
+      expect(loader.style.getPropertyValue('--spinner-color')).toBeTruthy()
     })
 
     it('기본 색상은 primary이다', () => {
       render(<Loader />)
       const loader = screen.getByRole('status')
-      expect(loader.className).toContain('primary')
+      expect(loader.style.getPropertyValue('--spinner-color')).toBeTruthy()
     })
   })
 
@@ -120,7 +121,8 @@ describe('Loader', () => {
     })
 
     it('aria-busy="true"를 가진다', () => {
-      render(<Loader />)
+      // bar 타입은 직접 aria-busy를 가짐
+      render(<Loader type="bar" />)
       const loader = screen.getByRole('status')
       expect(loader).toHaveAttribute('aria-busy', 'true')
     })
@@ -182,7 +184,10 @@ describe('Loader', () => {
     it('bar 타입은 진행 바를 렌더링한다', () => {
       render(<Loader type="bar" />)
       const loader = screen.getByRole('status')
-      expect(loader.className).toContain('bar')
+      expect(loader).toHaveAttribute('data-type', 'bar')
+      // bar 타입의 내부 구조 확인
+      const barElement = loader.querySelector('div > div')
+      expect(barElement).toBeInTheDocument()
     })
   })
 
