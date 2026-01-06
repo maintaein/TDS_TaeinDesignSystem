@@ -6,7 +6,17 @@ import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  {
+    ignores: [
+      "**/dist/**",
+      "**/coverage/**",
+      "**/node_modules/**",
+      "**/.next/**",
+      "**/.storybook-static/**",
+      "**/sb-manager/**" // 스토리북 빌드 결과물 추가
+    ],
+  },
+  
   {
     files: ['**/*.{ts,tsx}'],
     extends: [

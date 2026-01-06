@@ -18,7 +18,7 @@ jobs:
       - name: pnpm 설치
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: 10
 
       - name: Node.js 설정
         uses: actions/setup-node@v4
@@ -31,6 +31,9 @@ jobs:
 
       - name: 린트 검사
         run: pnpm lint
+
+      - name: 빌드
+        run: pnpm build:all
 
       - name: 타입 체크
         run: pnpm typecheck
@@ -46,9 +49,6 @@ jobs:
           flags: unittests
           name: codecov-umbrella
           fail_ci_if_error: false
-
-      - name: 빌드
-        run: pnpm build
 
       - name: 번들 크기 체크
         run: |
