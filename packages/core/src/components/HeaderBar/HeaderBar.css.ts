@@ -1,5 +1,5 @@
-import { style, styleVariants } from '@vanilla-extract/css'
-import { themeContract } from '../../tokens/theme.css'
+import { style, styleVariants } from '@vanilla-extract/css';
+import { themeContract } from '../../tokens/theme.css';
 
 export const headerBar = style({
   display: 'flex',
@@ -16,7 +16,7 @@ export const headerBar = style({
       gap: themeContract.spacing[3],
     },
   },
-})
+});
 
 export const variantStyles = styleVariants({
   default: {
@@ -33,7 +33,7 @@ export const variantStyles = styleVariants({
     WebkitBackdropFilter: 'blur(10px)',
     color: themeContract.color.text.primary,
   },
-})
+});
 
 export const stickyStyles = styleVariants({
   true: {
@@ -43,7 +43,7 @@ export const stickyStyles = styleVariants({
   false: {
     position: 'relative',
   },
-})
+});
 
 export const elevationStyles = styleVariants({
   true: {
@@ -52,7 +52,7 @@ export const elevationStyles = styleVariants({
   false: {
     boxShadow: 'none',
   },
-})
+});
 
 export const borderStyles = styleVariants({
   true: {
@@ -61,14 +61,14 @@ export const borderStyles = styleVariants({
   false: {
     borderBottom: 'none',
   },
-})
+});
 
 export const leftSection = style({
   display: 'flex',
   alignItems: 'center',
   gap: themeContract.spacing[3],
   flexShrink: 0,
-})
+});
 
 export const logo = style({
   display: 'flex',
@@ -82,7 +82,7 @@ export const logo = style({
       maxHeight: '28px',
     },
   },
-})
+});
 
 export const title = style({
   fontSize: themeContract.font.size.lg,
@@ -95,7 +95,7 @@ export const title = style({
       fontSize: themeContract.font.size.base,
     },
   },
-})
+});
 
 export const centerSection = style({
   display: 'flex',
@@ -109,7 +109,7 @@ export const centerSection = style({
       gap: themeContract.spacing[2],
     },
   },
-})
+});
 
 export const rightSection = style({
   display: 'flex',
@@ -122,4 +122,4 @@ export const rightSection = style({
       gap: themeContract.spacing[2],
     },
   },
-})
+});

@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { useState } from 'react'
-import { SideSheet } from '@taein-designsystem/core'
+import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
+import { SideSheet } from '@taein-designsystem/core';
 
 const meta: Meta<typeof SideSheet> = {
   title: 'Components/SideSheet',
@@ -41,23 +41,28 @@ const meta: Meta<typeof SideSheet> = {
       description: '닫기 버튼 표시',
     },
   },
-}
+};
 
-export default meta
-type Story = StoryObj<typeof SideSheet>
+export default meta;
+type Story = StoryObj<typeof SideSheet>;
 
-const SideSheetWrapper = (args: typeof SideSheet extends (props: infer P) => unknown ? P : never) => {
-  const [open, setOpen] = useState(args.open ?? false)
+const SideSheetWrapper = (
+  args: typeof SideSheet extends (props: infer P) => unknown ? P : never
+) => {
+  const [open, setOpen] = useState(args.open ?? false);
 
   return (
     <div>
-      <button onClick={() => setOpen(true)} style={{ padding: '8px 16px', cursor: 'pointer' }}>
+      <button
+        onClick={() => setOpen(true)}
+        style={{ padding: '8px 16px', cursor: 'pointer' }}
+      >
         Open SideSheet
       </button>
       <SideSheet {...args} open={open} onClose={() => setOpen(false)} />
     </div>
-  )
-}
+  );
+};
 
 export const Default: Story = {
   render: (args) => <SideSheetWrapper {...args} />,
@@ -70,13 +75,13 @@ export const Default: Story = {
       </div>
     ),
   },
-}
+};
 
 const WidthsComponents = () => {
-  const [openSm, setOpenSm] = useState(false)
-  const [openMd, setOpenMd] = useState(false)
-  const [openLg, setOpenLg] = useState(false)
-  const [openFull, setOpenFull] = useState(false)
+  const [openSm, setOpenSm] = useState(false);
+  const [openMd, setOpenMd] = useState(false);
+  const [openLg, setOpenLg] = useState(false);
+  const [openFull, setOpenFull] = useState(false);
 
   return (
     <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
@@ -93,53 +98,85 @@ const WidthsComponents = () => {
         Full Width
       </button>
 
-      <SideSheet open={openSm} onClose={() => setOpenSm(false)} width="sm" title="Small SideSheet">
+      <SideSheet
+        open={openSm}
+        onClose={() => setOpenSm(false)}
+        width="sm"
+        title="Small SideSheet"
+      >
         <p>Width: 300px</p>
       </SideSheet>
-      <SideSheet open={openMd} onClose={() => setOpenMd(false)} width="md" title="Medium SideSheet">
+      <SideSheet
+        open={openMd}
+        onClose={() => setOpenMd(false)}
+        width="md"
+        title="Medium SideSheet"
+      >
         <p>Width: 400px (default)</p>
       </SideSheet>
-      <SideSheet open={openLg} onClose={() => setOpenLg(false)} width="lg" title="Large SideSheet">
+      <SideSheet
+        open={openLg}
+        onClose={() => setOpenLg(false)}
+        width="lg"
+        title="Large SideSheet"
+      >
         <p>Width: 600px</p>
       </SideSheet>
-      <SideSheet open={openFull} onClose={() => setOpenFull(false)} width="full" title="Full Width SideSheet">
+      <SideSheet
+        open={openFull}
+        onClose={() => setOpenFull(false)}
+        width="full"
+        title="Full Width SideSheet"
+      >
         <p>Width: 100vw</p>
       </SideSheet>
     </div>
-  )
-  
-}
+  );
+};
 
 export const Widths: Story = {
-  render: () => <WidthsComponents/>
-}
+  render: () => <WidthsComponents />,
+};
 
 const PositionsComponent = () => {
-  const [openRight, setOpenRight] = useState(false)
-  const [openLeft, setOpenLeft] = useState(false)
+  const [openRight, setOpenRight] = useState(false);
+  const [openLeft, setOpenLeft] = useState(false);
 
   return (
     <div style={{ display: 'flex', gap: '8px' }}>
-      <button onClick={() => setOpenRight(true)} style={{ padding: '8px 16px' }}>
+      <button
+        onClick={() => setOpenRight(true)}
+        style={{ padding: '8px 16px' }}
+      >
         Right (Default)
       </button>
       <button onClick={() => setOpenLeft(true)} style={{ padding: '8px 16px' }}>
         Left
       </button>
 
-      <SideSheet open={openRight} onClose={() => setOpenRight(false)} position="right" title="Right SideSheet">
+      <SideSheet
+        open={openRight}
+        onClose={() => setOpenRight(false)}
+        position="right"
+        title="Right SideSheet"
+      >
         <p>Slides from the right side</p>
       </SideSheet>
-      <SideSheet open={openLeft} onClose={() => setOpenLeft(false)} position="left" title="Left SideSheet">
+      <SideSheet
+        open={openLeft}
+        onClose={() => setOpenLeft(false)}
+        position="left"
+        title="Left SideSheet"
+      >
         <p>Slides from the left side</p>
       </SideSheet>
     </div>
-  )
-}
+  );
+};
 
 export const Positions: Story = {
-  render: () => <PositionsComponent/>
-}
+  render: () => <PositionsComponent />,
+};
 
 export const WithCloseButton: Story = {
   render: (args) => <SideSheetWrapper {...args} />,
@@ -148,7 +185,7 @@ export const WithCloseButton: Story = {
     showClose: true,
     children: <p>This SideSheet has a close button in the header.</p>,
   },
-}
+};
 
 export const NoBackdropClose: Story = {
   render: (args) => <SideSheetWrapper {...args} />,
@@ -156,9 +193,14 @@ export const NoBackdropClose: Story = {
     title: 'No Backdrop Close',
     closeOnBackdropClick: false,
     showClose: true,
-    children: <p>Clicking the backdrop will not close this SideSheet. Use the close button or ESC key.</p>,
+    children: (
+      <p>
+        Clicking the backdrop will not close this SideSheet. Use the close
+        button or ESC key.
+      </p>
+    ),
   },
-}
+};
 
 export const NoEscapeClose: Story = {
   render: (args) => <SideSheetWrapper {...args} />,
@@ -166,9 +208,14 @@ export const NoEscapeClose: Story = {
     title: 'No ESC Close',
     closeOnEscape: false,
     showClose: true,
-    children: <p>Pressing ESC will not close this SideSheet. Use the close button or backdrop click.</p>,
+    children: (
+      <p>
+        Pressing ESC will not close this SideSheet. Use the close button or
+        backdrop click.
+      </p>
+    ),
   },
-}
+};
 
 export const WithForm: Story = {
   render: (args) => <SideSheetWrapper {...args} />,
@@ -179,48 +226,86 @@ export const WithForm: Story = {
     children: (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         <div>
-          <label htmlFor="name" style={{ display: 'block', marginBottom: '4px', fontWeight: 500 }}>
+          <label
+            htmlFor="name"
+            style={{ display: 'block', marginBottom: '4px', fontWeight: 500 }}
+          >
             Name
           </label>
           <input
             id="name"
             type="text"
             placeholder="Enter your name"
-            style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }}
+            style={{
+              width: '100%',
+              padding: '8px',
+              border: '1px solid #ccc',
+              borderRadius: '4px',
+            }}
           />
         </div>
         <div>
-          <label htmlFor="email" style={{ display: 'block', marginBottom: '4px', fontWeight: 500 }}>
+          <label
+            htmlFor="email"
+            style={{ display: 'block', marginBottom: '4px', fontWeight: 500 }}
+          >
             Email
           </label>
           <input
             id="email"
             type="email"
             placeholder="Enter your email"
-            style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }}
+            style={{
+              width: '100%',
+              padding: '8px',
+              border: '1px solid #ccc',
+              borderRadius: '4px',
+            }}
           />
         </div>
         <div>
-          <label htmlFor="bio" style={{ display: 'block', marginBottom: '4px', fontWeight: 500 }}>
+          <label
+            htmlFor="bio"
+            style={{ display: 'block', marginBottom: '4px', fontWeight: 500 }}
+          >
             Bio
           </label>
           <textarea
             id="bio"
             placeholder="Tell us about yourself"
             rows={4}
-            style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '4px', resize: 'vertical' }}
+            style={{
+              width: '100%',
+              padding: '8px',
+              border: '1px solid #ccc',
+              borderRadius: '4px',
+              resize: 'vertical',
+            }}
           />
         </div>
-        <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
-          <button style={{ padding: '8px 16px', cursor: 'pointer' }}>Cancel</button>
-          <button style={{ padding: '8px 16px', cursor: 'pointer', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '4px' }}>
+        <div
+          style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}
+        >
+          <button style={{ padding: '8px 16px', cursor: 'pointer' }}>
+            Cancel
+          </button>
+          <button
+            style={{
+              padding: '8px 16px',
+              cursor: 'pointer',
+              backgroundColor: '#007bff',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+            }}
+          >
             Save
           </button>
         </div>
       </div>
     ),
   },
-}
+};
 
 export const WithNavigation: Story = {
   render: (args) => <SideSheetWrapper {...args} />,
@@ -232,25 +317,35 @@ export const WithNavigation: Story = {
       <nav>
         <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
           <li style={{ padding: '12px 0', borderBottom: '1px solid #eee' }}>
-            <a href="#" style={{ textDecoration: 'none', color: 'inherit' }}>Dashboard</a>
+            <a href="#" style={{ textDecoration: 'none', color: 'inherit' }}>
+              Dashboard
+            </a>
           </li>
           <li style={{ padding: '12px 0', borderBottom: '1px solid #eee' }}>
-            <a href="#" style={{ textDecoration: 'none', color: 'inherit' }}>Projects</a>
+            <a href="#" style={{ textDecoration: 'none', color: 'inherit' }}>
+              Projects
+            </a>
           </li>
           <li style={{ padding: '12px 0', borderBottom: '1px solid #eee' }}>
-            <a href="#" style={{ textDecoration: 'none', color: 'inherit' }}>Team</a>
+            <a href="#" style={{ textDecoration: 'none', color: 'inherit' }}>
+              Team
+            </a>
           </li>
           <li style={{ padding: '12px 0', borderBottom: '1px solid #eee' }}>
-            <a href="#" style={{ textDecoration: 'none', color: 'inherit' }}>Settings</a>
+            <a href="#" style={{ textDecoration: 'none', color: 'inherit' }}>
+              Settings
+            </a>
           </li>
           <li style={{ padding: '12px 0' }}>
-            <a href="#" style={{ textDecoration: 'none', color: 'inherit' }}>Logout</a>
+            <a href="#" style={{ textDecoration: 'none', color: 'inherit' }}>
+              Logout
+            </a>
           </li>
         </ul>
       </nav>
     ),
   },
-}
+};
 
 export const ScrollableContent: Story = {
   render: (args) => <SideSheetWrapper {...args} />,
@@ -261,13 +356,14 @@ export const ScrollableContent: Story = {
       <div>
         {Array.from({ length: 50 }, (_, i) => (
           <p key={i}>
-            This is paragraph {i + 1}. The SideSheet content is scrollable when it exceeds the viewport height.
+            This is paragraph {i + 1}. The SideSheet content is scrollable when
+            it exceeds the viewport height.
           </p>
         ))}
       </div>
     ),
   },
-}
+};
 
 export const FilterPanel: Story = {
   render: (args) => <SideSheetWrapper {...args} />,
@@ -278,48 +374,103 @@ export const FilterPanel: Story = {
     children: (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
         <div>
-          <h3 style={{ marginTop: 0, marginBottom: '12px', fontSize: '14px', fontWeight: 600 }}>Price Range</h3>
+          <h3
+            style={{
+              marginTop: 0,
+              marginBottom: '12px',
+              fontSize: '14px',
+              fontWeight: 600,
+            }}
+          >
+            Price Range
+          </h3>
           <input type="range" min="0" max="1000" style={{ width: '100%' }} />
-          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: '#666' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              fontSize: '12px',
+              color: '#666',
+            }}
+          >
             <span>$0</span>
             <span>$1000</span>
           </div>
         </div>
         <div>
-          <h3 style={{ marginTop: 0, marginBottom: '12px', fontSize: '14px', fontWeight: 600 }}>Category</h3>
+          <h3
+            style={{
+              marginTop: 0,
+              marginBottom: '12px',
+              fontSize: '14px',
+              fontWeight: 600,
+            }}
+          >
+            Category
+          </h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <label
+              style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+            >
               <input type="checkbox" />
               <span>Electronics</span>
             </label>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <label
+              style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+            >
               <input type="checkbox" />
               <span>Clothing</span>
             </label>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <label
+              style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+            >
               <input type="checkbox" />
               <span>Books</span>
             </label>
           </div>
         </div>
         <div>
-          <h3 style={{ marginTop: 0, marginBottom: '12px', fontSize: '14px', fontWeight: 600 }}>Rating</h3>
+          <h3
+            style={{
+              marginTop: 0,
+              marginBottom: '12px',
+              fontSize: '14px',
+              fontWeight: 600,
+            }}
+          >
+            Rating
+          </h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {[5, 4, 3, 2, 1].map((rating) => (
-              <label key={rating} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <label
+                key={rating}
+                style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+              >
                 <input type="radio" name="rating" />
-                <span>{'★'.repeat(rating)}{'☆'.repeat(5 - rating)}</span>
+                <span>
+                  {'★'.repeat(rating)}
+                  {'☆'.repeat(5 - rating)}
+                </span>
               </label>
             ))}
           </div>
         </div>
-        <button style={{ padding: '12px', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+        <button
+          style={{
+            padding: '12px',
+            backgroundColor: '#007bff',
+            color: 'white',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer',
+          }}
+        >
           Apply Filters
         </button>
       </div>
     ),
   },
-}
+};
 
 export const Interactive: Story = {
   render: (args) => <SideSheetWrapper {...args} />,
@@ -337,4 +488,4 @@ export const Interactive: Story = {
       </div>
     ),
   },
-}
+};

@@ -1,6 +1,12 @@
-import { style, styleVariants } from '@vanilla-extract/css'
-import { themeContract } from '../../tokens/theme.css'
-import { primary, gray, success, error, warning } from '../../tokens/colors.css'
+import { style, styleVariants } from '@vanilla-extract/css';
+import { themeContract } from '../../tokens/theme.css';
+import {
+  primary,
+  gray,
+  success,
+  error,
+  warning,
+} from '../../tokens/colors.css';
 
 export const badge = style({
   display: 'inline-flex',
@@ -13,7 +19,7 @@ export const badge = style({
   transition: `all ${themeContract.animation.duration.base} ${themeContract.animation.easing.easeInOut}`,
   lineHeight: 1,
   minWidth: '20px',
-})
+});
 
 export const variantStyles = styleVariants({
   primary: {
@@ -36,7 +42,7 @@ export const variantStyles = styleVariants({
     backgroundColor: warning[500],
     color: gray[900],
   },
-})
+});
 
 export const sizeStyles = styleVariants({
   sm: {
@@ -57,7 +63,7 @@ export const sizeStyles = styleVariants({
     minWidth: '24px',
     height: '24px',
   },
-})
+});
 
 export const dotStyles = style({
   padding: 0,
@@ -65,4 +71,4 @@ export const dotStyles = style({
   width: '8px',
   height: '8px',
   borderRadius: '50%',
-})
+});

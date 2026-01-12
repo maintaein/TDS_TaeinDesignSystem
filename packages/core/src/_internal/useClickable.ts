@@ -2,7 +2,9 @@ import { useCallback } from 'react';
 
 export interface UseClickableProps {
   /** 클릭 이벤트 핸들러 */
-  onClick?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void;
+  onClick?: (
+    event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+  ) => void;
   /** 키보드 이벤트 핸들러 */
   onKeyDown?: (event: React.KeyboardEvent<HTMLElement>) => void;
   /** 비활성화 상태 */

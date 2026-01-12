@@ -18,7 +18,7 @@ const meta = {
   },
   tags: ['autodocs'],
   args: {
-    name: 'plus'
+    name: 'plus',
   },
   argTypes: {
     name: {

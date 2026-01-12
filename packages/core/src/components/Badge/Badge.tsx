@@ -1,16 +1,19 @@
-import type { ReactNode, HTMLAttributes } from 'react'
-import clsx from 'clsx'
-import { badge, variantStyles, sizeStyles, dotStyles } from './Badge.css'
+import type { ReactNode, HTMLAttributes } from 'react';
+import clsx from 'clsx';
+import { badge, variantStyles, sizeStyles, dotStyles } from './Badge.css';
 
-export interface BadgeProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
-  children?: ReactNode
-  variant?: 'primary' | 'secondary' | 'success' | 'error' | 'warning'
-  size?: 'sm' | 'md' | 'lg'
-  max?: number
-  dot?: boolean
-  showZero?: boolean
-  'aria-label'?: string
-  className?: string
+export interface BadgeProps extends Omit<
+  HTMLAttributes<HTMLSpanElement>,
+  'children'
+> {
+  children?: ReactNode;
+  variant?: 'primary' | 'secondary' | 'success' | 'error' | 'warning';
+  size?: 'sm' | 'md' | 'lg';
+  max?: number;
+  dot?: boolean;
+  showZero?: boolean;
+  'aria-label'?: string;
+  className?: string;
 }
 
 export const Badge = ({
@@ -28,74 +31,82 @@ export const Badge = ({
   if (!dot) {
     // children이 없으면 렌더링하지 않음
     if (children === null || children === undefined) {
-      return null
+      return null;
     }
 
     // 빈 문자열은 렌더링하지 않음
     if (children === '') {
-      return null
+      return null;
     }
 
     // 0 처리
     if (children === 0 && !showZero) {
-      return null
+      return null;
     }
   }
 
   // 표시할 내용 결정
   const getDisplayContent = () => {
     if (dot) {
-      return null
+      return null;
     }
 
     // 숫자인 경우 max 처리
-    const numValue = Number(children)
-    const isNumeric = !isNaN(numValue) && children !== '' && children !== null && children !== undefined
+    const numValue = Number(children);
+    const isNumeric =
+      !isNaN(numValue) &&
+      children !== '' &&
+      children !== null &&
+      children !== undefined;
 
     if (isNumeric) {
       // showZero가 false이고 값이 0이면 빈 문자열 반환 (렌더링되지 않도록)
       if (numValue === 0 && !showZero) {
-        return ''
+        return '';
       }
 
       if (numValue > max) {
-        return `${max}+`
+        return `${max}+`;
       }
-      return String(numValue)
+      return String(numValue);
     }
 
     // 텍스트인 경우 그대로 반환
-    return children
-  }
+    return children;
+  };
 
-  const displayContent = getDisplayContent()
+  const displayContent = getDisplayContent();
 
   // displayContent가 빈 문자열이면 렌더링하지 않음
   if (displayContent === '') {
-    return null
+    return null;
   }
 
   // aria-label 자동 생성
   const getAriaLabel = () => {
     if (ariaLabel) {
-      return ariaLabel
+      return ariaLabel;
     }
 
     if (dot) {
-      return '알림'
+      return '알림';
     }
 
-    const numValue = Number(children)
-    const isNumeric = !isNaN(numValue) && children !== '' && children !== null && children !== undefined
+    const numValue = Number(children);
+    const isNumeric =
+      !isNaN(numValue) &&
+      children !== '' &&
+      children !== null &&
+      children !== undefined;
 
     if (isNumeric) {
-      return `${displayContent}개의 알림`
+      return `${displayContent}개의 알림`;
     }
 
-    return String(children)
-  }
+    return String(children);
+  };
 
-  const finalAriaLabel = getAriaLabel()
+  const finalAriaLabel = getAriaLabel();
 
   return (
     <span
@@ -112,7 +123,7 @@ export const Badge = ({
     >
       {displayContent}
     </span>
-  )
-}
+  );
+};
 
-Badge.displayName = 'Badge'
+Badge.displayName = 'Badge';

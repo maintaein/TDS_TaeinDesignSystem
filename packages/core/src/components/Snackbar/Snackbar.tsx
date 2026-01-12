@@ -1,5 +1,5 @@
-import { useEffect, useRef, type ReactNode, type HTMLAttributes } from 'react'
-import clsx from 'clsx'
+import { useEffect, useRef, type ReactNode, type HTMLAttributes } from 'react';
+import clsx from 'clsx';
 import {
   snackbar,
   severityStyles,
@@ -8,19 +8,28 @@ import {
   message as messageClass,
   actions,
   closeButton,
-} from './Snackbar.css'
-import { IconButton } from '../IconButton'
-import { Icon } from '../Icon'
+} from './Snackbar.css';
+import { IconButton } from '../IconButton';
+import { Icon } from '../Icon';
 
-export interface SnackbarProps extends Omit<HTMLAttributes<HTMLDivElement>, 'content'> {
-  open: boolean
-  message: ReactNode
-  severity?: 'success' | 'error' | 'warning' | 'info'
-  position?: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'
-  autoHideDuration?: number | null
-  onClose?: () => void
-  action?: ReactNode
-  className?: string
+export interface SnackbarProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  'content'
+> {
+  open: boolean;
+  message: ReactNode;
+  severity?: 'success' | 'error' | 'warning' | 'info';
+  position?:
+    | 'top-left'
+    | 'top-center'
+    | 'top-right'
+    | 'bottom-left'
+    | 'bottom-center'
+    | 'bottom-right';
+  autoHideDuration?: number | null;
+  onClose?: () => void;
+  action?: ReactNode;
+  className?: string;
 }
 
 export const Snackbar = ({
@@ -34,45 +43,50 @@ export const Snackbar = ({
   className,
   ...props
 }: SnackbarProps) => {
-  const timerRef = useRef<NodeJS.Timeout | null>(null)
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (!open) {
       if (timerRef.current) {
-        clearTimeout(timerRef.current)
-        timerRef.current = null
+        clearTimeout(timerRef.current);
+        timerRef.current = null;
       }
-      return
+      return;
     }
 
     if (autoHideDuration !== null && onClose) {
       timerRef.current = setTimeout(() => {
-        onClose()
-      }, autoHideDuration)
+        onClose();
+      }, autoHideDuration);
 
       return () => {
         if (timerRef.current) {
-          clearTimeout(timerRef.current)
+          clearTimeout(timerRef.current);
         }
-      }
+      };
     }
-  }, [open, autoHideDuration, onClose])
+  }, [open, autoHideDuration, onClose]);
 
   if (!open) {
-    return null
+    return null;
   }
 
   const handleClose = () => {
     if (onClose) {
-      onClose()
+      onClose();
     }
-  }
+  };
 
   return (
     <div
       role="alert"
       aria-live="polite"
-      className={clsx(snackbar, severityStyles[severity], positionStyles[position], className)}
+      className={clsx(
+        snackbar,
+        severityStyles[severity],
+        positionStyles[position],
+        className
+      )}
       {...props}
     >
       <div className={content}>
@@ -92,7 +106,7 @@ export const Snackbar = ({
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-Snackbar.displayName = 'Snackbar'
+Snackbar.displayName = 'Snackbar';

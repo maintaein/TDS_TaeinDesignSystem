@@ -1,5 +1,5 @@
-import { style, styleVariants, keyframes } from '@vanilla-extract/css'
-import { themeContract } from '../../tokens/theme.css'
+import { style, styleVariants, keyframes } from '@vanilla-extract/css';
+import { themeContract } from '../../tokens/theme.css';
 
 const fadeIn = keyframes({
   '0%': {
@@ -8,7 +8,7 @@ const fadeIn = keyframes({
   '100%': {
     opacity: 1,
   },
-})
+});
 
 const slideIn = keyframes({
   '0%': {
@@ -19,7 +19,7 @@ const slideIn = keyframes({
     opacity: 1,
     transform: 'translateY(0) scale(1)',
   },
-})
+});
 
 export const modalContainer = style({
   position: 'fixed',
@@ -33,7 +33,7 @@ export const modalContainer = style({
   justifyContent: 'center',
   padding: themeContract.spacing[10],
   overflowY: 'auto',
-})
+});
 
 export const backdrop = style({
   position: 'fixed',
@@ -44,7 +44,7 @@ export const backdrop = style({
   backgroundColor: 'rgba(0, 0, 0, 0.5)',
   animation: `${fadeIn} 0.2s ${themeContract.animation.easing.easeOut}`,
   zIndex: -1,
-})
+});
 
 export const modalDialog = style({
   position: 'relative',
@@ -55,11 +55,11 @@ export const modalDialog = style({
   animation: `${slideIn} 0.25s ${themeContract.animation.easing.easeOut}`,
   outline: 'none',
   margin: 'auto 0',
-  
+
   ':focus': {
     outline: 'none',
   },
-})
+});
 
 export const sizeStyles = styleVariants({
   sm: {
@@ -78,4 +78,4 @@ export const sizeStyles = styleVariants({
     width: 'calc(100vw - 64px)',
     maxHeight: 'calc(100vh - 64px)',
   },
-})
+});

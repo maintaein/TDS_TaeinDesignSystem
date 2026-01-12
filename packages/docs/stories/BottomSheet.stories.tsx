@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { BottomSheet, BottomSheetProps } from '@taein-designsystem/core'
-import { useState } from 'react'
+import type { Meta, StoryObj } from '@storybook/react';
+import { BottomSheet, BottomSheetProps } from '@taein-designsystem/core';
+import { useState } from 'react';
 
 const meta = {
   title: 'Components/BottomSheet',
@@ -11,7 +11,9 @@ const meta = {
   tags: ['autodocs'],
   args: {
     open: true,
-    onClose: () => { console.log('closed') },
+    onClose: () => {
+      console.log('closed');
+    },
     children: 'BottomSheet 컨텐츠입니다.',
   },
   argTypes: {
@@ -27,14 +29,17 @@ const meta = {
     },
     closeOnEscape: { control: 'boolean', description: 'ESC 키로 닫기' },
     showHandle: { control: 'boolean', description: '드래그 핸들 표시' },
-    showClose: { control: 'boolean', description: '닫기 버튼 표시 (title 필요)' },
+    showClose: {
+      control: 'boolean',
+      description: '닫기 버튼 표시 (title 필요)',
+    },
     enableDrag: { control: 'boolean', description: '드래그로 닫기 활성화' },
     title: { control: 'text', description: 'BottomSheet 제목' },
   },
-} satisfies Meta<typeof BottomSheet>
+} satisfies Meta<typeof BottomSheet>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 const BottomSheetWrapper = ({
   height,
@@ -46,16 +51,16 @@ const BottomSheetWrapper = ({
   title,
   children,
 }: {
-  height?: 'auto' | 'sm' | 'md' | 'lg' | 'full'
-  closeOnBackdropClick?: boolean
-  closeOnEscape?: boolean
-  showHandle?: boolean
-  showClose?: boolean
-  enableDrag?: boolean
-  title?: string
-  children?: React.ReactNode
+  height?: 'auto' | 'sm' | 'md' | 'lg' | 'full';
+  closeOnBackdropClick?: boolean;
+  closeOnEscape?: boolean;
+  showHandle?: boolean;
+  showClose?: boolean;
+  enableDrag?: boolean;
+  title?: string;
+  children?: React.ReactNode;
 }) => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -87,19 +92,22 @@ const BottomSheetWrapper = ({
         {children}
       </BottomSheet>
     </>
-  )
-}
+  );
+};
 
 export const Default: Story = {
   render: () => (
     <BottomSheetWrapper title="기본 BottomSheet">
       <div style={{ padding: '16px 0' }}>
         <p>기본 BottomSheet입니다.</p>
-        <p>드래그 핸들을 아래로 드래그하거나 backdrop을 클릭하거나 ESC 키를 눌러 닫을 수 있습니다.</p>
+        <p>
+          드래그 핸들을 아래로 드래그하거나 backdrop을 클릭하거나 ESC 키를 눌러
+          닫을 수 있습니다.
+        </p>
       </div>
     </BottomSheetWrapper>
   ),
-}
+};
 
 export const Heights: Story = {
   render: () => (
@@ -118,7 +126,7 @@ export const Heights: Story = {
       </BottomSheetWrapper>
     </div>
   ),
-}
+};
 
 export const WithCloseButton: Story = {
   render: () => (
@@ -128,7 +136,7 @@ export const WithCloseButton: Story = {
       </div>
     </BottomSheetWrapper>
   ),
-}
+};
 
 export const NoHandle: Story = {
   render: () => (
@@ -139,7 +147,7 @@ export const NoHandle: Story = {
       </div>
     </BottomSheetWrapper>
   ),
-}
+};
 
 export const NoDrag: Story = {
   render: () => (
@@ -150,18 +158,22 @@ export const NoDrag: Story = {
       </div>
     </BottomSheetWrapper>
   ),
-}
+};
 
 export const NoBackdropClose: Story = {
   render: () => (
-    <BottomSheetWrapper closeOnBackdropClick={false} showClose title="Backdrop 클릭 비활성화">
+    <BottomSheetWrapper
+      closeOnBackdropClick={false}
+      showClose
+      title="Backdrop 클릭 비활성화"
+    >
       <div style={{ padding: '16px 0' }}>
         <p>Backdrop을 클릭해도 닫히지 않습니다.</p>
         <p>닫기 버튼이나 ESC 키로 닫을 수 있습니다.</p>
       </div>
     </BottomSheetWrapper>
   ),
-}
+};
 
 export const NoEscapeClose: Story = {
   render: () => (
@@ -172,7 +184,7 @@ export const NoEscapeClose: Story = {
       </div>
     </BottomSheetWrapper>
   ),
-}
+};
 
 export const WithList: Story = {
   render: () => (
@@ -205,21 +217,21 @@ export const WithList: Story = {
       </div>
     </BottomSheetWrapper>
   ),
-}
+};
 
 export const WithForm: Story = {
   render: () => {
     const FormSheet = () => {
-      const [open, setOpen] = useState(false)
-      const [name, setName] = useState('')
-      const [email, setEmail] = useState('')
+      const [open, setOpen] = useState(false);
+      const [name, setName] = useState('');
+      const [email, setEmail] = useState('');
 
       const handleSubmit = () => {
-        console.log('Form submitted:', { name, email })
-        setOpen(false)
-        setName('')
-        setEmail('')
-      }
+        console.log('Form submitted:', { name, email });
+        setOpen(false);
+        setName('');
+        setEmail('');
+      };
 
       return (
         <>
@@ -246,13 +258,17 @@ export const WithForm: Story = {
           >
             <form
               onSubmit={(e) => {
-                e.preventDefault()
-                handleSubmit()
+                e.preventDefault();
+                handleSubmit();
               }}
             >
               <div style={{ marginBottom: '16px' }}>
                 <label
-                  style={{ display: 'block', marginBottom: '8px', fontWeight: 'medium' }}
+                  style={{
+                    display: 'block',
+                    marginBottom: '8px',
+                    fontWeight: 'medium',
+                  }}
                 >
                   이름
                 </label>
@@ -272,7 +288,11 @@ export const WithForm: Story = {
               </div>
               <div style={{ marginBottom: '24px' }}>
                 <label
-                  style={{ display: 'block', marginBottom: '8px', fontWeight: 'medium' }}
+                  style={{
+                    display: 'block',
+                    marginBottom: '8px',
+                    fontWeight: 'medium',
+                  }}
                 >
                   이메일
                 </label>
@@ -309,12 +329,12 @@ export const WithForm: Story = {
             </form>
           </BottomSheet>
         </>
-      )
-    }
+      );
+    };
 
-    return <FormSheet />
+    return <FormSheet />;
   },
-}
+};
 
 export const ScrollableContent: Story = {
   render: () => (
@@ -334,7 +354,7 @@ export const ScrollableContent: Story = {
       </div>
     </BottomSheetWrapper>
   ),
-}
+};
 
 export const MobileMenu: Story = {
   render: () => (
@@ -367,10 +387,10 @@ export const MobileMenu: Story = {
       </div>
     </BottomSheetWrapper>
   ),
-}
+};
 
 const InteractiveComponent = (args: BottomSheetProps) => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
   return (
     <>
       <button
@@ -389,8 +409,8 @@ const InteractiveComponent = (args: BottomSheetProps) => {
       </button>
       <BottomSheet {...args} open={open} onClose={() => setOpen(false)} />
     </>
-  )
-}
+  );
+};
 
 export const Interactive: Story = {
   args: {
@@ -409,4 +429,4 @@ export const Interactive: Story = {
     ),
   },
   render: (args) => <InteractiveComponent {...args} />,
-}
+};

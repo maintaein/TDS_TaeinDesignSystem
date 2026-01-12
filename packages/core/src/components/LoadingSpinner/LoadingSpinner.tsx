@@ -1,6 +1,6 @@
-import type { HTMLAttributes } from 'react'
-import clsx from 'clsx'
-import { primary } from '../../tokens/colors.css'
+import type { HTMLAttributes } from 'react';
+import clsx from 'clsx';
+import { primary } from '../../tokens/colors.css';
 import {
   container,
   spinner,
@@ -9,14 +9,17 @@ import {
   sizeStyles,
   dotSizeStyles,
   dotDelayStyles,
-} from './LoadingSpinner.css'
+} from './LoadingSpinner.css';
 
-export interface LoadingSpinnerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'color'> {
-  type?: 'spinner' | 'dots'
-  size?: 'sm' | 'md' | 'lg' | 'xl'
-  color?: string
-  'aria-label'?: string
-  className?: string
+export interface LoadingSpinnerProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  'color'
+> {
+  type?: 'spinner' | 'dots';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  color?: string;
+  'aria-label'?: string;
+  className?: string;
 }
 
 export const LoadingSpinner = ({
@@ -48,12 +51,12 @@ export const LoadingSpinner = ({
               data-delay="third"
             />
           </div>
-        )
+        );
       case 'spinner':
       default:
-        return <div className={clsx(spinner, sizeStyles[size])} data-spinner />
+        return <div className={clsx(spinner, sizeStyles[size])} data-spinner />;
     }
-  }
+  };
 
   return (
     <div
@@ -63,14 +66,16 @@ export const LoadingSpinner = ({
       data-type={type}
       data-size={size}
       className={clsx(container, className)}
-      style={{
-        '--spinner-color': color,
-      } as React.CSSProperties}
+      style={
+        {
+          '--spinner-color': color,
+        } as React.CSSProperties
+      }
       {...props}
     >
       {renderSpinner()}
     </div>
-  )
-}
+  );
+};
 
-LoadingSpinner.displayName = 'LoadingSpinner'
+LoadingSpinner.displayName = 'LoadingSpinner';

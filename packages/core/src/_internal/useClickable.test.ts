@@ -54,7 +54,9 @@ describe('useClickable', () => {
 
     it('disabled가 true일 때 onClick이 호출되지 않아야 한다', () => {
       const onClick = vi.fn();
-      const { result } = renderHook(() => useClickable({ onClick, disabled: true }));
+      const { result } = renderHook(() =>
+        useClickable({ onClick, disabled: true })
+      );
 
       const mockEvent = {
         currentTarget: document.createElement('div'),
@@ -134,7 +136,9 @@ describe('useClickable', () => {
 
     it('disabled가 true일 때 키보드 입력으로 onClick이 호출되지 않아야 한다', () => {
       const onClick = vi.fn();
-      const { result } = renderHook(() => useClickable({ onClick, disabled: true }));
+      const { result } = renderHook(() =>
+        useClickable({ onClick, disabled: true })
+      );
 
       const mockEvent = {
         key: 'Enter',
@@ -186,21 +190,27 @@ describe('useClickable', () => {
   describe('disabled 상태', () => {
     it('disabled가 true일 때 tabIndex가 -1이어야 한다', () => {
       const onClick = vi.fn();
-      const { result } = renderHook(() => useClickable({ onClick, disabled: true }));
+      const { result } = renderHook(() =>
+        useClickable({ onClick, disabled: true })
+      );
 
       expect(result.current.tabIndex).toBe(-1);
     });
 
     it('disabled가 true일 때 aria-disabled가 true여야 한다', () => {
       const onClick = vi.fn();
-      const { result } = renderHook(() => useClickable({ onClick, disabled: true }));
+      const { result } = renderHook(() =>
+        useClickable({ onClick, disabled: true })
+      );
 
       expect(result.current['aria-disabled']).toBe(true);
     });
 
     it('disabled가 false일 때 aria-disabled가 undefined여야 한다', () => {
       const onClick = vi.fn();
-      const { result } = renderHook(() => useClickable({ onClick, disabled: false }));
+      const { result } = renderHook(() =>
+        useClickable({ onClick, disabled: false })
+      );
 
       expect(result.current['aria-disabled']).toBeUndefined();
     });
@@ -209,7 +219,9 @@ describe('useClickable', () => {
   describe('커스텀 role', () => {
     it('role이 제공되었을 때 해당 role을 사용해야 한다', () => {
       const onClick = vi.fn();
-      const { result } = renderHook(() => useClickable({ onClick, role: 'link' }));
+      const { result } = renderHook(() =>
+        useClickable({ onClick, role: 'link' })
+      );
 
       expect(result.current.role).toBe('link');
     });

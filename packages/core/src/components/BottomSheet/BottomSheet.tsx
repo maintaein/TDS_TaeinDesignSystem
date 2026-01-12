@@ -1,6 +1,13 @@
-import { useEffect, useRef, useState, useId, type ReactNode, type HTMLAttributes } from 'react'
-import { createPortal } from 'react-dom'
-import clsx from 'clsx'
+import {
+  useEffect,
+  useRef,
+  useState,
+  useId,
+  type ReactNode,
+  type HTMLAttributes,
+} from 'react';
+import { createPortal } from 'react-dom';
+import clsx from 'clsx';
 import {
   backdrop,
   backdropEnter,
@@ -15,22 +22,25 @@ import {
   title as titleStyle,
   closeButton,
   content,
-} from './BottomSheet.css'
-import { IconButton } from '../IconButton'
-import { Icon } from '../Icon'
+} from './BottomSheet.css';
+import { IconButton } from '../IconButton';
+import { Icon } from '../Icon';
 
-export interface BottomSheetProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
-  open: boolean
-  onClose: () => void
-  title?: ReactNode
-  children: ReactNode
-  height?: 'auto' | 'sm' | 'md' | 'lg' | 'full'
-  closeOnBackdropClick?: boolean
-  closeOnEscape?: boolean
-  showHandle?: boolean
-  showClose?: boolean
-  enableDrag?: boolean
-  className?: string
+export interface BottomSheetProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  'title'
+> {
+  open: boolean;
+  onClose: () => void;
+  title?: ReactNode;
+  children: ReactNode;
+  height?: 'auto' | 'sm' | 'md' | 'lg' | 'full';
+  closeOnBackdropClick?: boolean;
+  closeOnEscape?: boolean;
+  showHandle?: boolean;
+  showClose?: boolean;
+  enableDrag?: boolean;
+  className?: string;
 }
 
 export const BottomSheet = ({
@@ -47,122 +57,121 @@ export const BottomSheet = ({
   className,
   ...props
 }: BottomSheetProps) => {
-  const sheetRef = useRef<HTMLDivElement>(null)
-  const previousActiveElementRef = useRef<HTMLElement | null>(null)
-  const titleId = useId()
-  
-  const [startY, setStartY] = useState<number>(0)
-  const [isDragging, setIsDragging] = useState(false)
-  
-  const [shouldRender, setShouldRender] = useState(open)
+  const sheetRef = useRef<HTMLDivElement>(null);
+  const previousActiveElementRef = useRef<HTMLElement | null>(null);
+  const titleId = useId();
 
+  const [startY, setStartY] = useState<number>(0);
+  const [isDragging, setIsDragging] = useState(false);
 
-  if(open && !shouldRender) {
-    setShouldRender(true)
+  const [shouldRender, setShouldRender] = useState(open);
+
+  if (open && !shouldRender) {
+    setShouldRender(true);
   }
-  
+
   //접근성 및 스크롤 제어
   useEffect(() => {
-    if (!open) return
+    if (!open) return;
 
-    previousActiveElementRef.current = document.activeElement as HTMLElement
-    const sheet = sheetRef.current
-    if (!sheet) return
+    previousActiveElementRef.current = document.activeElement as HTMLElement;
+    const sheet = sheetRef.current;
+    if (!sheet) return;
 
     // 포커스 트랩 설정
     const focusableElements = sheet.querySelectorAll<HTMLElement>(
       'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    )
+    );
     if (focusableElements[0]) {
-      focusableElements[0].focus()
+      focusableElements[0].focus();
     } else {
-      sheet.setAttribute('tabindex', '-1')
-      sheet.focus()
+      sheet.setAttribute('tabindex', '-1');
+      sheet.focus();
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && closeOnEscape) {
-        onClose()
+        onClose();
       }
-    }
+    };
 
-    document.addEventListener('keydown', handleKeyDown)
-    document.body.style.overflow = 'hidden'
+    document.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = 'hidden';
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown)
-      document.body.style.overflow = ''
-      previousActiveElementRef.current?.focus()
-    }
-  }, [open, closeOnEscape, onClose])
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+      previousActiveElementRef.current?.focus();
+    };
+  }, [open, closeOnEscape, onClose]);
 
   //드래그 제어 로직
   useEffect(() => {
-    if (!enableDrag || !open) return
+    if (!enableDrag || !open) return;
 
-    const sheet = sheetRef.current
-    if (!sheet) return
+    const sheet = sheetRef.current;
+    if (!sheet) return;
 
     const handleTouchStart = (e: TouchEvent) => {
-      setStartY(e.touches[0].clientY)
-      setIsDragging(true)
-    }
+      setStartY(e.touches[0].clientY);
+      setIsDragging(true);
+    };
 
     const handleTouchMove = (e: TouchEvent) => {
-      if (!isDragging) return
-      const currentY = e.touches[0].clientY
-      const diff = currentY - startY
-      
+      if (!isDragging) return;
+      const currentY = e.touches[0].clientY;
+      const diff = currentY - startY;
+
       // 아래로 드래그할 때만 시각적 피드백
       if (diff > 0) {
-        sheet.style.transform = `translateY(${diff}px)`
+        sheet.style.transform = `translateY(${diff}px)`;
       }
-    }
+    };
 
     const handleTouchEnd = (e: TouchEvent) => {
-      if (!isDragging) return
-      setIsDragging(false)
+      if (!isDragging) return;
+      setIsDragging(false);
 
-      const endY = e.changedTouches[0].clientY
-      const diff = endY - startY
+      const endY = e.changedTouches[0].clientY;
+      const diff = endY - startY;
 
       if (diff > 100) {
-        onClose() //
+        onClose(); //
       } else {
-        sheet.style.transform = ''
+        sheet.style.transform = '';
       }
-    }
+    };
 
-    sheet.addEventListener('touchstart', handleTouchStart)
-    sheet.addEventListener('touchmove', handleTouchMove)
-    sheet.addEventListener('touchend', handleTouchEnd)
+    sheet.addEventListener('touchstart', handleTouchStart);
+    sheet.addEventListener('touchmove', handleTouchMove);
+    sheet.addEventListener('touchend', handleTouchEnd);
 
     return () => {
-      sheet.removeEventListener('touchstart', handleTouchStart)
-      sheet.removeEventListener('touchmove', handleTouchMove)
-      sheet.removeEventListener('touchend', handleTouchEnd)
-    }
-  }, [enableDrag, open, isDragging, startY, onClose])
+      sheet.removeEventListener('touchstart', handleTouchStart);
+      sheet.removeEventListener('touchmove', handleTouchMove);
+      sheet.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [enableDrag, open, isDragging, startY, onClose]);
 
   //애니메이션 종료 처리
   const handleAnimationEnd = (e: React.AnimationEvent) => {
-    if (e.target !== e.currentTarget) return
+    if (e.target !== e.currentTarget) return;
 
     if (!open) {
-      setShouldRender(false)
+      setShouldRender(false);
       // 인라인 스타일 초기화 (다음 번에 열릴 때를 대비)
       if (sheetRef.current) {
-        sheetRef.current.style.transform = ''
+        sheetRef.current.style.transform = '';
       }
     }
-  }
-  if (!shouldRender) return null
+  };
+  if (!shouldRender) return null;
 
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget && closeOnBackdropClick) {
-      onClose()
+      onClose();
     }
-  }
+  };
 
   const sheetContent = (
     <div className={bottomSheetContainer}>
@@ -190,7 +199,9 @@ export const BottomSheet = ({
 
         {title && (
           <div className={header}>
-            <h2 id={titleId} className={titleStyle}>{title}</h2>
+            <h2 id={titleId} className={titleStyle}>
+              {title}
+            </h2>
             {showClose && (
               <IconButton
                 variant="dark"
@@ -209,9 +220,9 @@ export const BottomSheet = ({
         <div className={content}>{children}</div>
       </div>
     </div>
-  )
+  );
 
-  return createPortal(sheetContent, document.body)
-}
+  return createPortal(sheetContent, document.body);
+};
 
-BottomSheet.displayName = 'BottomSheet'
+BottomSheet.displayName = 'BottomSheet';

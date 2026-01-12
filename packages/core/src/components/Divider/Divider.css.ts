@@ -1,5 +1,5 @@
-import { style, styleVariants } from '@vanilla-extract/css'
-import { themeContract } from '../../tokens/theme.css'
+import { style, styleVariants } from '@vanilla-extract/css';
+import { themeContract } from '../../tokens/theme.css';
 
 export const divider = style({
   display: 'flex',
@@ -8,7 +8,7 @@ export const divider = style({
   color: themeContract.color.text.secondary,
   fontSize: themeContract.font.size.sm,
   fontWeight: themeContract.font.weight.medium,
-})
+});
 
 export const orientationStyles = styleVariants({
   horizontal: {
@@ -22,7 +22,7 @@ export const orientationStyles = styleVariants({
     borderLeft: `1px solid ${themeContract.color.border.default}`,
     minHeight: '100px',
   },
-})
+});
 
 export const variantStyles = styleVariants({
   solid: {
@@ -34,7 +34,7 @@ export const variantStyles = styleVariants({
   dotted: {
     borderStyle: 'dotted',
   },
-})
+});
 
 export const spacingStyles = styleVariants({
   sm: {
@@ -46,7 +46,7 @@ export const spacingStyles = styleVariants({
   lg: {
     margin: `${themeContract.spacing[6]} 0`,
   },
-})
+});
 
 export const textAlignStyles = styleVariants({
   left: {
@@ -58,30 +58,30 @@ export const textAlignStyles = styleVariants({
   right: {
     justifyContent: 'flex-end',
   },
-})
+});
 
 export const dividerWithText = style({
   borderTop: 0,
   borderLeft: 0,
   position: 'relative',
-})
+});
 
 export const line = style({
   flex: 1,
   borderTop: `1px solid ${themeContract.color.border.default}`,
-})
+});
 
 export const lineVertical = style({
   borderTop: 0,
   borderLeft: `1px solid ${themeContract.color.border.default}`,
-})
+});
 
 export const textContent = style({
   padding: `0 ${themeContract.spacing[3]}`,
   whiteSpace: 'nowrap',
-})
+});
 
 export const textContentVertical = style({
   padding: `${themeContract.spacing[3]} 0`,
   whiteSpace: 'nowrap',
-})
+});

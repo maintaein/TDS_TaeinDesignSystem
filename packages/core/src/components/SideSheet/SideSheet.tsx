@@ -1,6 +1,13 @@
-import { useEffect, useRef, useState, useId, type ReactNode, type HTMLAttributes } from 'react'
-import { createPortal } from 'react-dom'
-import clsx from 'clsx'
+import {
+  useEffect,
+  useRef,
+  useState,
+  useId,
+  type ReactNode,
+  type HTMLAttributes,
+} from 'react';
+import { createPortal } from 'react-dom';
+import clsx from 'clsx';
 import {
   backdrop,
   backdropEnter,
@@ -17,21 +24,24 @@ import {
   title as titleStyle,
   closeButton,
   content,
-} from './SideSheet.css'
-import { IconButton } from '../IconButton'
-import { Icon } from '../Icon'
+} from './SideSheet.css';
+import { IconButton } from '../IconButton';
+import { Icon } from '../Icon';
 
-export interface SideSheetProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
-  open: boolean
-  onClose: () => void
-  title?: ReactNode
-  children: ReactNode
-  width?: 'sm' | 'md' | 'lg' | 'full'
-  position?: 'left' | 'right'
-  closeOnBackdropClick?: boolean
-  closeOnEscape?: boolean
-  showClose?: boolean
-  className?: string
+export interface SideSheetProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  'title'
+> {
+  open: boolean;
+  onClose: () => void;
+  title?: ReactNode;
+  children: ReactNode;
+  width?: 'sm' | 'md' | 'lg' | 'full';
+  position?: 'left' | 'right';
+  closeOnBackdropClick?: boolean;
+  closeOnEscape?: boolean;
+  showClose?: boolean;
+  className?: string;
 }
 
 export const SideSheet = ({
@@ -47,97 +57,97 @@ export const SideSheet = ({
   className,
   ...props
 }: SideSheetProps) => {
-  const sheetRef = useRef<HTMLDivElement>(null)
-  const previousActiveElementRef = useRef<HTMLElement | null>(null)
-  const titleId = useId()
+  const sheetRef = useRef<HTMLDivElement>(null);
+  const previousActiveElementRef = useRef<HTMLElement | null>(null);
+  const titleId = useId();
 
-  const [shouldRender, setShouldRender] = useState(open)
+  const [shouldRender, setShouldRender] = useState(open);
 
   if (open && !shouldRender) {
     setShouldRender(true);
   }
-  
+
   // 접근성 및 스크롤 제어
   useEffect(() => {
-    if (!open) return
+    if (!open) return;
 
-    previousActiveElementRef.current = document.activeElement as HTMLElement
-    const sheet = sheetRef.current
-    if (!sheet) return
+    previousActiveElementRef.current = document.activeElement as HTMLElement;
+    const sheet = sheetRef.current;
+    if (!sheet) return;
 
     // 포커스 트랩 설정
     const focusableElements = sheet.querySelectorAll<HTMLElement>(
       'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    )
+    );
     if (focusableElements[0]) {
-      focusableElements[0].focus()
+      focusableElements[0].focus();
     } else {
-      sheet.setAttribute('tabindex', '-1')
-      sheet.focus()
+      sheet.setAttribute('tabindex', '-1');
+      sheet.focus();
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && closeOnEscape) {
-        onClose()
-        return
+        onClose();
+        return;
       }
 
       if (e.key === 'Tab') {
         if (focusableElements.length === 0) {
-          e.preventDefault()
-          return
+          e.preventDefault();
+          return;
         }
 
-        const firstFocusable = focusableElements[0]
-        const lastFocusable = focusableElements[focusableElements.length - 1]
+        const firstFocusable = focusableElements[0];
+        const lastFocusable = focusableElements[focusableElements.length - 1];
 
         if (e.shiftKey) {
           if (document.activeElement === firstFocusable) {
-            e.preventDefault()
-            lastFocusable?.focus()
+            e.preventDefault();
+            lastFocusable?.focus();
           }
         } else {
           if (document.activeElement === lastFocusable) {
-            e.preventDefault()
-            firstFocusable?.focus()
+            e.preventDefault();
+            firstFocusable?.focus();
           }
         }
       }
-    }
+    };
 
-    document.addEventListener('keydown', handleKeyDown)
-    document.body.style.overflow = 'hidden'
+    document.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = 'hidden';
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown)
-      document.body.style.overflow = ''
-      previousActiveElementRef.current?.focus()
-    }
-  }, [open, closeOnEscape, onClose])
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+      previousActiveElementRef.current?.focus();
+    };
+  }, [open, closeOnEscape, onClose]);
 
   // 애니메이션 종료 처리
   const handleAnimationEnd = (e: React.AnimationEvent) => {
-    if (e.target !== e.currentTarget) return
+    if (e.target !== e.currentTarget) return;
 
     if (!open) {
-      setShouldRender(false)
+      setShouldRender(false);
     }
-  }
+  };
 
-  if (!shouldRender) return null
+  if (!shouldRender) return null;
 
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget && closeOnBackdropClick) {
-      onClose()
+      onClose();
     }
-  }
+  };
 
   const getAnimationClass = () => {
     if (position === 'left') {
-      return !open ? sideSheetExitLeft : sideSheetEnterLeft
+      return !open ? sideSheetExitLeft : sideSheetEnterLeft;
     }
-    return !open ? sideSheetExitRight : sideSheetEnterRight
-  }
+    return !open ? sideSheetExitRight : sideSheetEnterRight;
+  };
 
   const sheetContent = (
     <div className={sideSheetContainer}>
@@ -185,9 +195,9 @@ export const SideSheet = ({
         <div className={content}>{children}</div>
       </div>
     </div>
-  )
+  );
 
-  return createPortal(sheetContent, document.body)
-}
+  return createPortal(sheetContent, document.body);
+};
 
-SideSheet.displayName = 'SideSheet'
+SideSheet.displayName = 'SideSheet';

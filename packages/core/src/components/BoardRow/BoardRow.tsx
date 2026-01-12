@@ -1,6 +1,6 @@
-import { useState, useId, type HTMLAttributes, type ReactNode } from 'react'
-import clsx from 'clsx'
-import { Icon } from '../Icon'
+import { useState, useId, type HTMLAttributes, type ReactNode } from 'react';
+import clsx from 'clsx';
+import { Icon } from '../Icon';
 import {
   boardRow,
   variantStyles,
@@ -12,18 +12,20 @@ import {
   content,
   contentExpanded,
   contentCollapsed,
-} from './BoardRow.css'
+} from './BoardRow.css';
 
-export interface BoardRowProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'title' | 'onChange'> {
-  title: ReactNode
-  children: ReactNode
-  variant?: 'default' | 'outlined' | 'filled'
-  defaultExpanded?: boolean
-  expanded?: boolean
-  onChange?: (expanded: boolean) => void
-  disabled?: boolean
-  className?: string
+export interface BoardRowProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  'title' | 'onChange'
+> {
+  title: ReactNode;
+  children: ReactNode;
+  variant?: 'default' | 'outlined' | 'filled';
+  defaultExpanded?: boolean;
+  expanded?: boolean;
+  onChange?: (expanded: boolean) => void;
+  disabled?: boolean;
+  className?: string;
 }
 
 export const BoardRow = ({
@@ -37,26 +39,30 @@ export const BoardRow = ({
   className,
   ...props
 }: BoardRowProps) => {
-  const headerId = useId()
-  const contentId = useId()
+  const headerId = useId();
+  const contentId = useId();
 
   // controlled vs uncontrolled mode
-  const isControlled = controlledExpanded !== undefined
-  const [uncontrolledExpanded, setUncontrolledExpanded] = useState(defaultExpanded)
-  const isExpanded = isControlled ? controlledExpanded : uncontrolledExpanded
+  const isControlled = controlledExpanded !== undefined;
+  const [uncontrolledExpanded, setUncontrolledExpanded] =
+    useState(defaultExpanded);
+  const isExpanded = isControlled ? controlledExpanded : uncontrolledExpanded;
 
   const handleToggle = () => {
-    if (disabled) return
+    if (disabled) return;
 
     if (isControlled) {
-      onChange?.(!controlledExpanded)
+      onChange?.(!controlledExpanded);
     } else {
-      setUncontrolledExpanded((prev) => !prev)
+      setUncontrolledExpanded((prev) => !prev);
     }
-  }
+  };
 
   return (
-    <div className={clsx(boardRow, variantStyles[variant], className)} {...props}>
+    <div
+      className={clsx(boardRow, variantStyles[variant], className)}
+      {...props}
+    >
       <button
         id={headerId}
         type="button"
@@ -77,13 +83,16 @@ export const BoardRow = ({
           id={contentId}
           role="region"
           aria-labelledby={headerId}
-          className={clsx(content, isExpanded ? contentExpanded : contentCollapsed)}
+          className={clsx(
+            content,
+            isExpanded ? contentExpanded : contentCollapsed
+          )}
         >
           {children}
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-BoardRow.displayName = 'BoardRow'
+BoardRow.displayName = 'BoardRow';

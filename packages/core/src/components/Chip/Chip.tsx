@@ -1,8 +1,8 @@
-import { type ReactNode } from 'react'
-import clsx from 'clsx'
-import { useClickable } from '../../_internal/useClickable'
-import { Icon } from '../Icon'
-import { themeContract } from '../../tokens/theme.css'
+import { type ReactNode } from 'react';
+import clsx from 'clsx';
+import { useClickable } from '../../_internal/useClickable';
+import { Icon } from '../Icon';
+import { themeContract } from '../../tokens/theme.css';
 import {
   chip,
   sizeStyles,
@@ -16,21 +16,21 @@ import {
   label as labelStyle,
   iconContainer,
   deleteButton,
-} from './Chip.css'
+} from './Chip.css';
 
 export interface ChipProps {
-  label: string
-  size?: 'sm' | 'md' | 'lg'
-  variant?: 'filled' | 'outlined'
-  color?: 'default' | 'primary' | 'success' | 'error' | 'warning'
-  icon?: ReactNode
-  avatar?: ReactNode
-  onDelete?: () => void
-  clickable?: boolean
-  selected?: boolean
-  disabled?: boolean
-  onClick?: () => void
-  className?: string
+  label: string;
+  size?: 'sm' | 'md' | 'lg';
+  variant?: 'filled' | 'outlined';
+  color?: 'default' | 'primary' | 'success' | 'error' | 'warning';
+  icon?: ReactNode;
+  avatar?: ReactNode;
+  onDelete?: () => void;
+  clickable?: boolean;
+  selected?: boolean;
+  disabled?: boolean;
+  onClick?: () => void;
+  className?: string;
 }
 
 export const Chip = ({
@@ -49,11 +49,13 @@ export const Chip = ({
 }: ChipProps) => {
   // variant와 color 조합에 따른 스타일
   const colorStyleClass =
-    variant === 'filled' ? filledColorStyles[color] : outlinedColorStyles[color]
+    variant === 'filled'
+      ? filledColorStyles[color]
+      : outlinedColorStyles[color];
 
   // 선택된 상태일 때 색상별 boxShadow 계산
   const getSelectedBoxShadow = () => {
-    if (!selected) return undefined
+    if (!selected) return undefined;
 
     const colorMap = {
       default: themeContract.color.border.default,
@@ -61,38 +63,40 @@ export const Chip = ({
       success: themeContract.color.success.main,
       error: themeContract.color.error.main,
       warning: themeContract.color.warning.main,
-    }
+    };
 
-    return `inset 0 0 0 2px ${colorMap[color]}`
-  }
+    return `inset 0 0 0 2px ${colorMap[color]}`;
+  };
 
   // 삭제 버튼 클릭 핸들러
-  const handleDelete = (e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
-    e.stopPropagation()
-    if (disabled) return
-    onDelete?.()
-  }
+  const handleDelete = (
+    e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+  ) => {
+    e.stopPropagation();
+    if (disabled) return;
+    onDelete?.();
+  };
 
   // 클릭 가능 여부에 따라 button 또는 div로 렌더링
-  const isClickable = clickable && onClick
+  const isClickable = clickable && onClick;
 
   // useClickable 훅으로 클릭 가능한 div 처리
   const clickableProps = useClickable({
     onClick: onClick
       ? () => {
-          onClick()
+          onClick();
         }
       : undefined,
     disabled,
     role: 'button',
-  })
+  });
 
   // 삭제 버튼용 useClickable
   const deleteButtonProps = useClickable({
     onClick: onDelete ? handleDelete : undefined,
     disabled,
     role: 'button',
-  })
+  });
 
   const chipClasses = clsx(
     chip,
@@ -106,7 +110,7 @@ export const Chip = ({
       [disabledStyle]: disabled,
     },
     className
-  )
+  );
 
   const chipContent = (
     <>
@@ -123,7 +127,7 @@ export const Chip = ({
         </span>
       )}
     </>
-  )
+  );
 
   if (isClickable) {
     return (
@@ -139,14 +143,14 @@ export const Chip = ({
       >
         {chipContent}
       </button>
-    )
+    );
   }
 
   return (
     <div className={chipClasses} style={{ boxShadow: getSelectedBoxShadow() }}>
       {chipContent}
     </div>
-  )
-}
+  );
+};
 
-Chip.displayName = 'Chip'
+Chip.displayName = 'Chip';

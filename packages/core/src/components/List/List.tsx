@@ -1,5 +1,5 @@
-import type { HTMLAttributes, ReactNode } from 'react'
-import clsx from 'clsx'
+import type { HTMLAttributes, ReactNode } from 'react';
+import clsx from 'clsx';
 import {
   list,
   spacingStyles,
@@ -11,24 +11,24 @@ import {
   value as valueStyle,
   horizontalGap,
   verticalGap,
-} from './List.css'
+} from './List.css';
 
 // List Props
 export interface ListProps extends HTMLAttributes<HTMLUListElement> {
-  children: ReactNode
-  spacing?: 'none' | 'sm' | 'md' | 'lg'
-  divider?: boolean
-  className?: string
+  children: ReactNode;
+  spacing?: 'none' | 'sm' | 'md' | 'lg';
+  divider?: boolean;
+  className?: string;
 }
 
 // ListItem Props
 export interface ListItemProps extends HTMLAttributes<HTMLLIElement> {
-  label: ReactNode
-  value: ReactNode
-  layout?: 'horizontal' | 'vertical'
-  align?: 'start' | 'center' | 'end' | 'baseline'
-  labelWidth?: string
-  className?: string
+  label: ReactNode;
+  value: ReactNode;
+  layout?: 'horizontal' | 'vertical';
+  align?: 'start' | 'center' | 'end' | 'baseline';
+  labelWidth?: string;
+  className?: string;
 }
 
 // List 컴포넌트
@@ -51,10 +51,10 @@ export const List = ({
     >
       {children}
     </ul>
-  )
-}
+  );
+};
 
-List.displayName = 'List'
+List.displayName = 'List';
 
 // ListItem 컴포넌트
 export const ListItem = ({
@@ -85,7 +85,7 @@ export const ListItem = ({
       </div>
       <div className={valueStyle}>{value}</div>
     </li>
-  )
-}
+  );
+};
 
-ListItem.displayName = 'ListItem'
+ListItem.displayName = 'ListItem';

@@ -1,223 +1,231 @@
-import { describe, it, expect, vi } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
-import { Avatar, AvatarGroup } from './Avatar'
+import { describe, it, expect, vi } from 'vitest';
+import { render, screen, waitFor } from '@testing-library/react';
+import { Avatar, AvatarGroup } from './Avatar';
 
 describe('Avatar', () => {
   describe('렌더링 테스트', () => {
     it('기본 Avatar가 렌더링된다', () => {
-      render(<Avatar alt="테스트 사용자" />)
+      render(<Avatar alt="테스트 사용자" />);
 
-      expect(screen.getByRole('img')).toBeInTheDocument()
-    })
+      expect(screen.getByRole('img')).toBeInTheDocument();
+    });
 
     it('이미지가 제공되면 img 요소가 렌더링된다', () => {
-      render(<Avatar src="https://example.com/avatar.jpg" alt="테스트 사용자" />)
+      render(
+        <Avatar src="https://example.com/avatar.jpg" alt="테스트 사용자" />
+      );
 
-      const img = screen.getByRole('img')
-      expect(img).toHaveAttribute('src', 'https://example.com/avatar.jpg')
-      expect(img).toHaveAttribute('alt', '테스트 사용자')
-    })
+      const img = screen.getByRole('img');
+      expect(img).toHaveAttribute('src', 'https://example.com/avatar.jpg');
+      expect(img).toHaveAttribute('alt', '테스트 사용자');
+    });
 
     it('이미지가 없으면 fallback 텍스트가 표시된다', () => {
-      render(<Avatar alt="홍길동" />)
+      render(<Avatar alt="홍길동" />);
 
-      expect(screen.getByText('홍')).toBeInTheDocument()
-    })
+      expect(screen.getByText('홍')).toBeInTheDocument();
+    });
 
     it('children이 있으면 children이 표시된다', () => {
-      render(<Avatar alt="홍길동">HG</Avatar>)
+      render(<Avatar alt="홍길동">HG</Avatar>);
 
-      expect(screen.getByText('HG')).toBeInTheDocument()
-    })
-  })
+      expect(screen.getByText('HG')).toBeInTheDocument();
+    });
+  });
 
   describe('size prop 테스트', () => {
     it('size="xs"일 때 적절한 클래스가 적용된다', () => {
-      const { container } = render(<Avatar size="xs" alt="테스트" />)
+      const { container } = render(<Avatar size="xs" alt="테스트" />);
 
-      expect(container.firstChild).toHaveClass(/sizeStyles_xs/)
-    })
+      expect(container.firstChild).toHaveClass(/sizeStyles_xs/);
+    });
 
     it('size="sm"일 때 적절한 클래스가 적용된다', () => {
-      const { container } = render(<Avatar size="sm" alt="테스트" />)
+      const { container } = render(<Avatar size="sm" alt="테스트" />);
 
-      expect(container.firstChild).toHaveClass(/sizeStyles_sm/)
-    })
+      expect(container.firstChild).toHaveClass(/sizeStyles_sm/);
+    });
 
     it('size="md"일 때 적절한 클래스가 적용된다', () => {
-      const { container } = render(<Avatar size="md" alt="테스트" />)
+      const { container } = render(<Avatar size="md" alt="테스트" />);
 
-      expect(container.firstChild).toHaveClass(/sizeStyles_md/)
-    })
+      expect(container.firstChild).toHaveClass(/sizeStyles_md/);
+    });
 
     it('size="lg"일 때 적절한 클래스가 적용된다', () => {
-      const { container } = render(<Avatar size="lg" alt="테스트" />)
+      const { container } = render(<Avatar size="lg" alt="테스트" />);
 
-      expect(container.firstChild).toHaveClass(/sizeStyles_lg/)
-    })
+      expect(container.firstChild).toHaveClass(/sizeStyles_lg/);
+    });
 
     it('size="xl"일 때 적절한 클래스가 적용된다', () => {
-      const { container } = render(<Avatar size="xl" alt="테스트" />)
+      const { container } = render(<Avatar size="xl" alt="테스트" />);
 
-      expect(container.firstChild).toHaveClass(/sizeStyles_xl/)
-    })
+      expect(container.firstChild).toHaveClass(/sizeStyles_xl/);
+    });
 
     it('기본값은 "md"이다', () => {
-      const { container } = render(<Avatar alt="테스트" />)
+      const { container } = render(<Avatar alt="테스트" />);
 
-      expect(container.firstChild).toHaveClass(/sizeStyles_md/)
-    })
-  })
+      expect(container.firstChild).toHaveClass(/sizeStyles_md/);
+    });
+  });
 
   describe('variant prop 테스트', () => {
     it('variant="circular"일 때 적절한 클래스가 적용된다', () => {
-      const { container } = render(<Avatar variant="circular" alt="테스트" />)
+      const { container } = render(<Avatar variant="circular" alt="테스트" />);
 
-      expect(container.firstChild).toHaveClass(/variantStyles_circular/)
-    })
+      expect(container.firstChild).toHaveClass(/variantStyles_circular/);
+    });
 
     it('variant="rounded"일 때 적절한 클래스가 적용된다', () => {
-      const { container } = render(<Avatar variant="rounded" alt="테스트" />)
+      const { container } = render(<Avatar variant="rounded" alt="테스트" />);
 
-      expect(container.firstChild).toHaveClass(/variantStyles_rounded/)
-    })
+      expect(container.firstChild).toHaveClass(/variantStyles_rounded/);
+    });
 
     it('variant="square"일 때 적절한 클래스가 적용된다', () => {
-      const { container } = render(<Avatar variant="square" alt="테스트" />)
+      const { container } = render(<Avatar variant="square" alt="테스트" />);
 
-      expect(container.firstChild).toHaveClass(/variantStyles_square/)
-    })
+      expect(container.firstChild).toHaveClass(/variantStyles_square/);
+    });
 
     it('기본값은 "circular"이다', () => {
-      const { container } = render(<Avatar alt="테스트" />)
+      const { container } = render(<Avatar alt="테스트" />);
 
-      expect(container.firstChild).toHaveClass(/variantStyles_circular/)
-    })
-  })
+      expect(container.firstChild).toHaveClass(/variantStyles_circular/);
+    });
+  });
 
   describe('이미지 로딩 실패 처리', () => {
     it('이미지 로딩 실패 시 fallback 텍스트가 표시된다', async () => {
-      render(<Avatar src="invalid-image.jpg" alt="홍길동" />)
+      render(<Avatar src="invalid-image.jpg" alt="홍길동" />);
 
-      const img = screen.getByRole('img')
+      const img = screen.getByRole('img');
 
       // 이미지 로딩 실패 시뮬레이션
-      img.dispatchEvent(new Event('error'))
+      img.dispatchEvent(new Event('error'));
 
       await waitFor(() => {
-        expect(screen.getByText('홍')).toBeInTheDocument()
-      })
-    })
+        expect(screen.getByText('홍')).toBeInTheDocument();
+      });
+    });
 
     it('onError 콜백이 호출된다', async () => {
-      const handleError = vi.fn()
-      render(<Avatar src="invalid-image.jpg" alt="테스트" onError={handleError} />)
+      const handleError = vi.fn();
+      render(
+        <Avatar src="invalid-image.jpg" alt="테스트" onError={handleError} />
+      );
 
-      const img = screen.getByRole('img')
-      img.dispatchEvent(new Event('error'))
+      const img = screen.getByRole('img');
+      img.dispatchEvent(new Event('error'));
 
       await waitFor(() => {
-        expect(handleError).toHaveBeenCalled()
-      })
-    })
-  })
+        expect(handleError).toHaveBeenCalled();
+      });
+    });
+  });
 
   describe('fallback 텍스트 생성', () => {
     it('영문 이름의 첫 글자를 대문자로 표시한다', () => {
-      render(<Avatar alt="john" />)
+      render(<Avatar alt="john" />);
 
-      expect(screen.getByText('J')).toBeInTheDocument()
-    })
+      expect(screen.getByText('J')).toBeInTheDocument();
+    });
 
     it('한글 이름의 첫 글자를 표시한다', () => {
-      render(<Avatar alt="김철수" />)
+      render(<Avatar alt="김철수" />);
 
-      expect(screen.getByText('김')).toBeInTheDocument()
-    })
+      expect(screen.getByText('김')).toBeInTheDocument();
+    });
 
     it('공백으로 구분된 이름의 첫 두 글자를 표시한다', () => {
-      render(<Avatar alt="John Doe" />)
+      render(<Avatar alt="John Doe" />);
 
-      expect(screen.getByText('JD')).toBeInTheDocument()
-    })
+      expect(screen.getByText('JD')).toBeInTheDocument();
+    });
 
     it('빈 alt일 때 물음표를 표시한다', () => {
-      render(<Avatar alt="" />)
+      render(<Avatar alt="" />);
 
-      expect(screen.getByText('?')).toBeInTheDocument()
-    })
-  })
+      expect(screen.getByText('?')).toBeInTheDocument();
+    });
+  });
 
   describe('상태 표시 (status badge)', () => {
     it('status가 없으면 badge가 표시되지 않는다', () => {
-      const { container } = render(<Avatar alt="테스트" />)
+      const { container } = render(<Avatar alt="테스트" />);
 
-      const badge = container.querySelector('[class*="statusBadge"]')
-      expect(badge).not.toBeInTheDocument()
-    })
+      const badge = container.querySelector('[class*="statusBadge"]');
+      expect(badge).not.toBeInTheDocument();
+    });
 
     it('status="online"일 때 badge가 표시된다', () => {
-      const { container } = render(<Avatar alt="테스트" status="online" />)
+      const { container } = render(<Avatar alt="테스트" status="online" />);
 
-      const badge = container.querySelector('[class*="statusBadge"]')
-      expect(badge).toBeInTheDocument()
-      expect(badge).toHaveClass(/statusOnline/)
-    })
+      const badge = container.querySelector('[class*="statusBadge"]');
+      expect(badge).toBeInTheDocument();
+      expect(badge).toHaveClass(/statusOnline/);
+    });
 
     it('status="offline"일 때 badge가 표시된다', () => {
-      const { container } = render(<Avatar alt="테스트" status="offline" />)
+      const { container } = render(<Avatar alt="테스트" status="offline" />);
 
-      const badge = container.querySelector('[class*="statusBadge"]')
-      expect(badge).toBeInTheDocument()
-      expect(badge).toHaveClass(/statusOffline/)
-    })
+      const badge = container.querySelector('[class*="statusBadge"]');
+      expect(badge).toBeInTheDocument();
+      expect(badge).toHaveClass(/statusOffline/);
+    });
 
     it('status="busy"일 때 badge가 표시된다', () => {
-      const { container } = render(<Avatar alt="테스트" status="busy" />)
+      const { container } = render(<Avatar alt="테스트" status="busy" />);
 
-      const badge = container.querySelector('[class*="statusBadge"]')
-      expect(badge).toBeInTheDocument()
-      expect(badge).toHaveClass(/statusBusy/)
-    })
+      const badge = container.querySelector('[class*="statusBadge"]');
+      expect(badge).toBeInTheDocument();
+      expect(badge).toHaveClass(/statusBusy/);
+    });
 
     it('status="away"일 때 badge가 표시된다', () => {
-      const { container } = render(<Avatar alt="테스트" status="away" />)
+      const { container } = render(<Avatar alt="테스트" status="away" />);
 
-      const badge = container.querySelector('[class*="statusBadge"]')
-      expect(badge).toBeInTheDocument()
-      expect(badge).toHaveClass(/statusAway/)
-    })
-  })
+      const badge = container.querySelector('[class*="statusBadge"]');
+      expect(badge).toBeInTheDocument();
+      expect(badge).toHaveClass(/statusAway/);
+    });
+  });
 
   describe('className prop 테스트', () => {
     it('커스텀 className이 적용된다', () => {
-      const { container } = render(<Avatar alt="테스트" className="custom-class" />)
+      const { container } = render(
+        <Avatar alt="테스트" className="custom-class" />
+      );
 
-      expect(container.firstChild).toHaveClass('custom-class')
-    })
-  })
+      expect(container.firstChild).toHaveClass('custom-class');
+    });
+  });
 
   describe('접근성 테스트', () => {
     it('img role이 있다', () => {
-      render(<Avatar alt="테스트 사용자" />)
+      render(<Avatar alt="테스트 사용자" />);
 
-      expect(screen.getByRole('img')).toBeInTheDocument()
-    })
+      expect(screen.getByRole('img')).toBeInTheDocument();
+    });
 
     it('이미지가 있을 때 alt 속성이 있다', () => {
-      render(<Avatar src="https://example.com/avatar.jpg" alt="테스트 사용자" />)
+      render(
+        <Avatar src="https://example.com/avatar.jpg" alt="테스트 사용자" />
+      );
 
-      expect(screen.getByRole('img')).toHaveAttribute('alt', '테스트 사용자')
-    })
+      expect(screen.getByRole('img')).toHaveAttribute('alt', '테스트 사용자');
+    });
 
     it('이미지가 없을 때 aria-label이 있다', () => {
-      render(<Avatar alt="홍길동" />)
+      render(<Avatar alt="홍길동" />);
 
-      const avatar = screen.getByRole('img')
-      expect(avatar).toHaveAttribute('aria-label', '홍길동')
-    })
-  })
-})
+      const avatar = screen.getByRole('img');
+      expect(avatar).toHaveAttribute('aria-label', '홍길동');
+    });
+  });
+});
 
 describe('AvatarGroup', () => {
   describe('렌더링 테스트', () => {
@@ -228,11 +236,11 @@ describe('AvatarGroup', () => {
           <Avatar alt="사용자 2" />
           <Avatar alt="사용자 3" />
         </AvatarGroup>
-      )
+      );
 
-      expect(screen.getByText('사1')).toBeInTheDocument()
-      expect(screen.getAllByRole('img')).toHaveLength(3)
-    })
+      expect(screen.getByText('사1')).toBeInTheDocument();
+      expect(screen.getAllByRole('img')).toHaveLength(3);
+    });
 
     it('max prop으로 표시할 Avatar 수를 제한한다', () => {
       render(
@@ -242,13 +250,13 @@ describe('AvatarGroup', () => {
           <Avatar alt="사용자 3" />
           <Avatar alt="사용자 4" />
         </AvatarGroup>
-      )
+      );
 
-      const avatars = screen.getAllByRole('img')
+      const avatars = screen.getAllByRole('img');
       // max=2이므로 2개 + "+2" 표시용 1개 = 3개
-      expect(avatars).toHaveLength(3)
-      expect(screen.getByText('+2')).toBeInTheDocument()
-    })
+      expect(avatars).toHaveLength(3);
+      expect(screen.getByText('+2')).toBeInTheDocument();
+    });
 
     it('max가 없으면 모든 Avatar를 표시한다', () => {
       render(
@@ -257,10 +265,10 @@ describe('AvatarGroup', () => {
           <Avatar alt="사용자 2" />
           <Avatar alt="사용자 3" />
         </AvatarGroup>
-      )
+      );
 
-      expect(screen.getAllByRole('img')).toHaveLength(3)
-    })
+      expect(screen.getAllByRole('img')).toHaveLength(3);
+    });
 
     it('max보다 적은 Avatar는 모두 표시한다', () => {
       render(
@@ -268,12 +276,12 @@ describe('AvatarGroup', () => {
           <Avatar alt="사용자 1" />
           <Avatar alt="사용자 2" />
         </AvatarGroup>
-      )
+      );
 
-      expect(screen.getAllByRole('img')).toHaveLength(2)
-      expect(screen.queryByText(/^\+/)).not.toBeInTheDocument()
-    })
-  })
+      expect(screen.getAllByRole('img')).toHaveLength(2);
+      expect(screen.queryByText(/^\+/)).not.toBeInTheDocument();
+    });
+  });
 
   describe('spacing prop 테스트', () => {
     it('spacing="sm"일 때 적절한 클래스가 적용된다', () => {
@@ -281,49 +289,49 @@ describe('AvatarGroup', () => {
         <AvatarGroup spacing="sm">
           <Avatar alt="사용자 1" />
         </AvatarGroup>
-      )
+      );
 
-      const group = container.firstChild as HTMLElement
-      const avatar = group.firstChild as HTMLElement
-      expect(avatar).toHaveClass(/spacingStyles_sm/)
-    })
+      const group = container.firstChild as HTMLElement;
+      const avatar = group.firstChild as HTMLElement;
+      expect(avatar).toHaveClass(/spacingStyles_sm/);
+    });
 
     it('spacing="md"일 때 적절한 클래스가 적용된다', () => {
       const { container } = render(
         <AvatarGroup spacing="md">
           <Avatar alt="사용자 1" />
         </AvatarGroup>
-      )
+      );
 
-      const group = container.firstChild as HTMLElement
-      const avatar = group.firstChild as HTMLElement
-      expect(avatar).toHaveClass(/spacingStyles_md/)
-    })
+      const group = container.firstChild as HTMLElement;
+      const avatar = group.firstChild as HTMLElement;
+      expect(avatar).toHaveClass(/spacingStyles_md/);
+    });
 
     it('spacing="lg"일 때 적절한 클래스가 적용된다', () => {
       const { container } = render(
         <AvatarGroup spacing="lg">
           <Avatar alt="사용자 1" />
         </AvatarGroup>
-      )
+      );
 
-      const group = container.firstChild as HTMLElement
-      const avatar = group.firstChild as HTMLElement
-      expect(avatar).toHaveClass(/spacingStyles_lg/)
-    })
+      const group = container.firstChild as HTMLElement;
+      const avatar = group.firstChild as HTMLElement;
+      expect(avatar).toHaveClass(/spacingStyles_lg/);
+    });
 
     it('기본값은 "md"이다', () => {
       const { container } = render(
         <AvatarGroup>
           <Avatar alt="사용자 1" />
         </AvatarGroup>
-      )
+      );
 
-      const group = container.firstChild as HTMLElement
-      const avatar = group.firstChild as HTMLElement
-      expect(avatar).toHaveClass(/spacingStyles_md/)
-    })
-  })
+      const group = container.firstChild as HTMLElement;
+      const avatar = group.firstChild as HTMLElement;
+      expect(avatar).toHaveClass(/spacingStyles_md/);
+    });
+  });
 
   describe('복합 시나리오 테스트', () => {
     it('그룹 내 Avatar의 크기를 일괄 조정할 수 있다', () => {
@@ -332,20 +340,20 @@ describe('AvatarGroup', () => {
           <Avatar alt="사용자 1" />
           <Avatar alt="사용자 2" />
         </AvatarGroup>
-      )
+      );
 
-      const avatars = container.querySelectorAll('[class*="sizeStyles_lg"]')
-      expect(avatars.length).toBeGreaterThan(0)
-    })
+      const avatars = container.querySelectorAll('[class*="sizeStyles_lg"]');
+      expect(avatars.length).toBeGreaterThan(0);
+    });
 
     it('그룹에 className을 적용할 수 있다', () => {
       const { container } = render(
         <AvatarGroup className="custom-group">
           <Avatar alt="사용자 1" />
         </AvatarGroup>
-      )
+      );
 
-      expect(container.firstChild).toHaveClass('custom-group')
-    })
-  })
-})
+      expect(container.firstChild).toHaveClass('custom-group');
+    });
+  });
+});

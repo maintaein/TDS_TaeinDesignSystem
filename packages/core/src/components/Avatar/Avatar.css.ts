@@ -1,5 +1,5 @@
-import { style, styleVariants } from '@vanilla-extract/css'
-import { themeContract } from '../../tokens/theme.css'
+import { style, styleVariants } from '@vanilla-extract/css';
+import { themeContract } from '../../tokens/theme.css';
 
 // Avatar 기본 스타일
 export const avatar = style({
@@ -13,7 +13,7 @@ export const avatar = style({
   fontWeight: themeContract.font.weight.medium,
   userSelect: 'none',
   flexShrink: 0,
-})
+});
 
 // Avatar 크기 스타일
 export const sizeStyles = styleVariants({
@@ -42,7 +42,7 @@ export const sizeStyles = styleVariants({
     height: '64px',
     fontSize: themeContract.font.size.xl,
   },
-})
+});
 
 // Avatar variant 스타일
 export const variantStyles = styleVariants({
@@ -55,19 +55,19 @@ export const variantStyles = styleVariants({
   square: {
     borderRadius: '0',
   },
-})
+});
 
 // 이미지 스타일
 export const image = style({
   width: '100%',
   height: '100%',
   objectFit: 'cover',
-})
+});
 
 // fallback 텍스트 스타일
 export const fallbackText = style({
   lineHeight: 1,
-})
+});
 
 // 상태 뱃지 스타일
 export const statusBadge = style({
@@ -78,29 +78,29 @@ export const statusBadge = style({
   height: '25%',
   borderRadius: '50%',
   border: `2px solid ${themeContract.color.background.paper}`,
-})
+});
 
 export const statusOnline = style({
   backgroundColor: themeContract.color.success.main,
-})
+});
 
 export const statusOffline = style({
   backgroundColor: themeContract.color.text.disabled,
-})
+});
 
 export const statusBusy = style({
   backgroundColor: themeContract.color.error.main,
-})
+});
 
 export const statusAway = style({
   backgroundColor: themeContract.color.warning.main,
-})
+});
 
 // AvatarGroup 스타일
 export const avatarGroup = style({
   display: 'flex',
   alignItems: 'center',
-})
+});
 
 // AvatarGroup spacing 스타일
 export const spacingStyles = styleVariants({
@@ -113,7 +113,7 @@ export const spacingStyles = styleVariants({
   lg: {
     marginLeft: '-16px',
   },
-})
+});
 
 // AvatarGroup 내부 Avatar 스타일
 export const groupAvatar = style({
@@ -123,7 +123,7 @@ export const groupAvatar = style({
       marginLeft: '0',
     },
   },
-})
+});
 
 // 나머지 개수 표시 Avatar
 export const excessAvatar = style({
@@ -131,4 +131,4 @@ export const excessAvatar = style({
   color: themeContract.color.text.secondary,
   fontSize: themeContract.font.size.sm,
   fontWeight: themeContract.font.weight.semibold,
-})
+});

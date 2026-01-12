@@ -1,5 +1,5 @@
-import { style, styleVariants } from '@vanilla-extract/css'
-import { themeContract } from '../../tokens/theme.css'
+import { style, styleVariants } from '@vanilla-extract/css';
+import { themeContract } from '../../tokens/theme.css';
 
 // Card 기본 스타일
 export const card = style({
@@ -12,7 +12,7 @@ export const card = style({
   border: 'none',
   textAlign: 'left',
   width: '100%',
-})
+});
 
 // Variant 스타일
 export const variantStyles = styleVariants({
@@ -29,7 +29,7 @@ export const variantStyles = styleVariants({
     border: 'none',
     boxShadow: 'none',
   },
-})
+});
 
 // 클릭 가능한 Card
 export const clickable = style({
@@ -49,7 +49,7 @@ export const clickable = style({
     outline: `3px solid ${themeContract.color.border.focus}`,
     outlineOffset: '2px',
   },
-})
+});
 
 // 비활성화 상태
 export const disabled = style({
@@ -61,14 +61,14 @@ export const disabled = style({
     transform: 'none',
     boxShadow: 'none',
   },
-})
+});
 
 // 이미지 컨테이너
 export const imageContainer = style({
   width: '100%',
   overflow: 'hidden',
   flexShrink: 0,
-})
+});
 
 // 이미지 스타일
 export const image = style({
@@ -76,18 +76,18 @@ export const image = style({
   height: 'auto',
   display: 'block',
   objectFit: 'cover',
-})
+});
 
 // Header 스타일
 export const header = style({
   padding: themeContract.spacing[4],
   borderBottom: `1px solid ${themeContract.color.border.default}`,
-})
+});
 
 // Content 스타일 (padding 포함)
 export const content = style({
   flex: 1,
-})
+});
 
 // Padding 스타일
 export const paddingStyles = styleVariants({
@@ -103,10 +103,10 @@ export const paddingStyles = styleVariants({
   lg: {
     padding: themeContract.spacing[6],
   },
-})
+});
 
 // Footer 스타일
 export const footer = style({
   padding: themeContract.spacing[4],
   borderTop: `1px solid ${themeContract.color.border.default}`,
-})
+});

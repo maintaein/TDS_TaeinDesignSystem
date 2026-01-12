@@ -1,5 +1,5 @@
-import type { HTMLAttributes, ReactNode } from 'react'
-import clsx from 'clsx'
+import type { HTMLAttributes, ReactNode } from 'react';
+import clsx from 'clsx';
 import {
   divider,
   orientationStyles,
@@ -11,15 +11,15 @@ import {
   lineVertical,
   textContent,
   textContentVertical,
-} from './Divider.css'
+} from './Divider.css';
 
 export interface DividerProps extends HTMLAttributes<HTMLDivElement> {
-  children?: ReactNode
-  orientation?: 'horizontal' | 'vertical'
-  variant?: 'solid' | 'dashed' | 'dotted'
-  spacing?: 'sm' | 'md' | 'lg'
-  textAlign?: 'left' | 'center' | 'right'
-  className?: string
+  children?: ReactNode;
+  orientation?: 'horizontal' | 'vertical';
+  variant?: 'solid' | 'dashed' | 'dotted';
+  spacing?: 'sm' | 'md' | 'lg';
+  textAlign?: 'left' | 'center' | 'right';
+  className?: string;
 }
 
 export const Divider = ({
@@ -31,7 +31,7 @@ export const Divider = ({
   className,
   ...props
 }: DividerProps) => {
-  const isVertical = orientation === 'vertical'
+  const isVertical = orientation === 'vertical';
 
   if (!children) {
     return (
@@ -47,7 +47,7 @@ export const Divider = ({
         )}
         {...props}
       />
-    )
+    );
   }
 
   return (
@@ -67,13 +67,15 @@ export const Divider = ({
     >
       {(textAlign === 'center' || textAlign === 'right') && (
         <div className={isVertical ? lineVertical : line} />
-      )}      
-      <div className={isVertical ? textContentVertical : textContent}>{children}</div>
+      )}
+      <div className={isVertical ? textContentVertical : textContent}>
+        {children}
+      </div>
       {(textAlign === 'center' || textAlign === 'left') && (
         <div className={isVertical ? lineVertical : line} />
       )}
     </div>
-  )
-}
+  );
+};
 
-Divider.displayName = 'Divider'
+Divider.displayName = 'Divider';

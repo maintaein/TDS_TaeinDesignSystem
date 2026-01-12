@@ -1,6 +1,6 @@
-import { style, styleVariants, keyframes } from '@vanilla-extract/css'
-import { themeContract } from '../../tokens/theme.css'
-import { gray } from '../../tokens/colors.css'
+import { style, styleVariants, keyframes } from '@vanilla-extract/css';
+import { themeContract } from '../../tokens/theme.css';
+import { gray } from '../../tokens/colors.css';
 
 // 애니메이션 정의
 const fadeIn = keyframes({
@@ -10,13 +10,13 @@ const fadeIn = keyframes({
   '100%': {
     opacity: 1,
   },
-})
+});
 
 // 컨테이너 스타일
 export const tooltipContainer = style({
   position: 'relative',
   display: 'inline-block',
-})
+});
 
 // 기본 툴팁 스타일
 export const tooltip = style({
@@ -32,7 +32,7 @@ export const tooltip = style({
   whiteSpace: 'nowrap',
   animation: `${fadeIn} 0.15s ${themeContract.animation.easing.easeOut}`,
   pointerEvents: 'none',
-})
+});
 
 // Position 스타일
 export const positionStyles = styleVariants({
@@ -56,7 +56,7 @@ export const positionStyles = styleVariants({
     top: '50%',
     transform: 'translateY(-50%) translateX(8px)',
   },
-})
+});
 
 // 화살표 기본 스타일
 export const arrow = style({
@@ -64,7 +64,7 @@ export const arrow = style({
   width: 0,
   height: 0,
   borderStyle: 'solid',
-})
+});
 
 // 화살표 위치별 스타일
 export const arrowPositionStyles = styleVariants({
@@ -96,4 +96,4 @@ export const arrowPositionStyles = styleVariants({
     borderWidth: '4px 4px 4px 0',
     borderColor: `transparent ${gray[900]} transparent transparent`,
   },
-})
+});

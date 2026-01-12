@@ -1,19 +1,22 @@
-import { useEffect, useRef, type ReactNode, type HTMLAttributes } from 'react'
-import clsx from 'clsx'
-import { createPortal } from 'react-dom'
-import { backdrop, modalContainer, modalDialog, sizeStyles } from './Modal.css'
+import { useEffect, useRef, type ReactNode, type HTMLAttributes } from 'react';
+import clsx from 'clsx';
+import { createPortal } from 'react-dom';
+import { backdrop, modalContainer, modalDialog, sizeStyles } from './Modal.css';
 
-export interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
-  open: boolean
-  onClose: () => void
-  children: ReactNode
-  size?: 'sm' | 'md' | 'lg' | 'xl' | 'full'
-  closeOnBackdropClick?: boolean
-  closeOnEscape?: boolean
-  'aria-labelledby'?: string
-  'aria-describedby'?: string
-  'aria-label'?: string
-  className?: string
+export interface ModalProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  'children'
+> {
+  open: boolean;
+  onClose: () => void;
+  children: ReactNode;
+  size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  closeOnBackdropClick?: boolean;
+  closeOnEscape?: boolean;
+  'aria-labelledby'?: string;
+  'aria-describedby'?: string;
+  'aria-label'?: string;
+  className?: string;
 }
 
 export const Modal = ({
@@ -29,76 +32,76 @@ export const Modal = ({
   className,
   ...props
 }: ModalProps) => {
-  const dialogRef = useRef<HTMLDivElement>(null)
-  const previousActiveElementRef = useRef<HTMLElement | null>(null)
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const previousActiveElementRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    if (!open) return
+    if (!open) return;
 
-    previousActiveElementRef.current = document.activeElement as HTMLElement
+    previousActiveElementRef.current = document.activeElement as HTMLElement;
 
-    const dialog = dialogRef.current
-    if (!dialog) return
+    const dialog = dialogRef.current;
+    if (!dialog) return;
 
     const focusableElements = dialog.querySelectorAll<HTMLElement>(
       'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    )
-    const firstFocusable = focusableElements[0]
-    const lastFocusable = focusableElements[focusableElements.length - 1]
+    );
+    const firstFocusable = focusableElements[0];
+    const lastFocusable = focusableElements[focusableElements.length - 1];
 
     if (firstFocusable) {
-      firstFocusable.focus()
+      firstFocusable.focus();
     } else {
-      dialog.setAttribute('tabindex', '-1')
-      dialog.focus()
+      dialog.setAttribute('tabindex', '-1');
+      dialog.focus();
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && closeOnEscape) {
-        onClose()
-        return
+        onClose();
+        return;
       }
 
       if (e.key === 'Tab') {
         if (focusableElements.length === 0) {
-          e.preventDefault()
-          return
+          e.preventDefault();
+          return;
         }
 
         if (e.shiftKey) {
           if (document.activeElement === firstFocusable) {
-            e.preventDefault()
-            lastFocusable?.focus()
+            e.preventDefault();
+            lastFocusable?.focus();
           }
         } else {
           if (document.activeElement === lastFocusable) {
-            e.preventDefault()
-            firstFocusable?.focus()
+            e.preventDefault();
+            firstFocusable?.focus();
           }
         }
       }
-    }
+    };
 
-    document.addEventListener('keydown', handleKeyDown)
-    document.body.style.overflow = 'hidden'
+    document.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = 'hidden';
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown)
-      document.body.style.overflow = ''
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
 
       if (previousActiveElementRef.current) {
-        previousActiveElementRef.current.focus()
+        previousActiveElementRef.current.focus();
       }
-    }
-  }, [open, closeOnEscape, onClose])
+    };
+  }, [open, closeOnEscape, onClose]);
 
-  if (!open) return null
+  if (!open) return null;
 
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget && closeOnBackdropClick) {
-      onClose()
+      onClose();
     }
-  }
+  };
 
   const modalContent = (
     <div className={modalContainer}>
@@ -122,9 +125,9 @@ export const Modal = ({
         {children}
       </div>
     </div>
-  )
+  );
 
-  return createPortal(modalContent, document.body)
-}
+  return createPortal(modalContent, document.body);
+};
 
-Modal.displayName = 'Modal'
+Modal.displayName = 'Modal';

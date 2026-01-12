@@ -1,5 +1,5 @@
-import type { HTMLAttributes } from 'react'
-import clsx from 'clsx'
+import type { HTMLAttributes } from 'react';
+import clsx from 'clsx';
 import {
   loaderContainer,
   fullScreenStyles,
@@ -9,19 +9,22 @@ import {
   barFill,
   barSizeStyles,
   colorStyles,
-} from './Loader.css'
-import { LoadingSpinner } from '../LoadingSpinner'
-import { primary, gray } from '../../tokens/colors.css'
+} from './Loader.css';
+import { LoadingSpinner } from '../LoadingSpinner';
+import { primary, gray } from '../../tokens/colors.css';
 
-export interface LoaderProps extends Omit<HTMLAttributes<HTMLDivElement>, 'color'> {
-  type?: 'spinner' | 'dots' | 'bar'
-  size?: 'sm' | 'md' | 'lg' | 'xl'
-  color?: 'primary' | 'secondary' | 'white'
-  label?: string
-  fullScreen?: boolean
-  overlay?: boolean
-  'aria-label'?: string
-  className?: string
+export interface LoaderProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  'color'
+> {
+  type?: 'spinner' | 'dots' | 'bar';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  color?: 'primary' | 'secondary' | 'white';
+  label?: string;
+  fullScreen?: boolean;
+  overlay?: boolean;
+  'aria-label'?: string;
+  className?: string;
 }
 
 export const Loader = ({
@@ -38,13 +41,13 @@ export const Loader = ({
   const getColorValue = (colorPreset: 'primary' | 'secondary' | 'white') => {
     switch (colorPreset) {
       case 'primary':
-        return primary[600]
+        return primary[600];
       case 'secondary':
-        return gray[600]
+        return gray[600];
       case 'white':
-        return '#FFFFFF'
+        return '#FFFFFF';
     }
-  }
+  };
 
   const renderLoader = () => {
     const colorClass = colorStyles[color];
@@ -65,7 +68,7 @@ export const Loader = ({
             <div className={clsx(barFill, colorClass)} />
           </div>
         </div>
-      )
+      );
     }
 
     // spinner와 dots는 LoadingSpinner 사용
@@ -76,13 +79,13 @@ export const Loader = ({
         color={getColorValue(color)}
         aria-label={ariaLabel || label || '로딩 중'}
       />
-    )
-  }
+    );
+  };
 
-  const loaderElement = renderLoader()
+  const loaderElement = renderLoader();
 
   if (!label && !fullScreen && !overlay) {
-    return <div className={className}>{loaderElement}</div>
+    return <div className={className}>{loaderElement}</div>;
   }
 
   return (
@@ -97,7 +100,7 @@ export const Loader = ({
       {loaderElement}
       {label && <p className={labelClass}>{label}</p>}
     </div>
-  )
-}
+  );
+};
 
-Loader.displayName = 'Loader'
+Loader.displayName = 'Loader';

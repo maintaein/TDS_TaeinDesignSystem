@@ -1,5 +1,5 @@
-import { useId, type ReactNode } from 'react'
-import clsx from 'clsx'
+import { useId, type ReactNode } from 'react';
+import clsx from 'clsx';
 import {
   wrapper,
   fullWidth as fullWidthStyle,
@@ -7,24 +7,24 @@ import {
   required as requiredStyle,
   helperText as helperTextStyle,
   errorMessage as errorMessageStyle,
-} from './FormField.css'
+} from './FormField.css';
 
 export interface FormFieldRenderProps {
-  inputId: string
-  helperId: string
-  hasHelper: boolean
-  isError: boolean
+  inputId: string;
+  helperId: string;
+  hasHelper: boolean;
+  isError: boolean;
 }
 
 export interface FormFieldProps {
-  label: string
-  helperText?: string
-  error?: boolean
-  errorMessage?: string
-  required?: boolean
-  fullWidth?: boolean
-  className?: string
-  children: (props: FormFieldRenderProps) => ReactNode
+  label: string;
+  helperText?: string;
+  error?: boolean;
+  errorMessage?: string;
+  required?: boolean;
+  fullWidth?: boolean;
+  className?: string;
+  children: (props: FormFieldRenderProps) => ReactNode;
 }
 
 export const FormField = ({
@@ -37,14 +37,14 @@ export const FormField = ({
   className,
   children,
 }: FormFieldProps) => {
-  const inputId = useId()
-  const helperId = useId()
+  const inputId = useId();
+  const helperId = useId();
 
   // helperText 또는 errorMessage 표시 여부
-  const showHelper = !error && !!helperText
-  const showError = error && !!errorMessage
-  const hasHelper = showHelper || showError
-  const isError = error
+  const showHelper = !error && !!helperText;
+  const showError = error && !!errorMessage;
+  const hasHelper = showHelper || showError;
+  const isError = error;
 
   return (
     <div className={clsx(wrapper, fullWidth && fullWidthStyle, className)}>
@@ -71,7 +71,7 @@ export const FormField = ({
         </span>
       )}
     </div>
-  )
-}
+  );
+};
 
-FormField.displayName = 'FormField'
+FormField.displayName = 'FormField';

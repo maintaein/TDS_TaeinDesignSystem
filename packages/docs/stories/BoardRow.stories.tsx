@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { useState } from 'react'
-import { BoardRow } from '@taein-designsystem/core'
+import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
+import { BoardRow } from '@taein-designsystem/core';
 
 const meta = {
   title: 'Layout/BoardRow',
@@ -10,8 +10,8 @@ const meta = {
   },
   tags: ['autodocs'],
   args: {
-    title: "",
-    children: "",
+    title: '',
+    children: '',
   },
   argTypes: {
     variant: {
@@ -28,10 +28,10 @@ const meta = {
       description: '비활성화 상태',
     },
   },
-} satisfies Meta<typeof BoardRow>
+} satisfies Meta<typeof BoardRow>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 // 기본 예시
 export const Default: Story = {
@@ -39,7 +39,7 @@ export const Default: Story = {
     title: '질문입니다',
     children: '답변 내용이 여기에 표시됩니다.',
   },
-}
+};
 
 // 펼쳐진 상태
 export const Expanded: Story = {
@@ -48,7 +48,7 @@ export const Expanded: Story = {
     children: '이 아코디언은 기본적으로 펼쳐져 있습니다.',
     defaultExpanded: true,
   },
-}
+};
 
 // Variant - Default
 export const VariantDefault: Story = {
@@ -63,7 +63,7 @@ export const VariantDefault: Story = {
       </BoardRow>
     </div>
   ),
-}
+};
 
 // Variant - Outlined
 export const VariantOutlined: Story = {
@@ -78,7 +78,7 @@ export const VariantOutlined: Story = {
       </BoardRow>
     </div>
   ),
-}
+};
 
 // Variant - Filled
 export const VariantFilled: Story = {
@@ -93,7 +93,7 @@ export const VariantFilled: Story = {
       </BoardRow>
     </div>
   ),
-}
+};
 
 // 비활성화 상태
 export const Disabled: Story = {
@@ -102,7 +102,7 @@ export const Disabled: Story = {
     children: '이 아코디언은 비활성화되어 클릭할 수 없습니다.',
     disabled: true,
   },
-}
+};
 
 // FAQ 예시 (다중 아코디언)
 export const FAQExample: Story = {
@@ -139,7 +139,7 @@ export const FAQExample: Story = {
       </BoardRow>
     </div>
   ),
-}
+};
 
 // 복잡한 컨텐츠 예시
 export const ComplexContent: Story = {
@@ -152,16 +152,28 @@ export const ComplexContent: Story = {
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <tbody>
               <tr>
-                <td style={{ padding: '8px', borderBottom: '1px solid #eee' }}>브랜드</td>
-                <td style={{ padding: '8px', borderBottom: '1px solid #eee' }}>TDS</td>
+                <td style={{ padding: '8px', borderBottom: '1px solid #eee' }}>
+                  브랜드
+                </td>
+                <td style={{ padding: '8px', borderBottom: '1px solid #eee' }}>
+                  TDS
+                </td>
               </tr>
               <tr>
-                <td style={{ padding: '8px', borderBottom: '1px solid #eee' }}>제조국</td>
-                <td style={{ padding: '8px', borderBottom: '1px solid #eee' }}>대한민국</td>
+                <td style={{ padding: '8px', borderBottom: '1px solid #eee' }}>
+                  제조국
+                </td>
+                <td style={{ padding: '8px', borderBottom: '1px solid #eee' }}>
+                  대한민국
+                </td>
               </tr>
               <tr>
-                <td style={{ padding: '8px', borderBottom: '1px solid #eee' }}>품질보증</td>
-                <td style={{ padding: '8px', borderBottom: '1px solid #eee' }}>1년</td>
+                <td style={{ padding: '8px', borderBottom: '1px solid #eee' }}>
+                  품질보증
+                </td>
+                <td style={{ padding: '8px', borderBottom: '1px solid #eee' }}>
+                  1년
+                </td>
               </tr>
             </tbody>
           </table>
@@ -178,14 +190,14 @@ export const ComplexContent: Story = {
       </div>
     </BoardRow>
   ),
-}
+};
 
 // Controlled Mode 예시
 export const ControlledMode: Story = {
   name: 'Controlled Mode',
   render: () => {
     const ControlledExample = () => {
-      const [expanded, setExpanded] = useState(false)
+      const [expanded, setExpanded] = useState(false);
 
       return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -213,12 +225,12 @@ export const ControlledMode: Story = {
             <p>현재 상태: {expanded ? '펼침' : '접힘'}</p>
           </BoardRow>
         </div>
-      )
-    }
+      );
+    };
 
-    return <ControlledExample />
+    return <ControlledExample />;
   },
-}
+};
 
 // 중첩된 컨텐츠 예시
 export const NestedContent: Story = {
@@ -236,7 +248,7 @@ export const NestedContent: Story = {
       </div>
     </BoardRow>
   ),
-}
+};
 
 // 긴 컨텐츠 예시
 export const LongContent: Story = {
@@ -246,20 +258,24 @@ export const LongContent: Story = {
       <div style={{ maxHeight: '300px', overflowY: 'auto' }}>
         <h4>제1조 (목적)</h4>
         <p>
-          이 약관은 회사가 제공하는 서비스의 이용과 관련하여 회사와 이용자의 권리, 의무 및
-          책임사항을 규정함을 목적으로 합니다.
+          이 약관은 회사가 제공하는 서비스의 이용과 관련하여 회사와 이용자의
+          권리, 의무 및 책임사항을 규정함을 목적으로 합니다.
         </p>
         <h4>제2조 (정의)</h4>
         <p>이 약관에서 사용하는 용어의 정의는 다음과 같습니다:</p>
         <ol>
           <li>"서비스"란 회사가 제공하는 모든 서비스를 의미합니다.</li>
-          <li>"이용자"란 본 약관에 따라 회사가 제공하는 서비스를 이용하는 자를 말합니다.</li>
+          <li>
+            "이용자"란 본 약관에 따라 회사가 제공하는 서비스를 이용하는 자를
+            말합니다.
+          </li>
           <li>"회원"이란 회사와 서비스 이용계약을 체결한 자를 말합니다.</li>
         </ol>
         <h4>제3조 (약관의 게시와 개정)</h4>
         <p>
-          회사는 이 약관의 내용을 이용자가 쉽게 알 수 있도록 서비스 초기 화면에 게시합니다.
-          회사는 관련 법령을 위배하지 않는 범위에서 이 약관을 개정할 수 있습니다.
+          회사는 이 약관의 내용을 이용자가 쉽게 알 수 있도록 서비스 초기 화면에
+          게시합니다. 회사는 관련 법령을 위배하지 않는 범위에서 이 약관을 개정할
+          수 있습니다.
         </p>
         <h4>제4조 (서비스의 제공 및 변경)</h4>
         <p>회사는 다음과 같은 업무를 수행합니다:</p>
@@ -271,7 +287,7 @@ export const LongContent: Story = {
       </div>
     </BoardRow>
   ),
-}
+};
 
 // Interactive Playground
 export const Interactive: Story = {
@@ -283,4 +299,4 @@ export const Interactive: Story = {
     defaultExpanded: false,
     disabled: false,
   },
-}
+};

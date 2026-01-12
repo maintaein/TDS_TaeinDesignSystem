@@ -1,21 +1,31 @@
-import { useState, useRef, useEffect, useId, type ReactNode, type HTMLAttributes } from 'react'
-import clsx from 'clsx'
+import {
+  useState,
+  useRef,
+  useEffect,
+  useId,
+  type ReactNode,
+  type HTMLAttributes,
+} from 'react';
+import clsx from 'clsx';
 import {
   tooltipContainer,
   tooltip,
   positionStyles,
   arrow,
   arrowPositionStyles,
-} from './Tooltip.css'
+} from './Tooltip.css';
 
-export interface TooltipProps extends Omit<HTMLAttributes<HTMLDivElement>, 'content'> {
-  children: ReactNode
-  content: ReactNode
-  position?: 'top' | 'bottom' | 'left' | 'right'
-  delay?: number
-  disabled?: boolean
-  arrow?: boolean
-  className?: string
+export interface TooltipProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  'content'
+> {
+  children: ReactNode;
+  content: ReactNode;
+  position?: 'top' | 'bottom' | 'left' | 'right';
+  delay?: number;
+  disabled?: boolean;
+  arrow?: boolean;
+  className?: string;
 }
 
 export const Tooltip = ({
@@ -28,41 +38,41 @@ export const Tooltip = ({
   className,
   ...props
 }: TooltipProps) => {
-  const [visible, setVisible] = useState(false)
-  const timerRef = useRef<NodeJS.Timeout | null>(null)
-  const tooltipId = useId()
+  const [visible, setVisible] = useState(false);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const tooltipId = useId();
 
   useEffect(() => {
     return () => {
       if (timerRef.current) {
-        clearTimeout(timerRef.current)
+        clearTimeout(timerRef.current);
       }
-    }
-  }, [])
+    };
+  }, []);
 
   const handleShow = () => {
-    if (disabled) return
+    if (disabled) return;
 
     if (timerRef.current) {
-      clearTimeout(timerRef.current)
+      clearTimeout(timerRef.current);
     }
 
     if (delay === 0) {
-      setVisible(true)
+      setVisible(true);
     } else {
       timerRef.current = setTimeout(() => {
-        setVisible(true)
-      }, delay)
+        setVisible(true);
+      }, delay);
     }
-  }
+  };
 
   const handleHide = () => {
     if (timerRef.current) {
-      clearTimeout(timerRef.current)
-      timerRef.current = null
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
     }
-    setVisible(false)
-  }
+    setVisible(false);
+  };
 
   return (
     <div
@@ -82,11 +92,13 @@ export const Tooltip = ({
           className={clsx(tooltip, positionStyles[position])}
         >
           {content}
-          {showArrow && <div className={clsx(arrow, arrowPositionStyles[position])} />}
+          {showArrow && (
+            <div className={clsx(arrow, arrowPositionStyles[position])} />
+          )}
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-Tooltip.displayName = 'Tooltip'
+Tooltip.displayName = 'Tooltip';

@@ -2,7 +2,12 @@ import type { SVGAttributes } from 'react';
 import clsx from 'clsx';
 import { iconBase } from './Icon.css';
 
-export type IconName = 'close' | 'plus' | 'minus' | 'chevron-down' | 'chevron-up';
+export type IconName =
+  | 'close'
+  | 'plus'
+  | 'minus'
+  | 'chevron-down'
+  | 'chevron-up';
 
 export interface IconProps extends Omit<SVGAttributes<SVGSVGElement>, 'color'> {
   /** 아이콘 이름 */

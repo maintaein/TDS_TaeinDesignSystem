@@ -1,5 +1,5 @@
-import type { HTMLAttributes, ReactNode } from 'react'
-import clsx from 'clsx'
+import type { HTMLAttributes, ReactNode } from 'react';
+import clsx from 'clsx';
 import {
   headerBar,
   variantStyles,
@@ -11,19 +11,22 @@ import {
   title as titleStyle,
   centerSection,
   rightSection,
-} from './HeaderBar.css'
+} from './HeaderBar.css';
 
-export interface HeaderBarProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
-  logo?: ReactNode
-  title?: ReactNode
-  children?: ReactNode
-  actions?: ReactNode
-  sticky?: boolean
-  variant?: 'default' | 'dark' | 'transparent'
-  elevation?: boolean
-  border?: boolean
-  'aria-label'?: string
-  className?: string
+export interface HeaderBarProps extends Omit<
+  HTMLAttributes<HTMLElement>,
+  'title'
+> {
+  logo?: ReactNode;
+  title?: ReactNode;
+  children?: ReactNode;
+  actions?: ReactNode;
+  sticky?: boolean;
+  variant?: 'default' | 'dark' | 'transparent';
+  elevation?: boolean;
+  border?: boolean;
+  'aria-label'?: string;
+  className?: string;
 }
 
 export const HeaderBar = ({
@@ -64,7 +67,7 @@ export const HeaderBar = ({
 
       {actions && <div className={rightSection}>{actions}</div>}
     </header>
-  )
-}
+  );
+};
 
-HeaderBar.displayName = 'HeaderBar'
+HeaderBar.displayName = 'HeaderBar';

@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { Modal, ModalProps } from '@taein-designsystem/core'
-import { useState } from 'react'
+import type { Meta, StoryObj } from '@storybook/react';
+import { Modal, ModalProps } from '@taein-designsystem/core';
+import { useState } from 'react';
 
 const meta = {
   title: 'Components/Modal',
@@ -11,7 +11,9 @@ const meta = {
   tags: ['autodocs'],
   args: {
     open: true,
-    onClose: () => { console.log('closed') },
+    onClose: () => {
+      console.log('closed');
+    },
     children: '모달 컨텐츠입니다.',
   },
   argTypes: {
@@ -28,10 +30,10 @@ const meta = {
     closeOnEscape: { control: 'boolean', description: 'ESC 키로 닫기' },
     children: { control: 'text', description: '모달 콘텐츠' },
   },
-} satisfies Meta<typeof Modal>
+} satisfies Meta<typeof Modal>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 const ModalWrapper = ({
   size,
@@ -39,12 +41,12 @@ const ModalWrapper = ({
   closeOnEscape,
   children,
 }: {
-  size?: 'sm' | 'md' | 'lg' | 'xl' | 'full'
-  closeOnBackdropClick?: boolean
-  closeOnEscape?: boolean
-  children: React.ReactNode
+  size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  closeOnBackdropClick?: boolean;
+  closeOnEscape?: boolean;
+  children: React.ReactNode;
 }) => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -72,18 +74,21 @@ const ModalWrapper = ({
         {children}
       </Modal>
     </>
-  )
-}
+  );
+};
 
 export const Default: Story = {
   render: () => (
     <ModalWrapper>
       <div style={{ padding: '32px' }}>
-        <h2 style={{ margin: '0 0 16px 0', fontSize: '24px', fontWeight: 'bold' }}>
+        <h2
+          style={{ margin: '0 0 16px 0', fontSize: '24px', fontWeight: 'bold' }}
+        >
           기본 모달
         </h2>
         <p style={{ margin: '0 0 24px 0', color: '#666', lineHeight: '1.6' }}>
-          이것은 기본 모달입니다. backdrop을 클릭하거나 ESC 키를 눌러 닫을 수 있습니다.
+          이것은 기본 모달입니다. backdrop을 클릭하거나 ESC 키를 눌러 닫을 수
+          있습니다.
         </p>
         <button
           style={{
@@ -99,7 +104,7 @@ export const Default: Story = {
       </div>
     </ModalWrapper>
   ),
-}
+};
 
 export const Sizes: Story = {
   render: () => (
@@ -107,57 +112,73 @@ export const Sizes: Story = {
       <ModalWrapper size="sm">
         <div style={{ padding: '24px' }}>
           <h3 style={{ margin: '0 0 12px 0' }}>Small 모달</h3>
-          <p style={{ margin: 0, color: '#666' }}>400px 너비의 작은 모달입니다.</p>
+          <p style={{ margin: 0, color: '#666' }}>
+            400px 너비의 작은 모달입니다.
+          </p>
         </div>
       </ModalWrapper>
 
       <ModalWrapper size="md">
         <div style={{ padding: '24px' }}>
           <h3 style={{ margin: '0 0 12px 0' }}>Medium 모달</h3>
-          <p style={{ margin: 0, color: '#666' }}>600px 너비의 중간 모달입니다.</p>
+          <p style={{ margin: 0, color: '#666' }}>
+            600px 너비의 중간 모달입니다.
+          </p>
         </div>
       </ModalWrapper>
 
       <ModalWrapper size="lg">
         <div style={{ padding: '24px' }}>
           <h3 style={{ margin: '0 0 12px 0' }}>Large 모달</h3>
-          <p style={{ margin: 0, color: '#666' }}>800px 너비의 큰 모달입니다.</p>
+          <p style={{ margin: 0, color: '#666' }}>
+            800px 너비의 큰 모달입니다.
+          </p>
         </div>
       </ModalWrapper>
 
       <ModalWrapper size="xl">
         <div style={{ padding: '24px' }}>
           <h3 style={{ margin: '0 0 12px 0' }}>Extra Large 모달</h3>
-          <p style={{ margin: 0, color: '#666' }}>1000px 너비의 아주 큰 모달입니다.</p>
+          <p style={{ margin: 0, color: '#666' }}>
+            1000px 너비의 아주 큰 모달입니다.
+          </p>
         </div>
       </ModalWrapper>
 
       <ModalWrapper size="full">
         <div style={{ padding: '24px' }}>
           <h3 style={{ margin: '0 0 12px 0' }}>Full 모달</h3>
-          <p style={{ margin: 0, color: '#666' }}>전체 화면에 가까운 모달입니다.</p>
+          <p style={{ margin: 0, color: '#666' }}>
+            전체 화면에 가까운 모달입니다.
+          </p>
         </div>
       </ModalWrapper>
     </div>
   ),
-}
+};
 
 export const WithForm: Story = {
   render: () => (
     <ModalWrapper>
       <div style={{ padding: '32px' }}>
-        <h2 style={{ margin: '0 0 24px 0', fontSize: '24px', fontWeight: 'bold' }}>
+        <h2
+          style={{ margin: '0 0 24px 0', fontSize: '24px', fontWeight: 'bold' }}
+        >
           로그인
         </h2>
         <form
           onSubmit={(e) => {
-            e.preventDefault()
-            alert('로그인 처리')
+            e.preventDefault();
+            alert('로그인 처리');
           }}
         >
           <div style={{ marginBottom: '16px' }}>
             <label
-              style={{ display: 'block', marginBottom: '8px', fontWeight: 'medium' }}
+              style={{
+                display: 'block',
+                marginBottom: '8px',
+                fontWeight: 'medium',
+              }}
             >
               이메일
             </label>
@@ -175,7 +196,11 @@ export const WithForm: Story = {
           </div>
           <div style={{ marginBottom: '24px' }}>
             <label
-              style={{ display: 'block', marginBottom: '8px', fontWeight: 'medium' }}
+              style={{
+                display: 'block',
+                marginBottom: '8px',
+                fontWeight: 'medium',
+              }}
             >
               비밀번호
             </label>
@@ -191,7 +216,9 @@ export const WithForm: Story = {
               }}
             />
           </div>
-          <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+          <div
+            style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}
+          >
             <button
               type="button"
               style={{
@@ -222,20 +249,22 @@ export const WithForm: Story = {
       </div>
     </ModalWrapper>
   ),
-}
+};
 
 export const WithScrollContent: Story = {
   render: () => (
     <ModalWrapper>
       <div style={{ padding: '32px' }}>
-        <h2 style={{ margin: '0 0 16px 0', fontSize: '24px', fontWeight: 'bold' }}>
+        <h2
+          style={{ margin: '0 0 16px 0', fontSize: '24px', fontWeight: 'bold' }}
+        >
           긴 콘텐츠
         </h2>
         <div style={{ maxHeight: '400px', overflow: 'auto' }}>
           {Array.from({ length: 20 }, (_, i) => (
             <p key={i} style={{ margin: '0 0 12px 0', lineHeight: '1.6' }}>
-              {i + 1}. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              {i + 1}. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </p>
           ))}
         </div>
@@ -262,18 +291,20 @@ export const WithScrollContent: Story = {
       </div>
     </ModalWrapper>
   ),
-}
+};
 
 export const NoBackdropClose: Story = {
   render: () => (
     <ModalWrapper closeOnBackdropClick={false}>
       <div style={{ padding: '32px' }}>
-        <h2 style={{ margin: '0 0 16px 0', fontSize: '24px', fontWeight: 'bold' }}>
+        <h2
+          style={{ margin: '0 0 16px 0', fontSize: '24px', fontWeight: 'bold' }}
+        >
           Backdrop 클릭 비활성화
         </h2>
         <p style={{ margin: '0 0 24px 0', color: '#666', lineHeight: '1.6' }}>
-          이 모달은 backdrop을 클릭해도 닫히지 않습니다. 버튼을 클릭하거나 ESC 키를
-          눌러야 닫힙니다.
+          이 모달은 backdrop을 클릭해도 닫히지 않습니다. 버튼을 클릭하거나 ESC
+          키를 눌러야 닫힙니다.
         </p>
         <button
           style={{
@@ -289,18 +320,20 @@ export const NoBackdropClose: Story = {
       </div>
     </ModalWrapper>
   ),
-}
+};
 
 export const NoEscapeClose: Story = {
   render: () => (
     <ModalWrapper closeOnEscape={false}>
       <div style={{ padding: '32px' }}>
-        <h2 style={{ margin: '0 0 16px 0', fontSize: '24px', fontWeight: 'bold' }}>
+        <h2
+          style={{ margin: '0 0 16px 0', fontSize: '24px', fontWeight: 'bold' }}
+        >
           ESC 키 비활성화
         </h2>
         <p style={{ margin: '0 0 24px 0', color: '#666', lineHeight: '1.6' }}>
-          이 모달은 ESC 키로 닫을 수 없습니다. backdrop을 클릭하거나 버튼을 클릭해야
-          닫힙니다.
+          이 모달은 ESC 키로 닫을 수 없습니다. backdrop을 클릭하거나 버튼을
+          클릭해야 닫힙니다.
         </p>
         <button
           style={{
@@ -316,19 +349,23 @@ export const NoEscapeClose: Story = {
       </div>
     </ModalWrapper>
   ),
-}
+};
 
 export const ConfirmDialog: Story = {
   render: () => (
     <ModalWrapper size="sm">
       <div style={{ padding: '32px' }}>
-        <h2 style={{ margin: '0 0 16px 0', fontSize: '20px', fontWeight: 'bold' }}>
+        <h2
+          style={{ margin: '0 0 16px 0', fontSize: '20px', fontWeight: 'bold' }}
+        >
           정말 삭제하시겠습니까?
         </h2>
         <p style={{ margin: '0 0 24px 0', color: '#666', lineHeight: '1.6' }}>
           이 작업은 되돌릴 수 없습니다. 계속하시겠습니까?
         </p>
-        <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+        <div
+          style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}
+        >
           <button
             style={{
               padding: '10px 20px',
@@ -356,7 +393,7 @@ export const ConfirmDialog: Story = {
       </div>
     </ModalWrapper>
   ),
-}
+};
 
 export const WithImage: Story = {
   render: () => (
@@ -368,7 +405,13 @@ export const WithImage: Story = {
           style={{ width: '100%', height: '300px', objectFit: 'cover' }}
         />
         <div style={{ padding: '24px' }}>
-          <h2 style={{ margin: '0 0 12px 0', fontSize: '24px', fontWeight: 'bold' }}>
+          <h2
+            style={{
+              margin: '0 0 12px 0',
+              fontSize: '24px',
+              fontWeight: 'bold',
+            }}
+          >
             이미지가 포함된 모달
           </h2>
           <p style={{ margin: '0 0 16px 0', color: '#666', lineHeight: '1.6' }}>
@@ -390,7 +433,7 @@ export const WithImage: Story = {
       </div>
     </ModalWrapper>
   ),
-}
+};
 
 export const Accessibility: Story = {
   render: () => (
@@ -399,7 +442,10 @@ export const Accessibility: Story = {
         <h2 id="modal-title" style={{ margin: '0 0 16px 0' }}>
           접근성 모달
         </h2>
-        <p id="modal-description" style={{ margin: '0 0 24px 0', color: '#666' }}>
+        <p
+          id="modal-description"
+          style={{ margin: '0 0 24px 0', color: '#666' }}
+        >
           이 모달은 aria-labelledby와 aria-describedby 속성을 사용하여 접근성을
           향상시켰습니다.
         </p>
@@ -431,11 +477,10 @@ export const Accessibility: Story = {
       </div>
     </ModalWrapper>
   ),
-}
+};
 
-const InteractiveComponent = (args:ModalProps) => {
-
-  const [open, setOpen] = useState(false)
+const InteractiveComponent = (args: ModalProps) => {
+  const [open, setOpen] = useState(false);
   return (
     <>
       <button
@@ -454,8 +499,8 @@ const InteractiveComponent = (args:ModalProps) => {
       </button>
       <Modal {...args} open={open} onClose={() => setOpen(false)} />
     </>
-  )
-}
+  );
+};
 
 export const Interactive: Story = {
   args: {
@@ -470,5 +515,5 @@ export const Interactive: Story = {
       </div>
     ),
   },
-  render: (args) => <InteractiveComponent {...args}/>
-}
+  render: (args) => <InteractiveComponent {...args} />,
+};

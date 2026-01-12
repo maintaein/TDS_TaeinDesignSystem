@@ -1,6 +1,6 @@
-import { type ReactNode, type HTMLAttributes } from 'react'
-import clsx from 'clsx'
-import { useClickable } from '../../_internal/useClickable'
+import { type ReactNode, type HTMLAttributes } from 'react';
+import clsx from 'clsx';
+import { useClickable } from '../../_internal/useClickable';
 import {
   card,
   variantStyles,
@@ -12,18 +12,21 @@ import {
   content as contentStyle,
   paddingStyles,
   footer as footerStyle,
-} from './Card.css'
+} from './Card.css';
 
-export interface CardProps extends Omit<HTMLAttributes<HTMLElement>, 'onClick'> {
-  children: ReactNode
-  header?: ReactNode
-  footer?: ReactNode
-  image?: string
-  imageAlt?: string
-  variant?: 'outlined' | 'elevated' | 'filled'
-  padding?: 'none' | 'sm' | 'md' | 'lg'
-  onClick?: () => void
-  disabled?: boolean
+export interface CardProps extends Omit<
+  HTMLAttributes<HTMLElement>,
+  'onClick'
+> {
+  children: ReactNode;
+  header?: ReactNode;
+  footer?: ReactNode;
+  image?: string;
+  imageAlt?: string;
+  variant?: 'outlined' | 'elevated' | 'filled';
+  padding?: 'none' | 'sm' | 'md' | 'lg';
+  onClick?: () => void;
+  disabled?: boolean;
 }
 
 export const Card = ({
@@ -39,18 +42,18 @@ export const Card = ({
   className,
   ...props
 }: CardProps) => {
-  const isClickable = !!onClick
+  const isClickable = !!onClick;
 
   // useClickable 훅으로 클릭 가능한 Card 처리
   const clickableProps = useClickable({
     onClick: onClick
       ? () => {
-          onClick()
+          onClick();
         }
       : undefined,
     disabled,
     role: 'button',
-  })
+  });
 
   const cardClasses = clsx(
     card,
@@ -60,7 +63,7 @@ export const Card = ({
       [disabledStyle]: disabled,
     },
     className
-  )
+  );
 
   const cardContent = (
     <>
@@ -70,10 +73,12 @@ export const Card = ({
         </div>
       )}
       {header && <div className={headerStyle}>{header}</div>}
-      <div className={clsx(contentStyle, paddingStyles[padding])}>{children}</div>
+      <div className={clsx(contentStyle, paddingStyles[padding])}>
+        {children}
+      </div>
       {footer && <div className={footerStyle}>{footer}</div>}
     </>
-  )
+  );
 
   if (isClickable) {
     return (
@@ -88,14 +93,14 @@ export const Card = ({
       >
         {cardContent}
       </button>
-    )
+    );
   }
 
   return (
     <article className={cardClasses} {...props}>
       {cardContent}
     </article>
-  )
-}
+  );
+};
 
-Card.displayName = 'Card'
+Card.displayName = 'Card';

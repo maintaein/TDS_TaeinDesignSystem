@@ -1,15 +1,15 @@
-import { style, styleVariants, keyframes } from '@vanilla-extract/css'
-import { themeContract } from '../../tokens/theme.css'
+import { style, styleVariants, keyframes } from '@vanilla-extract/css';
+import { themeContract } from '../../tokens/theme.css';
 
 const fadeIn = keyframes({
   '0%': { opacity: 0 },
   '100%': { opacity: 1 },
-})
+});
 
 const fadeOut = keyframes({
   '0%': { opacity: 1 },
   '100%': { opacity: 0 },
-})
+});
 
 const slideUp = keyframes({
   '0%': {
@@ -18,7 +18,7 @@ const slideUp = keyframes({
   '100%': {
     transform: 'translateY(0)',
   },
-})
+});
 
 const slideDown = keyframes({
   '0%': {
@@ -27,7 +27,7 @@ const slideDown = keyframes({
   '100%': {
     transform: 'translateY(100%)',
   },
-})
+});
 
 export const bottomSheetContainer = style({
   position: 'fixed',
@@ -39,7 +39,7 @@ export const bottomSheetContainer = style({
   display: 'flex',
   alignItems: 'flex-end',
   justifyContent: 'center',
-})
+});
 
 export const backdrop = style({
   position: 'fixed',
@@ -49,15 +49,15 @@ export const backdrop = style({
   bottom: 0,
   backgroundColor: 'rgba(0, 0, 0, 0.5)',
   zIndex: -1,
-})
+});
 
 export const backdropEnter = style({
   animation: `${fadeIn} 0.2s ${themeContract.animation.easing.easeOut}`,
-})
+});
 
 export const backdropExit = style({
   animation: `${fadeOut} 0.2s ${themeContract.animation.easing.easeOut} forwards`,
-})
+});
 
 export const bottomSheet = style({
   position: 'relative',
@@ -75,15 +75,15 @@ export const bottomSheet = style({
   ':focus': {
     outline: 'none',
   },
-})
+});
 
 export const bottomSheetEnter = style({
   animation: `${slideUp} 0.3s ${themeContract.animation.easing.easeOut}`,
-})
+});
 
 export const bottomSheetExit = style({
   animation: `${slideDown} 0.3s ${themeContract.animation.easing.easeOut} forwards`,
-})
+});
 
 export const heightStyles = styleVariants({
   auto: {
@@ -104,7 +104,7 @@ export const heightStyles = styleVariants({
     borderTopLeftRadius: 0,
     borderTopRightRadius: 0,
   },
-})
+});
 
 export const handle = style({
   width: '48px',
@@ -117,7 +117,7 @@ export const handle = style({
   ':active': {
     cursor: 'grabbing',
   },
-})
+});
 
 export const header = style({
   display: 'flex',
@@ -126,7 +126,7 @@ export const header = style({
   padding: `${themeContract.spacing[4]} ${themeContract.spacing[6]}`,
   borderBottom: `1px solid ${themeContract.color.border.default}`,
   flexShrink: 0,
-})
+});
 
 export const title = style({
   margin: 0,
@@ -134,7 +134,7 @@ export const title = style({
   fontWeight: themeContract.font.weight.semibold,
   color: themeContract.color.text.primary,
   lineHeight: themeContract.font.lineHeight.tight,
-})
+});
 
 export const closeButton = style({
   padding: themeContract.spacing[2],
@@ -156,10 +156,10 @@ export const closeButton = style({
     outline: `2px solid ${themeContract.color.primary.main}`,
     outlineOffset: '2px',
   },
-})
+});
 
 export const content = style({
   padding: themeContract.spacing[6],
   overflowY: 'auto',
   flex: 1,
-})
+});

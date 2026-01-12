@@ -1,5 +1,5 @@
-import type { HTMLAttributes, ReactNode } from 'react'
-import clsx from 'clsx'
+import type { HTMLAttributes, ReactNode } from 'react';
+import clsx from 'clsx';
 import {
   border,
   sidesStyles,
@@ -8,17 +8,24 @@ import {
   colorStyles,
   roundedStyles,
   paddingStyles,
-} from './Border.css'
+} from './Border.css';
 
 export interface BorderProps extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode
-  sides?: 'all' | 'top' | 'right' | 'bottom' | 'left' | 'horizontal' | 'vertical'
-  variant?: 'solid' | 'dashed' | 'dotted'
-  width?: 'thin' | 'medium' | 'thick'
-  color?: 'default' | 'primary' | 'success' | 'error' | 'warning'
-  rounded?: 'none' | 'sm' | 'md' | 'lg' | 'full'
-  padding?: 'none' | 'sm' | 'md' | 'lg'
-  className?: string
+  children: ReactNode;
+  sides?:
+    | 'all'
+    | 'top'
+    | 'right'
+    | 'bottom'
+    | 'left'
+    | 'horizontal'
+    | 'vertical';
+  variant?: 'solid' | 'dashed' | 'dotted';
+  width?: 'thin' | 'medium' | 'thick';
+  color?: 'default' | 'primary' | 'success' | 'error' | 'warning';
+  rounded?: 'none' | 'sm' | 'md' | 'lg' | 'full';
+  padding?: 'none' | 'sm' | 'md' | 'lg';
+  className?: string;
 }
 
 export const Border = ({
@@ -48,7 +55,7 @@ export const Border = ({
     >
       {children}
     </div>
-  )
-}
+  );
+};
 
-Border.displayName = 'Border'
+Border.displayName = 'Border';
