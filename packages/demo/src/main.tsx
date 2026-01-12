@@ -1,5 +1,8 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { ThemeProvider } from '@taein-designsystem/core';
+import { AppRouter } from './routes';
+import './styles/global.css';
 
 const rootElement = document.getElementById('root');
 
@@ -9,6 +12,8 @@ if (!rootElement) {
 
 createRoot(rootElement).render(
   <StrictMode>
-    <div>Demo App</div>
+    <ThemeProvider>
+      <AppRouter />
+    </ThemeProvider>
   </StrictMode>
 );
