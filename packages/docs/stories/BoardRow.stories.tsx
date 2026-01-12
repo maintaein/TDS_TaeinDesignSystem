@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
-import { BoardRow } from '@designsystem/core'
+import { BoardRow } from '@taein-designsystem/core'
 
 const meta = {
   title: 'Layout/BoardRow',
@@ -153,7 +153,7 @@ export const ComplexContent: Story = {
             <tbody>
               <tr>
                 <td style={{ padding: '8px', borderBottom: '1px solid #eee' }}>브랜드</td>
-                <td style={{ padding: '8px', borderBottom: '1px solid #eee' }}>토스증권</td>
+                <td style={{ padding: '8px', borderBottom: '1px solid #eee' }}>TDS</td>
               </tr>
               <tr>
                 <td style={{ padding: '8px', borderBottom: '1px solid #eee' }}>제조국</td>

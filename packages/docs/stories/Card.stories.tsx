@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Card } from '@designsystem/core'
+import { Card } from '@taein-designsystem/core'
 
 const meta = {
   title: 'Data Display/Card',

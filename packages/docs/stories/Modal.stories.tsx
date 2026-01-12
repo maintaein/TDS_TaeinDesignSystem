@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Modal, ModalProps } from '@designsystem/core'
+import { Modal, ModalProps } from '@taein-designsystem/core'
 import { useState } from 'react'
 
 const meta = {

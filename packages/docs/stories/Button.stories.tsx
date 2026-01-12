@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Button } from '@designsystem/core';
+import { Button } from '@taein-designsystem/core';
 
 const meta = {
   title: 'Components/Button',

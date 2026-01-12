@@ -1,15 +1,15 @@
 {
-  "name": "@designsystem/monorepo",
+  "name": "@taein-designsystem/monorepo",
   "version": "1.0.0",
   "private": true,
-  "description": "토스증권 스타일 디자인 시스템",
+  "description": "TDS - Taein Design System",
   "scripts": {
-    "dev": "pnpm --filter @designsystem/demo dev",
-    "dev:docs": "pnpm --filter @designsystem/docs storybook",
-    "build": "pnpm --filter @designsystem/core build",
+    "dev": "pnpm --filter @taein-designsystem/demo dev",
+    "dev:docs": "pnpm --filter @taein-designsystem/docs storybook",
+    "build": "pnpm --filter @taein-designsystem/core build",
     "build:all": "pnpm -r build",
-    "test": "pnpm --filter @designsystem/core test",
-    "test:coverage": "pnpm --filter @designsystem/core test:coverage",
+    "test": "pnpm --filter @taein-designsystem/core test",
+    "test:coverage": "pnpm --filter @taein-designsystem/core test:coverage",
     "lint": "eslint . --ext .ts,.tsx",
     "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
     "typecheck": "pnpm -r typecheck"

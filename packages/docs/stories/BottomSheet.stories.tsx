@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { BottomSheet, BottomSheetProps } from '@designsystem/core'
+import { BottomSheet, BottomSheetProps } from '@taein-designsystem/core'
 import { useState } from 'react'
 
 const meta = {

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { List, ListItem } from '@designsystem/core'
+import { List, ListItem } from '@taein-designsystem/core'
 
 const meta = {
   title: 'Layout/List',
@@ -317,7 +317,7 @@ export const MixedLayout: Story = {
     <div style={{ maxWidth: '600px', margin: '0 auto' }}>
       <h2 style={{ margin: '0 0 1.5rem 0' }}>프로젝트 정보</h2>
       <List divider spacing="lg">
-        <ListItem label="프로젝트명" value="토스증권 디자인 시스템" layout="horizontal" labelWidth="120px" />
+        <ListItem label="프로젝트명" value="TDS - 태인 디자인 시스템" layout="horizontal" labelWidth="120px" />
         <ListItem label="상태" value={<span style={{ color: '#00c853', fontWeight: 'bold' }}>진행 중</span>} layout="horizontal" labelWidth="120px" />
         <ListItem
           label="설명"

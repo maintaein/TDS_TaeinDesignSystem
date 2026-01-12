@@ -1,15 +1,15 @@
 {
-  "name": "@designsystem/docs",
+  "name": "@taein-designsystem/docs",
   "version": "0.1.0",
   "private": true,
-  "description": "토스증권 스타일 디자인 시스템 - Storybook 문서",
+  "description": "TDS - Taein Design System - Storybook 문서",
   "scripts": {
     "storybook": "storybook dev -p 6006",
     "build": "storybook build -o dist",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@designsystem/core": "workspace:*"
+    "@taein-designsystem/core": "workspace:*"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^8.4.7",

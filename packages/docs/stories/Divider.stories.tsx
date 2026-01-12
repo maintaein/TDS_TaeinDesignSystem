@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Divider } from '@designsystem/core'
+import { Divider } from '@taein-designsystem/core'
 
 const meta = {
   title: 'Layout/Divider',

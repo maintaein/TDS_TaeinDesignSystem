@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Badge } from '@designsystem/core'
+import { Badge } from '@taein-designsystem/core'
 
 const meta = {
   title: 'Components/Badge',

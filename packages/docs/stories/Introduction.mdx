@@ -1,0 +1,249 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="소개/Introduction" />
+
+# TDS - Taein Design System
+
+> React + TypeScript 기반의 현대적인 디자인 시스템
+
+## 🎯 프로젝트 개요
+
+이 디자인 시스템은 일관된 사용자 경험과 개발 생산성을 위해 만들어진 재사용 가능한 컴포넌트 라이브러리입니다.
+
+### 주요 특징
+
+- ✅ **27개 핵심 컴포넌트**: 폼, 버튼, 피드백, 오버레이, 레이아웃 컴포넌트
+- ✅ **Atomic Design 원칙**: Atoms → Molecules → Organisms 계층 구조
+- ✅ **TypeScript 우선**: 완벽한 타입 안전성과 IntelliSense 지원
+- ✅ **접근성 준수**: WCAG 2.2 AA 완벽 준수
+- ✅ **높은 테스트 커버리지**: 924 tests, 99%+ 커버리지
+- ✅ **최적화된 번들**: ~23KB (gzipped), Tree-shaking 지원
+- ✅ **다크모드 지원**: 라이트/다크 테마 자동 전환
+
+---
+
+## 📦 설치 방법
+
+### NPM
+
+```bash
+npm install @taein-designsystem/core
+```
+
+### Yarn
+
+```bash
+yarn add @taein-designsystem/core
+```
+
+### pnpm
+
+```bash
+pnpm add @taein-designsystem/core
+```
+
+---
+
+## 🚀 빠른 시작
+
+### 1. 기본 사용법
+
+```tsx
+import { Button, TextField, Card } from '@taein-designsystem/core';
+import '@taein-designsystem/core/dist/style.css';
+
+function App() {
+  return (
+    <Card>
+      <TextField
+        label="이메일"
+        type="email"
+        placeholder="example@email.com"
+      />
+      <Button variant="primary">
+        로그인
+      </Button>
+    </Card>
+  );
+}
+```
+
+### 2. 테마 사용
+
+```tsx
+import { useTheme } from '@taein-designsystem/core';
+
+function ThemeToggle() {
+  const { theme, toggleTheme } = useTheme();
+
+  return (
+    <Button onClick={toggleTheme}>
+      {theme === 'light' ? '🌙' : '☀️'}
+    </Button>
+  );
+}
+```
+
+### 3. 폼 컴포넌트
+
+```tsx
+import { TextField, TextArea, Checkbox, Switch, Button } from '@designsystem/core';
+import { useState } from 'react';
+
+function ContactForm() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+    subscribe: false,
+  });
+
+  return (
+    <form>
+      <TextField
+        label="이름"
+        value={formData.name}
+        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+        required
+      />
+
+      <TextField
+        label="이메일"
+        type="email"
+        value={formData.email}
+        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+        required
+      />
+
+      <TextArea
+        label="메시지"
+        value={formData.message}
+        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+        height={150}
+      />
+
+      <Checkbox
+        label="뉴스레터 구독"
+        checked={formData.subscribe}
+        onChange={(e) => setFormData({ ...formData, subscribe: e.target.checked })}
+      />
+
+      <Button type="submit" variant="primary" fullWidth>
+        보내기
+      </Button>
+    </form>
+  );
+}
+```
+
+---
+
+## 📚 컴포넌트 카테고리
+
+### 폼 컴포넌트 (7개)
+- **TextField** - 텍스트 입력 (email, password, text 등)
+- **TextArea** - 다중 라인 입력 (autoResize 지원)
+- **Checkbox** - 체크박스 (indeterminate 상태 지원)
+- **Switch** - 토글 스위치
+- **NumericSpinner** - 숫자 증감 입력
+- **SegmentedButtons** - 세그먼트 버튼 (단일/다중 선택)
+- **Slider** - 범위 슬라이더
+
+### 버튼 및 인터랙션 (3개)
+- **Button** - 기본 버튼 (5가지 variant, loading 상태)
+- **IconButton** - 아이콘 버튼
+- **Text** - 타이포그래피 (9가지 variant)
+
+### 피드백 컴포넌트 (5개)
+- **Badge** - 뱃지 (숫자, 점 표시)
+- **Loader** - 로딩 스피너 (3가지 타입)
+- **Skeleton** - 스켈레톤 (4가지 variant)
+- **Snackbar** - 스낵바 (4가지 severity)
+- **Tooltip** - 툴팁 (4방향 위치)
+
+### 오버레이 컴포넌트 (3개)
+- **Modal** - 모달 다이얼로그 (포커스 트랩, ESC 키)
+- **BottomSheet** - 하단 시트 (드래그 인터랙션)
+- **SideSheet** - 측면 시트 (좌/우 슬라이드)
+
+### 레이아웃 컴포넌트 (5개)
+- **HeaderBar** - 헤더 바 (3가지 variant, sticky)
+- **Divider** - 구분선 (수평/수직, 텍스트 포함)
+- **Border** - 테두리 (7가지 방향)
+- **List** - 리스트 (label-value 쌍)
+- **BoardRow** - 아코디언 (슬라이드 애니메이션)
+
+### 기타 컴포넌트 (4개)
+- **Avatar** - 아바타 (fallback, status, AvatarGroup)
+- **Chip** - 칩/태그 (삭제 가능, 선택 가능)
+- **Card** - 카드 (header, footer, image)
+- **FormField** - 폼 필드 래퍼 (render prop 패턴)
+
+---
+
+## 🎨 디자인 원칙
+
+### Atomic Design
+- **Atoms**: LoadingSpinner, Icon, FormField, useClickable
+- **Molecules**: TextField, TextArea, Button, IconButton, Chip
+- **Organisms**: Loader, BottomSheet, SideSheet
+
+### 일관성
+- 모든 컴포넌트는 동일한 props 패턴 사용 (size, variant, disabled 등)
+- 일관된 색상, 간격, 타이포그래피 시스템
+- 통일된 키보드 인터랙션 (Tab, Enter, Space, ESC)
+
+### 접근성
+- WCAG 2.2 AA 완벽 준수
+- 시맨틱 HTML 사용
+- ARIA 속성 완비
+- 키보드 네비게이션 지원
+- 스크린 리더 호환
+
+---
+
+## 🛠️ 기술 스택
+
+- **React 18** - UI 라이브러리
+- **TypeScript** - 타입 안전성
+- **Vanilla Extract** - CSS-in-TypeScript 스타일링
+- **Vite** - 빌드 도구
+- **Vitest** - 테스트 프레임워크
+- **Storybook 8** - 컴포넌트 문서화
+
+---
+
+## 📊 품질 지표
+
+| 지표 | 목표 | 달성 |
+|------|------|------|
+| 테스트 커버리지 | 80% | **99%+** ✅ |
+| 번들 크기 | < 100KB | **~23KB** ✅ |
+| 접근성 | WCAG 2.2 AA | **AA 준수** ✅ |
+| TypeScript 에러 | 0건 | **0건** ✅ |
+| ESLint 에러 | 0건 | **0건** ✅ |
+
+---
+
+## 🔗 유용한 링크
+
+- [GitHub Repository](https://github.com/yourusername/designsystem)
+- [디자인 토큰](/?path=/docs/소개-designtokens--docs)
+- [접근성 가이드](https://www.w3.org/WAI/WCAG22/quickref/)
+- [Atomic Design](https://atomicdesign.bradfrost.com/)
+
+---
+
+## 🤝 기여하기
+
+이슈와 PR을 환영합니다!
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+---
+
+**잘 사용해주세용!!**

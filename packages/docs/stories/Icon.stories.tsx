@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Icon } from '@designsystem/core';
+import { Icon } from '@taein-designsystem/core';
 
 /**
  * Icon 컴포넌트
