@@ -2,6 +2,13 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { RootLayout } from '../layouts/RootLayout';
 import { IntroductionPage } from '../pages/Introduction/IntroductionPage';
 import { GettingStartedPage } from '../pages/GettingStarted/GettingStartedPage';
+import { ComponentTestPage } from '../pages/ComponentTest';
+import { ColorsPage } from '../pages/DesignTokens/ColorsPage';
+import { TypographyPage } from '../pages/DesignTokens/TypographyPage';
+import { SpacingPage } from '../pages/DesignTokens/SpacingPage';
+import { ShadowsPage } from '../pages/DesignTokens/ShadowsPage';
+import { AnimationPage } from '../pages/DesignTokens/AnimationPage';
+import { AccessibilityPage } from '../pages/Guidelines';
 
 const router = createBrowserRouter([
   {
@@ -17,27 +24,31 @@ const router = createBrowserRouter([
         element: <GettingStartedPage />,
       },
       {
+        path: 'component-test',
+        element: <ComponentTestPage />,
+      },
+      {
         path: 'design-tokens',
         children: [
           {
             path: 'colors',
-            element: <div>색상 페이지 (준비 중)</div>,
+            element: <ColorsPage />,
           },
           {
             path: 'typography',
-            element: <div>타이포그래피 페이지 (준비 중)</div>,
+            element: <TypographyPage />,
           },
           {
             path: 'spacing',
-            element: <div>간격 페이지 (준비 중)</div>,
+            element: <SpacingPage />,
           },
           {
             path: 'shadows',
-            element: <div>그림자 페이지 (준비 중)</div>,
+            element: <ShadowsPage />,
           },
           {
             path: 'animation',
-            element: <div>애니메이션 페이지 (준비 중)</div>,
+            element: <AnimationPage />,
           },
         ],
       },
@@ -68,7 +79,7 @@ const router = createBrowserRouter([
           },
           {
             path: 'accessibility',
-            element: <div>접근성 (준비 중)</div>,
+            element: <AccessibilityPage />,
           },
           {
             path: 'performance',

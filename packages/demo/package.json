@@ -13,11 +13,13 @@
     "@taein-designsystem/core": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-router-dom": "^6.20.1"
+    "react-router-dom": "^6.20.1",
+    "react-syntax-highlighter": "^16.1.0"
   },
   "devDependencies": {
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
+    "@types/react-syntax-highlighter": "^15.5.13",
     "@vanilla-extract/css": "^1.18.0",
     "@vanilla-extract/vite-plugin": "^4.0.5",
     "@vitejs/plugin-react": "^4.2.1",

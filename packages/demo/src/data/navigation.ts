@@ -14,6 +14,10 @@ export const navigationData: NavigationItem[] = [
     path: '/getting-started',
   },
   {
+    label: '컴포넌트 테스트',
+    path: '/component-test',
+  },
+  {
     label: '디자인 토큰',
     path: '/design-tokens',
     children: [
