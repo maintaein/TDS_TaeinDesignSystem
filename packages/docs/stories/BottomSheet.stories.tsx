@@ -430,3 +430,204 @@ export const Interactive: Story = {
   },
   render: (args) => <InteractiveComponent {...args} />,
 };
+
+// Compound API Examples
+export const CompoundBasic: Story = {
+  render: () => {
+    const CompoundBasicComponent = () => {
+      const [open, setOpen] = useState(false);
+      return (
+        <>
+          <button
+            onClick={() => setOpen(true)}
+            style={{
+              padding: '12px 24px',
+              fontSize: '16px',
+              borderRadius: '8px',
+              border: '1px solid #ccc',
+              backgroundColor: '#0066FF',
+              color: 'white',
+              cursor: 'pointer',
+            }}
+          >
+            Compound API 열기
+          </button>
+          <BottomSheet open={open} onClose={() => setOpen(false)}>
+            <BottomSheet.Header showClose>
+              <BottomSheet.Title>Compound API 예제</BottomSheet.Title>
+            </BottomSheet.Header>
+            <BottomSheet.Content>
+              <p>Header, Title, Content를 서브 컴포넌트로 구조화할 수 있습니다.</p>
+              <p>더 유연한 레이아웃과 커스터마이징이 가능합니다.</p>
+            </BottomSheet.Content>
+          </BottomSheet>
+        </>
+      );
+    };
+    return <CompoundBasicComponent />;
+  },
+};
+
+export const CompoundCustomHeader: Story = {
+  render: () => {
+    const CompoundCustomHeaderComponent = () => {
+      const [open, setOpen] = useState(false);
+      return (
+        <>
+          <button
+            onClick={() => setOpen(true)}
+            style={{
+              padding: '12px 24px',
+              fontSize: '16px',
+              borderRadius: '8px',
+              border: '1px solid #ccc',
+              backgroundColor: '#0066FF',
+              color: 'white',
+              cursor: 'pointer',
+            }}
+          >
+            커스텀 헤더 열기
+          </button>
+          <BottomSheet open={open} onClose={() => setOpen(false)} showHandle>
+            <BottomSheet.Header showClose>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <BottomSheet.Title>알림 설정</BottomSheet.Title>
+                <span
+                  style={{
+                    padding: '4px 8px',
+                    backgroundColor: '#e3f2fd',
+                    color: '#1976d2',
+                    borderRadius: '12px',
+                    fontSize: '12px',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  NEW
+                </span>
+              </div>
+            </BottomSheet.Header>
+            <BottomSheet.Content>
+              <div>
+                {['이메일 알림', '푸시 알림', 'SMS 알림', '마케팅 수신'].map(
+                  (item, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        padding: '16px 0',
+                        borderBottom: '1px solid #eee',
+                      }}
+                    >
+                      <span>{item}</span>
+                      <input type="checkbox" defaultChecked={index < 2} />
+                    </div>
+                  )
+                )}
+              </div>
+            </BottomSheet.Content>
+          </BottomSheet>
+        </>
+      );
+    };
+    return <CompoundCustomHeaderComponent />;
+  },
+};
+
+export const CompoundFilter: Story = {
+  render: () => {
+    const CompoundFilterComponent = () => {
+      const [open, setOpen] = useState(false);
+      return (
+        <>
+          <button
+            onClick={() => setOpen(true)}
+            style={{
+              padding: '12px 24px',
+              fontSize: '16px',
+              borderRadius: '8px',
+              border: '1px solid #ccc',
+              backgroundColor: '#0066FF',
+              color: 'white',
+              cursor: 'pointer',
+            }}
+          >
+            필터 열기
+          </button>
+          <BottomSheet open={open} onClose={() => setOpen(false)} height="md">
+            <BottomSheet.Header showClose>
+              <BottomSheet.Title>필터</BottomSheet.Title>
+            </BottomSheet.Header>
+            <BottomSheet.Content>
+              <div>
+                <h4 style={{ margin: '0 0 16px 0' }}>가격대</h4>
+                {['10,000원 이하', '10,000 - 30,000원', '30,000 - 50,000원', '50,000원 이상'].map(
+                  (item, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        padding: '12px 0',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                      }}
+                    >
+                      <input type="checkbox" id={`price-${index}`} />
+                      <label htmlFor={`price-${index}`}>{item}</label>
+                    </div>
+                  )
+                )}
+                <h4 style={{ margin: '24px 0 16px 0' }}>브랜드</h4>
+                {['브랜드 A', '브랜드 B', '브랜드 C', '브랜드 D'].map((item, index) => (
+                  <div
+                    key={index}
+                    style={{
+                      padding: '12px 0',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                    }}
+                  >
+                    <input type="checkbox" id={`brand-${index}`} />
+                    <label htmlFor={`brand-${index}`}>{item}</label>
+                  </div>
+                ))}
+                <div style={{ marginTop: '24px', display: 'flex', gap: '8px' }}>
+                  <button
+                    style={{
+                      flex: 1,
+                      padding: '12px',
+                      border: '1px solid #ddd',
+                      borderRadius: '6px',
+                      backgroundColor: 'white',
+                      cursor: 'pointer',
+                    }}
+                    onClick={() => setOpen(false)}
+                  >
+                    취소
+                  </button>
+                  <button
+                    style={{
+                      flex: 1,
+                      padding: '12px',
+                      border: 'none',
+                      borderRadius: '6px',
+                      backgroundColor: '#0066FF',
+                      color: 'white',
+                      cursor: 'pointer',
+                    }}
+                    onClick={() => setOpen(false)}
+                  >
+                    적용
+                  </button>
+                </div>
+              </div>
+            </BottomSheet.Content>
+          </BottomSheet>
+        </>
+      );
+    };
+    return <CompoundFilterComponent />;
+  },
+};

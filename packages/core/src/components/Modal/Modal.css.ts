@@ -79,3 +79,87 @@ export const sizeStyles = styleVariants({
     maxHeight: 'calc(100vh - 64px)',
   },
 });
+
+// Compound API 서브 컴포넌트 스타일
+
+export const modalHeader = style({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  padding: `${themeContract.spacing[4]} ${themeContract.spacing[5]}`,
+  borderBottom: `1px solid ${themeContract.color.border.default}`,
+  gap: themeContract.spacing[3],
+});
+
+export const modalHeaderContent = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: themeContract.spacing[3],
+  flex: 1,
+  minWidth: 0,
+});
+
+export const modalTitle = style({
+  margin: 0,
+  fontSize: themeContract.font.size.lg,
+  fontWeight: themeContract.font.weight.semibold,
+  color: themeContract.color.text.primary,
+  lineHeight: themeContract.font.lineHeight.tight,
+});
+
+export const modalCloseButton = style({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '32px',
+  height: '32px',
+  padding: 0,
+  border: 'none',
+  borderRadius: themeContract.borderRadius.base,
+  backgroundColor: 'transparent',
+  color: themeContract.color.text.secondary,
+  cursor: 'pointer',
+  flexShrink: 0,
+  transition: `all ${themeContract.animation.duration.fast} ${themeContract.animation.easing.easeOut}`,
+
+  ':hover': {
+    backgroundColor: themeContract.color.surface.hover,
+    color: themeContract.color.text.primary,
+  },
+
+  ':focus-visible': {
+    outline: `2px solid ${themeContract.color.primary.main}`,
+    outlineOffset: '2px',
+  },
+
+  ':active': {
+    backgroundColor: themeContract.color.surface.active,
+  },
+});
+
+export const modalContent = style({
+  padding: themeContract.spacing[5],
+  flex: 1,
+  overflowY: 'auto',
+  color: themeContract.color.text.primary,
+});
+
+export const modalFooter = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: themeContract.spacing[3],
+  padding: `${themeContract.spacing[4]} ${themeContract.spacing[5]}`,
+  borderTop: `1px solid ${themeContract.color.border.default}`,
+});
+
+export const footerAlignStyles = styleVariants({
+  left: {
+    justifyContent: 'flex-start',
+  },
+  center: {
+    justifyContent: 'center',
+  },
+  right: {
+    justifyContent: 'flex-end',
+  },
+});

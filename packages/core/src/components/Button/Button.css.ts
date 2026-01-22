@@ -36,28 +36,28 @@ export const sizeVariants = styleVariants({
     minWidth: '70px',
     padding: `0 ${themeContract.spacing[4]}`,
     fontSize: themeContract.font.size.sm,
-    borderRadius: themeContract.borderRadius.md,
+    borderRadius: themeContract.borderRadius.base,
   },
   md: {
     height: '44px',
     minWidth: '100px',
     padding: `0 ${themeContract.spacing[5]}`,
     fontSize: themeContract.font.size.base,
-    borderRadius: themeContract.borderRadius.lg,
+    borderRadius: themeContract.borderRadius.md,
   },
   lg: {
     height: '52px',
     minWidth: '120px',
     padding: `0 ${themeContract.spacing[6]}`,
     fontSize: themeContract.font.size.lg,
-    borderRadius: themeContract.borderRadius.lg,
+    borderRadius: themeContract.borderRadius.md,
   },
   xl: {
     height: '60px',
     minWidth: '140px',
     padding: `0 ${themeContract.spacing[8]}`,
     fontSize: themeContract.font.size.xl,
-    borderRadius: themeContract.borderRadius.xl,
+    borderRadius: themeContract.borderRadius.lg,
   },
 });
 

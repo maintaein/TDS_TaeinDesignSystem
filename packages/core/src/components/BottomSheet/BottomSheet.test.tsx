@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { BottomSheet } from './BottomSheet';
+import { BottomSheet as CompoundBottomSheet } from './index';
 
 describe('BottomSheet', () => {
   const defaultProps = {
@@ -354,6 +355,128 @@ describe('BottomSheet', () => {
       render(<BottomSheet {...defaultProps} className="custom-class" />);
       const sheet = screen.getByRole('dialog');
       expect(sheet.className).toContain('custom-class');
+    });
+  });
+
+  describe('Compound API 테스트', () => {
+    describe('BottomSheet.Header', () => {
+      it('BottomSheet.Header가 렌더링된다', () => {
+        render(
+          <CompoundBottomSheet {...defaultProps}>
+            <CompoundBottomSheet.Header>Header Content</CompoundBottomSheet.Header>
+            <CompoundBottomSheet.Content>Body Content</CompoundBottomSheet.Content>
+          </CompoundBottomSheet>
+        );
+        expect(screen.getByText('Header Content')).toBeInTheDocument();
+      });
+
+      it('showClose가 true일 때 닫기 버튼이 렌더링된다', () => {
+        render(
+          <CompoundBottomSheet {...defaultProps}>
+            <CompoundBottomSheet.Header showClose>Header</CompoundBottomSheet.Header>
+            <CompoundBottomSheet.Content>Content</CompoundBottomSheet.Content>
+          </CompoundBottomSheet>
+        );
+        expect(screen.getByRole('button', { name: /닫기/i })).toBeInTheDocument();
+      });
+
+      it('showClose 닫기 버튼 클릭 시 onClose가 호출된다', async () => {
+        render(
+          <CompoundBottomSheet {...defaultProps}>
+            <CompoundBottomSheet.Header showClose>Header</CompoundBottomSheet.Header>
+            <CompoundBottomSheet.Content>Content</CompoundBottomSheet.Content>
+          </CompoundBottomSheet>
+        );
+        const closeButton = screen.getByRole('button', { name: /닫기/i });
+        fireEvent.click(closeButton);
+
+        await waitFor(() => {
+          expect(defaultProps.onClose).toHaveBeenCalledTimes(1);
+        });
+      });
+    });
+
+    describe('BottomSheet.Title', () => {
+      it('BottomSheet.Title이 렌더링된다', () => {
+        render(
+          <CompoundBottomSheet {...defaultProps}>
+            <CompoundBottomSheet.Header>
+              <CompoundBottomSheet.Title>제목입니다</CompoundBottomSheet.Title>
+            </CompoundBottomSheet.Header>
+            <CompoundBottomSheet.Content>Content</CompoundBottomSheet.Content>
+          </CompoundBottomSheet>
+        );
+        expect(screen.getByText('제목입니다')).toBeInTheDocument();
+      });
+
+      it('BottomSheet.Title이 h2 요소로 렌더링된다', () => {
+        render(
+          <CompoundBottomSheet {...defaultProps}>
+            <CompoundBottomSheet.Header>
+              <CompoundBottomSheet.Title>제목</CompoundBottomSheet.Title>
+            </CompoundBottomSheet.Header>
+            <CompoundBottomSheet.Content>Content</CompoundBottomSheet.Content>
+          </CompoundBottomSheet>
+        );
+        const title = screen.getByText('제목');
+        expect(title.tagName).toBe('H2');
+      });
+    });
+
+    describe('BottomSheet.Content', () => {
+      it('BottomSheet.Content가 렌더링된다', () => {
+        render(
+          <CompoundBottomSheet {...defaultProps}>
+            <CompoundBottomSheet.Content>내용입니다</CompoundBottomSheet.Content>
+          </CompoundBottomSheet>
+        );
+        expect(screen.getByText('내용입니다')).toBeInTheDocument();
+      });
+
+      it('복잡한 컴포넌트를 Content로 렌더링할 수 있다', () => {
+        render(
+          <CompoundBottomSheet {...defaultProps}>
+            <CompoundBottomSheet.Content>
+              <div>
+                <button>버튼 1</button>
+                <button>버튼 2</button>
+              </div>
+            </CompoundBottomSheet.Content>
+          </CompoundBottomSheet>
+        );
+        expect(screen.getByRole('button', { name: '버튼 1' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: '버튼 2' })).toBeInTheDocument();
+      });
+    });
+
+    describe('Compound 조합 테스트', () => {
+      it('Header + Title + Content를 함께 사용할 수 있다', () => {
+        render(
+          <CompoundBottomSheet {...defaultProps}>
+            <CompoundBottomSheet.Header showClose>
+              <CompoundBottomSheet.Title>제목</CompoundBottomSheet.Title>
+            </CompoundBottomSheet.Header>
+            <CompoundBottomSheet.Content>내용</CompoundBottomSheet.Content>
+          </CompoundBottomSheet>
+        );
+        expect(screen.getByText('제목')).toBeInTheDocument();
+        expect(screen.getByText('내용')).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: /닫기/i })).toBeInTheDocument();
+      });
+
+      it('showHandle과 함께 사용할 수 있다', () => {
+        render(
+          <CompoundBottomSheet {...defaultProps} showHandle>
+            <CompoundBottomSheet.Header>
+              <CompoundBottomSheet.Title>제목</CompoundBottomSheet.Title>
+            </CompoundBottomSheet.Header>
+            <CompoundBottomSheet.Content>내용</CompoundBottomSheet.Content>
+          </CompoundBottomSheet>
+        );
+        const sheet = screen.getByRole('dialog');
+        const handle = sheet.querySelector('.BottomSheet_handle__ea669dg');
+        expect(handle).toBeInTheDocument();
+      });
     });
   });
 });

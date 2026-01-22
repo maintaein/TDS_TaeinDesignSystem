@@ -1,8 +1,8 @@
 import { style, styleVariants } from '@vanilla-extract/css';
 import { themeContract } from '../../tokens/theme.css';
 
-// Card 기본 스타일
-export const card = style({
+// CardRoot 기본 스타일
+export const cardRoot = style({
   display: 'flex',
   flexDirection: 'column',
   backgroundColor: themeContract.color.background.paper,
@@ -63,29 +63,57 @@ export const disabled = style({
   },
 });
 
-// 이미지 컨테이너
-export const imageContainer = style({
+// CardImage 래퍼
+export const cardImageWrapper = style({
+  position: 'relative',
   width: '100%',
   overflow: 'hidden',
   flexShrink: 0,
 });
 
-// 이미지 스타일
-export const image = style({
+// CardImage 스타일
+export const cardImage = style({
   width: '100%',
   height: 'auto',
   display: 'block',
   objectFit: 'cover',
 });
 
-// Header 스타일
-export const header = style({
-  padding: themeContract.spacing[4],
-  borderBottom: `1px solid ${themeContract.color.border.default}`,
+// CardImageOverlay 스타일
+export const cardImageOverlay = style({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  backgroundColor: 'rgba(0, 0, 0, 0.4)',
+  color: '#fff',
 });
 
-// Content 스타일 (padding 포함)
-export const content = style({
+// CardHeader 스타일
+export const cardHeader = style({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  padding: themeContract.spacing[4],
+  borderBottom: `1px solid ${themeContract.color.border.default}`,
+  gap: themeContract.spacing[2],
+});
+
+// CardTitle 스타일
+export const cardTitle = style({
+  margin: 0,
+  fontSize: themeContract.font.size.lg,
+  fontWeight: themeContract.font.weight.semibold,
+  color: themeContract.color.text.primary,
+  lineHeight: themeContract.font.lineHeight.tight,
+});
+
+// CardBody 스타일
+export const cardBody = style({
   flex: 1,
 });
 
@@ -105,8 +133,12 @@ export const paddingStyles = styleVariants({
   },
 });
 
-// Footer 스타일
-export const footer = style({
+// CardFooter 스타일
+export const cardFooter = style({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
   padding: themeContract.spacing[4],
   borderTop: `1px solid ${themeContract.color.border.default}`,
+  gap: themeContract.spacing[2],
 });

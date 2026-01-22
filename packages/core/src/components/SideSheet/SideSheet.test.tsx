@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { SideSheet } from './SideSheet';
+import { SideSheet as CompoundSideSheet } from './index';
 
 describe('SideSheet', () => {
   const defaultProps = {
@@ -330,6 +331,127 @@ describe('SideSheet', () => {
       render(<SideSheet {...defaultProps} className="custom-class" />);
       const sheet = screen.getByRole('dialog');
       expect(sheet.className).toContain('custom-class');
+    });
+  });
+
+  describe('Compound API 테스트', () => {
+    describe('SideSheet.Header', () => {
+      it('SideSheet.Header가 렌더링된다', () => {
+        render(
+          <CompoundSideSheet {...defaultProps}>
+            <CompoundSideSheet.Header>Header Content</CompoundSideSheet.Header>
+            <CompoundSideSheet.Content>Body Content</CompoundSideSheet.Content>
+          </CompoundSideSheet>
+        );
+        expect(screen.getByText('Header Content')).toBeInTheDocument();
+      });
+
+      it('showClose가 true일 때 닫기 버튼이 렌더링된다', () => {
+        render(
+          <CompoundSideSheet {...defaultProps}>
+            <CompoundSideSheet.Header showClose>Header</CompoundSideSheet.Header>
+            <CompoundSideSheet.Content>Content</CompoundSideSheet.Content>
+          </CompoundSideSheet>
+        );
+        expect(screen.getByRole('button', { name: /닫기/i })).toBeInTheDocument();
+      });
+
+      it('showClose 닫기 버튼 클릭 시 onClose가 호출된다', async () => {
+        render(
+          <CompoundSideSheet {...defaultProps}>
+            <CompoundSideSheet.Header showClose>Header</CompoundSideSheet.Header>
+            <CompoundSideSheet.Content>Content</CompoundSideSheet.Content>
+          </CompoundSideSheet>
+        );
+        const closeButton = screen.getByRole('button', { name: /닫기/i });
+        fireEvent.click(closeButton);
+
+        await waitFor(() => {
+          expect(defaultProps.onClose).toHaveBeenCalledTimes(1);
+        });
+      });
+    });
+
+    describe('SideSheet.Title', () => {
+      it('SideSheet.Title이 렌더링된다', () => {
+        render(
+          <CompoundSideSheet {...defaultProps}>
+            <CompoundSideSheet.Header>
+              <CompoundSideSheet.Title>제목입니다</CompoundSideSheet.Title>
+            </CompoundSideSheet.Header>
+            <CompoundSideSheet.Content>Content</CompoundSideSheet.Content>
+          </CompoundSideSheet>
+        );
+        expect(screen.getByText('제목입니다')).toBeInTheDocument();
+      });
+
+      it('SideSheet.Title이 h2 요소로 렌더링된다', () => {
+        render(
+          <CompoundSideSheet {...defaultProps}>
+            <CompoundSideSheet.Header>
+              <CompoundSideSheet.Title>제목</CompoundSideSheet.Title>
+            </CompoundSideSheet.Header>
+            <CompoundSideSheet.Content>Content</CompoundSideSheet.Content>
+          </CompoundSideSheet>
+        );
+        const title = screen.getByText('제목');
+        expect(title.tagName).toBe('H2');
+      });
+    });
+
+    describe('SideSheet.Content', () => {
+      it('SideSheet.Content가 렌더링된다', () => {
+        render(
+          <CompoundSideSheet {...defaultProps}>
+            <CompoundSideSheet.Content>내용입니다</CompoundSideSheet.Content>
+          </CompoundSideSheet>
+        );
+        expect(screen.getByText('내용입니다')).toBeInTheDocument();
+      });
+
+      it('복잡한 컴포넌트를 Content로 렌더링할 수 있다', () => {
+        render(
+          <CompoundSideSheet {...defaultProps}>
+            <CompoundSideSheet.Content>
+              <div>
+                <button>버튼 1</button>
+                <button>버튼 2</button>
+              </div>
+            </CompoundSideSheet.Content>
+          </CompoundSideSheet>
+        );
+        expect(screen.getByRole('button', { name: '버튼 1' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: '버튼 2' })).toBeInTheDocument();
+      });
+    });
+
+    describe('Compound 조합 테스트', () => {
+      it('Header + Title + Content를 함께 사용할 수 있다', () => {
+        render(
+          <CompoundSideSheet {...defaultProps}>
+            <CompoundSideSheet.Header showClose>
+              <CompoundSideSheet.Title>제목</CompoundSideSheet.Title>
+            </CompoundSideSheet.Header>
+            <CompoundSideSheet.Content>내용</CompoundSideSheet.Content>
+          </CompoundSideSheet>
+        );
+        expect(screen.getByText('제목')).toBeInTheDocument();
+        expect(screen.getByText('내용')).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: /닫기/i })).toBeInTheDocument();
+      });
+
+      it('position과 함께 사용할 수 있다', () => {
+        render(
+          <CompoundSideSheet {...defaultProps} position="left">
+            <CompoundSideSheet.Header>
+              <CompoundSideSheet.Title>제목</CompoundSideSheet.Title>
+            </CompoundSideSheet.Header>
+            <CompoundSideSheet.Content>내용</CompoundSideSheet.Content>
+          </CompoundSideSheet>
+        );
+        const sheet = screen.getByRole('dialog');
+        expect(sheet.className).toContain('left');
+      });
     });
   });
 });

@@ -3,6 +3,9 @@ import {
   useRef,
   useState,
   useId,
+  createContext,
+  useContext,
+  forwardRef,
   type ReactNode,
   type HTMLAttributes,
 } from 'react';
@@ -28,6 +31,22 @@ import {
 import { IconButton } from '../IconButton';
 import { Icon } from '../Icon';
 
+interface SideSheetContextValue {
+  onClose: () => void;
+}
+
+const SideSheetContext = createContext<SideSheetContextValue | null>(null);
+
+const useSideSheetContext = () => {
+  const context = useContext(SideSheetContext);
+  if (process.env.NODE_ENV === 'development') {
+    if (!context) {
+      console.error('SideSheet 서브 컴포넌트는 SideSheet 내부에서 사용되어야 합니다');
+    }
+  }
+  return context;
+};
+
 export interface SideSheetProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
   'title'
@@ -44,7 +63,7 @@ export interface SideSheetProps extends Omit<
   className?: string;
 }
 
-export const SideSheet = ({
+const SideSheetRoot = ({
   open,
   onClose,
   title,
@@ -150,54 +169,126 @@ export const SideSheet = ({
   };
 
   const sheetContent = (
-    <div className={sideSheetContainer}>
-      <div
-        className={clsx(backdrop, !open ? backdropExit : backdropEnter)}
-        onClick={handleBackdropClick}
-        aria-hidden="true"
-      />
-      <div
-        ref={sheetRef}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={title ? titleId : undefined}
-        onAnimationEnd={handleAnimationEnd}
-        className={clsx(
-          sideSheetStyle,
-          positionStyles[position],
-          widthStyles[width],
-          getAnimationClass(),
-          className
-        )}
-        onClick={(e) => e.stopPropagation()}
-        {...props}
-      >
-        {title && (
-          <div className={header}>
-            <h2 id={titleId} className={titleStyle}>
-              {title}
-            </h2>
-            {showClose && (
-              <IconButton
-                variant="dark"
-                buttonStyle="weak"
-                size="sm"
-                onClick={onClose}
-                aria-label="닫기"
-                className={closeButton}
-              >
-                <Icon name="close" size="sm" />
-              </IconButton>
-            )}
-          </div>
-        )}
+    <SideSheetContext.Provider value={{ onClose }}>
+      <div className={sideSheetContainer}>
+        <div
+          className={clsx(backdrop, !open ? backdropExit : backdropEnter)}
+          onClick={handleBackdropClick}
+          aria-hidden="true"
+        />
+        <div
+          ref={sheetRef}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={title ? titleId : undefined}
+          onAnimationEnd={handleAnimationEnd}
+          className={clsx(
+            sideSheetStyle,
+            positionStyles[position],
+            widthStyles[width],
+            getAnimationClass(),
+            className
+          )}
+          onClick={(e) => e.stopPropagation()}
+          {...props}
+        >
+          {title && (
+            <div className={header}>
+              <h2 id={titleId} className={titleStyle}>
+                {title}
+              </h2>
+              {showClose && (
+                <IconButton
+                  variant="dark"
+                  buttonStyle="weak"
+                  size="sm"
+                  onClick={onClose}
+                  aria-label="닫기"
+                  className={closeButton}
+                >
+                  <Icon name="close" size="sm" />
+                </IconButton>
+              )}
+            </div>
+          )}
 
-        <div className={content}>{children}</div>
+          <div className={content}>{children}</div>
+        </div>
       </div>
-    </div>
+    </SideSheetContext.Provider>
   );
 
   return createPortal(sheetContent, document.body);
 };
 
-SideSheet.displayName = 'SideSheet';
+SideSheetRoot.displayName = 'SideSheet';
+
+// Flat API (기존 API 유지)
+export const SideSheet = SideSheetRoot;
+
+// Compound API 서브 컴포넌트들
+export interface SideSheetHeaderProps extends HTMLAttributes<HTMLElement> {
+  children: ReactNode;
+  showClose?: boolean;
+  className?: string;
+}
+
+export const SideSheetHeader = forwardRef<HTMLElement, SideSheetHeaderProps>(
+  ({ children, showClose = false, className, ...props }, ref) => {
+    const context = useSideSheetContext();
+
+    return (
+      <header ref={ref} className={clsx(header, className)} {...props}>
+        <div style={{ flex: 1 }}>{children}</div>
+        {showClose && context && (
+          <IconButton
+            variant="dark"
+            buttonStyle="weak"
+            size="sm"
+            onClick={context.onClose}
+            aria-label="닫기"
+            className={closeButton}
+          >
+            <Icon name="close" size="sm" />
+          </IconButton>
+        )}
+      </header>
+    );
+  }
+);
+
+SideSheetHeader.displayName = 'SideSheetHeader';
+
+export interface SideSheetTitleProps extends HTMLAttributes<HTMLHeadingElement> {
+  children: ReactNode;
+  className?: string;
+}
+
+export const SideSheetTitle = forwardRef<HTMLHeadingElement, SideSheetTitleProps>(
+  ({ children, className, ...props }, ref) => {
+    return (
+      <h2 ref={ref} className={clsx(titleStyle, className)} {...props}>
+        {children}
+      </h2>
+    );
+  }
+);
+
+SideSheetTitle.displayName = 'SideSheetTitle';
+
+export interface SideSheetContentProps extends HTMLAttributes<HTMLDivElement> {
+  children: ReactNode;
+  className?: string;
+}
+
+export const SideSheetContent = forwardRef<HTMLDivElement, SideSheetContentProps>(
+  ({ children, className, ...props }, ref) => {
+    return (
+      <div ref={ref} className={clsx(content, className)} {...props}>
+        {children}
+      </div>
+    );
+  }
+);
+
+SideSheetContent.displayName = 'SideSheetContent';

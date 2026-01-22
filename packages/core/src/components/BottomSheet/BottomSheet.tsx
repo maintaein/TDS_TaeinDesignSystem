@@ -3,6 +3,9 @@ import {
   useRef,
   useState,
   useId,
+  createContext,
+  useContext,
+  forwardRef,
   type ReactNode,
   type HTMLAttributes,
 } from 'react';
@@ -26,6 +29,22 @@ import {
 import { IconButton } from '../IconButton';
 import { Icon } from '../Icon';
 
+interface BottomSheetContextValue {
+  onClose: () => void;
+}
+
+const BottomSheetContext = createContext<BottomSheetContextValue | null>(null);
+
+const useBottomSheetContext = () => {
+  const context = useContext(BottomSheetContext);
+  if (process.env.NODE_ENV === 'development') {
+    if (!context) {
+      console.error('BottomSheet 서브 컴포넌트는 BottomSheet 내부에서 사용되어야 합니다');
+    }
+  }
+  return context;
+};
+
 export interface BottomSheetProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
   'title'
@@ -43,7 +62,7 @@ export interface BottomSheetProps extends Omit<
   className?: string;
 }
 
-export const BottomSheet = ({
+const BottomSheetRoot = ({
   open,
   onClose,
   title,
@@ -174,55 +193,127 @@ export const BottomSheet = ({
   };
 
   const sheetContent = (
-    <div className={bottomSheetContainer}>
-      <div
-        className={clsx(backdrop, !open ? backdropExit : backdropEnter)}
-        onClick={handleBackdropClick}
-        aria-hidden="true"
-      />
-      <div
-        ref={sheetRef}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={title ? titleId : undefined}
-        onAnimationEnd={handleAnimationEnd}
-        className={clsx(
-          bottomSheetStyle,
-          heightStyles[height],
-          !open ? bottomSheetExit : bottomSheetEnter,
-          className
-        )}
-        onClick={(e) => e.stopPropagation()}
-        {...props}
-      >
-        {showHandle && <div className={handle} />}
+    <BottomSheetContext.Provider value={{ onClose }}>
+      <div className={bottomSheetContainer}>
+        <div
+          className={clsx(backdrop, !open ? backdropExit : backdropEnter)}
+          onClick={handleBackdropClick}
+          aria-hidden="true"
+        />
+        <div
+          ref={sheetRef}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={title ? titleId : undefined}
+          onAnimationEnd={handleAnimationEnd}
+          className={clsx(
+            bottomSheetStyle,
+            heightStyles[height],
+            !open ? bottomSheetExit : bottomSheetEnter,
+            className
+          )}
+          onClick={(e) => e.stopPropagation()}
+          {...props}
+        >
+          {showHandle && <div className={handle} />}
 
-        {title && (
-          <div className={header}>
-            <h2 id={titleId} className={titleStyle}>
-              {title}
-            </h2>
-            {showClose && (
-              <IconButton
-                variant="dark"
-                buttonStyle="weak"
-                size="sm"
-                onClick={onClose}
-                aria-label="닫기"
-                className={closeButton}
-              >
-                <Icon name="close" size="sm" />
-              </IconButton>
-            )}
-          </div>
-        )}
+          {title && (
+            <div className={header}>
+              <h2 id={titleId} className={titleStyle}>
+                {title}
+              </h2>
+              {showClose && (
+                <IconButton
+                  variant="dark"
+                  buttonStyle="weak"
+                  size="sm"
+                  onClick={onClose}
+                  aria-label="닫기"
+                  className={closeButton}
+                >
+                  <Icon name="close" size="sm" />
+                </IconButton>
+              )}
+            </div>
+          )}
 
-        <div className={content}>{children}</div>
+          <div className={content}>{children}</div>
+        </div>
       </div>
-    </div>
+    </BottomSheetContext.Provider>
   );
 
   return createPortal(sheetContent, document.body);
 };
 
-BottomSheet.displayName = 'BottomSheet';
+BottomSheetRoot.displayName = 'BottomSheet';
+
+// Flat API (기존 API 유지)
+export const BottomSheet = BottomSheetRoot;
+
+// Compound API 서브 컴포넌트들
+export interface BottomSheetHeaderProps extends HTMLAttributes<HTMLElement> {
+  children: ReactNode;
+  showClose?: boolean;
+  className?: string;
+}
+
+export const BottomSheetHeader = forwardRef<HTMLElement, BottomSheetHeaderProps>(
+  ({ children, showClose = false, className, ...props }, ref) => {
+    const context = useBottomSheetContext();
+
+    return (
+      <header ref={ref} className={clsx(header, className)} {...props}>
+        <div style={{ flex: 1 }}>{children}</div>
+        {showClose && context && (
+          <IconButton
+            variant="dark"
+            buttonStyle="weak"
+            size="sm"
+            onClick={context.onClose}
+            aria-label="닫기"
+            className={closeButton}
+          >
+            <Icon name="close" size="sm" />
+          </IconButton>
+        )}
+      </header>
+    );
+  }
+);
+
+BottomSheetHeader.displayName = 'BottomSheetHeader';
+
+export interface BottomSheetTitleProps extends HTMLAttributes<HTMLHeadingElement> {
+  children: ReactNode;
+  className?: string;
+}
+
+export const BottomSheetTitle = forwardRef<HTMLHeadingElement, BottomSheetTitleProps>(
+  ({ children, className, ...props }, ref) => {
+    return (
+      <h2 ref={ref} className={clsx(titleStyle, className)} {...props}>
+        {children}
+      </h2>
+    );
+  }
+);
+
+BottomSheetTitle.displayName = 'BottomSheetTitle';
+
+export interface BottomSheetContentProps extends HTMLAttributes<HTMLDivElement> {
+  children: ReactNode;
+  className?: string;
+}
+
+export const BottomSheetContent = forwardRef<HTMLDivElement, BottomSheetContentProps>(
+  ({ children, className, ...props }, ref) => {
+    return (
+      <div ref={ref} className={clsx(content, className)} {...props}>
+        {children}
+      </div>
+    );
+  }
+);
+
+BottomSheetContent.displayName = 'BottomSheetContent';

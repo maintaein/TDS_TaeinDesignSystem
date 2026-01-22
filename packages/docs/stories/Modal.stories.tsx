@@ -517,3 +517,456 @@ export const Interactive: Story = {
   },
   render: (args) => <InteractiveComponent {...args} />,
 };
+
+// Compound API 예시
+
+// Compound API 기본 사용
+export const CompoundAPIBasic: Story = {
+  render: () => {
+    const CompoundWrapper = () => {
+      const [open, setOpen] = useState(false);
+      return (
+        <>
+          <button
+            onClick={() => setOpen(true)}
+            style={{
+              padding: '12px 24px',
+              borderRadius: '8px',
+              border: 'none',
+              backgroundColor: '#0066FF',
+              color: 'white',
+              cursor: 'pointer',
+            }}
+          >
+            Compound API 모달 열기
+          </button>
+          <Modal open={open} onClose={() => setOpen(false)}>
+            <Modal.Header showClose>
+              <Modal.Title>Compound API 모달</Modal.Title>
+            </Modal.Header>
+            <Modal.Content>
+              <p style={{ margin: 0, lineHeight: 1.6 }}>
+                Modal.Header, Modal.Title, Modal.Content, Modal.Footer를 조합하여
+                구조화된 모달을 만들 수 있습니다.
+              </p>
+            </Modal.Content>
+            <Modal.Footer align="right">
+              <button
+                onClick={() => setOpen(false)}
+                style={{
+                  padding: '10px 20px',
+                  borderRadius: '6px',
+                  border: '1px solid #ddd',
+                  backgroundColor: 'white',
+                  cursor: 'pointer',
+                }}
+              >
+                취소
+              </button>
+              <button
+                onClick={() => setOpen(false)}
+                style={{
+                  padding: '10px 20px',
+                  borderRadius: '6px',
+                  border: 'none',
+                  backgroundColor: '#0066FF',
+                  color: 'white',
+                  cursor: 'pointer',
+                }}
+              >
+                확인
+              </button>
+            </Modal.Footer>
+          </Modal>
+        </>
+      );
+    };
+    return <CompoundWrapper />;
+  },
+};
+
+// 확인 다이얼로그 (Compound API)
+export const CompoundConfirmDialog: Story = {
+  render: () => {
+    const ConfirmWrapper = () => {
+      const [open, setOpen] = useState(false);
+      return (
+        <>
+          <button
+            onClick={() => setOpen(true)}
+            style={{
+              padding: '12px 24px',
+              borderRadius: '8px',
+              border: 'none',
+              backgroundColor: '#FF4444',
+              color: 'white',
+              cursor: 'pointer',
+            }}
+          >
+            삭제하기
+          </button>
+          <Modal open={open} onClose={() => setOpen(false)} size="sm">
+            <Modal.Header>
+              <Modal.Title>회원 탈퇴</Modal.Title>
+            </Modal.Header>
+            <Modal.Content>
+              <p style={{ margin: 0, lineHeight: 1.6, color: '#666' }}>
+                정말 탈퇴하시겠습니까? 이 작업은 되돌릴 수 없으며, 모든 데이터가
+                삭제됩니다.
+              </p>
+            </Modal.Content>
+            <Modal.Footer align="right">
+              <button
+                onClick={() => setOpen(false)}
+                style={{
+                  padding: '10px 20px',
+                  borderRadius: '6px',
+                  border: '1px solid #ddd',
+                  backgroundColor: 'white',
+                  cursor: 'pointer',
+                }}
+              >
+                취소
+              </button>
+              <button
+                onClick={() => {
+                  alert('탈퇴 처리');
+                  setOpen(false);
+                }}
+                style={{
+                  padding: '10px 20px',
+                  borderRadius: '6px',
+                  border: 'none',
+                  backgroundColor: '#FF4444',
+                  color: 'white',
+                  cursor: 'pointer',
+                }}
+              >
+                탈퇴
+              </button>
+            </Modal.Footer>
+          </Modal>
+        </>
+      );
+    };
+    return <ConfirmWrapper />;
+  },
+};
+
+// 폼 모달 (Compound API)
+export const CompoundFormModal: Story = {
+  render: () => {
+    const FormWrapper = () => {
+      const [open, setOpen] = useState(false);
+      return (
+        <>
+          <button
+            onClick={() => setOpen(true)}
+            style={{
+              padding: '12px 24px',
+              borderRadius: '8px',
+              border: 'none',
+              backgroundColor: '#0066FF',
+              color: 'white',
+              cursor: 'pointer',
+            }}
+          >
+            로그인
+          </button>
+          <Modal open={open} onClose={() => setOpen(false)}>
+            <Modal.Header showClose>
+              <Modal.Title>로그인</Modal.Title>
+            </Modal.Header>
+            <Modal.Content>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  alert('로그인 처리');
+                  setOpen(false);
+                }}
+              >
+                <div style={{ marginBottom: '16px' }}>
+                  <label
+                    style={{
+                      display: 'block',
+                      marginBottom: '8px',
+                      fontWeight: 500,
+                    }}
+                  >
+                    이메일
+                  </label>
+                  <input
+                    type="email"
+                    placeholder="example@email.com"
+                    style={{
+                      width: '100%',
+                      padding: '10px 12px',
+                      border: '1px solid #ddd',
+                      borderRadius: '6px',
+                      fontSize: '14px',
+                      boxSizing: 'border-box',
+                    }}
+                  />
+                </div>
+                <div style={{ marginBottom: '16px' }}>
+                  <label
+                    style={{
+                      display: 'block',
+                      marginBottom: '8px',
+                      fontWeight: 500,
+                    }}
+                  >
+                    비밀번호
+                  </label>
+                  <input
+                    type="password"
+                    placeholder="비밀번호를 입력하세요"
+                    style={{
+                      width: '100%',
+                      padding: '10px 12px',
+                      border: '1px solid #ddd',
+                      borderRadius: '6px',
+                      fontSize: '14px',
+                      boxSizing: 'border-box',
+                    }}
+                  />
+                </div>
+              </form>
+            </Modal.Content>
+            <Modal.Footer align="right">
+              <button
+                onClick={() => setOpen(false)}
+                style={{
+                  padding: '10px 20px',
+                  borderRadius: '6px',
+                  border: '1px solid #ddd',
+                  backgroundColor: 'white',
+                  cursor: 'pointer',
+                }}
+              >
+                취소
+              </button>
+              <button
+                type="submit"
+                style={{
+                  padding: '10px 20px',
+                  borderRadius: '6px',
+                  border: 'none',
+                  backgroundColor: '#0066FF',
+                  color: 'white',
+                  cursor: 'pointer',
+                }}
+              >
+                로그인
+              </button>
+            </Modal.Footer>
+          </Modal>
+        </>
+      );
+    };
+    return <FormWrapper />;
+  },
+};
+
+// Footer align 옵션
+export const CompoundFooterAlign: Story = {
+  render: () => {
+    const AlignWrapper = () => {
+      const [openLeft, setOpenLeft] = useState(false);
+      const [openCenter, setOpenCenter] = useState(false);
+      const [openRight, setOpenRight] = useState(false);
+
+      return (
+        <div style={{ display: 'flex', gap: '16px' }}>
+          <button
+            onClick={() => setOpenLeft(true)}
+            style={{
+              padding: '12px 24px',
+              borderRadius: '8px',
+              border: '1px solid #ddd',
+              backgroundColor: 'white',
+              cursor: 'pointer',
+            }}
+          >
+            Left Align
+          </button>
+          <Modal open={openLeft} onClose={() => setOpenLeft(false)} size="sm">
+            <Modal.Header showClose>
+              <Modal.Title>Left Align</Modal.Title>
+            </Modal.Header>
+            <Modal.Content>
+              <p style={{ margin: 0 }}>Footer align="left" (기본값)</p>
+            </Modal.Content>
+            <Modal.Footer align="left">
+              <button
+                onClick={() => setOpenLeft(false)}
+                style={{
+                  padding: '10px 20px',
+                  borderRadius: '6px',
+                  border: 'none',
+                  backgroundColor: '#0066FF',
+                  color: 'white',
+                  cursor: 'pointer',
+                }}
+              >
+                확인
+              </button>
+            </Modal.Footer>
+          </Modal>
+
+          <button
+            onClick={() => setOpenCenter(true)}
+            style={{
+              padding: '12px 24px',
+              borderRadius: '8px',
+              border: '1px solid #ddd',
+              backgroundColor: 'white',
+              cursor: 'pointer',
+            }}
+          >
+            Center Align
+          </button>
+          <Modal open={openCenter} onClose={() => setOpenCenter(false)} size="sm">
+            <Modal.Header showClose>
+              <Modal.Title>Center Align</Modal.Title>
+            </Modal.Header>
+            <Modal.Content>
+              <p style={{ margin: 0 }}>Footer align="center"</p>
+            </Modal.Content>
+            <Modal.Footer align="center">
+              <button
+                onClick={() => setOpenCenter(false)}
+                style={{
+                  padding: '10px 20px',
+                  borderRadius: '6px',
+                  border: 'none',
+                  backgroundColor: '#0066FF',
+                  color: 'white',
+                  cursor: 'pointer',
+                }}
+              >
+                확인
+              </button>
+            </Modal.Footer>
+          </Modal>
+
+          <button
+            onClick={() => setOpenRight(true)}
+            style={{
+              padding: '12px 24px',
+              borderRadius: '8px',
+              border: '1px solid #ddd',
+              backgroundColor: 'white',
+              cursor: 'pointer',
+            }}
+          >
+            Right Align
+          </button>
+          <Modal open={openRight} onClose={() => setOpenRight(false)} size="sm">
+            <Modal.Header showClose>
+              <Modal.Title>Right Align</Modal.Title>
+            </Modal.Header>
+            <Modal.Content>
+              <p style={{ margin: 0 }}>Footer align="right"</p>
+            </Modal.Content>
+            <Modal.Footer align="right">
+              <button
+                onClick={() => setOpenRight(false)}
+                style={{
+                  padding: '10px 20px',
+                  borderRadius: '6px',
+                  border: 'none',
+                  backgroundColor: '#0066FF',
+                  color: 'white',
+                  cursor: 'pointer',
+                }}
+              >
+                확인
+              </button>
+            </Modal.Footer>
+          </Modal>
+        </div>
+      );
+    };
+    return <AlignWrapper />;
+  },
+};
+
+// API 비교
+export const APIComparison: Story = {
+  render: () => (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: '24px',
+        maxWidth: '800px',
+      }}
+    >
+      <div
+        style={{
+          padding: '20px',
+          border: '1px solid #ddd',
+          borderRadius: '8px',
+        }}
+      >
+        <h3 style={{ margin: '0 0 12px 0' }}>기존 방식 (Children)</h3>
+        <p style={{ margin: '0 0 16px 0', color: '#666', fontSize: '14px' }}>
+          children에 자유로운 형태의 콘텐츠 전달
+        </p>
+        <pre
+          style={{
+            backgroundColor: '#f5f5f5',
+            padding: '12px',
+            borderRadius: '4px',
+            fontSize: '12px',
+            overflow: 'auto',
+          }}
+        >
+          {`<Modal open={open} onClose={onClose}>
+  <div style={{ padding: '32px' }}>
+    <h2>제목</h2>
+    <p>내용</p>
+    <button>확인</button>
+  </div>
+</Modal>`}
+        </pre>
+      </div>
+      <div
+        style={{
+          padding: '20px',
+          border: '1px solid #0066FF',
+          borderRadius: '8px',
+        }}
+      >
+        <h3 style={{ margin: '0 0 12px 0', color: '#0066FF' }}>
+          Compound API (권장)
+        </h3>
+        <p style={{ margin: '0 0 16px 0', color: '#666', fontSize: '14px' }}>
+          구조화된 서브 컴포넌트 사용
+        </p>
+        <pre
+          style={{
+            backgroundColor: '#f0f7ff',
+            padding: '12px',
+            borderRadius: '4px',
+            fontSize: '12px',
+            overflow: 'auto',
+          }}
+        >
+          {`<Modal open={open} onClose={onClose}>
+  <Modal.Header showClose>
+    <Modal.Title>제목</Modal.Title>
+  </Modal.Header>
+  <Modal.Content>
+    내용
+  </Modal.Content>
+  <Modal.Footer align="right">
+    <Button>확인</Button>
+  </Modal.Footer>
+</Modal>`}
+        </pre>
+      </div>
+    </div>
+  ),
+};

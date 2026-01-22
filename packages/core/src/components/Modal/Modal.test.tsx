@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Modal } from './Modal';
+import { Modal } from './index';
 
 describe('Modal', () => {
   const defaultProps = {
@@ -272,6 +272,204 @@ describe('Modal', () => {
       render(<Modal {...defaultProps} />);
       const backdrop = document.querySelector('[data-backdrop="true"]');
       expect(backdrop).toBeInTheDocument();
+    });
+  });
+});
+
+describe('Modal Compound API', () => {
+  const defaultProps = {
+    open: true,
+    onClose: vi.fn(),
+  };
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  describe('Modal.Header', () => {
+    it('Modal.Header가 렌더링된다', () => {
+      render(
+        <Modal {...defaultProps}>
+          <Modal.Header>헤더 내용</Modal.Header>
+        </Modal>
+      );
+      expect(screen.getByText('헤더 내용')).toBeInTheDocument();
+    });
+
+    it('showClose가 true일 때 닫기 버튼이 렌더링된다', () => {
+      render(
+        <Modal {...defaultProps}>
+          <Modal.Header showClose>헤더 내용</Modal.Header>
+        </Modal>
+      );
+      expect(screen.getByRole('button', { name: /닫기/i })).toBeInTheDocument();
+    });
+
+    it('showClose 닫기 버튼 클릭 시 onClose가 호출된다', () => {
+      const onClose = vi.fn();
+      render(
+        <Modal {...defaultProps} onClose={onClose}>
+          <Modal.Header showClose>헤더 내용</Modal.Header>
+        </Modal>
+      );
+      fireEvent.click(screen.getByRole('button', { name: /닫기/i }));
+      expect(onClose).toHaveBeenCalledTimes(1);
+    });
+
+    it('커스텀 className이 적용된다', () => {
+      render(
+        <Modal {...defaultProps}>
+          <Modal.Header className="custom-header">헤더</Modal.Header>
+        </Modal>
+      );
+      expect(screen.getByText('헤더').parentElement).toHaveClass('custom-header');
+    });
+  });
+
+  describe('Modal.Title', () => {
+    it('Modal.Title이 렌더링된다', () => {
+      render(
+        <Modal {...defaultProps}>
+          <Modal.Header>
+            <Modal.Title>모달 제목</Modal.Title>
+          </Modal.Header>
+        </Modal>
+      );
+      expect(screen.getByText('모달 제목')).toBeInTheDocument();
+    });
+
+    it('기본 heading level은 h2이다', () => {
+      render(
+        <Modal {...defaultProps}>
+          <Modal.Header>
+            <Modal.Title>제목</Modal.Title>
+          </Modal.Header>
+        </Modal>
+      );
+      expect(screen.getByRole('heading', { level: 2 })).toBeInTheDocument();
+    });
+
+    it('as prop으로 heading level을 변경할 수 있다', () => {
+      render(
+        <Modal {...defaultProps}>
+          <Modal.Header>
+            <Modal.Title as="h3">제목</Modal.Title>
+          </Modal.Header>
+        </Modal>
+      );
+      expect(screen.getByRole('heading', { level: 3 })).toBeInTheDocument();
+    });
+  });
+
+  describe('Modal.Content', () => {
+    it('Modal.Content가 렌더링된다', () => {
+      render(
+        <Modal {...defaultProps}>
+          <Modal.Content>컨텐츠 내용</Modal.Content>
+        </Modal>
+      );
+      expect(screen.getByText('컨텐츠 내용')).toBeInTheDocument();
+    });
+
+    it('커스텀 className이 적용된다', () => {
+      render(
+        <Modal {...defaultProps}>
+          <Modal.Content className="custom-content">내용</Modal.Content>
+        </Modal>
+      );
+      expect(screen.getByText('내용')).toHaveClass('custom-content');
+    });
+  });
+
+  describe('Modal.Footer', () => {
+    it('Modal.Footer가 렌더링된다', () => {
+      render(
+        <Modal {...defaultProps}>
+          <Modal.Footer>
+            <button>확인</button>
+          </Modal.Footer>
+        </Modal>
+      );
+      expect(screen.getByText('확인')).toBeInTheDocument();
+    });
+
+    it('align="right"일 때 스타일이 적용된다', () => {
+      render(
+        <Modal {...defaultProps}>
+          <Modal.Footer align="right" data-testid="footer">푸터</Modal.Footer>
+        </Modal>
+      );
+      const footer = screen.getByTestId('footer');
+      expect(footer).toBeInTheDocument();
+    });
+
+    it('align="center"일 때 스타일이 적용된다', () => {
+      render(
+        <Modal {...defaultProps}>
+          <Modal.Footer align="center" data-testid="footer">푸터</Modal.Footer>
+        </Modal>
+      );
+      const footer = screen.getByTestId('footer');
+      expect(footer).toBeInTheDocument();
+    });
+
+    it('align="left"가 기본값이다', () => {
+      render(
+        <Modal {...defaultProps}>
+          <Modal.Footer data-testid="footer">푸터</Modal.Footer>
+        </Modal>
+      );
+      const footer = screen.getByTestId('footer');
+      expect(footer).toBeInTheDocument();
+    });
+  });
+
+  describe('Compound 조합 테스트', () => {
+    it('Modal.Header, Modal.Content, Modal.Footer가 함께 렌더링된다', () => {
+      render(
+        <Modal {...defaultProps}>
+          <Modal.Header showClose>
+            <Modal.Title>회원 탈퇴</Modal.Title>
+          </Modal.Header>
+          <Modal.Content>정말 탈퇴하시겠습니까?</Modal.Content>
+          <Modal.Footer align="right">
+            <button>취소</button>
+            <button>탈퇴</button>
+          </Modal.Footer>
+        </Modal>
+      );
+
+      expect(screen.getByText('회원 탈퇴')).toBeInTheDocument();
+      expect(screen.getByText('정말 탈퇴하시겠습니까?')).toBeInTheDocument();
+      expect(screen.getByText('취소')).toBeInTheDocument();
+      expect(screen.getByText('탈퇴')).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /닫기/i })).toBeInTheDocument();
+    });
+
+    it('Header만 사용해도 동작한다', () => {
+      render(
+        <Modal {...defaultProps}>
+          <Modal.Header>
+            <Modal.Title>알림</Modal.Title>
+          </Modal.Header>
+          <div>내용</div>
+        </Modal>
+      );
+      expect(screen.getByText('알림')).toBeInTheDocument();
+    });
+
+    it('접근성: aria-labelledby와 aria-describedby가 Content에 연결될 수 있다', () => {
+      render(
+        <Modal {...defaultProps} aria-labelledby="modal-title" aria-describedby="modal-desc">
+          <Modal.Header>
+            <Modal.Title id="modal-title">제목</Modal.Title>
+          </Modal.Header>
+          <Modal.Content id="modal-desc">설명</Modal.Content>
+        </Modal>
+      );
+      const dialog = screen.getByRole('dialog');
+      expect(dialog).toHaveAttribute('aria-labelledby', 'modal-title');
+      expect(dialog).toHaveAttribute('aria-describedby', 'modal-desc');
     });
   });
 });
