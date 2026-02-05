@@ -3,6 +3,7 @@ import { themeContract } from '../../tokens/theme.css';
 
 // CardRoot 기본 스타일
 export const cardRoot = style({
+  position: 'relative',
   display: 'flex',
   flexDirection: 'column',
   backgroundColor: themeContract.color.background.paper,
@@ -28,6 +29,18 @@ export const variantStyles = styleVariants({
     backgroundColor: themeContract.color.surface.hover,
     border: 'none',
     boxShadow: 'none',
+  },
+  interactive: {
+    border: `2px solid ${themeContract.color.border.default}`,
+    boxShadow: 'none',
+    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+
+    selectors: {
+      '&:hover': {
+        transform: 'translateY(-8px)',
+        boxShadow: '0 20px 40px rgba(0, 0, 0, 0.12)',
+      },
+    },
   },
 });
 

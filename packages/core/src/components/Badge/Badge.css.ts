@@ -23,23 +23,23 @@ export const badge = style({
 
 export const variantStyles = styleVariants({
   primary: {
-    backgroundColor: primary[600],
+    backgroundColor: `var(--badge-color, ${primary[600]})`,
     color: '#FFFFFF',
   },
   secondary: {
-    backgroundColor: gray[600],
+    backgroundColor: `var(--badge-color, ${gray[600]})`,
     color: '#FFFFFF',
   },
   success: {
-    backgroundColor: success[500],
+    backgroundColor: `var(--badge-color, ${success[500]})`,
     color: '#FFFFFF',
   },
   error: {
-    backgroundColor: error[500],
+    backgroundColor: `var(--badge-color, ${error[500]})`,
     color: '#FFFFFF',
   },
   warning: {
-    backgroundColor: warning[500],
+    backgroundColor: `var(--badge-color, ${warning[500]})`,
     color: gray[900],
   },
 });

@@ -14,6 +14,7 @@ export interface BadgeProps extends Omit<
   showZero?: boolean;
   'aria-label'?: string;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export const Badge = ({
@@ -25,6 +26,7 @@ export const Badge = ({
   showZero = true,
   'aria-label': ariaLabel,
   className,
+  style,
   ...props
 }: BadgeProps) => {
   // dot 모드가 아닐 때 children 검증
@@ -119,6 +121,7 @@ export const Badge = ({
         dot && dotStyles,
         className
       )}
+      style={style}
       {...props}
     >
       {displayContent}

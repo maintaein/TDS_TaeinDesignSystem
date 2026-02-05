@@ -20,9 +20,10 @@ import {
 export interface CardRootProps
   extends Omit<HTMLAttributes<HTMLElement>, 'onClick'> {
   children: ReactNode;
-  variant?: 'outlined' | 'elevated' | 'filled';
+  variant?: 'outlined' | 'elevated' | 'filled' | 'interactive';
   onClick?: () => void;
   disabled?: boolean;
+  accentColor?: string;
 }
 
 export const CardRoot = forwardRef<HTMLElement, CardRootProps>(
@@ -32,7 +33,9 @@ export const CardRoot = forwardRef<HTMLElement, CardRootProps>(
       variant = 'elevated',
       onClick,
       disabled = false,
+      accentColor,
       className,
+      style,
       ...props
     },
     ref
@@ -55,12 +58,17 @@ export const CardRoot = forwardRef<HTMLElement, CardRootProps>(
       className
     );
 
+    const rootStyle = accentColor
+      ? ({ ...style, '--accent-color': accentColor } as React.CSSProperties)
+      : style;
+
     if (isClickable) {
       return (
         <button
           ref={ref as React.Ref<HTMLButtonElement>}
           type="button"
           className={rootClasses}
+          style={rootStyle}
           onClick={clickableProps.onClick}
           onKeyDown={clickableProps.onKeyDown}
           disabled={disabled}
@@ -73,7 +81,7 @@ export const CardRoot = forwardRef<HTMLElement, CardRootProps>(
     }
 
     return (
-      <article ref={ref as React.Ref<HTMLElement>} className={rootClasses} {...props}>
+      <article ref={ref as React.Ref<HTMLElement>} className={rootClasses} style={rootStyle} {...props}>
         {children}
       </article>
     );

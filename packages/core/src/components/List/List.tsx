@@ -23,9 +23,10 @@ export interface ListProps extends HTMLAttributes<HTMLUListElement> {
 
 // ListItem Props
 export interface ListItemProps extends HTMLAttributes<HTMLLIElement> {
-  label: ReactNode;
-  value: ReactNode;
-  layout?: 'horizontal' | 'vertical';
+  label?: ReactNode;
+  value?: ReactNode;
+  children?: ReactNode;
+  layout?: 'horizontal' | 'vertical' | 'custom';
   align?: 'start' | 'center' | 'end' | 'baseline';
   labelWidth?: string;
   className?: string;
@@ -60,17 +61,34 @@ List.displayName = 'List';
 export const ListItem = ({
   label,
   value,
+  children,
   layout = 'horizontal',
   align = 'center',
   labelWidth,
   className,
   ...props
 }: ListItemProps) => {
+  // children이 있으면 자유 레이아웃 모드
+  if (children) {
+    return (
+      <li
+        className={clsx(
+          listItem,
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </li>
+    );
+  }
+
+  // 기존 label-value 구조
   return (
     <li
       className={clsx(
         listItem,
-        layoutStyles[layout],
+        layoutStyles[layout as 'horizontal' | 'vertical'],
         alignStyles[align],
         layout === 'horizontal' ? horizontalGap : verticalGap,
         className
