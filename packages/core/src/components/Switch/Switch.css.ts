@@ -85,37 +85,20 @@ export const size = styleVariants(baseSizeContainer, (baseStyle) => [
   baseStyle,
   {
     selectors: {
-      // 체크된 상태 - 배경색 변경
-      'input:checked ~ &': {
-        backgroundColor: '#1E88E5',
-        borderColor: '#1E88E5',
-      },
-
-      // Hover 상태
-      'input:not(:disabled):hover ~ &': {
-        backgroundColor: '#CCCCCC',
-      },
-
-      'input:checked:not(:disabled):hover ~ &': {
-        backgroundColor: '#1976D2',
+      '&:has(input:checked)': {
+        backgroundColor: '#FFFFFF',
+        borderColor: '#DDDDDD',
       },
 
       // Disabled 상태
-      'input:disabled ~ &': {
+      '&:has(input:disabled)': {
         backgroundColor: '#F5F5F5',
         borderColor: '#F5F5F5',
-        cursor: 'not-allowed',
       },
 
-      'input:checked:disabled ~ &': {
+      '&:has(input:checked:disabled)': {
         backgroundColor: '#BBDEFB',
         borderColor: '#BBDEFB',
-      },
-
-      // Focus 상태
-      'input:focus ~ &': {
-        borderColor: '#1E88E5',
-        boxShadow: '0 0 0 3px rgba(30, 136, 229, 0.1)',
       },
     },
   },
@@ -151,11 +134,6 @@ export const thumbSize = styleVariants({
         backgroundColor: '#BBDEFB',
         boxShadow: 'none',
       },
-
-      'input:focus + &': {
-        boxShadow:
-          '0 0 0 3px rgba(30, 136, 229, 0.1), 0 2px 4px rgba(0, 0, 0, 0.2)',
-      },
     },
   },
   md: {
@@ -185,11 +163,6 @@ export const thumbSize = styleVariants({
       'input:checked:disabled + &': {
         backgroundColor: '#BBDEFB',
         boxShadow: 'none',
-      },
-
-      'input:focus + &': {
-        boxShadow:
-          '0 0 0 3px rgba(30, 136, 229, 0.1), 0 2px 4px rgba(0, 0, 0, 0.2)',
       },
     },
   },
@@ -222,10 +195,6 @@ export const thumbSize = styleVariants({
         boxShadow: 'none',
       },
 
-      'input:focus + &': {
-        boxShadow:
-          '0 0 0 3px rgba(30, 136, 229, 0.1), 0 2px 4px rgba(0, 0, 0, 0.2)',
-      },
     },
   },
 });

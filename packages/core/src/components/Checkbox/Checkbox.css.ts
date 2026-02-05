@@ -118,12 +118,6 @@ export const checkmark = style({
       backgroundColor: '#FFFFFF',
     },
 
-    // focus 상태
-    'input:focus + &': {
-      borderColor: '#1E88E5',
-      boxShadow: '0 0 0 3px rgba(30, 136, 229, 0.1)',
-    },
-
     // disabled 상태
     'input:disabled + &': {
       backgroundColor: '#F5F5F5',

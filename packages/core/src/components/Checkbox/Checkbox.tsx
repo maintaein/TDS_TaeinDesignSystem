@@ -99,7 +99,13 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
               )}
               {...rest}
             />
-            <span className={clsx(styles.checkmark, styles.size[size])} />
+            <span
+              className={clsx(
+                styles.checkmark,
+                styles.size[size],
+                error && styles.error
+              )}
+            />
           </div>
 
           {/* Label Text */}
