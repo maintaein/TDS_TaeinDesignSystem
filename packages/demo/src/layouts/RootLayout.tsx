@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import { Header } from './Header';
 import { Sidebar } from './Sidebar';
 import { Breadcrumb } from './Breadcrumb';
+import { ScrollToTop } from '../components/ScrollToTop';
 import * as styles from './RootLayout.css';
 
 export function RootLayout() {
@@ -38,6 +39,7 @@ export function RootLayout() {
 
   return (
     <div className={styles.root}>
+      <ScrollToTop />
       <Header onMenuClick={toggleSidebar} />
       <div className={styles.body}>
         <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} />

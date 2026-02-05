@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { style, globalStyle } from '@vanilla-extract/css';
 
 export const container = style({
   maxWidth: '1000px',
@@ -14,14 +14,14 @@ export const container = style({
 export const title = style({
   fontSize: '2.5rem',
   fontWeight: 700,
-  color: '#111827',
+  color: '#2563eb',
   marginBottom: '0.5rem',
   '@media': {
     '(max-width: 768px)': {
       fontSize: '2rem',
     },
     '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
+      color: '#60a5fa',
     },
   },
 });
@@ -180,32 +180,17 @@ export const nextStepsGrid = style({
 });
 
 export const nextStepCard = style({
-  display: 'flex',
-  flexDirection: 'column',
-  padding: '1.5rem',
-  backgroundColor: '#ffffff',
-  borderRadius: '0.75rem',
-  border: '2px solid #e5e7eb',
-  textDecoration: 'none',
-  transition: 'border-color 0.2s, transform 0.2s',
-  ':hover': {
-    borderColor: '#2563eb',
-    transform: 'translateY(-2px)',
-  },
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#111827',
-      borderColor: '#374151',
-      ':hover': {
-        borderColor: '#60a5fa',
-      },
-    },
-  },
+  height: '100%',
 });
 
 export const nextStepIcon = style({
   fontSize: '2.5rem',
   marginBottom: '0.75rem',
+  transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+  transformOrigin: 'top left',
+  transform: 'translateY(0) translateX(0) scale(1)',
+  willChange: 'transform',
+  backfaceVisibility: 'hidden',
 });
 
 export const nextStepTitle = style({
@@ -213,6 +198,9 @@ export const nextStepTitle = style({
   fontWeight: 600,
   color: '#111827',
   marginBottom: '0.5rem',
+  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+  willChange: 'transform, color',
+  transform: 'translateX(0)',
   '@media': {
     '(prefers-color-scheme: dark)': {
       color: '#f9fafb',
@@ -224,9 +212,26 @@ export const nextStepDescription = style({
   fontSize: '0.875rem',
   color: '#6b7280',
   lineHeight: 1.5,
+  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+  willChange: 'transform',
+  WebkitFontSmoothing: 'antialiased',
+  transform: 'translateX(0)',
   '@media': {
     '(prefers-color-scheme: dark)': {
       color: '#d1d5db',
+    },
+  },
+});
+
+export const nextStepArrow = style({
+  fontSize: '1.5rem',
+  color: '#6b7280',
+  opacity: 0,
+  transform: 'translateX(-10px)',
+  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+  '@media': {
+    '(prefers-color-scheme: dark)': {
+      color: '#9ca3af',
     },
   },
 });
@@ -280,4 +285,24 @@ export const helpActions = style({
       gap: '0.75rem',
     },
   },
+});
+
+// Card 호버 시 자식 요소 애니메이션
+globalStyle(`${nextStepCard}:hover ${nextStepIcon}`, {
+  transform: 'translateY(-4px) translateX(1px) scale(1.11)',
+});
+
+globalStyle(`${nextStepCard}:hover ${nextStepTitle}`, {
+  color: '#2563eb',
+  transform: 'translateX(2px)',
+});
+
+globalStyle(`${nextStepCard}:hover ${nextStepDescription}`, {
+  color: '#4b5563',
+  transform: 'translateX(2px)',
+});
+
+globalStyle(`${nextStepCard}:hover ${nextStepArrow}`, {
+  opacity: 1,
+  transform: 'translateX(0)',
 });

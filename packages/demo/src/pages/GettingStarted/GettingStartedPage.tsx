@@ -1,5 +1,5 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { Button } from '@taein-designsystem/core';
+import { useNavigate } from 'react-router-dom';
+import { Button, Card, Text } from '@taein-designsystem/core';
 import { CodeBlock } from '../../components/CodeBlock';
 import * as styles from './GettingStartedPage.css';
 
@@ -7,14 +7,14 @@ export function GettingStartedPage() {
   const navigate = useNavigate();
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>시작하기</h1>
+      <Text variant="h1" className={styles.title}>시작하기</Text>
       <p className={styles.description}>
         TDS를 프로젝트에 설치하고 사용하는 방법을 알아보세요.
       </p>
 
       {/* Installation Section */}
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>1. 설치</h2>
+        <Text variant="h2" className={styles.sectionTitle}>1. 설치</Text>
         <p className={styles.sectionDescription}>
           원하는 패키지 매니저를 사용하여 TDS를 설치하세요.
         </p>
@@ -51,7 +51,7 @@ export function GettingStartedPage() {
 
       {/* Basic Usage Section */}
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>2. 기본 사용법</h2>
+        <Text variant="h2" className={styles.sectionTitle}>2. 기본 사용법</Text>
         <p className={styles.sectionDescription}>
           TDS 컴포넌트를 사용하려면 먼저 CSS를 import하고 컴포넌트를 가져옵니다.
         </p>
@@ -93,10 +93,10 @@ function App() {
 
       {/* TypeScript Section */}
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>3. TypeScript 설정</h2>
+        <Text variant="h2" className={styles.sectionTitle}>3. TypeScript 설정</Text>
         <p className={styles.sectionDescription}>
           TDS는 TypeScript로 작성되었으며 모든 컴포넌트에 타입 정의가 포함되어 있습니다.
-          별도의 @types 패키지를 설치할 필요가 없습니다.
+          별도의 @types 패키지가 필요하지 않습니다.
         </p>
 
         <div className={styles.codeExample}>
@@ -139,7 +139,7 @@ function Example() {
 
       {/* Theme Section */}
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>4. 테마 적용</h2>
+        <Text variant="h2" className={styles.sectionTitle}>4. 테마 적용</Text>
         <p className={styles.sectionDescription}>
           TDS는 라이트/다크 모드를 지원하는 내장 테마 시스템을 제공합니다.
         </p>
@@ -201,43 +201,75 @@ function ThemeToggle() {
 
       {/* Next Steps Section */}
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>5. 다음 단계</h2>
+        <Text variant="h2" className={styles.sectionTitle}>5. 다음 단계</Text>
         <p className={styles.sectionDescription}>
           TDS를 설치했다면 이제 컴포넌트를 탐색하고 프로젝트에 적용해보세요.
         </p>
 
         <div className={styles.nextStepsGrid}>
-          <Link to="/design-tokens/colors" className={styles.nextStepCard}>
-            <div className={styles.nextStepIcon}>🎨</div>
-            <h3 className={styles.nextStepTitle}>디자인 토큰</h3>
-            <p className={styles.nextStepDescription}>
-              색상, 타이포그래피, 간격 등 디자인 시스템의 기본 요소를 살펴보세요.
-            </p>
-          </Link>
+          <Card
+            variant="interactive"
+            accentColor="#2563eb"
+            onClick={() => navigate('/design-tokens/colors')}
+            className={styles.nextStepCard}
+          >
+            <Card.Body padding="lg">
+              <div className={styles.nextStepIcon}>🎨</div>
+              <h3 className={styles.nextStepTitle}>디자인 토큰</h3>
+              <p className={styles.nextStepDescription}>
+                색상, 타이포그래피, 간격 등 디자인 시스템의 기본 요소를 살펴보세요.
+              </p>
+              <div className={styles.nextStepArrow}>→</div>
+            </Card.Body>
+          </Card>
 
-          <Link to="/components" className={styles.nextStepCard}>
-            <div className={styles.nextStepIcon}>🧩</div>
-            <h3 className={styles.nextStepTitle}>컴포넌트</h3>
-            <p className={styles.nextStepDescription}>
-              27개의 검증된 컴포넌트와 사용 예시를 확인하세요.
-            </p>
-          </Link>
+          <Card
+            variant="interactive"
+            accentColor="#10b981"
+            onClick={() => navigate('/components')}
+            className={styles.nextStepCard}
+          >
+            <Card.Body padding="lg">
+              <div className={styles.nextStepIcon}>🧩</div>
+              <h3 className={styles.nextStepTitle}>컴포넌트</h3>
+              <p className={styles.nextStepDescription}>
+                27개의 검증된 컴포넌트와 사용 예시를 확인하세요.
+              </p>
+              <div className={styles.nextStepArrow}>→</div>
+            </Card.Body>
+          </Card>
 
-          <Link to="/patterns" className={styles.nextStepCard}>
-            <div className={styles.nextStepIcon}>📐</div>
-            <h3 className={styles.nextStepTitle}>패턴</h3>
-            <p className={styles.nextStepDescription}>
-              실전 UI 패턴으로 빠르게 애플리케이션을 구축하세요.
-            </p>
-          </Link>
+          <Card
+            variant="interactive"
+            accentColor="#8b5cf6"
+            onClick={() => navigate('/patterns')}
+            className={styles.nextStepCard}
+          >
+            <Card.Body padding="lg">
+              <div className={styles.nextStepIcon}>📐</div>
+              <h3 className={styles.nextStepTitle}>패턴</h3>
+              <p className={styles.nextStepDescription}>
+                실전 UI 패턴으로 빠르게 애플리케이션을 구축하세요.
+              </p>
+              <div className={styles.nextStepArrow}>→</div>
+            </Card.Body>
+          </Card>
 
-          <Link to="/guidelines/accessibility" className={styles.nextStepCard}>
-            <div className={styles.nextStepIcon}>♿</div>
-            <h3 className={styles.nextStepTitle}>접근성</h3>
-            <p className={styles.nextStepDescription}>
-              WCAG 2.2 AA 기준을 준수하는 접근성 가이드를 확인하세요.
-            </p>
-          </Link>
+          <Card
+            variant="interactive"
+            accentColor="#f59e0b"
+            onClick={() => navigate('/guidelines/accessibility')}
+            className={styles.nextStepCard}
+          >
+            <Card.Body padding="lg">
+              <div className={styles.nextStepIcon}>♿</div>
+              <h3 className={styles.nextStepTitle}>접근성</h3>
+              <p className={styles.nextStepDescription}>
+                WCAG 2.2 AA 기준을 준수하는 접근성 가이드를 확인하세요.
+              </p>
+              <div className={styles.nextStepArrow}>→</div>
+            </Card.Body>
+          </Card>
         </div>
       </section>
 

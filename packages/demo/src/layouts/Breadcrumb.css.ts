@@ -22,18 +22,11 @@ export const breadcrumbItem = style({
   gap: '0.5rem',
 });
 
-export const breadcrumbLink = style({
+export const breadcrumbText = style({
   color: '#6b7280',
-  transition: 'color 0.2s',
-  ':hover': {
-    color: '#2563eb',
-  },
   '@media': {
     '(prefers-color-scheme: dark)': {
       color: '#9ca3af',
-      ':hover': {
-        color: '#60a5fa',
-      },
     },
   },
 });

@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { navigationData } from '../data/navigation';
 import type { NavigationItem } from '../data/navigation';
 import * as styles from './Breadcrumb.css';
@@ -48,15 +48,14 @@ export function Breadcrumb() {
                 /
               </span>
             )}
-            {isLast ? (
-              <span className={styles.breadcrumbCurrent} aria-current="page">
-                {crumb.label}
-              </span>
-            ) : (
-              <Link to={crumb.path} className={styles.breadcrumbLink}>
-                {crumb.label}
-              </Link>
-            )}
+            <span
+              className={
+                isLast ? styles.breadcrumbCurrent : styles.breadcrumbText
+              }
+              aria-current={isLast ? 'page' : undefined}
+            >
+              {crumb.label}
+            </span>
           </div>
         );
       })}

@@ -14,7 +14,7 @@ export const container = style({
 export const title = style({
   fontSize: '2.5rem',
   fontWeight: 700,
-  color: '#111827',
+  color: '#2563eb',
   marginBottom: '0.5rem',
   '@media': {
     '(max-width: 768px)': {

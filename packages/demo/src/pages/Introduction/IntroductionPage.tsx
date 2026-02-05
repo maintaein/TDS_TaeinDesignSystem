@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Button, Modal } from '@taein-designsystem/core';
+import { useNavigate } from 'react-router-dom';
+import { Button, Modal, Card, Text, List, ListItem } from '@taein-designsystem/core';
 import { LivePreview } from '../../components/LivePreview';
 import * as styles from './IntroductionPage.css';
 
@@ -15,7 +15,7 @@ export function IntroductionPage() {
       <section className={styles.hero}>
         <div className={styles.heroContent}>
           <h1 className={styles.heroTitle}>
-            <span className={styles.heroTitleMain}>TDS</span>
+            <Text variant="h1" as="span" className={styles.heroTitleMain}>TDS</Text>
             <span className={styles.heroTitleSub}>Taein Design System</span>
           </h1>
           <p className={styles.heroDescription}>
@@ -35,7 +35,7 @@ export function IntroductionPage() {
 
       {/* Core Values */}
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>핵심 가치</h2>
+        <Text variant="h2" className={styles.sectionTitle}>핵심 가치</Text>
         <div className={styles.valuesGrid}>
           <div className={styles.valueCard}>
             <div className={styles.valueIcon}>🎯</div>
@@ -63,50 +63,50 @@ export function IntroductionPage() {
 
       {/* Key Features */}
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>주요 특징</h2>
-        <div className={styles.featuresList}>
-          <div className={styles.featureRow}>
+        <Text variant="h2" className={styles.sectionTitle}>주요 특징</Text>
+        <List spacing="none" divider={false} className={styles.featuresList}>
+          <ListItem className={styles.featuresListItem}>
             <h3 className={styles.featureTitle}>27개 컴포넌트</h3>
             <p className={styles.featureDescription}>
               Button부터 Modal까지, 실무에 필요한 모든 컴포넌트를 제공합니다.
             </p>
-          </div>
-          <div className={styles.featureRow}>
+          </ListItem>
+          <ListItem className={styles.featuresListItem}>
             <h3 className={styles.featureTitle}>924 Tests</h3>
             <p className={styles.featureDescription}>
               99% 테스트 커버리지로 안정성과 신뢰성을 보장합니다.
             </p>
-          </div>
-          <div className={styles.featureRow}>
+          </ListItem>
+          <ListItem className={styles.featuresListItem}>
             <h3 className={styles.featureTitle}>~23KB 번들</h3>
             <p className={styles.featureDescription}>
               Tree-shaking 지원으로 가벼운 번들 크기를 유지합니다.
             </p>
-          </div>
-          <div className={styles.featureRow}>
+          </ListItem>
+          <ListItem className={styles.featuresListItem}>
             <h3 className={styles.featureTitle}>TypeScript</h3>
             <p className={styles.featureDescription}>
               완벽한 타입 정의로 타입 안전성과 자동완성을 제공합니다.
             </p>
-          </div>
-          <div className={styles.featureRow}>
+          </ListItem>
+          <ListItem className={styles.featuresListItem}>
             <h3 className={styles.featureTitle}>다크모드</h3>
             <p className={styles.featureDescription}>
               내장된 테마 시스템으로 라이트/다크 모드를 쉽게 전환할 수 있습니다.
             </p>
-          </div>
-          <div className={styles.featureRow}>
+          </ListItem>
+          <ListItem className={styles.featuresListItem}>
             <h3 className={styles.featureTitle}>반응형</h3>
             <p className={styles.featureDescription}>
               모바일부터 데스크톱까지 모든 화면 크기를 완벽 지원합니다.
             </p>
-          </div>
-        </div>
+          </ListItem>
+        </List>
       </section>
 
       {/* Interactive Preview */}
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>빠른 미리보기</h2>
+        <Text variant="h2" className={styles.sectionTitle}>빠른 미리보기</Text>
         <p className={styles.sectionDescription}>
           TDS 컴포넌트를 직접 체험해보세요. 다양한 크기와 옵션을 가진 모달을 확인할 수 있습니다.
         </p>
@@ -274,7 +274,7 @@ function Example() {
 
       {/* Statistics */}
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>한눈에 보는 TDS</h2>
+        <Text variant="h2" className={styles.sectionTitle}>한눈에 보는 TDS</Text>
         <div className={styles.statsGrid}>
           <div className={styles.statCard}>
             <div className={styles.statNumber}>27</div>
@@ -297,29 +297,53 @@ function Example() {
 
       {/* Next Steps */}
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>다음 단계</h2>
+        <Text variant="h2" className={styles.sectionTitle}>다음 단계</Text>
         <div className={styles.nextStepsGrid}>
-          <Link to="/getting-started" className={styles.nextStepCard}>
-            <h3 className={styles.nextStepTitle}>시작하기</h3>
-            <p className={styles.nextStepDescription}>
-              TDS를 프로젝트에 설치하고 사용하는 방법을 알아보세요.
-            </p>
-            <span className={styles.nextStepArrow}>→</span>
-          </Link>
-          <Link to="/design-tokens/colors" className={styles.nextStepCard}>
-            <h3 className={styles.nextStepTitle}>디자인 토큰</h3>
-            <p className={styles.nextStepDescription}>
-              색상, 타이포그래피, 간격 등 디자인 시스템의 기본 요소를 살펴보세요.
-            </p>
-            <span className={styles.nextStepArrow}>→</span>
-          </Link>
-          <Link to="/components" className={styles.nextStepCard}>
-            <h3 className={styles.nextStepTitle}>컴포넌트</h3>
-            <p className={styles.nextStepDescription}>
-              27개의 검증된 컴포넌트와 사용 예시를 확인하세요.
-            </p>
-            <span className={styles.nextStepArrow}>→</span>
-          </Link>
+          <Card
+            variant="interactive"
+            accentColor="#2563eb"
+            onClick={() => navigate('/getting-started')}
+            className={styles.nextStepCard}
+          >
+            <Card.Body padding="lg">
+              <div className={styles.nextStepIcon}>🚀</div>
+              <h3 className={styles.nextStepTitle}>시작하기</h3>
+              <p className={styles.nextStepDescription}>
+                TDS를 프로젝트에 설치하고 사용하는 방법을 알아보세요.
+              </p>
+              <div className={styles.nextStepArrow}>→</div>
+            </Card.Body>
+          </Card>
+          <Card
+            variant="interactive"
+            accentColor="#10b981"
+            onClick={() => navigate('/design-tokens/colors')}
+            className={styles.nextStepCard}
+          >
+            <Card.Body padding="lg">
+              <div className={styles.nextStepIcon}>🎨</div>
+              <h3 className={styles.nextStepTitle}>디자인 토큰</h3>
+              <p className={styles.nextStepDescription}>
+                색상, 타이포그래피, 간격 등 디자인 시스템의 기본 요소를 살펴보세요.
+              </p>
+              <div className={styles.nextStepArrow}>→</div>
+            </Card.Body>
+          </Card>
+          <Card
+            variant="interactive"
+            accentColor="#8b5cf6"
+            onClick={() => navigate('/components')}
+            className={styles.nextStepCard}
+          >
+            <Card.Body padding="lg">
+              <div className={styles.nextStepIcon}>🧩</div>
+              <h3 className={styles.nextStepTitle}>컴포넌트</h3>
+              <p className={styles.nextStepDescription}>
+                27개의 검증된 컴포넌트와 사용 예시를 확인하세요.
+              </p>
+              <div className={styles.nextStepArrow}>→</div>
+            </Card.Body>
+          </Card>
         </div>
       </section>
     </div>
