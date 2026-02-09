@@ -322,4 +322,108 @@ describe('Tooltip', () => {
       expect(arrow).not.toBeInTheDocument();
     });
   });
+
+  describe('비제어 모드 (Uncontrolled Mode)', () => {
+    it('호버 시 내부 상태로 툴팁을 표시한다', () => {
+      render(
+        <Tooltip content="툴팁 내용">
+          <button>호버하세요</button>
+        </Tooltip>
+      );
+
+      const button = screen.getByRole('button');
+      expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+
+      fireEvent.mouseEnter(button);
+
+      act(() => {
+        vi.advanceTimersByTime(200);
+      });
+
+      expect(screen.getByRole('tooltip')).toBeInTheDocument();
+    });
+
+    it('onOpenChange 콜백이 호출된다', () => {
+      const handleOpenChange = vi.fn();
+      render(
+        <Tooltip content="툴팁 내용" onOpenChange={handleOpenChange}>
+          <button>호버하세요</button>
+        </Tooltip>
+      );
+
+      const button = screen.getByRole('button');
+      fireEvent.mouseEnter(button);
+
+      act(() => {
+        vi.advanceTimersByTime(200);
+      });
+
+      expect(handleOpenChange).toHaveBeenCalledWith(true);
+
+      fireEvent.mouseLeave(button);
+
+      expect(handleOpenChange).toHaveBeenCalledWith(false);
+    });
+  });
+
+  describe('제어 모드 (Controlled Mode)', () => {
+    it('open prop으로 툴팁 표시를 제어한다', () => {
+      const { rerender } = render(
+        <Tooltip content="툴팁 내용" open={false} onOpenChange={vi.fn()}>
+          <button>호버하세요</button>
+        </Tooltip>
+      );
+
+      expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+
+      rerender(
+        <Tooltip content="툴팁 내용" open={true} onOpenChange={vi.fn()}>
+          <button>호버하세요</button>
+        </Tooltip>
+      );
+
+      expect(screen.getByRole('tooltip')).toBeInTheDocument();
+    });
+
+    it('호버 시 onOpenChange가 호출되지만 내부 상태는 변하지 않음', () => {
+      const handleOpenChange = vi.fn();
+      render(
+        <Tooltip content="툴팁 내용" open={false} onOpenChange={handleOpenChange}>
+          <button>호버하세요</button>
+        </Tooltip>
+      );
+
+      const button = screen.getByRole('button');
+      expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+
+      fireEvent.mouseEnter(button);
+
+      act(() => {
+        vi.advanceTimersByTime(200);
+      });
+
+      expect(handleOpenChange).toHaveBeenCalledWith(true);
+      // 부모가 업데이트하지 않으면 여전히 숨겨진 상태
+      expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+    });
+
+    it('제어 모드에서 disabled는 onOpenChange 호출을 막는다', () => {
+      const handleOpenChange = vi.fn();
+      render(
+        <Tooltip content="툴팁 내용" open={false} onOpenChange={handleOpenChange} disabled>
+          <button>호버하세요</button>
+        </Tooltip>
+      );
+
+      const button = screen.getByRole('button');
+      fireEvent.mouseEnter(button);
+
+      act(() => {
+        vi.advanceTimersByTime(200);
+      });
+
+      expect(handleOpenChange).not.toHaveBeenCalled();
+    });
+  });
+
 });

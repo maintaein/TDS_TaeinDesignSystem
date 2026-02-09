@@ -605,4 +605,130 @@ describe('SegmentedButtons', () => {
       expect(radiogroup.className).toContain('custom-class');
     });
   });
+
+  describe('비제어 모드 (Uncontrolled Mode) 테스트', () => {
+    it('defaultValue로 초기 선택을 설정한다', () => {
+      render(<SegmentedButtons options={options} defaultValue="option2" />);
+
+      const option2 = screen.getByRole('radio', { name: '옵션 2' });
+      expect(option2).toBeChecked();
+    });
+
+    it('defaultValue 없으면 첫 번째 옵션이 선택된다', () => {
+      render(<SegmentedButtons options={options} />);
+
+      const option1 = screen.getByRole('radio', { name: '옵션 1' });
+      expect(option1).toBeChecked();
+    });
+
+    it('클릭 시 내부 상태가 업데이트된다', async () => {
+      const user = userEvent.setup();
+      render(<SegmentedButtons options={options} defaultValue="option1" />);
+
+      const option1 = screen.getByRole('radio', { name: '옵션 1' });
+      const option3 = screen.getByRole('radio', { name: '옵션 3' });
+
+      expect(option1).toBeChecked();
+
+      // option3의 label 클릭
+      const option3Label = option3.closest('label');
+      if (option3Label) await user.click(option3Label);
+
+      expect(option3).toBeChecked();
+      expect(option1).not.toBeChecked();
+    });
+
+    it('onChange 콜백을 호출한다', async () => {
+      const user = userEvent.setup();
+      const handleChange = vi.fn();
+      render(
+        <SegmentedButtons
+          options={options}
+          defaultValue="option1"
+          onChange={handleChange}
+        />
+      );
+
+      const option2 = screen.getByRole('radio', { name: '옵션 2' });
+      const option2Label = option2.closest('label');
+      if (option2Label) await user.click(option2Label);
+
+      expect(handleChange).toHaveBeenCalledWith('option2');
+    });
+  });
+
+  describe('제어 모드 (Controlled Mode) 테스트', () => {
+    it('value prop으로 선택을 제어한다', () => {
+      const { rerender } = render(
+        <SegmentedButtons
+          options={options}
+          value="option1"
+          onChange={vi.fn()}
+        />
+      );
+
+      const option1 = screen.getByRole('radio', { name: '옵션 1' });
+      expect(option1).toBeChecked();
+
+      rerender(
+        <SegmentedButtons
+          options={options}
+          value="option3"
+          onChange={vi.fn()}
+        />
+      );
+
+      const option3 = screen.getByRole('radio', { name: '옵션 3' });
+      expect(option3).toBeChecked();
+    });
+
+    it('클릭 시 onChange를 호출하지만 내부 상태는 변하지 않는다', async () => {
+      const user = userEvent.setup();
+      const handleChange = vi.fn();
+      render(
+        <SegmentedButtons
+          options={options}
+          value="option1"
+          onChange={handleChange}
+        />
+      );
+
+      const option1 = screen.getByRole('radio', { name: '옵션 1' });
+      const option2 = screen.getByRole('radio', { name: '옵션 2' });
+
+      const option2Label = option2.closest('label');
+      if (option2Label) await user.click(option2Label);
+
+      expect(handleChange).toHaveBeenCalledWith('option2');
+      // 부모가 업데이트하지 않으면 여전히 option1이 선택됨
+      expect(option1).toBeChecked();
+    });
+  });
+
+  describe('개발 환경 경고 테스트', () => {
+    it('value와 defaultValue 동시 사용 시 경고한다', () => {
+      const originalEnv = process.env.NODE_ENV;
+      process.env.NODE_ENV = 'development';
+
+      const consoleWarn = vi
+        .spyOn(console, 'warn')
+        .mockImplementation(() => {});
+
+      render(
+        <SegmentedButtons
+          options={options}
+          value="option1"
+          defaultValue="option2"
+          onChange={vi.fn()}
+        />
+      );
+
+      expect(consoleWarn).toHaveBeenCalledWith(
+        expect.stringContaining('value와 defaultValue를 동시에 사용할 수 없습니다')
+      );
+
+      consoleWarn.mockRestore();
+      process.env.NODE_ENV = originalEnv;
+    });
+  });
 });

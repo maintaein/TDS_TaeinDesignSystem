@@ -8,12 +8,20 @@ import { TypographyPage } from '../pages/DesignTokens/TypographyPage';
 import { SpacingPage } from '../pages/DesignTokens/SpacingPage';
 import { ShadowsPage } from '../pages/DesignTokens/ShadowsPage';
 import { AnimationPage } from '../pages/DesignTokens/AnimationPage';
+import { ComponentsOverviewPage } from '../pages/Components/ComponentsOverviewPage';
+import { TextFieldPage } from '../pages/Components/TextField';
+import { TextAreaPage } from '../pages/Components/TextArea';
+import { CheckboxPage } from '../pages/Components/Checkbox';
+import { SwitchPage } from '../pages/Components/Switch';
+import { NumericSpinnerPage } from '../pages/Components/NumericSpinner';
 import { AccessibilityPage } from '../pages/Guidelines';
+import { ErrorPage } from '../pages/Error';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
+    errorElement: <ErrorPage type="generic" />,
     children: [
       {
         index: true,
@@ -57,7 +65,27 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'overview',
-            element: <div>컴포넌트 개요 (준비 중)</div>,
+            element: <ComponentsOverviewPage />,
+          },
+          {
+            path: 'text-field',
+            element: <TextFieldPage />,
+          },
+          {
+            path: 'text-area',
+            element: <TextAreaPage />,
+          },
+          {
+            path: 'checkbox',
+            element: <CheckboxPage />,
+          },
+          {
+            path: 'switch',
+            element: <SwitchPage />,
+          },
+          {
+            path: 'numeric-spinner',
+            element: <NumericSpinnerPage />,
           },
         ],
       },
@@ -86,6 +114,10 @@ const router = createBrowserRouter([
             element: <div>성능 (준비 중)</div>,
           },
         ],
+      },
+      {
+        path: '*',
+        element: <ErrorPage type="404" />,
       },
     ],
   },

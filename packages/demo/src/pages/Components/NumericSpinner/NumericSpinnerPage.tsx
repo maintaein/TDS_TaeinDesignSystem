@@ -177,6 +177,54 @@ export function NumericSpinnerPage() {
           </LivePreview>
         </div>
 
+        {/* State Management Example */}
+        <div className={styles.example}>
+          <h3 className={styles.exampleTitle}>State</h3>
+          <LivePreview
+            title="상태"
+            description="NumericSpinner는 외부 관리와 내부 관리 두 가지 상태 관리 패턴을 지원합니다. 
+value를 전달하면 외부에서 상태를 제어하고, defaultValue를 전달하면 컴포넌트가 자체적으로 상태를 관리합니다."
+            code={`// Controlled: 외부에서 상태 관리
+const [value, setValue] = useState<number>(1);
+
+<NumericSpinner
+  label="수량 (Controlled)"
+  value={value}
+  onChange={(e) => setValue(Number(e.target.value))}
+  min={0}
+  max={10}
+  helperText={\`현재 값: \${value}\`}
+/>
+
+// Uncontrolled: 컴포넌트 내부에서 상태 관리
+<NumericSpinner
+  label="수량 (Uncontrolled)"
+  defaultValue={5}
+  min={0}
+  max={10}
+  helperText="초기값 5, 이후 자체 관리"
+/>`}
+          >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+              <NumericSpinner
+                label="수량 (Controlled)"
+                value={basicValue}
+                onChange={(e) => setBasicValue(Number(e.target.value))}
+                min={0}
+                max={10}
+                helperText={`현재 값: ${basicValue}`}
+              />
+              <NumericSpinner
+                label="수량 (Uncontrolled)"
+                defaultValue={5}
+                min={0}
+                max={10}
+                helperText="초기값 5, 이후 자체 관리"
+              />
+            </div>
+          </LivePreview>
+        </div>
+
         {/* Sizes Example */}
         <div className={styles.example}>
           <h3 className={styles.exampleTitle}>Sizes</h3>

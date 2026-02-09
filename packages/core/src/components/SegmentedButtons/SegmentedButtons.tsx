@@ -35,10 +35,18 @@ export interface SegmentedButtonOption {
 export interface SegmentedButtonsProps {
   /** 옵션 목록 */
   options: SegmentedButtonOption[];
-  /** 선택된 값 */
-  value: string;
-  /** 값 변경 핸들러 */
-  onChange: (value: string) => void;
+
+  // 제어 모드
+  /** 제어 모드: 선택된 값 */
+  value?: string;
+  /** 제어 모드: 값 변경 핸들러 */
+  onChange?: (value: string) => void;
+
+  // 비제어 모드
+  /** 비제어 모드: 초기 선택 값 */
+  defaultValue?: string;
+
+  // 공통 props
   /** 크기 */
   size?: 'sm' | 'md' | 'lg';
   /** 전체 너비 사용 */
@@ -53,7 +61,8 @@ export interface SegmentedButtonsProps {
 
 export const SegmentedButtons = ({
   options,
-  value,
+  value: controlledValue,
+  defaultValue,
   onChange,
   size = 'md',
   fullWidth = false,
@@ -62,6 +71,32 @@ export const SegmentedButtons = ({
   className,
 }: SegmentedButtonsProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // 비제어 모드용 내부 상태
+  const [uncontrolledValue, setUncontrolledValue] = useState<string>(
+    defaultValue ?? options[0]?.value ?? ''
+  );
+
+  // 제어/비제어 판단
+  const isControlled = controlledValue !== undefined;
+  const currentValue = isControlled ? controlledValue : uncontrolledValue;
+
+  // 개발 환경 경고
+  if (process.env.NODE_ENV === 'development') {
+    if (controlledValue !== undefined && defaultValue !== undefined) {
+      console.warn(
+        'SegmentedButtons: value와 defaultValue를 동시에 사용할 수 없습니다. ' +
+          '제어 컴포넌트는 value를, 비제어 컴포넌트는 defaultValue를 사용하세요.'
+      );
+    }
+    if (!isControlled && !defaultValue && options.length > 0) {
+      console.info(
+        'SegmentedButtons: value와 defaultValue가 모두 없습니다. ' +
+          `첫 번째 옵션 "${options[0]?.value}"이 기본값으로 사용됩니다.`
+      );
+    }
+  }
+
   const [indicatorStyle, setIndicatorStyle] = useState<{
     left: number;
     width: number;
@@ -71,7 +106,9 @@ export const SegmentedButtons = ({
     const container = containerRef.current;
     if (!container) return;
     const labels = Array.from(container.querySelectorAll('label'));
-    const selectedLabel = labels.find((_, i) => options[i].value === value);
+    const selectedLabel = labels.find(
+      (_, i) => options[i].value === currentValue
+    );
     if (selectedLabel) {
       const rect = selectedLabel.getBoundingClientRect();
       const containerRect = container.getBoundingClientRect();
@@ -80,14 +117,27 @@ export const SegmentedButtons = ({
         width: rect.width,
       });
     }
-  }, [value, options]);
+  }, [currentValue, options]);
+
+  const handleSelect = useCallback(
+    (newValue: string) => {
+      // 비제어 모드: 내부 상태 업데이트
+      if (!isControlled) {
+        setUncontrolledValue(newValue);
+      }
+
+      // onChange 호출 (있는 경우)
+      onChange?.(newValue);
+    },
+    [isControlled, onChange]
+  );
 
   const handleOptionClick = useCallback(
     (optionValue: string, optionDisabled?: boolean) => {
       if (disabled || optionDisabled) return;
-      onChange(optionValue);
+      handleSelect(optionValue);
     },
-    [disabled, onChange]
+    [disabled, handleSelect]
   );
 
   const handleLabelClick = useCallback(
@@ -98,9 +148,9 @@ export const SegmentedButtons = ({
     ) => {
       event.preventDefault();
       if (disabled || optionDisabled) return;
-      onChange(optionValue);
+      handleSelect(optionValue);
     },
-    [disabled, onChange]
+    [disabled, handleSelect]
   );
 
   const handleKeyDown = useCallback(
@@ -125,7 +175,7 @@ export const SegmentedButtons = ({
       } else if (event.key === ' ' || event.key === 'Enter') {
         event.preventDefault();
         if (!options[index].disabled) {
-          onChange(options[index].value);
+          handleSelect(options[index].value);
         }
         return;
       } else {
@@ -142,11 +192,11 @@ export const SegmentedButtons = ({
           containerRef.current?.querySelectorAll('label')[nextOptionIndex];
         if (nextLabel) {
           nextLabel.focus();
-          onChange(nextOption.value);
+          handleSelect(nextOption.value);
         }
       }
     },
-    [disabled, options, onChange]
+    [disabled, options, handleSelect]
   );
 
   return (
@@ -170,7 +220,7 @@ export const SegmentedButtons = ({
       />
 
       {options.map((option, index) => {
-        const isSelected = value === option.value;
+        const isSelected = currentValue === option.value;
         const isDisabled = disabled || option.disabled;
 
         return (

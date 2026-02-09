@@ -409,6 +409,147 @@ describe('NumericSpinner', () => {
     });
   });
 
+  describe('비제어 모드 (Uncontrolled Mode) 테스트', () => {
+    it('defaultValue로 초기값을 설정한다', () => {
+      render(<NumericSpinner label="수량" defaultValue={5} />);
+      const input = screen.getByLabelText('수량');
+      expect(input).toHaveValue(5);
+    });
+
+    it('defaultValue 없으면 0으로 시작한다', () => {
+      render(<NumericSpinner label="수량" />);
+      const input = screen.getByLabelText('수량');
+      expect(input).toHaveValue(0);
+    });
+
+    it('증가 버튼 클릭 시 내부 상태가 업데이트된다', async () => {
+      const user = userEvent.setup();
+      render(<NumericSpinner label="수량" defaultValue={1} step={1} />);
+
+      const input = screen.getByLabelText('수량');
+      const incrementButton = screen.getByRole('button', { name: /증가/i });
+
+      expect(input).toHaveValue(1);
+      await user.click(incrementButton);
+      expect(input).toHaveValue(2);
+
+      await user.click(incrementButton);
+      expect(input).toHaveValue(3);
+    });
+
+    it('감소 버튼 클릭 시 내부 상태가 업데이트된다', async () => {
+      const user = userEvent.setup();
+      render(<NumericSpinner label="수량" defaultValue={5} step={1} />);
+
+      const input = screen.getByLabelText('수량');
+      const decrementButton = screen.getByRole('button', { name: /감소/i });
+
+      expect(input).toHaveValue(5);
+      await user.click(decrementButton);
+      expect(input).toHaveValue(4);
+    });
+
+    it('min/max 제약을 준수한다', async () => {
+      const user = userEvent.setup();
+      render(<NumericSpinner label="수량" defaultValue={5} min={1} max={10} />);
+
+      const input = screen.getByLabelText('수량');
+      const incrementButton = screen.getByRole('button', { name: /증가/i });
+      const decrementButton = screen.getByRole('button', { name: /감소/i });
+
+      // max 초과 불가
+      await user.click(incrementButton); // 6
+      await user.click(incrementButton); // 7
+      await user.click(incrementButton); // 8
+      await user.click(incrementButton); // 9
+      await user.click(incrementButton); // 10
+      await user.click(incrementButton); // 10 (변하지 않음)
+      expect(input).toHaveValue(10);
+
+      // min 이하로 감소 불가
+      for (let i = 0; i < 15; i++) {
+        await user.click(decrementButton);
+      }
+      expect(input).toHaveValue(1);
+    });
+
+    it('onChange 콜백을 호출한다', async () => {
+      const user = userEvent.setup();
+      const handleChange = vi.fn();
+      render(
+        <NumericSpinner
+          label="수량"
+          defaultValue={1}
+          onChange={handleChange}
+        />
+      );
+
+      const incrementButton = screen.getByRole('button', { name: /증가/i });
+      await user.click(incrementButton);
+
+      expect(handleChange).toHaveBeenCalledTimes(1);
+      expect(handleChange).toHaveBeenCalledWith(
+        expect.objectContaining({
+          target: expect.objectContaining({ value: '2' }),
+        })
+      );
+    });
+  });
+
+  describe('제어 모드 (Controlled Mode) 테스트', () => {
+    it('value prop으로 값을 제어한다', () => {
+      const { rerender } = render(
+        <NumericSpinner label="수량" value={5} onChange={vi.fn()} />
+      );
+      const input = screen.getByLabelText('수량');
+      expect(input).toHaveValue(5);
+
+      rerender(<NumericSpinner label="수량" value={10} onChange={vi.fn()} />);
+      expect(input).toHaveValue(10);
+    });
+
+    it('버튼 클릭 시 onChange를 호출하지만 내부 상태는 변하지 않는다', async () => {
+      const user = userEvent.setup();
+      const handleChange = vi.fn();
+      render(<NumericSpinner label="수량" value={5} onChange={handleChange} />);
+
+      const input = screen.getByLabelText('수량');
+      const incrementButton = screen.getByRole('button', { name: /증가/i });
+
+      await user.click(incrementButton);
+
+      expect(handleChange).toHaveBeenCalledTimes(1);
+      expect(input).toHaveValue(5); // 부모가 업데이트하지 않으면 변하지 않음
+    });
+  });
+
+  describe('개발 환경 경고 테스트', () => {
+    it('value와 defaultValue 동시 사용 시 경고한다', () => {
+      const originalEnv = process.env.NODE_ENV;
+      process.env.NODE_ENV = 'development';
+
+      const consoleWarn = vi
+        .spyOn(console, 'warn')
+        .mockImplementation(() => {});
+
+      render(
+        <NumericSpinner
+          label="수량"
+          value={5}
+          defaultValue={3}
+          onChange={vi.fn()}
+        />
+      );
+
+      expect(consoleWarn).toHaveBeenCalledWith(
+        expect.stringContaining('value와 defaultValue를 동시에 사용할 수 없습니다')
+      );
+
+      consoleWarn.mockRestore();
+      process.env.NODE_ENV = originalEnv;
+    });
+  });
+
   describe('엣지 케이스 테스트', () => {
     it('label이 없으면 개발 환경에서 경고를 출력한다', () => {
       const originalEnv = process.env.NODE_ENV;
@@ -437,7 +578,8 @@ describe('NumericSpinner', () => {
         />
       );
       const input = screen.getByLabelText('수량');
-      expect(input).toHaveValue(null);
+      // Number('')는 0이 되므로 0이 표시됨
+      expect(input).toHaveValue(0);
     });
 
     it('value와 onChange가 동시에 제공되면 제어 컴포넌트로 동작한다', async () => {

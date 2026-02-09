@@ -149,6 +149,46 @@ export function CheckboxPage() {
           </LivePreview>
         </div>
 
+        {/* State Management Example */}
+        <div className={styles.example}>
+          <h3 className={styles.exampleTitle}>State</h3>
+          <LivePreview
+            title="상태"
+            description={`Checkbox는 외부 관리와 내부 관리 두 가지 상태 관리 패턴을 지원합니다.
+checked를 전달하면 외부에서 상태를 제어하고, defaultChecked를 전달하면 컴포넌트가 자체적으로 상태를 관리합니다.`}
+            code={`// Controlled: 외부에서 상태 관리
+const [checked, setChecked] = useState(false);
+
+<Checkbox
+  label="알림 수신 동의 (Controlled)"
+  checked={checked}
+  onChange={(e) => setChecked(e.target.checked)}
+  helperText={\`현재 상태: \${checked ? '동의' : '미동의'}\`}
+/>
+
+// Uncontrolled: 컴포넌트 내부에서 상태 관리
+<Checkbox
+  label="마케팅 수신 동의 (Uncontrolled)"
+  defaultChecked={true}
+  helperText="초기값 true, 이후 자체 관리"
+/>`}
+          >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <Checkbox
+                label="알림 수신 동의 (Controlled)"
+                checked={basicChecked}
+                onChange={(e) => setBasicChecked(e.target.checked)}
+                helperText={`현재 상태: ${basicChecked ? '동의' : '미동의'}`}
+              />
+              <Checkbox
+                label="마케팅 수신 동의 (Uncontrolled)"
+                defaultChecked={true}
+                helperText="초기값 true, 이후 자체 관리"
+              />
+            </div>
+          </LivePreview>
+        </div>
+
         {/* Sizes Example */}
         <div className={styles.example}>
           <h3 className={styles.exampleTitle}>Sizes</h3>

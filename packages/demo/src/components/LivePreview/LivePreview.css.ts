@@ -25,6 +25,7 @@ export const description = style({
   fontSize: '0.875rem',
   color: '#6b7280',
   lineHeight: '1.5',
+  whiteSpace: 'pre-wrap',
   '@media': {
     '(prefers-color-scheme: dark)': {
       color: '#9ca3af',

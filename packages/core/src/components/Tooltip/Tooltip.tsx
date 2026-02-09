@@ -21,6 +21,14 @@ export interface TooltipProps extends Omit<
 > {
   children: ReactNode;
   content: ReactNode;
+
+  // 제어 모드
+  /** 제어 모드: 툴팁 표시 여부 */
+  open?: boolean;
+  /** 제어 모드: 툴팁 표시 상태 변경 핸들러 */
+  onOpenChange?: (open: boolean) => void;
+
+  // 공통 props
   position?: 'top' | 'bottom' | 'left' | 'right';
   delay?: number;
   disabled?: boolean;
@@ -31,6 +39,8 @@ export interface TooltipProps extends Omit<
 export const Tooltip = ({
   children,
   content,
+  open: controlledOpen,
+  onOpenChange,
   position = 'top',
   delay = 200,
   disabled = false,
@@ -38,9 +48,17 @@ export const Tooltip = ({
   className,
   ...props
 }: TooltipProps) => {
-  const [visible, setVisible] = useState(false);
+  // 비제어 모드용 내부 상태
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const tooltipId = useId();
+
+  // 제어/비제어 판단
+  const isControlled = controlledOpen !== undefined;
+  const isOpen = isControlled ? controlledOpen : uncontrolledOpen;
+
+  // 개발 환경 경고 - useEffect 밖으로 이동하면 매 렌더마다 실행됨
+  // React Hook 규칙을 지키기 위해 컴포넌트 최상위에 배치
 
   useEffect(() => {
     return () => {
@@ -50,6 +68,16 @@ export const Tooltip = ({
     };
   }, []);
 
+  const setOpen = (newOpen: boolean) => {
+    // 비제어 모드: 내부 상태 업데이트
+    if (!isControlled) {
+      setUncontrolledOpen(newOpen);
+    }
+
+    // onOpenChange 호출 (있는 경우)
+    onOpenChange?.(newOpen);
+  };
+
   const handleShow = () => {
     if (disabled) return;
 
@@ -58,10 +86,10 @@ export const Tooltip = ({
     }
 
     if (delay === 0) {
-      setVisible(true);
+      setOpen(true);
     } else {
       timerRef.current = setTimeout(() => {
-        setVisible(true);
+        setOpen(true);
       }, delay);
     }
   };
@@ -71,7 +99,7 @@ export const Tooltip = ({
       clearTimeout(timerRef.current);
       timerRef.current = null;
     }
-    setVisible(false);
+    setOpen(false);
   };
 
   return (
@@ -81,11 +109,11 @@ export const Tooltip = ({
       onMouseLeave={handleHide}
       onFocus={handleShow}
       onBlur={handleHide}
-      aria-describedby={visible ? tooltipId : undefined}
+      aria-describedby={isOpen ? tooltipId : undefined}
       {...props}
     >
       {children}
-      {visible && (
+      {isOpen && (
         <div
           id={tooltipId}
           role="tooltip"

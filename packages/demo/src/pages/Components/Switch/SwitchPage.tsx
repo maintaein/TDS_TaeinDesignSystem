@@ -143,6 +143,46 @@ export function SwitchPage() {
           </LivePreview>
         </div>
 
+        {/* State Management Example */}
+        <div className={styles.example}>
+          <h3 className={styles.exampleTitle}>State</h3>
+          <LivePreview
+            title="상태"
+            description="Switch는 외부 관리와 내부 관리 두 가지 상태 관리 패턴을 지원합니다. 
+checked를 전달하면 외부에서 상태를 제어하고, defaultChecked를 전달하면 컴포넌트가 자체적으로 상태를 관리합니다."
+            code={`// Controlled: 외부에서 상태 관리
+const [checked, setChecked] = useState(false);
+
+<Switch
+  label="알림 받기 (Controlled)"
+  checked={checked}
+  onChange={(e) => setChecked(e.target.checked)}
+  helperText={\`현재 상태: \${checked ? 'ON' : 'OFF'}\`}
+/>
+
+// Uncontrolled: 컴포넌트 내부에서 상태 관리
+<Switch
+  label="자동 업데이트 (Uncontrolled)"
+  defaultChecked={true}
+  helperText="초기값 ON, 이후 자체 관리"
+/>`}
+          >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <Switch
+                label="알림 받기 (Controlled)"
+                checked={basicChecked}
+                onChange={(e) => setBasicChecked(e.target.checked)}
+                helperText={`현재 상태: ${basicChecked ? 'ON' : 'OFF'}`}
+              />
+              <Switch
+                label="자동 업데이트 (Uncontrolled)"
+                defaultChecked={true}
+                helperText="초기값 ON, 이후 자체 관리"
+              />
+            </div>
+          </LivePreview>
+        </div>
+
         {/* Sizes Example */}
         <div className={styles.example}>
           <h3 className={styles.exampleTitle}>Sizes</h3>

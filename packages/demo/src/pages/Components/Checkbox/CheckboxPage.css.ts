@@ -46,6 +46,7 @@ export const description = style({
   lineHeight: 1.7,
   color: '#6b7280',
   maxWidth: '800px',
+  whiteSpace: 'pre-wrap',
   '@media': {
     '(prefers-color-scheme: dark)': {
       color: '#9ca3af',
@@ -117,6 +118,7 @@ export const sectionDescription = style({
   fontSize: '1rem',
   lineHeight: 1.6,
   color: '#6b7280',
+  whiteSpace: 'pre-wrap',
   '@media': {
     '(prefers-color-scheme: dark)': {
       color: '#9ca3af',

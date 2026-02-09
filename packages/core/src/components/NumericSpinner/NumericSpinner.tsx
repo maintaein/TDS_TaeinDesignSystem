@@ -1,4 +1,4 @@
-import { forwardRef, useId, useCallback, type ChangeEvent } from 'react';
+import { forwardRef, useId, useCallback, useState, type ChangeEvent } from 'react';
 import type { InputHTMLAttributes } from 'react';
 import { clsx } from 'clsx';
 import * as styles from './NumericSpinner.css';
@@ -6,12 +6,26 @@ import { Icon } from '../Icon';
 
 export interface NumericSpinnerProps extends Omit<
   InputHTMLAttributes<HTMLInputElement>,
-  'size' | 'type' | 'readOnly'
+  'size' | 'type' | 'readOnly' | 'defaultValue'
 > {
   /** 레이블 텍스트 */
   label: string;
+
+  // 제어 모드
+  /** 제어 모드: 현재 값 */
+  value?: number;
+  /** 제어 모드: 값 변경 핸들러 */
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+
+  // 비제어 모드
+  /** 비제어 모드: 초기값 */
+  defaultValue?: number;
+
+  // 공통 props
   /** Input size */
   size?: 'sm' | 'md' | 'lg';
+  /** Input width (CSS 단위, 예: '100px', '10rem') */
+  inputWidth?: string;
   /** 최소값 */
   min?: number;
   /** 최대값 */
@@ -32,7 +46,11 @@ export const NumericSpinner = forwardRef<HTMLInputElement, NumericSpinnerProps>(
   (
     {
       label,
+      value: controlledValue,
+      defaultValue,
+      onChange,
       size = 'md',
+      inputWidth,
       min,
       max,
       step = 1,
@@ -42,8 +60,6 @@ export const NumericSpinner = forwardRef<HTMLInputElement, NumericSpinnerProps>(
       fullWidth = false,
       required = false,
       disabled = false,
-      value,
-      onChange,
       className,
       ...rest
     },
@@ -52,51 +68,93 @@ export const NumericSpinner = forwardRef<HTMLInputElement, NumericSpinnerProps>(
     const inputId = useId();
     const helperId = useId();
 
-    // 개발 환경에서 label 검증
+    // 비제어 모드용 내부 상태
+    const [uncontrolledValue, setUncontrolledValue] = useState<number>(
+      defaultValue ?? 0
+    );
+
+    // 제어/비제어 판단
+    const isControlled = controlledValue !== undefined;
+    const currentValue = isControlled ? Number(controlledValue) : uncontrolledValue;
+
+    // 개발 환경에서 검증
     if (process.env.NODE_ENV === 'development') {
       if (!label) {
         console.error(
           'NumericSpinner: label prop은 필수입니다. 접근성을 위해 label을 제공하세요.'
         );
       }
+      if (controlledValue !== undefined && defaultValue !== undefined) {
+        console.warn(
+          'NumericSpinner: value와 defaultValue를 동시에 사용할 수 없습니다. ' +
+            '제어 컴포넌트는 value를, 비제어 컴포넌트는 defaultValue를 사용하세요.'
+        );
+      }
     }
 
-    // 현재 값 가져오기
-    const currentValue = value !== undefined ? Number(value) : undefined;
+    // 값 변경 핸들러
+    const handleChange = useCallback(
+      (e: ChangeEvent<HTMLInputElement>) => {
+        const newValue = Number(e.target.value);
+
+        // 비제어 모드: 내부 상태 업데이트
+        if (!isControlled) {
+          setUncontrolledValue(newValue);
+        }
+
+        // onChange 호출 (있는 경우)
+        onChange?.(e);
+      },
+      [isControlled, onChange]
+    );
 
     // 증가 버튼 클릭 핸들러
     const handleIncrement = useCallback(() => {
       if (disabled) return;
 
-      const current = currentValue ?? 0;
-      const newValue = current + step;
+      let newValue = currentValue + step;
+      if (max !== undefined) {
+        newValue = Math.min(newValue, max);
+      }
 
-      if (max !== undefined && newValue > max) return;
+      // 비제어 모드: 내부 상태 업데이트
+      if (!isControlled) {
+        setUncontrolledValue(newValue);
+      }
 
+      // onChange 호출 (있는 경우)
       if (onChange) {
         const event = {
           target: { value: String(newValue) },
+          currentTarget: { value: String(newValue) },
         } as ChangeEvent<HTMLInputElement>;
         onChange(event);
       }
-    }, [currentValue, step, max, disabled, onChange]);
+    }, [currentValue, step, max, disabled, isControlled, onChange]);
 
     // 감소 버튼 클릭 핸들러
     const handleDecrement = useCallback(() => {
       if (disabled) return;
 
-      const current = currentValue ?? 0;
-      const newValue = current - step;
+      let newValue = currentValue - step;
+      if (min !== undefined) {
+        newValue = Math.max(newValue, min);
+      }
 
-      if (min !== undefined && newValue < min) return;
+      // 비제어 모드: 내부 상태 업데이트
+      if (!isControlled) {
+        setUncontrolledValue(newValue);
+      }
 
+      // onChange 호출 (있는 경우)
       if (onChange) {
         const event = {
           target: { value: String(newValue) },
+          currentTarget: { value: String(newValue) },
         } as ChangeEvent<HTMLInputElement>;
         onChange(event);
       }
-    }, [currentValue, step, min, disabled, onChange]);
+    }, [currentValue, step, min, disabled, isControlled, onChange]);
 
     // 증가 버튼 비활성화 여부
     const isIncrementDisabled =
@@ -151,17 +209,18 @@ export const NumericSpinner = forwardRef<HTMLInputElement, NumericSpinnerProps>(
             min={min}
             max={max}
             step={step}
-            value={value}
-            onChange={onChange}
+            value={currentValue}
+            onChange={handleChange}
             required={required}
             disabled={disabled}
             readOnly
             aria-invalid={error}
             aria-disabled={disabled}
             aria-describedby={showHelper || showError ? helperId : undefined}
+            style={inputWidth ? { width: inputWidth } : undefined}
             className={clsx(
               styles.input,
-              styles.size[size],
+              styles.inputSize[size],
               error && styles.error,
               className
             )}

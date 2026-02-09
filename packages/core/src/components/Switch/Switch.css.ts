@@ -55,50 +55,37 @@ export const switchInput = style({
 
 // Size Variants for Container (Track)
 const baseSizeContainer = {
-  sm: {
-    width: '36px',
-    height: '20px',
-    borderRadius: '10px',
-    backgroundColor: '#DDDDDD',
-    border: '2px solid transparent',
-    transition: 'all 150ms ease-in-out',
-  },
-  md: {
-    width: '44px',
-    height: '24px',
-    borderRadius: '12px',
-    backgroundColor: '#DDDDDD',
-    border: '2px solid transparent',
-    transition: 'all 150ms ease-in-out',
-  },
-  lg: {
-    width: '52px',
-    height: '28px',
-    borderRadius: '14px',
-    backgroundColor: '#DDDDDD',
-    border: '2px solid transparent',
-    transition: 'all 150ms ease-in-out',
-  },
+  sm: { width: '36px', height: '20px', borderRadius: '10px' },
+  md: { width: '44px', height: '24px', borderRadius: '12px' },
+  lg: { width: '52px', height: '28px', borderRadius: '14px' },
 };
 
 export const size = styleVariants(baseSizeContainer, (baseStyle) => [
   baseStyle,
   {
+    backgroundColor: '#DDDDDD', // 기본 회색 (Off 상태)
+    border: '2px solid transparent',
+    transition: 'all 150ms ease-in-out',
+    position: 'relative',
+    display: 'inline-block',
+    flexShrink: 0,
+    cursor: 'pointer',
+
     selectors: {
-      '&:has(input:checked)': {
-        backgroundColor: '#FFFFFF',
-        borderColor: '#DDDDDD',
+      // ON 상태: 배경을 파란색으로
+      [`&:has(input:checked)`]: {
+        backgroundColor: '#1E88E5',
       },
 
       // Disabled 상태
-      '&:has(input:disabled)': {
+      [`&:has(input:disabled)`]: {
         backgroundColor: '#F5F5F5',
-        borderColor: '#F5F5F5',
+        cursor: 'not-allowed',
       },
-
-      '&:has(input:checked:disabled)': {
+      
+      // Disabled + Checked 상태
+      [`&:has(input:checked:disabled)`]: {
         backgroundColor: '#BBDEFB',
-        borderColor: '#BBDEFB',
       },
     },
   },
@@ -106,98 +93,35 @@ export const size = styleVariants(baseSizeContainer, (baseStyle) => [
 
 // Thumb Size Variants
 export const thumbSize = styleVariants({
-  sm: {
-    position: 'absolute' as const,
-    top: '50%',
-    left: '2px',
-    transform: 'translateY(-50%)',
-    width: '16px',
-    height: '16px',
-    borderRadius: '50%',
-    backgroundColor: '#FFFFFF',
-    transition: 'all 150ms ease-in-out',
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+  sm: { width: '16px', height: '16px', offset: '14px' },
+  md: { width: '20px', height: '20px', offset: '18px' },
+  lg: { width: '24px', height: '24px', offset: '22px' },
+}, (config) => ({
+  position: 'absolute',
+  top: '50%',
+  left: '2px',
+  transform: 'translateY(-50%)',
+  width: config.width,
+  height: config.height,
+  borderRadius: '50%',
+  backgroundColor: '#FFFFFF', // 항상 흰색 유지
+  transition: 'all 150ms ease-in-out',
+  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
 
-    selectors: {
-      // sm: Container 36px - border 4px - thumb 16px - padding 4px = 12px
-      'input:checked + &': {
-        transform: 'translate(14px, -50%)',
-        backgroundColor: '#1E88E5',
-      },
+  selectors: {
+    // ON 상태: 위치만 이동, 색상은 변경 없음
+    [`input:checked + &`]: {
+      transform: `translate(${config.offset}, -50%)`,
+    },
 
-      'input:disabled + &': {
-        backgroundColor: '#EEEEEE',
-        boxShadow: 'none',
-      },
-
-      'input:checked:disabled + &': {
-        backgroundColor: '#BBDEFB',
-        boxShadow: 'none',
-      },
+    // Disabled 상태의 Thumb 색상 (약간 흐리게 조정 가능)
+    [`input:disabled + &`]: {
+      backgroundColor: '#FFFFFF',
+      boxShadow: 'none',
+      opacity: 0.8,
     },
   },
-  md: {
-    position: 'absolute' as const,
-    top: '50%',
-    left: '2px',
-    transform: 'translateY(-50%)',
-    width: '20px',
-    height: '20px',
-    borderRadius: '50%',
-    backgroundColor: '#FFFFFF',
-    transition: 'all 150ms ease-in-out',
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-
-    selectors: {
-      // md: Container 44px - border 4px - thumb 20px - padding 4px = 16px
-      'input:checked + &': {
-        transform: 'translate(18px, -50%)',
-        backgroundColor: '#1E88E5',
-      },
-
-      'input:disabled + &': {
-        backgroundColor: '#EEEEEE',
-        boxShadow: 'none',
-      },
-
-      'input:checked:disabled + &': {
-        backgroundColor: '#BBDEFB',
-        boxShadow: 'none',
-      },
-    },
-  },
-  lg: {
-    position: 'absolute' as const,
-    top: '50%',
-    left: '2px',
-    transform: 'translateY(-50%)',
-    width: '24px',
-    height: '24px',
-    borderRadius: '50%',
-    backgroundColor: '#FFFFFF',
-    transition: 'all 150ms ease-in-out',
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-
-    selectors: {
-      // lg: Container 52px - border 4px - thumb 24px - padding 4px = 20px
-      'input:checked + &': {
-        transform: 'translate(22px, -50%)',
-        backgroundColor: '#1E88E5',
-      },
-
-      'input:disabled + &': {
-        backgroundColor: '#EEEEEE',
-        boxShadow: 'none',
-      },
-
-      'input:checked:disabled + &': {
-        backgroundColor: '#BBDEFB',
-        boxShadow: 'none',
-      },
-
-    },
-  },
-});
+}));
 
 // Error State
 export const error = style({
