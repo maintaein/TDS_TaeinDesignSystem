@@ -1,7 +1,6 @@
 import { style, styleVariants } from '@vanilla-extract/css';
 import { themeContract } from '../../tokens/theme.css';
 
-// Avatar 기본 스타일
 export const avatar = style({
   position: 'relative',
   display: 'inline-flex',
@@ -44,7 +43,6 @@ export const sizeStyles = styleVariants({
   },
 });
 
-// Avatar variant 스타일
 export const variantStyles = styleVariants({
   circular: {
     borderRadius: '50%',
@@ -57,14 +55,12 @@ export const variantStyles = styleVariants({
   },
 });
 
-// 이미지 스타일
 export const image = style({
   width: '100%',
   height: '100%',
   objectFit: 'cover',
 });
 
-// fallback 텍스트 스타일
 export const fallbackText = style({
   lineHeight: 1,
 });
@@ -96,13 +92,36 @@ export const statusAway = style({
   backgroundColor: themeContract.color.warning.main,
 });
 
-// AvatarGroup 스타일
+// 클릭 가능 Avatar 
+export const clickable = style({
+  cursor: 'pointer',
+  border: 'none',
+  padding: 0,
+  background: 'none',
+  textDecoration: 'none',
+  color: 'inherit',
+  font: 'inherit',
+  transition: 'filter 0.2s ease, transform 0.1s ease',
+
+  ':hover': {
+    filter: 'brightness(0.9)',
+  },
+
+  ':active': {
+    transform: 'scale(0.95)',
+  },
+
+  ':focus-visible': {
+    outline: `3px solid ${themeContract.color.border.focus}`,
+    outlineOffset: '2px',
+  },
+});
+
 export const avatarGroup = style({
   display: 'flex',
   alignItems: 'center',
 });
 
-// AvatarGroup spacing 스타일
 export const spacingStyles = styleVariants({
   sm: {
     marginLeft: '-8px',
@@ -115,7 +134,6 @@ export const spacingStyles = styleVariants({
   },
 });
 
-// AvatarGroup 내부 Avatar 스타일
 export const groupAvatar = style({
   border: `2px solid ${themeContract.color.background.paper}`,
   selectors: {

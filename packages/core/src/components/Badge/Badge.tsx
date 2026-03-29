@@ -2,18 +2,28 @@ import type { ReactNode, HTMLAttributes } from 'react';
 import clsx from 'clsx';
 import { badge, variantStyles, sizeStyles, dotStyles } from './Badge.css';
 
+/** 숫자 또는 상태를 표시하는 배지 컴포넌트 */
 export interface BadgeProps extends Omit<
   HTMLAttributes<HTMLSpanElement>,
   'children'
 > {
+  /** 배지에 표시할 내용. 숫자일 경우 max 초과 시 "max+" 형태로 표시 */
   children?: ReactNode;
+  /** 배지 색상 테마 @default 'primary' */
   variant?: 'primary' | 'secondary' | 'success' | 'error' | 'warning';
+  /** 배지 크기 @default 'md' */
   size?: 'sm' | 'md' | 'lg';
+  /** 숫자 최대값. 초과 시 "99+" 형태로 표시 @default 99 */
   max?: number;
+  /** true면 내용 없이 작은 점만 표시 @default false */
   dot?: boolean;
+  /** children이 0일 때 표시 여부 @default true */
   showZero?: boolean;
+  /** 스크린 리더용 레이블 */
   'aria-label'?: string;
+  /** 추가 CSS 클래스 */
   className?: string;
+  /** 인라인 스타일 */
   style?: React.CSSProperties;
 }
 

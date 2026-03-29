@@ -24,23 +24,23 @@ export const badge = style({
 export const variantStyles = styleVariants({
   primary: {
     backgroundColor: `var(--badge-color, ${primary[600]})`,
-    color: '#FFFFFF',
+    color: themeContract.color.primary.contrast,
   },
   secondary: {
     backgroundColor: `var(--badge-color, ${gray[600]})`,
-    color: '#FFFFFF',
+    color: themeContract.color.primary.contrast,
   },
   success: {
     backgroundColor: `var(--badge-color, ${success[500]})`,
-    color: '#FFFFFF',
+    color: themeContract.color.success.contrast,
   },
   error: {
     backgroundColor: `var(--badge-color, ${error[500]})`,
-    color: '#FFFFFF',
+    color: themeContract.color.error.contrast,
   },
   warning: {
     backgroundColor: `var(--badge-color, ${warning[500]})`,
-    color: gray[900],
+    color: themeContract.color.warning.contrast,
   },
 });
 

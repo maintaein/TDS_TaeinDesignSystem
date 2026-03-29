@@ -225,6 +225,68 @@ describe('Avatar', () => {
       expect(avatar).toHaveAttribute('aria-label', '홍길동');
     });
   });
+
+  describe('클릭 가능 Avatar 테스트', () => {
+    it('onClick이 있으면 button으로 렌더링된다', () => {
+      const handleClick = vi.fn();
+      const { container } = render(
+        <Avatar alt="테스트" onClick={handleClick} />
+      );
+
+      const button = container.querySelector('button');
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveAttribute('type', 'button');
+      expect(button).toHaveAttribute('aria-label', '테스트');
+    });
+
+    it('onClick 클릭 시 핸들러가 호출된다', async () => {
+      const handleClick = vi.fn();
+      const { container } = render(
+        <Avatar alt="테스트" onClick={handleClick} />
+      );
+
+      const button = container.querySelector('button');
+      button?.click();
+      expect(handleClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('href가 있으면 a 태그로 렌더링된다', () => {
+      const { container } = render(
+        <Avatar alt="프로필" href="/profile" />
+      );
+
+      const link = container.querySelector('a');
+      expect(link).toBeInTheDocument();
+      expect(link).toHaveAttribute('href', '/profile');
+      expect(link).toHaveAttribute('aria-label', '프로필');
+    });
+
+    it('href와 target이 함께 적용된다', () => {
+      const { container } = render(
+        <Avatar alt="외부 링크" href="https://example.com" target="_blank" />
+      );
+
+      const link = container.querySelector('a');
+      expect(link).toHaveAttribute('href', 'https://example.com');
+      expect(link).toHaveAttribute('target', '_blank');
+    });
+
+    it('클릭 가능 Avatar에 clickable 클래스가 적용된다', () => {
+      const { container } = render(
+        <Avatar alt="테스트" onClick={() => {}} />
+      );
+
+      expect(container.firstChild).toHaveClass(/clickable/);
+    });
+
+    it('onClick/href가 없으면 div로 렌더링된다', () => {
+      const { container } = render(<Avatar alt="테스트" />);
+
+      expect(container.querySelector('div')).toBeInTheDocument();
+      expect(container.querySelector('button')).not.toBeInTheDocument();
+      expect(container.querySelector('a')).not.toBeInTheDocument();
+    });
+  });
 });
 
 describe('AvatarGroup', () => {
