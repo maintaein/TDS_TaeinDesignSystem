@@ -1,7 +1,6 @@
 import { style, styleVariants } from '@vanilla-extract/css';
 import { themeContract } from '../../tokens/theme.css';
 
-// CardRoot 기본 스타일
 export const cardRoot = style({
   position: 'relative',
   display: 'flex',
@@ -15,7 +14,6 @@ export const cardRoot = style({
   width: '100%',
 });
 
-// Variant 스타일
 export const variantStyles = styleVariants({
   outlined: {
     border: `1px solid ${themeContract.color.border.default}`,
@@ -44,7 +42,6 @@ export const variantStyles = styleVariants({
   },
 });
 
-// 클릭 가능한 Card
 export const clickable = style({
   cursor: 'pointer',
 
@@ -64,7 +61,6 @@ export const clickable = style({
   },
 });
 
-// 비활성화 상태
 export const disabled = style({
   opacity: 0.5,
   cursor: 'not-allowed',
@@ -76,7 +72,6 @@ export const disabled = style({
   },
 });
 
-// CardImage 래퍼
 export const cardImageWrapper = style({
   position: 'relative',
   width: '100%',
@@ -84,7 +79,6 @@ export const cardImageWrapper = style({
   flexShrink: 0,
 });
 
-// CardImage 스타일
 export const cardImage = style({
   width: '100%',
   height: 'auto',
@@ -92,7 +86,6 @@ export const cardImage = style({
   objectFit: 'cover',
 });
 
-// CardImageOverlay 스타일
 export const cardImageOverlay = style({
   position: 'absolute',
   top: 0,
@@ -106,7 +99,6 @@ export const cardImageOverlay = style({
   color: '#fff',
 });
 
-// CardHeader 스타일
 export const cardHeader = style({
   display: 'flex',
   alignItems: 'center',
@@ -116,7 +108,6 @@ export const cardHeader = style({
   gap: themeContract.spacing[2],
 });
 
-// CardTitle 스타일
 export const cardTitle = style({
   margin: 0,
   fontSize: themeContract.font.size.lg,
@@ -125,12 +116,10 @@ export const cardTitle = style({
   lineHeight: themeContract.font.lineHeight.tight,
 });
 
-// CardBody 스타일
 export const cardBody = style({
   flex: 1,
 });
 
-// Padding 스타일
 export const paddingStyles = styleVariants({
   none: {
     padding: 0,
@@ -146,7 +135,6 @@ export const paddingStyles = styleVariants({
   },
 });
 
-// CardFooter 스타일
 export const cardFooter = style({
   display: 'flex',
   alignItems: 'center',

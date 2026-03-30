@@ -2,6 +2,7 @@ import {
   useEffect,
   useRef,
   useState,
+  useMemo,
   useId,
   createContext,
   useContext,
@@ -45,20 +46,32 @@ const useBottomSheetContext = () => {
   return context;
 };
 
+/** 화면 하단에서 올라오는 시트 컴포넌트. Compound 패턴(BottomSheet.Header/Content) 또는 Flat 패턴(title prop) 지원 */
 export interface BottomSheetProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
   'title'
 > {
+  /** 시트 표시 여부 */
   open: boolean;
+  /** 시트 닫기 콜백 */
   onClose: () => void;
+  /** Flat 모드: 시트 제목. 설정 시 자동으로 헤더 생성 */
   title?: ReactNode;
+  /** 시트 콘텐츠 */
   children: ReactNode;
+  /** 시트 높이 @default 'auto' */
   height?: 'auto' | 'sm' | 'md' | 'lg' | 'full';
+  /** 배경 클릭으로 닫기 허용 @default true */
   closeOnBackdropClick?: boolean;
+  /** ESC 키로 닫기 허용 @default true */
   closeOnEscape?: boolean;
+  /** 상단 드래그 핸들 표시 @default true */
   showHandle?: boolean;
+  /** 닫기(X) 버튼 표시 @default false */
   showClose?: boolean;
+  /** 드래그로 닫기 허용 @default true */
   enableDrag?: boolean;
+  /** 추가 CSS 클래스 */
   className?: string;
 }
 
@@ -80,8 +93,8 @@ const BottomSheetRoot = ({
   const previousActiveElementRef = useRef<HTMLElement | null>(null);
   const titleId = useId();
 
-  const [startY, setStartY] = useState<number>(0);
-  const [isDragging, setIsDragging] = useState(false);
+  const startYRef = useRef<number>(0);
+  const isDraggingRef = useRef(false);
 
   const [shouldRender, setShouldRender] = useState(open);
 
@@ -131,46 +144,97 @@ const BottomSheetRoot = ({
     const sheet = sheetRef.current;
     if (!sheet) return;
 
+    const finishDrag = (diff: number) => {
+      isDraggingRef.current = false;
+
+      if (diff > 100) {
+        sheet.style.transition = 'transform 0.2s ease-out';
+        sheet.style.transform = 'translateY(100%)';
+
+        const handleTransitionEnd = () => {
+          sheet.removeEventListener('transitionend', handleTransitionEnd);
+          sheet.style.transition = '';
+          sheet.style.transform = '';
+          sheet.style.animation = '';
+          // shouldRender를 먼저 false로 만들어 언마운트 후, 다음 프레임에서 onClose 호출
+          // 이렇게 해야 onClose → open=false로 인한 exit 애니메이션 재생을 방지
+          setShouldRender(false);
+          requestAnimationFrame(() => onClose());
+        };
+        sheet.addEventListener('transitionend', handleTransitionEnd);
+      } else {
+        sheet.style.transition = 'transform 0.2s ease-out';
+        sheet.style.transform = 'translateY(0)';
+        const handleTransitionEnd = () => {
+          sheet.removeEventListener('transitionend', handleTransitionEnd);
+          sheet.style.transition = '';
+        };
+        sheet.addEventListener('transitionend', handleTransitionEnd);
+      }
+    };
+
     const handleTouchStart = (e: TouchEvent) => {
-      setStartY(e.touches[0].clientY);
-      setIsDragging(true);
+      startYRef.current = e.touches[0].clientY;
+      isDraggingRef.current = true;
+      sheet.style.transition = '';
+      sheet.style.animation = 'none';
+      sheet.style.transform = 'translateY(0)';
     };
 
     const handleTouchMove = (e: TouchEvent) => {
-      if (!isDragging) return;
-      const currentY = e.touches[0].clientY;
-      const diff = currentY - startY;
-
-      // 아래로 드래그할 때만 시각적 피드백
+      if (!isDraggingRef.current) return;
+      const diff = e.touches[0].clientY - startYRef.current;
       if (diff > 0) {
         sheet.style.transform = `translateY(${diff}px)`;
       }
     };
 
     const handleTouchEnd = (e: TouchEvent) => {
-      if (!isDragging) return;
-      setIsDragging(false);
+      if (!isDraggingRef.current) return;
+      const diff = e.changedTouches[0].clientY - startYRef.current;
+      finishDrag(diff);
+    };
 
-      const endY = e.changedTouches[0].clientY;
-      const diff = endY - startY;
+    const handleMouseDown = (e: MouseEvent) => {
+      if (e.button !== 0) return;
+      startYRef.current = e.clientY;
+      isDraggingRef.current = true;
+      sheet.style.transition = '';
+      sheet.style.animation = 'none';
+      sheet.style.transform = 'translateY(0)';
+    };
 
-      if (diff > 100) {
-        onClose(); //
-      } else {
-        sheet.style.transform = '';
+    // mousemove/mouseup은 document에 등록 — 마우스가 시트 밖으로 나가도 감지
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDraggingRef.current) return;
+      const diff = e.clientY - startYRef.current;
+      if (diff > 0) {
+        sheet.style.transform = `translateY(${diff}px)`;
       }
     };
 
-    sheet.addEventListener('touchstart', handleTouchStart);
-    sheet.addEventListener('touchmove', handleTouchMove);
-    sheet.addEventListener('touchend', handleTouchEnd);
+    const handleMouseUp = (e: MouseEvent) => {
+      if (!isDraggingRef.current) return;
+      const diff = e.clientY - startYRef.current;
+      finishDrag(diff);
+    };
+
+    sheet.addEventListener('touchstart', handleTouchStart, { passive: true });
+    sheet.addEventListener('touchmove', handleTouchMove, { passive: true });
+    sheet.addEventListener('touchend', handleTouchEnd, { passive: true });
+    sheet.addEventListener('mousedown', handleMouseDown);
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
 
     return () => {
       sheet.removeEventListener('touchstart', handleTouchStart);
       sheet.removeEventListener('touchmove', handleTouchMove);
       sheet.removeEventListener('touchend', handleTouchEnd);
+      sheet.removeEventListener('mousedown', handleMouseDown);
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [enableDrag, open, isDragging, startY, onClose]);
+  }, [enableDrag, open, onClose]);
 
   //애니메이션 종료 처리
   const handleAnimationEnd = (e: React.AnimationEvent) => {
@@ -178,12 +242,14 @@ const BottomSheetRoot = ({
 
     if (!open) {
       setShouldRender(false);
-      // 인라인 스타일 초기화 (다음 번에 열릴 때를 대비)
+      // 인라인 스타일 초기화, 다음에 열릴 때 대비!
       if (sheetRef.current) {
         sheetRef.current.style.transform = '';
       }
     }
   };
+  const contextValue = useMemo(() => ({ onClose }), [onClose]);
+
   if (!shouldRender) return null;
 
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -193,7 +259,7 @@ const BottomSheetRoot = ({
   };
 
   const sheetContent = (
-    <BottomSheetContext.Provider value={{ onClose }}>
+    <BottomSheetContext.Provider value={contextValue}>
       <div className={bottomSheetContainer}>
         <div
           className={clsx(backdrop, !open ? backdropExit : backdropEnter)}
@@ -215,29 +281,32 @@ const BottomSheetRoot = ({
           onClick={(e) => e.stopPropagation()}
           {...props}
         >
-          {showHandle && <div className={handle} />}
+          {showHandle && <div className={handle} data-testid="bottomsheet-handle" />}
 
-          {title && (
-            <div className={header}>
-              <h2 id={titleId} className={titleStyle}>
-                {title}
-              </h2>
-              {showClose && (
-                <IconButton
-                  variant="dark"
-                  buttonStyle="weak"
-                  size="sm"
-                  onClick={onClose}
-                  aria-label="닫기"
-                  className={closeButton}
-                >
-                  <Icon name="close" size="sm" />
-                </IconButton>
-              )}
-            </div>
+          {title ? (
+            <>
+              <div className={header}>
+                <h2 id={titleId} className={titleStyle}>
+                  {title}
+                </h2>
+                {showClose && (
+                  <IconButton
+                    variant="dark"
+                    buttonStyle="weak"
+                    size="sm"
+                    onClick={onClose}
+                    aria-label="닫기"
+                    className={closeButton}
+                  >
+                    <Icon name="close" size="sm" />
+                  </IconButton>
+                )}
+              </div>
+              <div className={content}>{children}</div>
+            </>
+          ) : (
+            children
           )}
-
-          <div className={content}>{children}</div>
         </div>
       </div>
     </BottomSheetContext.Provider>
@@ -248,13 +317,14 @@ const BottomSheetRoot = ({
 
 BottomSheetRoot.displayName = 'BottomSheet';
 
-// Flat API (기존 API 유지)
-export const BottomSheet = BottomSheetRoot;
-
 // Compound API 서브 컴포넌트들
+/** BottomSheet 헤더 영역. Compound 패턴에서 사용 */
 export interface BottomSheetHeaderProps extends HTMLAttributes<HTMLElement> {
+  /** 헤더 콘텐츠 */
   children: ReactNode;
+  /** 닫기(X) 버튼 표시 @default false */
   showClose?: boolean;
+  /** 추가 CSS 클래스 */
   className?: string;
 }
 
@@ -284,8 +354,11 @@ export const BottomSheetHeader = forwardRef<HTMLElement, BottomSheetHeaderProps>
 
 BottomSheetHeader.displayName = 'BottomSheetHeader';
 
+/** BottomSheet 제목. Compound 패턴에서 사용 */
 export interface BottomSheetTitleProps extends HTMLAttributes<HTMLHeadingElement> {
+  /** 제목 텍스트 */
   children: ReactNode;
+  /** 추가 CSS 클래스 */
   className?: string;
 }
 
@@ -301,8 +374,11 @@ export const BottomSheetTitle = forwardRef<HTMLHeadingElement, BottomSheetTitleP
 
 BottomSheetTitle.displayName = 'BottomSheetTitle';
 
+/** BottomSheet 본문 영역. Compound 패턴에서 사용 */
 export interface BottomSheetContentProps extends HTMLAttributes<HTMLDivElement> {
+  /** 본문 콘텐츠 */
   children: ReactNode;
+  /** 추가 CSS 클래스 */
   className?: string;
 }
 
@@ -317,3 +393,12 @@ export const BottomSheetContent = forwardRef<HTMLDivElement, BottomSheetContentP
 );
 
 BottomSheetContent.displayName = 'BottomSheetContent';
+
+
+// ─── BottomSheet = BottomSheetRoot + Compound 서브 컴포넌트 ────────────────────────
+
+export const BottomSheet = Object.assign(BottomSheetRoot, {
+  Header: BottomSheetHeader,
+  Title: BottomSheetTitle,
+  Content: BottomSheetContent,
+});

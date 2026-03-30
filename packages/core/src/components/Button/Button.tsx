@@ -1,10 +1,16 @@
-import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
+import {
+  forwardRef,
+  type ButtonHTMLAttributes,
+  type ReactNode,
+} from 'react';
 import clsx from 'clsx';
 import {
   buttonBase,
   sizeVariants,
   fillVariants,
   weakVariants,
+  customVariant,
+  customOutlineVariant,
   fullWidth,
 } from './Button.css';
 import { LoadingSpinner } from '../LoadingSpinner';
@@ -12,15 +18,39 @@ import { LoadingSpinner } from '../LoadingSpinner';
 type ButtonVariant = 'primary' | 'dark' | 'danger' | 'light';
 type ButtonStyle = 'fill' | 'weak';
 
+/** 커스텀 색상 설정 */
+export interface ButtonCustomColor {
+  /** 배경색 */
+  bg: string;
+  /** 텍스트 색상 */
+  text: string;
+  /** 호버 시 배경색 */
+  hoverBg?: string;
+  /** 클릭 시 배경색 */
+  activeBg?: string;
+}
+
+/** 다양한 스타일과 크기를 지원하는 버튼 컴포넌트 */
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  /** 버튼 색상 테마 @default 'primary' */
   variant?: ButtonVariant;
+  /** 버튼 채우기 스타일. fill: 배경 채움, weak: 배경 투명 @default 'fill' */
   buttonStyle?: ButtonStyle;
+  /** 버튼 크기 @default 'md' */
   size?: 'sm' | 'md' | 'lg' | 'xl';
+  /** 부모 너비에 맞춰 확장 @default false */
   fullWidth?: boolean;
+  /** 로딩 상태. true면 스피너 표시 및 클릭 비활성화 @default false */
   loading?: boolean;
+  /** 비활성화 상태 @default false */
   disabled?: boolean;
+  /** 텍스트 왼쪽에 표시할 아이콘 */
   leftIcon?: ReactNode;
+  /** 텍스트 오른쪽에 표시할 아이콘 */
   rightIcon?: ReactNode;
+  /** variant 대신 사용하는 커스텀 색상 */
+  customColor?: ButtonCustomColor;
+  /** 버튼 내용 */
   children: ReactNode;
 }
 
@@ -35,16 +65,46 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       disabled = false,
       leftIcon,
       rightIcon,
+      customColor,
       children,
       className,
+      style,
       ...props
     },
     ref
   ) => {
     const isDisabled = disabled || loading;
 
-    const variantClass =
-      buttonStyle === 'fill' ? fillVariants[variant] : weakVariants[variant];
+    const isOutlineCustom = customColor && variant === 'light';
+
+    const variantClass = customColor
+      ? isOutlineCustom
+        ? customOutlineVariant
+        : customVariant
+      : buttonStyle === 'fill'
+        ? fillVariants[variant]
+        : weakVariants[variant];
+
+    const mergedStyle = customColor
+      ? isOutlineCustom
+        ? {
+            '--btn-color': customColor.bg,
+            ...(customColor.hoverBg && { '--btn-hover-bg': customColor.hoverBg }),
+            ...(customColor.activeBg && { '--btn-active-bg': customColor.activeBg }),
+            ...style,
+          }
+        : {
+            '--btn-bg': customColor.bg,
+            '--btn-color': customColor.text,
+            ...(customColor.hoverBg
+              ? { '--btn-hover-bg': customColor.hoverBg }
+              : { '--btn-hover-filter': 'brightness(0.9)' }),
+            ...(customColor.activeBg
+              ? { '--btn-active-bg': customColor.activeBg }
+              : { '--btn-active-filter': 'brightness(0.8)' }),
+            ...style,
+          }
+      : style;
 
     return (
       <button
@@ -60,6 +120,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           isFullWidth && fullWidth,
           className
         )}
+        style={mergedStyle}
         {...props}
       >
         {loading && (

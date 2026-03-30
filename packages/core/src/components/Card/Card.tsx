@@ -16,24 +16,50 @@ import {
   paddingStyles,
 } from './Card.css';
 
-// CardRoot
-export interface CardRootProps
+
+// ─── Card Root ───────────────────────────────────────────────────────
+
+/** 콘텐츠를 그룹화하는 카드 컴포넌트. Compound 패턴(Card.Header/Body/Footer) 또는 Flat 패턴(title/footer prop) 지원 */
+export interface CardProps
   extends Omit<HTMLAttributes<HTMLElement>, 'onClick'> {
+  /** 카드 콘텐츠 */
   children: ReactNode;
+  /** 카드 시각적 스타일. interactive는 호버/클릭 효과 포함 @default 'elevated' */
   variant?: 'outlined' | 'elevated' | 'filled' | 'interactive';
+  /** 클릭 핸들러. 설정 시 카드가 클릭 가능해짐 */
   onClick?: () => void;
+  /** 비활성화 상태 */
   disabled?: boolean;
+  /** 카드 상단 액센트 색상 (CSS 색상값) */
   accentColor?: string;
+  /** Flat: 카드 제목 — 자동으로 header + title 구조 생성 */
+  title?: string;
+  /** Flat: 카드 헤더 영역 (title보다 우선) */
+  header?: ReactNode;
+  /** Flat: 카드 푸터 영역 */
+  footer?: ReactNode;
+  /** Flat: 이미지 URL */
+  image?: string;
+  /** Flat: 이미지 alt 텍스트 */
+  imageAlt?: string;
+  /** Flat: 본문 패딩 (Flat 모드에서만 적용) @default 'md' */
+  padding?: 'none' | 'sm' | 'md' | 'lg';
 }
 
-export const CardRoot = forwardRef<HTMLElement, CardRootProps>(
+const CardRoot = forwardRef<HTMLElement, CardProps>(
   (
     {
       children,
       variant = 'elevated',
       onClick,
-      disabled = false,
+      disabled: isDisabled = false,
       accentColor,
+      title,
+      header,
+      footer,
+      image,
+      imageAlt = '',
+      padding = 'md',
       className,
       style,
       ...props
@@ -41,10 +67,11 @@ export const CardRoot = forwardRef<HTMLElement, CardRootProps>(
     ref
   ) => {
     const isClickable = !!onClick;
+    const isFlat = !!(title || header || footer || image);
 
     const clickableProps = useClickable({
       onClick: onClick ? () => onClick() : undefined,
-      disabled,
+      disabled: isDisabled,
       role: 'button',
     });
 
@@ -53,7 +80,7 @@ export const CardRoot = forwardRef<HTMLElement, CardRootProps>(
       variantStyles[variant],
       {
         [clickableStyle]: isClickable,
-        [disabledStyle]: disabled,
+        [disabledStyle]: isDisabled,
       },
       className
     );
@@ -61,6 +88,26 @@ export const CardRoot = forwardRef<HTMLElement, CardRootProps>(
     const rootStyle = accentColor
       ? ({ ...style, '--accent-color': accentColor } as React.CSSProperties)
       : style;
+
+    const content = isFlat ? (
+      <>
+        {image && (
+          <div className={cardImageWrapper}>
+            <img src={image} alt={imageAlt} className={cardImage} />
+          </div>
+        )}
+        {header && <header className={cardHeader}>{header}</header>}
+        {!header && title && (
+          <header className={cardHeader}>
+            <h3 className={cardTitle}>{title}</h3>
+          </header>
+        )}
+        <div className={clsx(cardBody, paddingStyles[padding])}>{children}</div>
+        {footer && <footer className={cardFooter}>{footer}</footer>}
+      </>
+    ) : (
+      children
+    );
 
     if (isClickable) {
       return (
@@ -71,29 +118,35 @@ export const CardRoot = forwardRef<HTMLElement, CardRootProps>(
           style={rootStyle}
           onClick={clickableProps.onClick}
           onKeyDown={clickableProps.onKeyDown}
-          disabled={disabled}
-          aria-disabled={disabled}
+          disabled={isDisabled}
+          aria-disabled={isDisabled}
           {...props}
         >
-          {children}
+          {content}
         </button>
       );
     }
 
     return (
       <article ref={ref as React.Ref<HTMLElement>} className={rootClasses} style={rootStyle} {...props}>
-        {children}
+        {content}
       </article>
     );
   }
 );
 
-CardRoot.displayName = 'CardRoot';
+CardRoot.displayName = 'Card';
 
-// CardImage
+
+// ─── Compound 서브 컴포넌트 ──────────────────────────────────────────
+
+/** Card.Image — 카드 이미지 영역 */
 export interface CardImageProps extends HTMLAttributes<HTMLDivElement> {
+  /** 이미지 URL */
   src: string;
+  /** 이미지 대체 텍스트 */
   alt?: string;
+  /** 이미지 위에 오버레이할 콘텐츠 */
   children?: ReactNode;
 }
 
@@ -108,10 +161,11 @@ export const CardImage = forwardRef<HTMLDivElement, CardImageProps>(
   }
 );
 
-CardImage.displayName = 'CardImage';
+CardImage.displayName = 'Card.Image';
 
-// CardImageOverlay
+/** Card.ImageOverlay — 이미지 위에 표시되는 오버레이 */
 export interface CardImageOverlayProps extends HTMLAttributes<HTMLDivElement> {
+  /** 오버레이 콘텐츠 */
   children: ReactNode;
 }
 
@@ -125,10 +179,11 @@ export const CardImageOverlay = forwardRef<HTMLDivElement, CardImageOverlayProps
   }
 );
 
-CardImageOverlay.displayName = 'CardImageOverlay';
+CardImageOverlay.displayName = 'Card.ImageOverlay';
 
-// CardHeader
+/** Card.Header — 카드 헤더 영역 */
 export interface CardHeaderProps extends HTMLAttributes<HTMLDivElement> {
+  /** 헤더 콘텐츠 */
   children: ReactNode;
 }
 
@@ -142,11 +197,13 @@ export const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
   }
 );
 
-CardHeader.displayName = 'CardHeader';
+CardHeader.displayName = 'Card.Header';
 
-// CardTitle
+/** Card.Title — 카드 제목 */
 export interface CardTitleProps extends HTMLAttributes<HTMLHeadingElement> {
+  /** 제목 텍스트 */
   children: ReactNode;
+  /** 렌더링할 HTML 헤딩 태그 @default 'h3' */
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 }
 
@@ -160,20 +217,22 @@ export const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(
   }
 );
 
-CardTitle.displayName = 'CardTitle';
+CardTitle.displayName = 'Card.Title';
 
-// CardBody
+/** Card.Body — 카드 본문 영역 */
 export interface CardBodyProps extends HTMLAttributes<HTMLDivElement> {
+  /** 본문 콘텐츠 */
   children: ReactNode;
+  /** 내부 여백 @default 'md' */
   padding?: 'none' | 'sm' | 'md' | 'lg';
 }
 
 export const CardBody = forwardRef<HTMLDivElement, CardBodyProps>(
-  ({ children, padding = 'md', className, ...props }, ref) => {
+  ({ children, padding: bodyPadding = 'md', className, ...props }, ref) => {
     return (
       <div
         ref={ref}
-        className={clsx(cardBody, paddingStyles[padding], className)}
+        className={clsx(cardBody, paddingStyles[bodyPadding], className)}
         {...props}
       >
         {children}
@@ -182,10 +241,11 @@ export const CardBody = forwardRef<HTMLDivElement, CardBodyProps>(
   }
 );
 
-CardBody.displayName = 'CardBody';
+CardBody.displayName = 'Card.Body';
 
-// CardFooter
+/** Card.Footer — 카드 푸터 영역 */
 export interface CardFooterProps extends HTMLAttributes<HTMLDivElement> {
+  /** 푸터 콘텐츠 */
   children: ReactNode;
 }
 
@@ -199,4 +259,16 @@ export const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
   }
 );
 
-CardFooter.displayName = 'CardFooter';
+CardFooter.displayName = 'Card.Footer';
+
+
+// ─── Card = CardRoot + Compound 서브 컴포넌트 ────────────────────────
+
+export const Card = Object.assign(CardRoot, {
+  Image: CardImage,
+  ImageOverlay: CardImageOverlay,
+  Header: CardHeader,
+  Title: CardTitle,
+  Body: CardBody,
+  Footer: CardFooter,
+});
