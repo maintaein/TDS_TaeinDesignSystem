@@ -9,22 +9,22 @@ export type IconName =
   | 'chevron-down'
   | 'chevron-up';
 
+/** SVG 아이콘 컴포넌트. 내장 아이콘 세트 제공 */
 export interface IconProps extends Omit<SVGAttributes<SVGSVGElement>, 'color'> {
   /** 아이콘 이름 */
   name: IconName;
-  /** 아이콘 크기 */
+  /** 아이콘 크기 (sm=16px, md=20px, lg=24px, xl=32px) @default 'md' */
   size?: 'sm' | 'md' | 'lg' | 'xl';
-  /** 아이콘 색상 (CSS 색상 값) */
+  /** 아이콘 색상 (CSS 색상값) @default 'currentColor' */
   color?: string;
-  /** 접근성 레이블 (제공 시 스크린 리더에 노출됨) */
+  /** 스크린 리더용 레이블. 장식용 아이콘이면 생략 */
   'aria-label'?: string;
-  /** 아이콘 설명 (제공 시 title 요소로 렌더링) */
+  /** SVG title 요소 (툴팁 역할) */
   title?: string;
   /** 추가 CSS 클래스 */
   className?: string;
 }
 
-// 아이콘 크기 맵
 const SIZE_MAP = {
   sm: 16,
   md: 20,
@@ -41,27 +41,6 @@ const ICON_PATHS: Record<IconName, string> = {
   'chevron-up': 'M18 15l-6-6-6 6',
 };
 
-/**
- * Icon 컴포넌트
- *
- * SVG 기반 아이콘 시스템
- * - 5가지 아이콘 지원 (close, plus, minus, chevron-down, chevron-up)
- * - 4가지 크기 (sm: 16px, md: 20px, lg: 24px, xl: 32px)
- * - currentColor 기본 지원으로 부모 색상 상속
- * - 접근성 완비 (aria-label, title)
- *
- * @example
- * ```tsx
- * // 기본 사용
- * <Icon name="close" />
- *
- * // 크기와 색상 지정
- * <Icon name="plus" size="lg" color="#FF0000" />
- *
- * // 접근성 레이블
- * <Icon name="close" aria-label="닫기" />
- * ```
- */
 export const Icon = ({
   name,
   size = 'md',

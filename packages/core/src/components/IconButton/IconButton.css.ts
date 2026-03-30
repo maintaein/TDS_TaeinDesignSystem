@@ -2,7 +2,6 @@ import { style, styleVariants } from '@vanilla-extract/css';
 import { themeContract } from '../../tokens/theme.css';
 import { primary, gray, error } from '../../tokens/colors.css';
 
-// Base IconButton 스타일
 export const buttonBase = style({
   display: 'inline-flex',
   alignItems: 'center',
@@ -27,31 +26,36 @@ export const buttonBase = style({
   },
 });
 
-// Size Variants (정사각형 형태의 아이콘 버튼)
 export const sizeVariants = styleVariants({
   sm: {
     width: '36px',
     height: '36px',
-    borderRadius: themeContract.borderRadius.md,
+    borderRadius: themeContract.borderRadius.base,
   },
   md: {
     width: '44px',
     height: '44px',
-    borderRadius: themeContract.borderRadius.lg,
+    borderRadius: themeContract.borderRadius.md,
   },
   lg: {
     width: '52px',
     height: '52px',
-    borderRadius: themeContract.borderRadius.lg,
+    borderRadius: themeContract.borderRadius.md,
   },
   xl: {
     width: '60px',
     height: '60px',
-    borderRadius: themeContract.borderRadius.xl,
+    borderRadius: themeContract.borderRadius.lg,
   },
 });
 
-// Fill Variant Styles
+export const iconSizeVariants = styleVariants({
+  sm: { fontSize: '1.125rem', lineHeight: 1 },
+  md: { fontSize: '1.375rem', lineHeight: 1 },
+  lg: { fontSize: '1.625rem', lineHeight: 1 },
+  xl: { fontSize: '1.875rem', lineHeight: 1 },
+});
+
 export const fillVariants = styleVariants({
   primary: {
     backgroundColor: primary[600],
@@ -112,7 +116,50 @@ export const fillVariants = styleVariants({
   },
 });
 
-// Weak Variant Styles
+export const ghostBase = style({
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  fontFamily: themeContract.font.family.sans,
+  background: 'none',
+  border: 'none',
+  cursor: 'pointer',
+  transition: `all ${themeContract.animation.duration.base} ${themeContract.animation.easing.easeInOut}`,
+  userSelect: 'none',
+  borderRadius: themeContract.borderRadius.base,
+  color: gray[600],
+  flexShrink: 0,
+
+  selectors: {
+    '&:hover:not(:disabled)': {
+      color: gray[900],
+      backgroundColor: gray[100],
+    },
+    '&:active:not(:disabled)': {
+      color: gray[900],
+      backgroundColor: gray[200],
+      transform: 'scale(0.92)',
+    },
+  },
+
+  ':disabled': {
+    cursor: 'not-allowed',
+    opacity: 0.4,
+  },
+
+  ':focus-visible': {
+    outline: `2px solid ${themeContract.color.border.focus}`,
+    outlineOffset: '2px',
+  },
+});
+
+export const ghostSizeVariants = styleVariants({
+  sm: { padding: '0.25rem' },
+  md: { padding: '0.375rem' },
+  lg: { padding: '0.5rem' },
+  xl: { padding: '0.625rem' },
+});
+
 export const weakVariants = styleVariants({
   primary: {
     backgroundColor: primary[50],

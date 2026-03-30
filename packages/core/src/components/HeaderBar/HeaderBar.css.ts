@@ -9,6 +9,9 @@ export const headerBar = style({
   padding: `${themeContract.spacing[4]} ${themeContract.spacing[6]}`,
   transition: `box-shadow ${themeContract.animation.duration.base} ${themeContract.animation.easing.easeInOut}`,
   zIndex: 100,
+  transform: 'translateZ(0)',
+  willChange: 'transform, backdrop-filter',
+  backfaceVisibility: 'hidden',
 
   '@media': {
     '(max-width: 768px)': {
@@ -24,14 +27,15 @@ export const variantStyles = styleVariants({
     color: themeContract.color.text.primary,
   },
   dark: {
-    backgroundColor: themeContract.color.primary.dark,
-    color: themeContract.color.primary.contrast,
+    backgroundColor: themeContract.color.text.primary,
+    color: themeContract.color.background.paper,
   },
   transparent: {
-    backgroundColor: 'rgba(255, 255, 255, 0.4)',
+    backgroundColor: themeContract.color.surface.default,
     backdropFilter: 'blur(10px)',
     WebkitBackdropFilter: 'blur(10px)',
     color: themeContract.color.text.primary,
+    opacity: 0.9,
   },
 });
 

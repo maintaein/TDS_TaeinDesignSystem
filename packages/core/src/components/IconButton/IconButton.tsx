@@ -3,30 +3,36 @@ import clsx from 'clsx';
 import {
   buttonBase,
   sizeVariants,
+  iconSizeVariants,
   fillVariants,
   weakVariants,
+  ghostBase,
+  ghostSizeVariants,
 } from './IconButton.css';
 import { LoadingSpinner } from '../LoadingSpinner';
 
 type IconButtonVariant = 'primary' | 'dark' | 'danger' | 'light';
 type IconButtonStyle = 'fill' | 'weak';
 
+/** 아이콘만 표시하는 버튼 컴포넌트. aria-label 필수 */
 export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  /** 버튼 색상 변형 */
+  /** 버튼 색상 테마 @default 'primary' */
   variant?: IconButtonVariant;
-  /** 버튼 스타일 (fill: 채움, weak: 약한 스타일) */
+  /** 버튼 채우기 스타일 @default 'fill' */
   buttonStyle?: IconButtonStyle;
-  /** 버튼 크기 */
+  /** 버튼 크기 @default 'md' */
   size?: 'sm' | 'md' | 'lg' | 'xl';
-  /** 로딩 상태 */
+  /** 투명 배경 모드 @default false */
+  ghost?: boolean;
+  /** 로딩 상태 @default false */
   loading?: boolean;
-  /** 비활성화 상태 */
+  /** 비활성화 상태 @default false */
   disabled?: boolean;
-  /** 아이콘 (ReactNode) */
+  /** 아이콘 요소 */
   children: ReactNode;
-  /** 접근성: 버튼 레이블 (필수) */
+  /** 스크린 리더용 레이블 (필수 권장) */
   'aria-label'?: string;
-  /** 접근성: 버튼 레이블 ID 참조 */
+  /** 외부 레이블 요소 ID 참조 */
   'aria-labelledby'?: string;
 }
 
@@ -36,6 +42,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       variant = 'primary',
       buttonStyle = 'fill',
       size = 'md',
+      ghost = false,
       loading = false,
       disabled = false,
       children,
@@ -70,9 +77,9 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledby}
         className={clsx(
-          buttonBase,
-          sizeVariants[size],
-          variantClass,
+          ghost
+            ? [ghostBase, ghostSizeVariants[size]]
+            : [buttonBase, sizeVariants[size], variantClass],
           className
         )}
         {...props}
@@ -85,7 +92,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
             aria-label="로딩 중"
           />
         ) : (
-          <span aria-hidden="true">{children}</span>
+          <span aria-hidden="true" className={iconSizeVariants[size]}>{children}</span>
         )}
       </button>
     );
