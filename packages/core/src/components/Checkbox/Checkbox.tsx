@@ -3,21 +3,22 @@ import type { InputHTMLAttributes } from 'react';
 import { clsx } from 'clsx';
 import * as styles from './Checkbox.css';
 
+/** 체크박스 입력 컴포넌트. 체크/미체크/부분선택(indeterminate) 상태 지원 */
 export interface CheckboxProps extends Omit<
   InputHTMLAttributes<HTMLInputElement>,
   'size'
 > {
-  /** 레이블 텍스트 */
+  /** 체크박스 레이블 텍스트 */
   label: string;
-  /** Checkbox size */
+  /** 체크박스 크기 @default 'md' */
   size?: 'sm' | 'md' | 'lg';
-  /** 에러 상태 */
+  /** 에러 상태 표시 @default false */
   error?: boolean;
-  /** 에러 메시지 */
+  /** 에러 메시지 (error가 true일 때 표시) */
   errorMessage?: string;
   /** 도움말 텍스트 */
   helperText?: string;
-  /** 불확정 상태 (부분 선택) */
+  /** 부분 선택 상태 (전체 선택/해제 UI에서 사용) @default false */
   indeterminate?: boolean;
 }
 
@@ -60,13 +61,11 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       }
     }, [indeterminate, ref]);
 
-    // helperText 또는 errorMessage 표시
     const showHelper = !error && helperText;
     const showError = error && errorMessage;
 
     return (
       <div className={styles.wrapper}>
-        {/* Checkbox Container */}
         <label htmlFor={checkboxId} className={styles.checkboxLabel}>
           <div
             className={clsx(
@@ -108,14 +107,12 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
             />
           </div>
 
-          {/* Label Text */}
           <span className={styles.labelText}>
             {label}
             {required && <span className={styles.required}>*</span>}
           </span>
         </label>
 
-        {/* Helper Text or Error Message */}
         {showHelper && (
           <span id={helperId} className={styles.helperText}>
             {helperText}
