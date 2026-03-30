@@ -1,6 +1,5 @@
 import { style, styleVariants, keyframes } from '@vanilla-extract/css';
 import { themeContract } from '../../tokens/theme.css';
-import { primary, gray } from '../../tokens/colors.css';
 
 // 애니메이션 정의
 const spin = keyframes({
@@ -27,7 +26,6 @@ const progress = keyframes({
   },
 });
 
-// 컨테이너
 export const loaderContainer = style({
   display: 'flex',
   flexDirection: 'column',
@@ -42,7 +40,8 @@ export const fullScreenStyles = style({
   left: 0,
   right: 0,
   bottom: 0,
-  backgroundColor: 'rgba(255, 255, 255, 0.9)',
+  backgroundColor: themeContract.color.background.default,
+  opacity: 0.9,
   zIndex: 9999,
 });
 
@@ -52,11 +51,11 @@ export const overlayStyles = style({
   left: 0,
   right: 0,
   bottom: 0,
-  backgroundColor: 'rgba(255, 255, 255, 0.8)',
+  backgroundColor: themeContract.color.background.default,
+  opacity: 0.8,
   zIndex: 10,
 });
 
-// Loader 기본 스타일
 export const loader = style({
   display: 'inline-flex',
   alignItems: 'center',
@@ -69,17 +68,15 @@ export const typeStyles = styleVariants({
   bar: {},
 });
 
-// Spinner 스타일
 export const spinner = style({
   border: '3px solid',
-  borderColor: 'rgba(0, 0, 0, 0.1)',
+  borderColor: themeContract.color.border.default,
   borderTopColor: 'var(--loader-color)',
   borderRadius: '50%',
   animation: `${spin} 0.8s linear infinite`,
   boxSizing: 'border-box',
 });
 
-// Dots 스타일
 export const dotsContainer = style({
   display: 'flex',
   alignItems: 'center',
@@ -107,11 +104,10 @@ export const dotDelay = styleVariants({
   third: { animationDelay: '0.4s' },
 });
 
-// Bar 스타일
 export const bar = style({
   position: 'relative',
   height: '4px',
-  backgroundColor: gray[200],
+  backgroundColor: themeContract.color.surface.default,
   borderRadius: '2px',
   overflow: 'hidden',
 });
@@ -127,7 +123,6 @@ export const barFill = style({
   animation: `${progress} 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite`,
 });
 
-// Size variants
 export const sizeStyles = styleVariants({
   sm: {
     width: '16px',
@@ -159,25 +154,23 @@ export const barReset = style({
   height: 'auto !important',
 });
 
-// Color variants
 export const colorStyles = styleVariants({
   primary: {
-    vars: { '--loader-color': primary[600] },
+    vars: { '--loader-color': themeContract.color.primary.main },
   },
   secondary: {
-    vars: { '--loader-color': gray[600] },
+    vars: { '--loader-color': themeContract.color.text.secondary },
   },
   white: {
-    vars: { '--loader-color': '#FFFFFF' },
+    vars: { '--loader-color': themeContract.color.background.paper },
   },
 });
 
-// Label 스타일
 export const label = style({
   margin: 0,
   fontSize: themeContract.font.size.sm,
   fontWeight: themeContract.font.weight.medium,
-  color: gray[700],
+  color: themeContract.color.text.secondary,
   fontFamily: themeContract.font.family.sans,
   textAlign: 'center',
 });

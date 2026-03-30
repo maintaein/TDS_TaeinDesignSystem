@@ -13,26 +13,36 @@ import {
   verticalGap,
 } from './List.css';
 
-// List Props
+/** 항목 목록을 표시하는 리스트 컴포넌트 */
 export interface ListProps extends HTMLAttributes<HTMLUListElement> {
+  /** ListItem 컴포넌트들 */
   children: ReactNode;
+  /** 항목 간 간격 @default 'md' */
   spacing?: 'none' | 'sm' | 'md' | 'lg';
+  /** 항목 사이 구분선 표시 @default false */
   divider?: boolean;
+  /** 추가 CSS 클래스 */
   className?: string;
 }
 
-// ListItem Props
+/** 리스트 내 개별 항목. label-value 쌍 또는 커스텀 레이아웃 지원 */
 export interface ListItemProps extends HTMLAttributes<HTMLLIElement> {
+  /** 항목 레이블 (왼쪽 또는 상단) */
   label?: ReactNode;
+  /** 항목 값 (오른쪽 또는 하단) */
   value?: ReactNode;
+  /** 커스텀 레이아웃용 콘텐츠 (layout="custom"일 때 사용) */
   children?: ReactNode;
+  /** 레이아웃 방향 @default 'horizontal' */
   layout?: 'horizontal' | 'vertical' | 'custom';
+  /** label-value 정렬 @default 'center' */
   align?: 'start' | 'center' | 'end' | 'baseline';
+  /** label 영역 고정 너비 (CSS 단위) */
   labelWidth?: string;
+  /** 추가 CSS 클래스 */
   className?: string;
 }
 
-// List 컴포넌트
 export const List = ({
   children,
   spacing = 'md',
@@ -57,7 +67,6 @@ export const List = ({
 
 List.displayName = 'List';
 
-// ListItem 컴포넌트
 export const ListItem = ({
   label,
   value,

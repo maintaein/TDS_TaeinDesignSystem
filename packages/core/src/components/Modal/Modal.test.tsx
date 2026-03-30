@@ -473,3 +473,133 @@ describe('Modal Compound API', () => {
     });
   });
 });
+
+describe('Modal (Flat API)', () => {
+  const defaultProps = {
+    open: true,
+    onClose: vi.fn(),
+  };
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  describe('title prop', () => {
+    it('title을 전달하면 Header + Title 구조가 자동 생성된다', () => {
+      render(
+        <Modal {...defaultProps} title="알림">
+          <p>모달 내용입니다.</p>
+        </Modal>
+      );
+      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('알림');
+      expect(screen.getByText('모달 내용입니다.')).toBeInTheDocument();
+    });
+
+    it('title 없이 children만 전달하면 Compound 모드로 동작한다', () => {
+      render(
+        <Modal {...defaultProps}>
+          <div>직접 구성한 내용</div>
+        </Modal>
+      );
+      expect(screen.getByText('직접 구성한 내용')).toBeInTheDocument();
+      expect(screen.queryByRole('heading')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('showClose prop', () => {
+    it('title + showClose로 닫기 버튼이 렌더링된다', () => {
+      render(
+        <Modal {...defaultProps} title="설정" showClose>
+          <p>내용</p>
+        </Modal>
+      );
+      expect(screen.getByRole('button', { name: /닫기/i })).toBeInTheDocument();
+    });
+
+    it('showClose 닫기 버튼 클릭 시 onClose가 호출된다', () => {
+      const onClose = vi.fn();
+      render(
+        <Modal {...defaultProps} onClose={onClose} title="설정" showClose>
+          <p>내용</p>
+        </Modal>
+      );
+      fireEvent.click(screen.getByRole('button', { name: /닫기/i }));
+      expect(onClose).toHaveBeenCalledTimes(1);
+    });
+
+    it('showClose가 false이면 닫기 버튼이 없다', () => {
+      render(
+        <Modal {...defaultProps} title="설정">
+          <p>내용</p>
+        </Modal>
+      );
+      expect(screen.queryByRole('button', { name: /닫기/i })).not.toBeInTheDocument();
+    });
+  });
+
+  describe('footer prop', () => {
+    it('footer를 전달하면 Footer 영역이 렌더링된다', () => {
+      render(
+        <Modal {...defaultProps} title="알림" footer={<button>확인 버튼</button>}>
+          <p>내용</p>
+        </Modal>
+      );
+      expect(screen.getByText('확인 버튼')).toBeInTheDocument();
+    });
+
+    it('footer만 있고 title이 없어도 Flat 모드로 동작한다', () => {
+      render(
+        <Modal {...defaultProps} footer={<button>닫기</button>}>
+          <p>본문 내용</p>
+        </Modal>
+      );
+      expect(screen.getByText('본문 내용')).toBeInTheDocument();
+      expect(screen.getByText('닫기')).toBeInTheDocument();
+    });
+  });
+
+  describe('footerAlign prop', () => {
+    it('footerAlign="right"가 적용된다', () => {
+      render(
+        <Modal {...defaultProps} title="제목" footer={<button>확인</button>} footerAlign="right">
+          <p>내용</p>
+        </Modal>
+      );
+      const footer = screen.getByText('확인').closest('footer');
+      expect(footer).toBeInTheDocument();
+    });
+  });
+
+  describe('Flat 전체 조합', () => {
+    it('title + showClose + footer + footerAlign 전체 조합이 동작한다', () => {
+      const onClose = vi.fn();
+      render(
+        <Modal
+          open={true}
+          onClose={onClose}
+          title="회원 탈퇴"
+          showClose
+          footer={
+            <>
+              <button>취소</button>
+              <button>탈퇴</button>
+            </>
+          }
+          footerAlign="right"
+          size="sm"
+        >
+          <p>정말 탈퇴하시겠습니까?</p>
+        </Modal>
+      );
+
+      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('회원 탈퇴');
+      expect(screen.getByText('정말 탈퇴하시겠습니까?')).toBeInTheDocument();
+      expect(screen.getByText('취소')).toBeInTheDocument();
+      expect(screen.getByText('탈퇴')).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /닫기/i })).toBeInTheDocument();
+
+      fireEvent.click(screen.getByRole('button', { name: /닫기/i }));
+      expect(onClose).toHaveBeenCalledTimes(1);
+    });
+  });
+});

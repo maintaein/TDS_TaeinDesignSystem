@@ -1,7 +1,6 @@
 import { style, styleVariants, globalStyle } from '@vanilla-extract/css';
 import { themeContract } from '../../tokens/theme.css';
 
-// List 기본 스타일
 export const list = style({
   listStyle: 'none',
   margin: 0,
@@ -10,7 +9,6 @@ export const list = style({
   flexDirection: 'column',
 });
 
-// List spacing 스타일
 export const spacingStyles = styleVariants({
   none: {
     gap: '0',
@@ -26,22 +24,18 @@ export const spacingStyles = styleVariants({
   },
 });
 
-// List with divider 스타일
 export const withDivider = style({});
 
-// withDivider의 자식 li 스타일
 globalStyle(`${withDivider} > li:not(:last-child)`, {
   borderBottom: `1px solid ${themeContract.color.border.default}`,
   paddingBottom: themeContract.spacing[4],
 });
 
-// ListItem 기본 스타일
 export const listItem = style({
   display: 'flex',
   width: '100%',
 });
 
-// ListItem layout 스타일
 export const layoutStyles = styleVariants({
   horizontal: {
     flexDirection: 'row',
@@ -51,7 +45,6 @@ export const layoutStyles = styleVariants({
   },
 });
 
-// ListItem align 스타일
 export const alignStyles = styleVariants({
   start: {
     alignItems: 'flex-start',
@@ -67,25 +60,21 @@ export const alignStyles = styleVariants({
   },
 });
 
-// Label 스타일
 export const label = style({
   fontWeight: themeContract.font.weight.medium,
   color: themeContract.color.text.secondary,
   flexShrink: 0,
 });
 
-// Value 스타일
 export const value = style({
   color: themeContract.color.text.primary,
   flex: 1,
 });
 
-// Horizontal layout에서 label과 value 간격
 export const horizontalGap = style({
   gap: themeContract.spacing[4],
 });
 
-// Vertical layout에서 label과 value 간격
 export const verticalGap = style({
   gap: themeContract.spacing[1],
 });

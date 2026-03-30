@@ -11,14 +11,20 @@ import {
   dotDelayStyles,
 } from './LoadingSpinner.css';
 
+/** 인라인 로딩 스피너. Button 등 컴포넌트 내부에서 사용 */
 export interface LoadingSpinnerProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
   'color'
 > {
+  /** 애니메이션 타입 @default 'spinner' */
   type?: 'spinner' | 'dots';
+  /** 스피너 크기 @default 'md' */
   size?: 'sm' | 'md' | 'lg' | 'xl';
+  /** 스피너 색상 (CSS 색상값) @default primary[600] */
   color?: string;
+  /** 스크린 리더용 레이블 @default '로딩 중' */
   'aria-label'?: string;
+  /** 추가 CSS 클래스 */
   className?: string;
 }
 

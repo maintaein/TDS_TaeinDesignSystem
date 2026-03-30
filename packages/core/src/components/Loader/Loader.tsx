@@ -13,17 +13,26 @@ import {
 import { LoadingSpinner } from '../LoadingSpinner';
 import { primary, gray } from '../../tokens/colors.css';
 
+/** 로딩 상태를 표시하는 컴포넌트. 스피너, 점, 바 타입 지원 */
 export interface LoaderProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
   'color'
 > {
+  /** 로딩 애니메이션 타입 @default 'spinner' */
   type?: 'spinner' | 'dots' | 'bar';
+  /** 로더 크기 @default 'md' */
   size?: 'sm' | 'md' | 'lg' | 'xl';
+  /** 로더 색상 @default 'primary' */
   color?: 'primary' | 'secondary' | 'white';
+  /** 로더 아래 표시할 텍스트 */
   label?: string;
+  /** 전체 화면 중앙 배치 @default false */
   fullScreen?: boolean;
+  /** 반투명 배경 오버레이 표시 @default false */
   overlay?: boolean;
+  /** 스크린 리더용 레이블 */
   'aria-label'?: string;
+  /** 추가 CSS 클래스 */
   className?: string;
 }
 
