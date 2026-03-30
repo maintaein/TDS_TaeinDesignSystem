@@ -2,6 +2,7 @@ import type { ElementType, ReactNode } from 'react';
 import { clsx } from 'clsx';
 import * as styles from './Text.css';
 
+/** 타이포그래피 컴포넌트. variant에 따라 자동으로 적절한 HTML 태그 사용 */
 export interface TextProps {
   /** 텍스트 내용 */
   children?: ReactNode;

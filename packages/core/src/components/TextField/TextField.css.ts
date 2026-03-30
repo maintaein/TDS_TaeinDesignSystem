@@ -1,4 +1,5 @@
 import { style, styleVariants } from '@vanilla-extract/css';
+import { themeContract } from '../../tokens/theme.css';
 
 // input container 스타일
 export const inputContainer = style({
@@ -27,28 +28,28 @@ export const size = styleVariants({
 export const input = style({
   width: '100%',
   padding: '0 1rem',
-  border: '1px solid #DDDDDD',
+  border: `1px solid ${themeContract.color.border.default}`,
   borderRadius: '8px',
-  backgroundColor: '#FFFFFF',
-  color: '#000000',
+  backgroundColor: themeContract.color.background.paper,
+  color: themeContract.color.text.primary,
   fontFamily: 'inherit',
   outline: 'none',
   transition: 'all 150ms ease-in-out',
 
   selectors: {
     '&::placeholder': {
-      color: '#999999',
+      color: themeContract.color.text.disabled,
     },
     '&:hover:not(:disabled)': {
-      borderColor: '#BBBBBB',
+      borderColor: themeContract.color.text.disabled,
     },
     '&:disabled': {
-      backgroundColor: '#F5F5F5',
-      color: '#999999',
+      backgroundColor: themeContract.color.surface.default,
+      color: themeContract.color.text.disabled,
       cursor: 'not-allowed',
     },
     '&:read-only': {
-      backgroundColor: '#FAFAFA',
+      backgroundColor: themeContract.color.surface.default,
       cursor: 'default',
     },
   },
@@ -56,11 +57,11 @@ export const input = style({
 
 // error 상태
 export const error = style({
-  borderColor: '#F04452 !important',
+  borderColor: `${themeContract.color.error.main} !important`,
 
   selectors: {
     '&:focus': {
-      borderColor: '#F04452 !important',
+      borderColor: `${themeContract.color.error.main} !important`,
       boxShadow: '0 0 0 3px rgba(240, 68, 82, 0.1)',
     },
   },

@@ -1,4 +1,5 @@
 import { style, styleVariants } from '@vanilla-extract/css';
+import { themeContract } from '../../tokens/theme.css';
 
 // 기본 스타일
 export const base = style({
@@ -60,19 +61,19 @@ export const variant = styleVariants({
 // color 스타일
 export const color = styleVariants({
   primary: {
-    color: '#000000',
+    color: themeContract.color.text.primary,
   },
   secondary: {
-    color: '#666666',
+    color: themeContract.color.text.secondary,
   },
   success: {
-    color: '#00C73C',
+    color: themeContract.color.success.main,
   },
   error: {
-    color: '#F04452',
+    color: themeContract.color.error.main,
   },
   disabled: {
-    color: '#CCCCCC',
+    color: themeContract.color.text.disabled,
   },
 });
 

@@ -1,6 +1,5 @@
 import { style, styleVariants, keyframes } from '@vanilla-extract/css';
 import { themeContract } from '../../tokens/theme.css';
-import { gray } from '../../tokens/colors.css';
 
 // 애니메이션 정의
 const fadeIn = keyframes({
@@ -23,8 +22,8 @@ export const tooltip = style({
   position: 'absolute',
   zIndex: 1500,
   padding: `${themeContract.spacing[1]} ${themeContract.spacing[2]}`,
-  backgroundColor: gray[900],
-  color: '#FFFFFF',
+  backgroundColor: themeContract.color.text.primary,
+  color: themeContract.color.background.paper,
   fontSize: themeContract.font.size.xs,
   fontWeight: themeContract.font.weight.medium,
   lineHeight: themeContract.font.lineHeight.normal,
@@ -73,27 +72,27 @@ export const arrowPositionStyles = styleVariants({
     left: '50%',
     transform: 'translateX(-50%)',
     borderWidth: '4px 4px 0 4px',
-    borderColor: `${gray[900]} transparent transparent transparent`,
+    borderColor: `${themeContract.color.text.primary} transparent transparent transparent`,
   },
   bottom: {
     top: '-4px',
     left: '50%',
     transform: 'translateX(-50%)',
     borderWidth: '0 4px 4px 4px',
-    borderColor: `transparent transparent ${gray[900]} transparent`,
+    borderColor: `transparent transparent ${themeContract.color.text.primary} transparent`,
   },
   left: {
     right: '-4px',
     top: '50%',
     transform: 'translateY(-50%)',
     borderWidth: '4px 0 4px 4px',
-    borderColor: `transparent transparent transparent ${gray[900]}`,
+    borderColor: `transparent transparent transparent ${themeContract.color.text.primary}`,
   },
   right: {
     left: '-4px',
     top: '50%',
     transform: 'translateY(-50%)',
     borderWidth: '4px 4px 4px 0',
-    borderColor: `transparent ${gray[900]} transparent transparent`,
+    borderColor: `transparent ${themeContract.color.text.primary} transparent transparent`,
   },
 });
