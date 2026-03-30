@@ -1,7 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { SideSheet } from './SideSheet';
-import { SideSheet as CompoundSideSheet } from './index';
 
 describe('SideSheet', () => {
   const defaultProps = {
@@ -338,30 +337,30 @@ describe('SideSheet', () => {
     describe('SideSheet.Header', () => {
       it('SideSheet.Header가 렌더링된다', () => {
         render(
-          <CompoundSideSheet {...defaultProps}>
-            <CompoundSideSheet.Header>Header Content</CompoundSideSheet.Header>
-            <CompoundSideSheet.Content>Body Content</CompoundSideSheet.Content>
-          </CompoundSideSheet>
+          <SideSheet {...defaultProps}>
+            <SideSheet.Header>Header Content</SideSheet.Header>
+            <SideSheet.Content>Body Content</SideSheet.Content>
+          </SideSheet>
         );
         expect(screen.getByText('Header Content')).toBeInTheDocument();
       });
 
       it('showClose가 true일 때 닫기 버튼이 렌더링된다', () => {
         render(
-          <CompoundSideSheet {...defaultProps}>
-            <CompoundSideSheet.Header showClose>Header</CompoundSideSheet.Header>
-            <CompoundSideSheet.Content>Content</CompoundSideSheet.Content>
-          </CompoundSideSheet>
+          <SideSheet {...defaultProps}>
+            <SideSheet.Header showClose>Header</SideSheet.Header>
+            <SideSheet.Content>Content</SideSheet.Content>
+          </SideSheet>
         );
         expect(screen.getByRole('button', { name: /닫기/i })).toBeInTheDocument();
       });
 
       it('showClose 닫기 버튼 클릭 시 onClose가 호출된다', async () => {
         render(
-          <CompoundSideSheet {...defaultProps}>
-            <CompoundSideSheet.Header showClose>Header</CompoundSideSheet.Header>
-            <CompoundSideSheet.Content>Content</CompoundSideSheet.Content>
-          </CompoundSideSheet>
+          <SideSheet {...defaultProps}>
+            <SideSheet.Header showClose>Header</SideSheet.Header>
+            <SideSheet.Content>Content</SideSheet.Content>
+          </SideSheet>
         );
         const closeButton = screen.getByRole('button', { name: /닫기/i });
         fireEvent.click(closeButton);
@@ -375,24 +374,24 @@ describe('SideSheet', () => {
     describe('SideSheet.Title', () => {
       it('SideSheet.Title이 렌더링된다', () => {
         render(
-          <CompoundSideSheet {...defaultProps}>
-            <CompoundSideSheet.Header>
-              <CompoundSideSheet.Title>제목입니다</CompoundSideSheet.Title>
-            </CompoundSideSheet.Header>
-            <CompoundSideSheet.Content>Content</CompoundSideSheet.Content>
-          </CompoundSideSheet>
+          <SideSheet {...defaultProps}>
+            <SideSheet.Header>
+              <SideSheet.Title>제목입니다</SideSheet.Title>
+            </SideSheet.Header>
+            <SideSheet.Content>Content</SideSheet.Content>
+          </SideSheet>
         );
         expect(screen.getByText('제목입니다')).toBeInTheDocument();
       });
 
       it('SideSheet.Title이 h2 요소로 렌더링된다', () => {
         render(
-          <CompoundSideSheet {...defaultProps}>
-            <CompoundSideSheet.Header>
-              <CompoundSideSheet.Title>제목</CompoundSideSheet.Title>
-            </CompoundSideSheet.Header>
-            <CompoundSideSheet.Content>Content</CompoundSideSheet.Content>
-          </CompoundSideSheet>
+          <SideSheet {...defaultProps}>
+            <SideSheet.Header>
+              <SideSheet.Title>제목</SideSheet.Title>
+            </SideSheet.Header>
+            <SideSheet.Content>Content</SideSheet.Content>
+          </SideSheet>
         );
         const title = screen.getByText('제목');
         expect(title.tagName).toBe('H2');
@@ -402,23 +401,23 @@ describe('SideSheet', () => {
     describe('SideSheet.Content', () => {
       it('SideSheet.Content가 렌더링된다', () => {
         render(
-          <CompoundSideSheet {...defaultProps}>
-            <CompoundSideSheet.Content>내용입니다</CompoundSideSheet.Content>
-          </CompoundSideSheet>
+          <SideSheet {...defaultProps}>
+            <SideSheet.Content>내용입니다</SideSheet.Content>
+          </SideSheet>
         );
         expect(screen.getByText('내용입니다')).toBeInTheDocument();
       });
 
       it('복잡한 컴포넌트를 Content로 렌더링할 수 있다', () => {
         render(
-          <CompoundSideSheet {...defaultProps}>
-            <CompoundSideSheet.Content>
+          <SideSheet {...defaultProps}>
+            <SideSheet.Content>
               <div>
                 <button>버튼 1</button>
                 <button>버튼 2</button>
               </div>
-            </CompoundSideSheet.Content>
-          </CompoundSideSheet>
+            </SideSheet.Content>
+          </SideSheet>
         );
         expect(screen.getByRole('button', { name: '버튼 1' })).toBeInTheDocument();
         expect(screen.getByRole('button', { name: '버튼 2' })).toBeInTheDocument();
@@ -428,12 +427,12 @@ describe('SideSheet', () => {
     describe('Compound 조합 테스트', () => {
       it('Header + Title + Content를 함께 사용할 수 있다', () => {
         render(
-          <CompoundSideSheet {...defaultProps}>
-            <CompoundSideSheet.Header showClose>
-              <CompoundSideSheet.Title>제목</CompoundSideSheet.Title>
-            </CompoundSideSheet.Header>
-            <CompoundSideSheet.Content>내용</CompoundSideSheet.Content>
-          </CompoundSideSheet>
+          <SideSheet {...defaultProps}>
+            <SideSheet.Header showClose>
+              <SideSheet.Title>제목</SideSheet.Title>
+            </SideSheet.Header>
+            <SideSheet.Content>내용</SideSheet.Content>
+          </SideSheet>
         );
         expect(screen.getByText('제목')).toBeInTheDocument();
         expect(screen.getByText('내용')).toBeInTheDocument();
@@ -442,12 +441,12 @@ describe('SideSheet', () => {
 
       it('position과 함께 사용할 수 있다', () => {
         render(
-          <CompoundSideSheet {...defaultProps} position="left">
-            <CompoundSideSheet.Header>
-              <CompoundSideSheet.Title>제목</CompoundSideSheet.Title>
-            </CompoundSideSheet.Header>
-            <CompoundSideSheet.Content>내용</CompoundSideSheet.Content>
-          </CompoundSideSheet>
+          <SideSheet {...defaultProps} position="left">
+            <SideSheet.Header>
+              <SideSheet.Title>제목</SideSheet.Title>
+            </SideSheet.Header>
+            <SideSheet.Content>내용</SideSheet.Content>
+          </SideSheet>
         );
         const sheet = screen.getByRole('dialog');
         expect(sheet.className).toContain('left');

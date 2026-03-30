@@ -2,6 +2,7 @@ import {
   useEffect,
   useRef,
   useState,
+  useMemo,
   useId,
   createContext,
   useContext,
@@ -47,18 +48,28 @@ const useSideSheetContext = () => {
   return context;
 };
 
+/** 화면 좌/우에서 슬라이드되는 시트 컴포넌트. Compound 패턴(SideSheet.Header/Content) 또는 Flat 패턴(title prop) 지원 */
 export interface SideSheetProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
   'title'
 > {
+  /** 시트 표시 여부 */
   open: boolean;
+  /** 시트 닫기 콜백 */
   onClose: () => void;
+  /** Flat 모드: 시트 제목 */
   title?: ReactNode;
+  /** 시트 콘텐츠 */
   children: ReactNode;
+  /** 시트 너비 @default 'md' */
   width?: 'sm' | 'md' | 'lg' | 'full';
+  /** 시트 출현 위치 @default 'right' */
   position?: 'left' | 'right';
+  /** 배경 클릭으로 닫기 허용 @default true */
   closeOnBackdropClick?: boolean;
+  /** ESC 키로 닫기 허용 @default true */
   closeOnEscape?: boolean;
+  /** 닫기(X) 버튼 표시 @default true */
   showClose?: boolean;
   className?: string;
 }
@@ -153,6 +164,8 @@ const SideSheetRoot = ({
     }
   };
 
+  const contextValue = useMemo(() => ({ onClose }), [onClose]);
+
   if (!shouldRender) return null;
 
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -169,7 +182,7 @@ const SideSheetRoot = ({
   };
 
   const sheetContent = (
-    <SideSheetContext.Provider value={{ onClose }}>
+    <SideSheetContext.Provider value={contextValue}>
       <div className={sideSheetContainer}>
         <div
           className={clsx(backdrop, !open ? backdropExit : backdropEnter)}
@@ -192,27 +205,30 @@ const SideSheetRoot = ({
           onClick={(e) => e.stopPropagation()}
           {...props}
         >
-          {title && (
-            <div className={header}>
-              <h2 id={titleId} className={titleStyle}>
-                {title}
-              </h2>
-              {showClose && (
-                <IconButton
-                  variant="dark"
-                  buttonStyle="weak"
-                  size="sm"
-                  onClick={onClose}
-                  aria-label="닫기"
-                  className={closeButton}
-                >
-                  <Icon name="close" size="sm" />
-                </IconButton>
-              )}
-            </div>
+          {title ? (
+            <>
+              <div className={header}>
+                <h2 id={titleId} className={titleStyle}>
+                  {title}
+                </h2>
+                {showClose && (
+                  <IconButton
+                    variant="dark"
+                    buttonStyle="weak"
+                    size="sm"
+                    onClick={onClose}
+                    aria-label="닫기"
+                    className={closeButton}
+                  >
+                    <Icon name="close" size="sm" />
+                  </IconButton>
+                )}
+              </div>
+              <div className={content}>{children}</div>
+            </>
+          ) : (
+            children
           )}
-
-          <div className={content}>{children}</div>
         </div>
       </div>
     </SideSheetContext.Provider>
@@ -223,13 +239,14 @@ const SideSheetRoot = ({
 
 SideSheetRoot.displayName = 'SideSheet';
 
-// Flat API (기존 API 유지)
-export const SideSheet = SideSheetRoot;
-
 // Compound API 서브 컴포넌트들
+/** SideSheet.Header — 시트 헤더 영역 */
 export interface SideSheetHeaderProps extends HTMLAttributes<HTMLElement> {
+  /** 헤더 콘텐츠 */
   children: ReactNode;
+  /** 닫기(X) 버튼 표시 @default false */
   showClose?: boolean;
+  /** 추가 CSS 클래스 */
   className?: string;
 }
 
@@ -259,8 +276,11 @@ export const SideSheetHeader = forwardRef<HTMLElement, SideSheetHeaderProps>(
 
 SideSheetHeader.displayName = 'SideSheetHeader';
 
+/** SideSheet.Title — 시트 제목 */
 export interface SideSheetTitleProps extends HTMLAttributes<HTMLHeadingElement> {
+  /** 제목 텍스트 */
   children: ReactNode;
+  /** 추가 CSS 클래스 */
   className?: string;
 }
 
@@ -276,8 +296,11 @@ export const SideSheetTitle = forwardRef<HTMLHeadingElement, SideSheetTitleProps
 
 SideSheetTitle.displayName = 'SideSheetTitle';
 
+/** SideSheet.Content — 시트 본문 영역 */
 export interface SideSheetContentProps extends HTMLAttributes<HTMLDivElement> {
+  /** 본문 콘텐츠 */
   children: ReactNode;
+  /** 추가 CSS 클래스 */
   className?: string;
 }
 
@@ -292,3 +315,12 @@ export const SideSheetContent = forwardRef<HTMLDivElement, SideSheetContentProps
 );
 
 SideSheetContent.displayName = 'SideSheetContent';
+
+
+// ─── SideSheet = SideSheetRoot + Compound 서브 컴포넌트 ────────────────────────
+
+export const SideSheet = Object.assign(SideSheetRoot, {
+  Header: SideSheetHeader,
+  Title: SideSheetTitle,
+  Content: SideSheetContent,
+});

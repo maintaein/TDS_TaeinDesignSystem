@@ -4,6 +4,7 @@ import { clsx } from 'clsx';
 import * as styles from './NumericSpinner.css';
 import { Icon } from '../Icon';
 
+/** 증감 버튼이 있는 숫자 입력 컴포넌트. 제어/비제어 모드 지원 */
 export interface NumericSpinnerProps extends Omit<
   InputHTMLAttributes<HTMLInputElement>,
   'size' | 'type' | 'readOnly' | 'defaultValue'

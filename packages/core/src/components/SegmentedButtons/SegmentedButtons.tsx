@@ -19,6 +19,7 @@ import {
   activeIndicator,
 } from './SegmentedButtons.css';
 
+/** 개별 세그먼트 옵션 */
 export interface SegmentedButtonOption {
   /** 옵션 값 */
   value: string;
@@ -32,6 +33,7 @@ export interface SegmentedButtonOption {
   disabled?: boolean;
 }
 
+/** 여러 옵션 중 하나를 선택하는 세그먼트 버튼 그룹. 제어/비제어 모드 지원 */
 export interface SegmentedButtonsProps {
   /** 옵션 목록 */
   options: SegmentedButtonOption[];

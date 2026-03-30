@@ -1,4 +1,5 @@
 import { keyframes, style, styleVariants } from '@vanilla-extract/css';
+import { themeContract } from '../../tokens/theme.css';
 
 // wrapper 스타일
 export const wrapper = style({
@@ -16,12 +17,12 @@ export const fullWidth = style({
 export const label = style({
   fontSize: '0.875rem',
   fontWeight: 500,
-  color: '#333333',
+  color: themeContract.color.text.primary,
   marginBottom: '0.25rem',
 });
 
 export const required = style({
-  color: '#F04452',
+  color: themeContract.color.error.main,
   marginLeft: '0.25rem',
 });
 
@@ -30,20 +31,20 @@ export const inputContainer = style({
   position: 'relative',
   display: 'inline-flex',
   alignItems: 'center',
-  backgroundColor: '#F0F0F0',
-  border: '1px solid #F0F0F0',
+  backgroundColor: themeContract.color.surface.default,
+  border: `1px solid ${themeContract.color.surface.default}`,
   borderRadius: '8px',
   transition: 'all 150ms ease-in-out',
   width: 'fit-content',
 
   selectors: {
     '&:has(input:disabled)': {
-      backgroundColor: '#F5F5F5',
-      borderColor: '#FFFFFF',
+      backgroundColor: themeContract.color.surface.default,
+      borderColor: themeContract.color.background.paper,
       cursor: 'not-allowed',
     },
     '&:has(input:read-only)': {
-      backgroundColor: '#FAFAFA',
+      backgroundColor: themeContract.color.surface.default,
       cursor: 'default',
     },
   },
@@ -65,15 +66,15 @@ export const size = styleVariants({
 export const clickPulse = keyframes({
   '0%': { transform: 'scale(1)' },
   '30%': { transform: 'scale(0.92)' },
-  '60%': { transform: 'scale(1.06)' }, 
-  '100%': { transform: 'scale(1)' },   
+  '60%': { transform: 'scale(1.06)' },
+  '100%': { transform: 'scale(1)' },
 });
 
 export const input = style({
-  border: '1px solid #E5E7EB',
+  border: `1px solid ${themeContract.color.border.default}`,
   outline: 'none',
-  backgroundColor: '#FFFFFF',
-  color: '#000000',
+  backgroundColor: themeContract.color.background.paper,
+  color: themeContract.color.text.primary,
   fontFamily: 'inherit',
   textAlign: 'center',
   appearance: 'textfield',
@@ -87,23 +88,23 @@ export const input = style({
   selectors: {
     [`${inputContainer}:has(button:active:not(:disabled)) &`]: {
       animation: `${clickPulse} 0.7s cubic-bezier(0.25, 0.8, 0.25, 1) forwards`,
-      color: '#1E88E5',
+      color: themeContract.color.primary.main,
       transition: 'none',
     },
     '&::placeholder': {
-      color: '#999999',
+      color: themeContract.color.text.disabled,
     },
     '&:disabled': {
-      color: '#999999',
+      color: themeContract.color.text.disabled,
       cursor: 'not-allowed',
-      backgroundColor: '#F5F5F5',
+      backgroundColor: themeContract.color.surface.default,
     },
     '&:read-only': {
       cursor: 'default',
     },
     '&:focus': {
-      borderColor: '#1E88E5',
-      boxShadow: '0 0 0 3px rgba(30, 136, 229, 0.1)',
+      borderColor: themeContract.color.primary.main,
+      boxShadow: `0 0 0 3px rgba(30, 136, 229, 0.1)`,
     },
     '&::-webkit-outer-spin-button': {
       appearance: 'none',
@@ -136,7 +137,7 @@ export const button = style({
   justifyContent: 'center',
   border: 'none',
   backgroundColor: 'transparent',
-  color: '#333333',
+  color: themeContract.color.text.primary,
   cursor: 'pointer',
   transition: 'all 150ms ease-in-out',
   flexShrink: 0,
@@ -145,19 +146,19 @@ export const button = style({
 
   selectors: {
     '&:hover:not(:disabled)': {
-      backgroundColor: '#F5F5F5',
-      color: '#1E88E5',
+      backgroundColor: themeContract.color.surface.hover,
+      color: themeContract.color.primary.main,
     },
     '&:active:not(:disabled)': {
-      backgroundColor: '#EEEEEE',
+      backgroundColor: themeContract.color.surface.active,
       transform: 'scale(0.92)',
     },
     '&:disabled': {
-      color: '#CCCCCC',
+      color: themeContract.color.text.disabled,
       cursor: 'not-allowed',
     },
     '&:focus-visible': {
-      outline: '2px solid #1E88E5',
+      outline: `2px solid ${themeContract.color.primary.main}`,
       outlineOffset: '2px',
     },
   },
@@ -184,11 +185,11 @@ export const incrementButton = style({});
 
 // error 상태
 export const error = style({
-  borderColor: '#F04452 !important',
+  borderColor: `${themeContract.color.error.main} !important`,
 
   selectors: {
     '&:focus-within': {
-      borderColor: '#F04452 !important',
+      borderColor: `${themeContract.color.error.main} !important`,
       boxShadow: '0 0 0 3px rgba(240, 68, 82, 0.1)',
     },
   },
@@ -197,12 +198,12 @@ export const error = style({
 // helperText / errorMessage 스타일
 export const helperText = style({
   fontSize: '0.75rem',
-  color: '#666666',
+  color: themeContract.color.text.secondary,
   marginLeft: '0.25rem',
 });
 
 export const errorMessage = style({
   fontSize: '0.75rem',
-  color: '#F04452',
+  color: themeContract.color.error.main,
   marginLeft: '0.25rem',
 });
