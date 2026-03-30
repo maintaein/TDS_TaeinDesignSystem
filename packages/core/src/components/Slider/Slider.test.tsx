@@ -409,6 +409,50 @@ describe('Slider', () => {
     });
   });
 
+  describe('trackColor prop 테스트', () => {
+    it('기본 fill 트랙이 렌더링된다', () => {
+      const { container } = render(
+        <Slider label="슬라이더" value={50} onChange={() => {}} />
+      );
+
+      const fillTrack = container.querySelector('[class*="sliderFillTrack"]');
+      expect(fillTrack).toBeInTheDocument();
+      expect(fillTrack).toHaveStyle({ width: '50%' });
+    });
+
+    it('trackColor로 fill 트랙 색상을 변경할 수 있다', () => {
+      const { container } = render(
+        <Slider
+          label="슬라이더"
+          value={50}
+          onChange={() => {}}
+          trackColor="#ff0000"
+        />
+      );
+
+      const fillTrack = container.querySelector('[class*="sliderFillTrack"]');
+      expect(fillTrack).toHaveStyle({ backgroundColor: '#ff0000' });
+    });
+
+    it('value가 min일 때 fill 너비가 0%이다', () => {
+      const { container } = render(
+        <Slider label="슬라이더" value={0} min={0} max={100} onChange={() => {}} />
+      );
+
+      const fillTrack = container.querySelector('[class*="sliderFillTrack"]');
+      expect(fillTrack).toHaveStyle({ width: '0%' });
+    });
+
+    it('value가 max일 때 fill 너비가 100%이다', () => {
+      const { container } = render(
+        <Slider label="슬라이더" value={100} min={0} max={100} onChange={() => {}} />
+      );
+
+      const fillTrack = container.querySelector('[class*="sliderFillTrack"]');
+      expect(fillTrack).toHaveStyle({ width: '100%' });
+    });
+  });
+
   describe('required prop 테스트', () => {
     it('required 표시를 렌더링한다', () => {
       render(<Slider label="필수 슬라이더" required />);

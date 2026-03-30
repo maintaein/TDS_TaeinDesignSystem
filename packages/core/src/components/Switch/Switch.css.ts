@@ -1,4 +1,5 @@
 import { style, styleVariants } from '@vanilla-extract/css';
+import { themeContract } from '../../tokens/theme.css';
 
 // Wrapper
 export const wrapper = style({
@@ -21,13 +22,13 @@ export const switchLabel = style({
 export const labelText = style({
   fontSize: '0.875rem',
   fontWeight: 500,
-  color: '#212121',
+  color: themeContract.color.text.primary,
   order: -1,
 });
 
 // Required Indicator
 export const required = style({
-  color: '#D32F2F',
+  color: themeContract.color.error.main,
   marginLeft: '0.125rem',
 });
 
@@ -63,7 +64,7 @@ const baseSizeContainer = {
 export const size = styleVariants(baseSizeContainer, (baseStyle) => [
   baseStyle,
   {
-    backgroundColor: '#DDDDDD', // 기본 회색 (Off 상태)
+    backgroundColor: themeContract.color.border.default,
     border: '2px solid transparent',
     transition: 'all 150ms ease-in-out',
     position: 'relative',
@@ -72,20 +73,17 @@ export const size = styleVariants(baseSizeContainer, (baseStyle) => [
     cursor: 'pointer',
 
     selectors: {
-      // ON 상태: 배경을 파란색으로
       [`&:has(input:checked)`]: {
-        backgroundColor: '#1E88E5',
+        backgroundColor: themeContract.color.primary.main,
       },
 
-      // Disabled 상태
       [`&:has(input:disabled)`]: {
-        backgroundColor: '#F5F5F5',
+        backgroundColor: themeContract.color.surface.default,
         cursor: 'not-allowed',
       },
-      
-      // Disabled + Checked 상태
+
       [`&:has(input:checked:disabled)`]: {
-        backgroundColor: '#BBDEFB',
+        backgroundColor: themeContract.color.primary.light,
       },
     },
   },
@@ -104,19 +102,17 @@ export const thumbSize = styleVariants({
   width: config.width,
   height: config.height,
   borderRadius: '50%',
-  backgroundColor: '#FFFFFF', // 항상 흰색 유지
+  backgroundColor: themeContract.color.background.paper,
   transition: 'all 150ms ease-in-out',
   boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
 
   selectors: {
-    // ON 상태: 위치만 이동, 색상은 변경 없음
     [`input:checked + &`]: {
       transform: `translate(${config.offset}, -50%)`,
     },
 
-    // Disabled 상태의 Thumb 색상 (약간 흐리게 조정 가능)
     [`input:disabled + &`]: {
-      backgroundColor: '#FFFFFF',
+      backgroundColor: themeContract.color.background.paper,
       boxShadow: 'none',
       opacity: 0.8,
     },
@@ -125,11 +121,11 @@ export const thumbSize = styleVariants({
 
 // Error State
 export const error = style({
-  borderColor: '#D32F2F !important',
+  borderColor: `${themeContract.color.error.main} !important`,
 
   selectors: {
     'input:focus ~ &': {
-      borderColor: '#D32F2F !important',
+      borderColor: `${themeContract.color.error.main} !important`,
       boxShadow: '0 0 0 3px rgba(211, 47, 47, 0.1) !important',
     },
   },
@@ -138,13 +134,13 @@ export const error = style({
 // Helper Text
 export const helperText = style({
   fontSize: '0.75rem',
-  color: '#666666',
+  color: themeContract.color.text.secondary,
   marginLeft: '0.25rem',
 });
 
 // Error Message
 export const errorMessage = style({
   fontSize: '0.75rem',
-  color: '#D32F2F',
+  color: themeContract.color.error.main,
   marginLeft: '0.25rem',
 });

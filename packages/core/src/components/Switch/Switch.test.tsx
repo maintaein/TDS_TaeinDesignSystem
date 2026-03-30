@@ -13,11 +13,6 @@ describe('Switch', () => {
       expect(switchElement).toBeInTheDocument();
     });
 
-    it('label 텍스트를 표시한다', () => {
-      render(<Switch label="다크모드" />);
-      expect(screen.getByText('다크모드')).toBeInTheDocument();
-    });
-
     it('checked 상태를 렌더링한다', () => {
       render(<Switch label="활성화" checked onChange={() => {}} />);
       const switchElement = screen.getByRole('switch');

@@ -3,6 +3,7 @@ import type { InputHTMLAttributes } from 'react';
 import { clsx } from 'clsx';
 import * as styles from './Switch.css';
 
+/** 토글 스위치 입력 컴포넌트 */
 export interface SwitchProps extends Omit<
   InputHTMLAttributes<HTMLInputElement>,
   'size'

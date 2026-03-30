@@ -12,13 +12,18 @@ import {
 import { IconButton } from '../IconButton';
 import { Icon } from '../Icon';
 
+/** 화면 모서리에 일시적으로 표시되는 알림 컴포넌트 */
 export interface SnackbarProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
   'content'
 > {
+  /** 스낵바 표시 여부 */
   open: boolean;
+  /** 알림 메시지 */
   message: ReactNode;
+  /** 알림 유형 (색상 및 아이콘 결정) @default 'info' */
   severity?: 'success' | 'error' | 'warning' | 'info';
+  /** 화면 내 표시 위치 @default 'bottom-center' */
   position?:
     | 'top-left'
     | 'top-center'
@@ -26,9 +31,13 @@ export interface SnackbarProps extends Omit<
     | 'bottom-left'
     | 'bottom-center'
     | 'bottom-right';
+  /** 자동 닫힘 시간(ms). null이면 자동 닫힘 비활성화 @default 5000 */
   autoHideDuration?: number | null;
+  /** 닫기 콜백 */
   onClose?: () => void;
+  /** 메시지 옆 액션 영역 (버튼 등) */
   action?: ReactNode;
+  /** 추가 CSS 클래스 */
   className?: string;
 }
 

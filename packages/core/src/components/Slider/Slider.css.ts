@@ -1,6 +1,5 @@
 import { style, styleVariants } from '@vanilla-extract/css';
 import { themeContract } from '../../tokens/theme.css';
-import { primary, gray } from '../../tokens/colors.css';
 
 // Container
 export const container = style({
@@ -22,13 +21,13 @@ export const labelContainer = style({
 export const label = style({
   fontSize: themeContract.font.size.sm,
   fontWeight: themeContract.font.weight.medium,
-  color: gray[900],
+  color: themeContract.color.text.primary,
   fontFamily: themeContract.font.family.sans,
 });
 
 // Required
 export const required = style({
-  color: '#EF4444',
+  color: themeContract.color.error.main,
   marginLeft: '0.25rem',
 });
 
@@ -36,7 +35,7 @@ export const required = style({
 export const valueDisplay = style({
   fontSize: themeContract.font.size.sm,
   fontWeight: themeContract.font.weight.semibold,
-  color: primary[700],
+  color: themeContract.color.primary.dark,
   fontFamily: themeContract.font.family.sans,
   minWidth: '3rem',
   textAlign: 'right',
@@ -49,17 +48,30 @@ export const sliderWrapper = style({
   alignItems: 'center',
 });
 
-// Slider Track
+// Slider Track (background)
 export const sliderTrack = style({
   position: 'absolute',
   top: '50%',
   left: 0,
   right: 0,
-  height: '4px',
-  backgroundColor: gray[200],
-  borderRadius: '2px',
+  height: '6px',
+  backgroundColor: themeContract.color.surface.default,
+  borderRadius: '3px',
   transform: 'translateY(-50%)',
   pointerEvents: 'none',
+});
+
+// Slider Fill Track (filled portion)
+export const sliderFillTrack = style({
+  position: 'absolute',
+  top: '50%',
+  left: 0,
+  height: '6px',
+  backgroundColor: themeContract.color.primary.main,
+  borderRadius: '3px',
+  transform: 'translateY(-50%)',
+  pointerEvents: 'none',
+  transition: 'width 0.05s ease-out',
 });
 
 // Slider Input
@@ -79,24 +91,24 @@ export const slider = style({
     '&::-webkit-slider-thumb': {
       appearance: 'none',
       WebkitAppearance: 'none',
-      width: '20px',
-      height: '20px',
+      width: '24px',
+      height: '24px',
       borderRadius: '50%',
-      backgroundColor: primary[600],
-      border: `2px solid ${primary[600]}`,
+      backgroundColor: themeContract.color.background.paper,
+      border: `2px solid ${themeContract.color.primary.main}`,
       cursor: 'pointer',
       transition: `all ${themeContract.animation.duration.base} ${themeContract.animation.easing.easeInOut}`,
-      boxShadow: '0 1px 3px rgba(0, 0, 0, 0.2)',
-      marginTop: '-6px',
+      boxShadow: '0 1px 4px rgba(0, 0, 0, 0.15)',
+      marginTop: '-9px',
     },
     '&:hover::-webkit-slider-thumb': {
-      backgroundColor: primary[700],
-      borderColor: primary[700],
+      borderColor: themeContract.color.primary.main,
+      boxShadow: '0 2px 6px rgba(0, 0, 0, 0.2)',
       transform: 'scale(1.1)',
     },
     '&:active::-webkit-slider-thumb': {
-      backgroundColor: primary[800],
-      borderColor: primary[800],
+      borderColor: themeContract.color.primary.dark,
+      boxShadow: '0 1px 3px rgba(0, 0, 0, 0.2)',
       transform: 'scale(1)',
     },
     '&:focus-visible::-webkit-slider-thumb': {
@@ -104,30 +116,30 @@ export const slider = style({
       outlineOffset: '2px',
     },
     '&:disabled::-webkit-slider-thumb': {
-      backgroundColor: gray[400],
-      borderColor: gray[400],
+      backgroundColor: themeContract.color.background.paper,
+      borderColor: themeContract.color.text.disabled,
       cursor: 'not-allowed',
     },
 
     // Firefox thumb
     '&::-moz-range-thumb': {
-      width: '20px',
-      height: '20px',
+      width: '24px',
+      height: '24px',
       borderRadius: '50%',
-      backgroundColor: primary[600],
-      border: `2px solid ${primary[600]}`,
+      backgroundColor: themeContract.color.background.paper,
+      border: `2px solid ${themeContract.color.primary.main}`,
       cursor: 'pointer',
       transition: `all ${themeContract.animation.duration.base} ${themeContract.animation.easing.easeInOut}`,
-      boxShadow: '0 1px 3px rgba(0, 0, 0, 0.2)',
+      boxShadow: '0 1px 4px rgba(0, 0, 0, 0.15)',
     },
     '&:hover::-moz-range-thumb': {
-      backgroundColor: primary[700],
-      borderColor: primary[700],
+      borderColor: themeContract.color.primary.main,
+      boxShadow: '0 2px 6px rgba(0, 0, 0, 0.2)',
       transform: 'scale(1.1)',
     },
     '&:active::-moz-range-thumb': {
-      backgroundColor: primary[800],
-      borderColor: primary[800],
+      borderColor: themeContract.color.primary.dark,
+      boxShadow: '0 1px 3px rgba(0, 0, 0, 0.2)',
       transform: 'scale(1)',
     },
     '&:focus-visible::-moz-range-thumb': {
@@ -135,18 +147,18 @@ export const slider = style({
       outlineOffset: '2px',
     },
     '&:disabled::-moz-range-thumb': {
-      backgroundColor: gray[400],
-      borderColor: gray[400],
+      backgroundColor: themeContract.color.background.paper,
+      borderColor: themeContract.color.text.disabled,
       cursor: 'not-allowed',
     },
 
     // Tracks
     '&::-webkit-slider-runnable-track': {
-      height: '4px',
+      height: '6px',
       backgroundColor: 'transparent',
     },
     '&::-moz-range-track': {
-      height: '4px',
+      height: '6px',
       backgroundColor: 'transparent',
     },
 
@@ -173,7 +185,7 @@ export const sizeVariants = styleVariants({
 // Helper Text
 export const helperText = style({
   fontSize: themeContract.font.size.xs,
-  color: gray[600],
+  color: themeContract.color.text.secondary,
   fontFamily: themeContract.font.family.sans,
   marginTop: '0.25rem',
 });
@@ -199,7 +211,7 @@ export const mark = style({
 // Mark Label
 export const markLabel = style({
   fontSize: themeContract.font.size.xs,
-  color: gray[600],
+  color: themeContract.color.text.secondary,
   fontFamily: themeContract.font.family.sans,
   whiteSpace: 'nowrap',
   marginTop: '0.25rem',

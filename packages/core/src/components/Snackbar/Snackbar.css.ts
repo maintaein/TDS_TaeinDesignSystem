@@ -1,12 +1,5 @@
 import { style, styleVariants, keyframes } from '@vanilla-extract/css';
 import { themeContract } from '../../tokens/theme.css';
-import {
-  success,
-  error,
-  warning,
-  primary,
-  gray,
-} from '../../tokens/colors.css';
 
 // 애니메이션 정의
 const slideInFromTop = keyframes({
@@ -69,23 +62,23 @@ export const snackbar = style({
   fontSize: themeContract.font.size.sm,
   fontWeight: themeContract.font.weight.medium,
   lineHeight: themeContract.font.lineHeight.normal,
-  color: '#FFFFFF',
+  color: themeContract.color.primary.contrast,
 });
 
 // Severity 스타일
 export const severityStyles = styleVariants({
   success: {
-    backgroundColor: success[500],
+    backgroundColor: themeContract.color.success.main,
   },
   error: {
-    backgroundColor: error[500],
+    backgroundColor: themeContract.color.error.main,
   },
   warning: {
-    backgroundColor: warning[500],
-    color: gray[900],
+    backgroundColor: themeContract.color.warning.main,
+    color: themeContract.color.warning.contrast,
   },
   info: {
-    backgroundColor: primary[600],
+    backgroundColor: themeContract.color.primary.main,
   },
 });
 
