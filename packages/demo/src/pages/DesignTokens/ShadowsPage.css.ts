@@ -20,9 +20,6 @@ export const title = style({
     '(max-width: 768px)': {
       fontSize: '2rem',
     },
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
   },
 });
 
@@ -31,11 +28,6 @@ export const description = style({
   color: '#6b7280',
   marginBottom: '3rem',
   lineHeight: 1.6,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const section = style({
@@ -51,9 +43,6 @@ export const sectionTitle = style({
     '(max-width: 768px)': {
       fontSize: '1.5rem',
     },
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
   },
 });
 
@@ -62,11 +51,6 @@ export const sectionDescription = style({
   color: '#6b7280',
   marginBottom: '1.5rem',
   lineHeight: 1.5,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#d1d5db',
-    },
-  },
 });
 
 export const shadowGrid = style({
@@ -80,12 +64,6 @@ export const shadowCard = style({
   backgroundColor: '#ffffff',
   borderRadius: '0.75rem',
   border: '1px solid #e5e7eb',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#111827',
-      borderColor: '#374151',
-    },
-  },
 });
 
 export const shadowHeader = style({
@@ -100,21 +78,11 @@ export const shadowName = style({
   fontWeight: 600,
   color: '#2563eb',
   fontFamily: 'monospace',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#60a5fa',
-    },
-  },
 });
 
 export const shadowElevation = style({
   fontSize: '0.75rem',
   color: '#6b7280',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const shadowVisualContainer = style({
@@ -126,11 +94,6 @@ export const shadowVisualContainer = style({
   borderRadius: '0.5rem',
   marginBottom: '1rem',
   minHeight: '120px',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#1f2937',
-    },
-  },
 });
 
 export const shadowVisual = style({
@@ -138,22 +101,12 @@ export const shadowVisual = style({
   height: '80px',
   backgroundColor: '#ffffff',
   borderRadius: '0.5rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#374151',
-    },
-  },
 });
 
 export const shadowDescription = style({
   fontSize: '0.875rem',
   color: '#6b7280',
   marginBottom: '1rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const innerShadowDemo = style({
@@ -168,12 +121,6 @@ export const innerShadowCard = style({
   border: '1px solid #e5e7eb',
   maxWidth: '400px',
   width: '100%',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#111827',
-      borderColor: '#374151',
-    },
-  },
 });
 
 export const useCaseGrid = style({
@@ -187,12 +134,6 @@ export const useCaseCard = style({
   backgroundColor: '#ffffff',
   borderRadius: '0.75rem',
   border: '1px solid #e5e7eb',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#111827',
-      borderColor: '#374151',
-    },
-  },
 });
 
 export const useCaseComponent = style({
@@ -200,22 +141,12 @@ export const useCaseComponent = style({
   fontWeight: 600,
   color: '#111827',
   marginBottom: '0.25rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const useCaseDescription = style({
   fontSize: '0.875rem',
   color: '#6b7280',
   marginBottom: '1rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const useCaseVisual = style({
@@ -227,11 +158,6 @@ export const useCaseVisual = style({
   borderRadius: '0.5rem',
   marginBottom: '1rem',
   minHeight: '100px',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#1f2937',
-    },
-  },
 });
 
 export const useCaseBox = style({
@@ -241,12 +167,6 @@ export const useCaseBox = style({
   fontSize: '0.875rem',
   fontWeight: 500,
   color: '#111827',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#374151',
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const guidelineList = style({
@@ -257,12 +177,6 @@ export const guidelineList = style({
   backgroundColor: '#ffffff',
   borderRadius: '0.75rem',
   overflow: 'hidden',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#111827',
-      borderColor: '#374151',
-    },
-  },
 });
 
 export const guidelineRow = style({
@@ -279,9 +193,6 @@ export const guidelineRow = style({
       gridTemplateColumns: '1fr',
       gap: '0.5rem',
     },
-    '(prefers-color-scheme: dark)': {
-      borderBottomColor: '#374151',
-    },
   },
 });
 
@@ -289,20 +200,10 @@ export const guidelineTitle = style({
   fontSize: '0.875rem',
   fontWeight: 600,
   color: '#111827',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const guidelineText = style({
   fontSize: '0.875rem',
   color: '#6b7280',
   lineHeight: 1.6,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#d1d5db',
-    },
-  },
 });

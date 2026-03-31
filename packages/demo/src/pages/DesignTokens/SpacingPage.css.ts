@@ -20,9 +20,6 @@ export const title = style({
     '(max-width: 768px)': {
       fontSize: '2rem',
     },
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
   },
 });
 
@@ -31,11 +28,6 @@ export const description = style({
   color: '#6b7280',
   marginBottom: '3rem',
   lineHeight: 1.6,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const section = style({
@@ -51,9 +43,6 @@ export const sectionTitle = style({
     '(max-width: 768px)': {
       fontSize: '1.5rem',
     },
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
   },
 });
 
@@ -62,11 +51,6 @@ export const sectionDescription = style({
   color: '#6b7280',
   marginBottom: '1.5rem',
   lineHeight: 1.5,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#d1d5db',
-    },
-  },
 });
 
 export const spacingScale = style({
@@ -89,10 +73,6 @@ export const spacingRow = style({
     '(max-width: 768px)': {
       gridTemplateColumns: '1fr',
     },
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#1f2937',
-      borderColor: '#374151',
-    },
   },
 });
 
@@ -107,22 +87,12 @@ export const spacingName = style({
   fontWeight: 600,
   color: '#2563eb',
   fontFamily: 'monospace',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#60a5fa',
-    },
-  },
 });
 
 export const spacingValue = style({
   fontSize: '0.75rem',
   color: '#6b7280',
   fontFamily: 'monospace',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const spacingVisual = style({
@@ -132,11 +102,6 @@ export const spacingVisual = style({
   height: '32px',
   display: 'flex',
   alignItems: 'center',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#374151',
-    },
-  },
 });
 
 export const spacingBar = style({
@@ -144,11 +109,6 @@ export const spacingBar = style({
   backgroundColor: '#2563eb',
   borderRadius: '0.25rem',
   minWidth: '2px',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#60a5fa',
-    },
-  },
 });
 
 export const infoBox = style({
@@ -156,12 +116,6 @@ export const infoBox = style({
   backgroundColor: '#eff6ff',
   border: '1px solid #bfdbfe',
   borderRadius: '0.75rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#1e3a8a',
-      borderColor: '#1e40af',
-    },
-  },
 });
 
 export const infoTitle = style({
@@ -169,22 +123,12 @@ export const infoTitle = style({
   fontWeight: 600,
   color: '#1e40af',
   marginBottom: '0.5rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#93c5fd',
-    },
-  },
 });
 
 export const infoText = style({
   fontSize: '0.875rem',
   color: '#1e40af',
   lineHeight: 1.6,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#bfdbfe',
-    },
-  },
 });
 
 export const radiusGrid = style({
@@ -198,12 +142,6 @@ export const radiusCard = style({
   backgroundColor: '#ffffff',
   borderRadius: '0.75rem',
   border: '1px solid #e5e7eb',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#111827',
-      borderColor: '#374151',
-    },
-  },
 });
 
 export const radiusHeader = style({
@@ -218,22 +156,12 @@ export const radiusName = style({
   fontWeight: 600,
   color: '#2563eb',
   fontFamily: 'monospace',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#60a5fa',
-    },
-  },
 });
 
 export const radiusValue = style({
   fontSize: '0.75rem',
   color: '#6b7280',
   fontFamily: 'monospace',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const radiusVisualContainer = style({
@@ -248,22 +176,12 @@ export const radiusVisual = style({
   width: '64px',
   height: '64px',
   backgroundColor: '#2563eb',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#60a5fa',
-    },
-  },
 });
 
 export const radiusDescription = style({
   fontSize: '0.75rem',
   color: '#6b7280',
   textAlign: 'center',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const exampleGrid = style({
@@ -277,12 +195,6 @@ export const exampleCard = style({
   backgroundColor: '#ffffff',
   borderRadius: '0.75rem',
   border: '1px solid #e5e7eb',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#111827',
-      borderColor: '#374151',
-    },
-  },
 });
 
 export const exampleTitle = style({
@@ -290,11 +202,6 @@ export const exampleTitle = style({
   fontWeight: 600,
   color: '#111827',
   marginBottom: '1rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const exampleVisual = style({
@@ -305,11 +212,6 @@ export const exampleVisual = style({
   backgroundColor: '#f9fafb',
   borderRadius: '0.5rem',
   marginTop: '1rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#1f2937',
-    },
-  },
 });
 
 export const exampleButton = style({
@@ -322,48 +224,23 @@ export const exampleButton = style({
   ':hover': {
     backgroundColor: '#1d4ed8',
   },
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#60a5fa',
-      color: '#111827',
-      ':hover': {
-        backgroundColor: '#3b82f6',
-      },
-    },
-  },
 });
 
 export const exampleCardVisual = style({
   backgroundColor: '#ffffff',
   border: '1px solid #e5e7eb',
   width: '100%',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#111827',
-      borderColor: '#374151',
-    },
-  },
 });
 
 export const exampleCardTitle = style({
   fontSize: '1.125rem',
   fontWeight: 600,
   color: '#111827',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const exampleCardContent = style({
   fontSize: '0.875rem',
   color: '#6b7280',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const guidelineList = style({
@@ -374,12 +251,6 @@ export const guidelineList = style({
   backgroundColor: '#ffffff',
   borderRadius: '0.75rem',
   overflow: 'hidden',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#111827',
-      borderColor: '#374151',
-    },
-  },
 });
 
 export const guidelineRow = style({
@@ -396,9 +267,6 @@ export const guidelineRow = style({
       gridTemplateColumns: '1fr',
       gap: '0.5rem',
     },
-    '(prefers-color-scheme: dark)': {
-      borderBottomColor: '#374151',
-    },
   },
 });
 
@@ -406,20 +274,10 @@ export const guidelineTitle = style({
   fontSize: '0.875rem',
   fontWeight: 600,
   color: '#111827',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const guidelineText = style({
   fontSize: '0.875rem',
   color: '#6b7280',
   lineHeight: 1.6,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#d1d5db',
-    },
-  },
 });

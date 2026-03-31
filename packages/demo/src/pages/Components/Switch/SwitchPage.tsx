@@ -1,6 +1,4 @@
-import { useState } from 'react';
 import {
-  Switch,
   Card,
   List,
   ListItem,
@@ -13,11 +11,6 @@ import { AccessibilitySection } from '../../../components/AccessibilitySection';
 import * as styles from './SwitchPage.css';
 
 export function SwitchPage() {
-  const [basicChecked, setBasicChecked] = useState(false);
-  const [notificationsChecked, setNotificationsChecked] = useState(true);
-  const [darkModeChecked, setDarkModeChecked] = useState(false);
-  const [disabledChecked] = useState(true);
-  const [errorChecked, setErrorChecked] = useState(false);
 
   const propsData: PropDefinition[] = [
     {
@@ -82,7 +75,7 @@ export function SwitchPage() {
       <header className={styles.header}>
         <h1 className={styles.title}>Switch</h1>
         <p className={styles.description}>
-          사용자로부터 On/Off 상태를 전환받는 토글 컴포넌트입니다. 다양한 크기, 상태 표시를 지원하며, 접근성을 고려한 설계를 제공합니다.
+          Switch 컴포넌트는 알림 설정, 다크모드, 기능 활성화 등 설정을 켜거나 끌 때 사용합니다.
         </p>
       </header>
 
@@ -127,6 +120,7 @@ export function SwitchPage() {
           <LivePreview
             title="기본 사용법"
             description="가장 기본적인 스위치 사용 예제입니다."
+            editable
             code={`const [checked, setChecked] = useState(false);
 
 <Switch
@@ -134,53 +128,47 @@ export function SwitchPage() {
   checked={checked}
   onChange={(e) => setChecked(e.target.checked)}
 />`}
-          >
-            <Switch
-              label="기본 스위치"
-              checked={basicChecked}
-              onChange={(e) => setBasicChecked(e.target.checked)}
-            />
-          </LivePreview>
+          />
         </div>
 
-        {/* State Management Example */}
+        {/* Controlled State Example */}
         <div className={styles.example}>
-          <h3 className={styles.exampleTitle}>State</h3>
+          <h3 className={styles.exampleTitle}>Controlled (외부 상태 제어)</h3>
           <LivePreview
-            title="상태"
-            description="Switch는 외부 관리와 내부 관리 두 가지 상태 관리 패턴을 지원합니다. 
-checked를 전달하면 외부에서 상태를 제어하고, defaultChecked를 전달하면 컴포넌트가 자체적으로 상태를 관리합니다."
-            code={`// Controlled: 외부에서 상태 관리
-const [checked, setChecked] = useState(false);
+            title="외부 상태 제어"
+            description="checked와 onChange를 함께 전달하여 부모 컴포넌트에서 상태를 직접 관리합니다. 스위치 상태에 따라 다른 UI를 표시하거나, 서버에 설정을 즉시 반영하거나, 여러 스위치 간 상태를 연동해야 할 때 사용하세요."
+            editable
+            code={`const [checked, setChecked] = useState(false);
 
 <Switch
-  label="알림 받기 (Controlled)"
+  label="알림 받기"
   checked={checked}
   onChange={(e) => setChecked(e.target.checked)}
   helperText={\`현재 상태: \${checked ? 'ON' : 'OFF'}\`}
-/>
-
-// Uncontrolled: 컴포넌트 내부에서 상태 관리
-<Switch
-  label="자동 업데이트 (Uncontrolled)"
-  defaultChecked={true}
-  helperText="초기값 ON, 이후 자체 관리"
 />`}
-          >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <Switch
-                label="알림 받기 (Controlled)"
-                checked={basicChecked}
-                onChange={(e) => setBasicChecked(e.target.checked)}
-                helperText={`현재 상태: ${basicChecked ? 'ON' : 'OFF'}`}
-              />
-              <Switch
-                label="자동 업데이트 (Uncontrolled)"
-                defaultChecked={true}
-                helperText="초기값 ON, 이후 자체 관리"
-              />
-            </div>
-          </LivePreview>
+          />
+        </div>
+
+        {/* Uncontrolled State Example */}
+        <div className={styles.example}>
+          <h3 className={styles.exampleTitle}>Uncontrolled (내부 상태 제어)</h3>
+          <LivePreview
+            title="내부 상태 제어"
+            description="defaultChecked로 초기값만 설정하면 컴포넌트가 자체적으로 상태를 관리합니다. 단순한 On/Off 토글이나, 상태를 외부에서 추적할 필요가 없거나, 설정 페이지에서 여러 독립적인 스위치를 나열하는 경우에 적합합니다."
+            editable
+            code={`<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+  <Switch
+    label="자동 업데이트"
+    defaultChecked={true}
+    helperText="초기값 ON, 이후 자체 관리"
+  />
+  <Switch
+    label="위치 서비스"
+    defaultChecked={false}
+    helperText="초기값 OFF, 이후 자체 관리"
+  />
+</div>`}
+          />
         </div>
 
         {/* Sizes Example */}
@@ -189,16 +177,13 @@ const [checked, setChecked] = useState(false);
           <LivePreview
             title="크기 옵션"
             description="sm, md, lg 세 가지 크기를 제공합니다."
-            code={`<Switch label="Small Switch" size="sm" />
-<Switch label="Medium Switch" size="md" />
-<Switch label="Large Switch" size="lg" />`}
-          >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <Switch label="Small Switch" size="sm" />
-              <Switch label="Medium Switch" size="md" />
-              <Switch label="Large Switch" size="lg" />
-            </div>
-          </LivePreview>
+            editable
+            code={`<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+  <Switch label="Small Switch" size="sm" />
+  <Switch label="Medium Switch" size="md" />
+  <Switch label="Large Switch" size="lg" />
+</div>`}
+          />
         </div>
 
         {/* Required Example */}
@@ -207,22 +192,17 @@ const [checked, setChecked] = useState(false);
           <LivePreview
             title="필수 입력 표시"
             description="required prop으로 필수 항목임을 나타냅니다."
-            code={`<Switch
+            editable
+            code={`const [checked, setChecked] = useState(true);
+
+<Switch
   label="필수 설정 항목"
   required
   helperText="이 설정은 필수로 활성화해야 합니다"
   checked={checked}
   onChange={(e) => setChecked(e.target.checked)}
 />`}
-          >
-            <Switch
-              label="필수 설정 항목"
-              required
-              helperText="이 설정은 필수로 활성화해야 합니다"
-              checked={notificationsChecked}
-              onChange={(e) => setNotificationsChecked(e.target.checked)}
-            />
-          </LivePreview>
+          />
         </div>
 
         {/* Helper Text Example */}
@@ -231,20 +211,16 @@ const [checked, setChecked] = useState(false);
           <LivePreview
             title="도움말 텍스트"
             description="helperText로 추가 설명을 제공할 수 있습니다."
-            code={`<Switch
-  label="다크 모드"
-  helperText="화면을 어두운 테마로 변경합니다"
+            editable
+            code={`const [checked, setChecked] = useState(false);
+
+<Switch
+  label="라이트 모드"
+  helperText="화면을 밝은 테마로 변경합니다"
   checked={checked}
   onChange={(e) => setChecked(e.target.checked)}
 />`}
-          >
-            <Switch
-              label="다크 모드"
-              helperText="화면을 어두운 테마로 변경합니다"
-              checked={darkModeChecked}
-              onChange={(e) => setDarkModeChecked(e.target.checked)}
-            />
-          </LivePreview>
+          />
         </div>
 
         {/* Disabled Example */}
@@ -253,14 +229,12 @@ const [checked, setChecked] = useState(false);
           <LivePreview
             title="비활성화 상태"
             description="disabled prop으로 상호작용을 막을 수 있습니다."
-            code={`<Switch label="비활성화 (꺼짐)" disabled />
-<Switch label="비활성화 (켜짐)" disabled checked />`}
-          >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <Switch label="비활성화 (꺼짐)" disabled />
-              <Switch label="비활성화 (켜짐)" disabled checked={disabledChecked} />
-            </div>
-          </LivePreview>
+            editable
+            code={`<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+  <Switch label="비활성화 (꺼짐)" disabled />
+  <Switch label="비활성화 (켜짐)" disabled defaultChecked />
+</div>`}
+          />
         </div>
 
         {/* Error State Example */}
@@ -269,7 +243,10 @@ const [checked, setChecked] = useState(false);
           <LivePreview
             title="에러 상태"
             description="error와 errorMessage로 유효성 검사 오류를 표시합니다."
-            code={`<Switch
+            editable
+            code={`const [checked, setChecked] = useState(false);
+
+<Switch
   label="필수 설정"
   required
   error
@@ -277,16 +254,7 @@ const [checked, setChecked] = useState(false);
   checked={checked}
   onChange={(e) => setChecked(e.target.checked)}
 />`}
-          >
-            <Switch
-              label="필수 설정"
-              required
-              error
-              errorMessage="이 설정을 활성화해야 계속 진행할 수 있습니다"
-              checked={errorChecked}
-              onChange={(e) => setErrorChecked(e.target.checked)}
-            />
-          </LivePreview>
+          />
         </div>
       </section>
 
@@ -306,32 +274,32 @@ const [checked, setChecked] = useState(false);
       {/* Accessibility */}
       <AccessibilitySection
         componentName="Switch"
-        intro="Switch 컴포넌트는 다음과 같이 기본적인 접근성을 제공해요. 덕분에 별도의 설정 없이도 기본적으로 사용자의 접근성을 고려한 형태의 Switch 컴포넌트를 제공할 수 있어요."
+        intro="Switch 컴포넌트는 다음과 같이 기본적인 접근성을 제공합니다. 덕분에 별도의 설정 없이도 기본적으로 사용자의 접근성을 고려한 형태의 Switch 컴포넌트를 제공할 수 있습니다."
         features={[
           {
             attribute: 'label',
-            effect: '스크린 리더에서 스위치의 용도를 읽어줘요.',
-            description: '레이블이 자동으로 연결되어 사용자가 무엇을 켜고 끄는지 명확히 알 수 있어요.',
+            effect: '스크린 리더에서 스위치의 용도를 읽어줍니다.',
+            description: '레이블이 자동으로 연결되어 사용자가 무엇을 켜고 끄는지 명확히 알 수 있습니다.',
           },
           {
             attribute: 'role="switch"',
-            effect: '스크린 리더에서 "스위치"로 인식해요.',
-            description: 'role="switch"와 aria-checked로 토글 상태를 명확히 전달해요.',
+            effect: '스크린 리더에서 "스위치"로 인식합니다.',
+            description: 'role="switch"와 aria-checked로 토글 상태를 명확히 전달합니다.',
           },
           {
             attribute: 'required',
-            effect: '필수 설정 항목임을 스크린 리더에 알려줘요.',
-            description: 'aria-required="true"가 설정되어 필수 항목이라는 정보를 제공해요.',
+            effect: '필수 설정 항목임을 스크린 리더에 알려줍니다.',
+            description: 'aria-required="true"가 설정되어 필수 항목이라는 정보를 제공합니다.',
           },
           {
             attribute: 'error + errorMessage',
-            effect: '에러 메시지를 스크린 리더가 읽어줘요.',
-            description: 'aria-describedby로 에러 메시지가 연결되어 사용자가 무엇이 잘못되었는지 알 수 있어요.',
+            effect: '에러 메시지를 스크린 리더가 읽어줍니다.',
+            description: 'aria-describedby로 에러 메시지가 연결되어 사용자가 무엇이 잘못되었는지 알 수 있습니다.',
           },
           {
             attribute: 'disabled',
-            effect: '비활성화 상태를 스크린 리더에서 알려줘요.',
-            description: 'aria-disabled="true"가 설정되어 토글할 수 없는 상태임을 전달해요.',
+            effect: '비활성화 상태를 스크린 리더에서 알려줍니다.',
+            description: 'aria-disabled="true"가 설정되어 토글할 수 없는 상태임을 전달합니다.',
           },
         ]}
       />

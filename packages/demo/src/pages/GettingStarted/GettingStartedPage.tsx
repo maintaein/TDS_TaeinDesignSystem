@@ -137,71 +137,9 @@ function Example() {
         </div>
       </section>
 
-      {/* Theme Section */}
-      <section className={styles.section}>
-        <Text variant="h2" className={styles.sectionTitle}>4. 테마 적용</Text>
-        <p className={styles.sectionDescription}>
-          TDS는 라이트/다크 모드를 지원하는 내장 테마 시스템을 제공합니다.
-        </p>
-
-        <div className={styles.codeExample}>
-          <h3 className={styles.exampleTitle}>ThemeProvider 설정</h3>
-          <p className={styles.exampleDescription}>
-            애플리케이션의 최상위에 ThemeProvider를 추가합니다.
-          </p>
-          <CodeBlock
-            code={`import { ThemeProvider } from '@taein-designsystem/core';
-
-function App() {
-  return (
-    <ThemeProvider defaultTheme="light">
-      {/* 앱의 나머지 부분 */}
-    </ThemeProvider>
-  );
-}`}
-            language="tsx"
-            fileName="App.tsx"
-          />
-        </div>
-
-        <div className={styles.codeExample}>
-          <h3 className={styles.exampleTitle}>테마 전환</h3>
-          <p className={styles.exampleDescription}>
-            useTheme Hook을 사용하여 프로그래밍 방식으로 테마를 전환할 수 있습니다.
-          </p>
-          <CodeBlock
-            code={`import { useTheme, Button } from '@taein-designsystem/core';
-
-function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
-
-  const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
-  };
-
-  return (
-    <Button onClick={toggleTheme}>
-      {theme === 'light' ? '🌙 다크' : '☀️ 라이트'} 모드
-    </Button>
-  );
-}`}
-            language="tsx"
-            fileName="ThemeToggle.tsx"
-          />
-        </div>
-
-        <div className={styles.infoBox}>
-          <h4 className={styles.infoTitle}>ℹ️ 참고</h4>
-          <p className={styles.infoText}>
-            ThemeProvider는 사용자의 시스템 테마 설정(prefers-color-scheme)을 자동으로 감지합니다.
-            defaultTheme을 지정하지 않으면 시스템 설정을 따릅니다.
-          </p>
-        </div>
-      </section>
-
       {/* Next Steps Section */}
       <section className={styles.section}>
-        <Text variant="h2" className={styles.sectionTitle}>5. 다음 단계</Text>
+        <Text variant="h2" className={styles.sectionTitle}>4. 다음 단계</Text>
         <p className={styles.sectionDescription}>
           TDS를 설치했다면 이제 컴포넌트를 탐색하고 프로젝트에 적용해보세요.
         </p>
@@ -214,44 +152,40 @@ function ThemeToggle() {
             className={styles.nextStepCard}
           >
             <Card.Body padding="lg">
-              <div className={styles.nextStepIcon}>🎨</div>
+              <div className={styles.nextStepIcon}>
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                  <circle cx="16" cy="16" r="8" stroke="#2563eb" strokeWidth="2.5" />
+                  <circle cx="16" cy="16" r="3" fill="#2563eb" />
+                </svg>
+              </div>
               <h3 className={styles.nextStepTitle}>디자인 토큰</h3>
               <p className={styles.nextStepDescription}>
                 색상, 타이포그래피, 간격 등 디자인 시스템의 기본 요소를 살펴보세요.
               </p>
-              <div className={styles.nextStepArrow}>→</div>
-            </Card.Body>
-          </Card>
-
-          <Card
-            variant="interactive"
-            accentColor="#10b981"
-            onClick={() => navigate('/components')}
-            className={styles.nextStepCard}
-          >
-            <Card.Body padding="lg">
-              <div className={styles.nextStepIcon}>🧩</div>
-              <h3 className={styles.nextStepTitle}>컴포넌트</h3>
-              <p className={styles.nextStepDescription}>
-                27개의 검증된 컴포넌트와 사용 예시를 확인하세요.
-              </p>
-              <div className={styles.nextStepArrow}>→</div>
+              <div className={styles.nextStepArrow}>&rarr;</div>
             </Card.Body>
           </Card>
 
           <Card
             variant="interactive"
             accentColor="#8b5cf6"
-            onClick={() => navigate('/patterns')}
+            onClick={() => navigate('/components')}
             className={styles.nextStepCard}
           >
             <Card.Body padding="lg">
-              <div className={styles.nextStepIcon}>📐</div>
-              <h3 className={styles.nextStepTitle}>패턴</h3>
+              <div className={styles.nextStepIcon}>
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                  <rect x="6" y="6" width="8" height="8" rx="2" stroke="#8b5cf6" strokeWidth="2" />
+                  <rect x="18" y="6" width="8" height="8" rx="2" stroke="#8b5cf6" strokeWidth="2" />
+                  <rect x="6" y="18" width="8" height="8" rx="2" stroke="#8b5cf6" strokeWidth="2" />
+                  <rect x="18" y="18" width="8" height="8" rx="2" stroke="#8b5cf6" strokeWidth="2" />
+                </svg>
+              </div>
+              <h3 className={styles.nextStepTitle}>컴포넌트</h3>
               <p className={styles.nextStepDescription}>
-                실전 UI 패턴으로 빠르게 애플리케이션을 구축하세요.
+                30개의 검증된 컴포넌트와 사용 예시를 확인하세요.
               </p>
-              <div className={styles.nextStepArrow}>→</div>
+              <div className={styles.nextStepArrow}>&rarr;</div>
             </Card.Body>
           </Card>
 
@@ -262,12 +196,17 @@ function ThemeToggle() {
             className={styles.nextStepCard}
           >
             <Card.Body padding="lg">
-              <div className={styles.nextStepIcon}>♿</div>
-              <h3 className={styles.nextStepTitle}>접근성</h3>
+              <div className={styles.nextStepIcon}>
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                  <path d="M8 8h16v16H8z" stroke="#f59e0b" strokeWidth="2" rx="2" />
+                  <path d="M12 16h8M12 12h5M12 20h6" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+              </div>
+              <h3 className={styles.nextStepTitle}>가이드라인</h3>
               <p className={styles.nextStepDescription}>
-                WCAG 2.2 AA 기준을 준수하는 접근성 가이드를 확인하세요.
+                접근성, 성능, 디자인 원칙을 확인하세요
               </p>
-              <div className={styles.nextStepArrow}>→</div>
+              <div className={styles.nextStepArrow}>&rarr;</div>
             </Card.Body>
           </Card>
         </div>

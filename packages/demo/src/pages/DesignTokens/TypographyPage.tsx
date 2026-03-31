@@ -187,7 +187,7 @@ export function TypographyPage() {
           <div className={styles.guidelineRow}>
             <h3 className={styles.guidelineTitle}>대비 비율</h3>
             <p className={styles.guidelineText}>
-              텍스트와 배경의 대비는 WCAG 2.2 기준을 준수합니다. (일반 텍스트
+              텍스트와 배경의 대비는 웹 접근성 표준을 준수합니다. (일반 텍스트
               4.5:1, 큰 텍스트 3:1)
             </p>
           </div>

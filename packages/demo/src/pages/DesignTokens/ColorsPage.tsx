@@ -61,7 +61,7 @@ export function ColorsPage() {
       <h1 className={styles.title}>색상</h1>
       <p className={styles.description}>
         TDS의 색상 시스템은 일관성과 접근성을 최우선으로 설계되었습니다. 모든
-        색상은 WCAG 2.2 AA 기준을 충족합니다.
+        색상은 웹 접근성 표준(AA 등급)의 대비 기준을 충족합니다.
       </p>
 
       {/* Primary Colors */}
@@ -133,13 +133,6 @@ export function ColorsPage() {
             <h3 className={styles.guidelineTitle}>대비 비율</h3>
             <p className={styles.guidelineText}>
               텍스트는 최소 4.5:1 대비 비율을 유지합니다. 큰 텍스트(18px 이상 일반, 14px 이상 bold)는 3:1 이상입니다.
-            </p>
-          </div>
-
-          <div className={styles.guidelineRow}>
-            <h3 className={styles.guidelineTitle}>다크 모드</h3>
-            <p className={styles.guidelineText}>
-              다크 모드에서는 Primary 400을 메인 색상으로 사용하여 눈의 피로를 줄입니다.
             </p>
           </div>
 

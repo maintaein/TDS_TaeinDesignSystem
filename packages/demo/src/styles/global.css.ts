@@ -1,4 +1,4 @@
-import { globalStyle, globalFontFace } from '@vanilla-extract/css';
+import { globalStyle, globalFontFace, globalKeyframes } from '@vanilla-extract/css';
 
 const pretendard = 'Pretendard Variable';
 
@@ -31,4 +31,9 @@ globalStyle('#root', {
 globalStyle('a', {
   textDecoration: 'none',
   color: 'inherit',
+});
+
+globalKeyframes('spin', {
+  from: { transform: 'rotate(0deg)' },
+  to: { transform: 'rotate(360deg)' },
 });

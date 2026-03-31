@@ -20,9 +20,6 @@ export const title = style({
     '(max-width: 768px)': {
       fontSize: '2rem',
     },
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
   },
 });
 
@@ -31,11 +28,6 @@ export const description = style({
   color: '#6b7280',
   marginBottom: '3rem',
   lineHeight: 1.6,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const section = style({
@@ -51,9 +43,6 @@ export const sectionTitle = style({
     '(max-width: 768px)': {
       fontSize: '1.5rem',
     },
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
   },
 });
 
@@ -62,11 +51,6 @@ export const sectionDescription = style({
   color: '#6b7280',
   marginBottom: '1.5rem',
   lineHeight: 1.5,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#d1d5db',
-    },
-  },
 });
 
 export const semanticGrid = style({
@@ -81,22 +65,12 @@ export const semanticTitle = style({
   fontWeight: 600,
   color: '#111827',
   marginBottom: '0.25rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const semanticSubtitle = style({
   fontSize: '0.875rem',
   color: '#6b7280',
   marginBottom: '1rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const guidelineList = style({
@@ -108,12 +82,6 @@ export const guidelineList = style({
   borderRadius: '0.75rem',
   //border: '1px solid #e5e7eb',
   overflow: 'hidden',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#111827',
-      borderColor: '#374151',
-    },
-  },
 });
 
 export const guidelineRow = style({
@@ -130,9 +98,6 @@ export const guidelineRow = style({
       gridTemplateColumns: '1fr',
       gap: '0.5rem',
     },
-    '(prefers-color-scheme: dark)': {
-      borderBottomColor: '#374151',
-    },
   },
 });
 
@@ -140,20 +105,10 @@ export const guidelineTitle = style({
   fontSize: '0.875rem',
   fontWeight: 600,
   color: '#111827',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const guidelineText = style({
   fontSize: '0.875rem',
   color: '#6b7280',
   lineHeight: 1.6,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#d1d5db',
-    },
-  },
 });

@@ -23,29 +23,10 @@ export function ComponentsOverviewPage() {
       <header className={styles.header}>
         <Text variant="h1" className={styles.title}>컴포넌트</Text>
         <p className={styles.description}>
-          27개의 프로덕션 레디 컴포넌트. 모두 TypeScript로 작성되었으며, 접근성과 반응형을
+          30개의 컴포넌트 모두 React와 TypeScript로 작성되었으며, 접근성과 반응형을
           지원합니다.
         </p>
       </header>
-
-      <div className={styles.statsGrid}>
-        <div className={styles.statCard}>
-          <div className={styles.statNumber}>27</div>
-          <div className={styles.statLabel}>컴포넌트</div>
-        </div>
-        <div className={styles.statCard}>
-          <div className={styles.statNumber}>6</div>
-          <div className={styles.statLabel}>카테고리</div>
-        </div>
-        <div className={styles.statCard}>
-          <div className={styles.statNumber}>~23KB</div>
-          <div className={styles.statLabel}>번들 크기</div>
-        </div>
-        <div className={styles.statCard}>
-          <div className={styles.statNumber}>TypeScript</div>
-          <div className={styles.statLabel}>타입 안전성</div>
-        </div>
-      </div>
 
       {Object.entries(groupedComponents).map(([category, components]) => (
         <section key={category} className={styles.categorySection}>
@@ -87,53 +68,6 @@ export function ComponentsOverviewPage() {
       ))}
 
       <Divider variant="solid" spacing="lg" className={styles.ctaSectionDivider} />
-      <section className={styles.ctaSection}>
-        <h2 className={styles.ctaTitle}>더 알아보기</h2>
-        <div className={styles.ctaGrid}>
-          <Card
-            variant="interactive"
-            accentColor="#2563eb"
-            onClick={() => navigate('/design-tokens/colors')}
-            className={styles.ctaCardCustom}
-          >
-            <Card.Body padding="lg">
-              <div className={styles.ctaIcon}>🎨</div>
-              <h3 className={styles.ctaCardTitle}>디자인 토큰</h3>
-              <p className={styles.ctaCardDescription}>
-                색상, 타이포그래피, 간격 등의 디자인 토큰을 확인하세요.
-              </p>
-            </Card.Body>
-          </Card>
-          <Card
-            variant="interactive"
-            accentColor="#10b981"
-            onClick={() => navigate('/patterns/overview')}
-            className={styles.ctaCardCustom}
-          >
-            <Card.Body padding="lg">
-              <div className={styles.ctaIcon}>🧩</div>
-              <h3 className={styles.ctaCardTitle}>패턴</h3>
-              <p className={styles.ctaCardDescription}>
-                실제 사용 사례와 조합 패턴을 확인하세요.
-              </p>
-            </Card.Body>
-          </Card>
-          <Card
-            variant="interactive"
-            accentColor="#8b5cf6"
-            onClick={() => navigate('/guidelines/accessibility')}
-            className={styles.ctaCardCustom}
-          >
-            <Card.Body padding="lg">
-              <div className={styles.ctaIcon}>♿</div>
-              <h3 className={styles.ctaCardTitle}>가이드라인</h3>
-              <p className={styles.ctaCardDescription}>
-                접근성, 성능, 디자인 원칙을 확인하세요.
-              </p>
-            </Card.Body>
-          </Card>
-        </div>
-      </section>
     </div>
   );
 }

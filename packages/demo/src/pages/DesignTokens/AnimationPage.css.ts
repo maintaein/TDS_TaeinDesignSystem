@@ -20,9 +20,6 @@ export const title = style({
     '(max-width: 768px)': {
       fontSize: '2rem',
     },
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
   },
 });
 
@@ -31,11 +28,6 @@ export const description = style({
   color: '#6b7280',
   marginBottom: '3rem',
   lineHeight: 1.6,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const section = style({
@@ -51,9 +43,6 @@ export const sectionTitle = style({
     '(max-width: 768px)': {
       fontSize: '1.5rem',
     },
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
   },
 });
 
@@ -62,11 +51,6 @@ export const sectionDescription = style({
   color: '#6b7280',
   marginBottom: '1.5rem',
   lineHeight: 1.5,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#d1d5db',
-    },
-  },
 });
 
 export const durationGrid = style({
@@ -80,12 +64,6 @@ export const durationCard = style({
   backgroundColor: '#ffffff',
   borderRadius: '0.75rem',
   border: '1px solid #e5e7eb',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#111827',
-      borderColor: '#374151',
-    },
-  },
 });
 
 export const durationHeader = style({
@@ -100,33 +78,18 @@ export const durationName = style({
   fontWeight: 600,
   color: '#2563eb',
   fontFamily: 'monospace',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#60a5fa',
-    },
-  },
 });
 
 export const durationValue = style({
   fontSize: '0.75rem',
   color: '#6b7280',
   fontFamily: 'monospace',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const durationDescription = style({
   fontSize: '0.875rem',
   color: '#6b7280',
   marginBottom: '1rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const easingList = style({
@@ -137,12 +100,6 @@ export const easingList = style({
   borderRadius: '0.75rem',
   border: '1px solid #e5e7eb',
   overflow: 'hidden',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#111827',
-      borderColor: '#374151',
-    },
-  },
 });
 
 export const easingRow = style({
@@ -160,9 +117,6 @@ export const easingRow = style({
       gridTemplateColumns: '1fr 1fr',
       gap: '1rem',
     },
-    '(prefers-color-scheme: dark)': {
-      borderBottomColor: '#374151',
-    },
   },
 });
 
@@ -171,11 +125,6 @@ export const easingName = style({
   fontWeight: 600,
   color: '#2563eb',
   fontFamily: 'monospace',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#60a5fa',
-    },
-  },
 });
 
 export const easingValue = style({
@@ -186,12 +135,6 @@ export const easingValue = style({
   backgroundColor: '#f3f4f6',
   borderRadius: '0.25rem',
   display: 'inline-block',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#d1d5db',
-      backgroundColor: '#374151',
-    },
-  },
 });
 
 export const easingDescription = style({
@@ -201,9 +144,6 @@ export const easingDescription = style({
     '(max-width: 768px)': {
       gridColumn: '1 / -1',
       order: 3,
-    },
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
     },
   },
 });
@@ -220,9 +160,6 @@ export const easingCurve = style({
       gridColumn: '1 / -1',
       order: 4,
     },
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#1f2937',
-    },
   },
 });
 
@@ -236,12 +173,6 @@ export const demoContainer = style({
   backgroundColor: '#f9fafb',
   borderRadius: '1rem',
   border: '1px solid #e5e7eb',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#1f2937',
-      borderColor: '#374151',
-    },
-  },
 });
 
 export const demoControls = style({
@@ -261,11 +192,6 @@ export const demoControlTitle = style({
   fontSize: '1rem',
   fontWeight: 600,
   color: '#111827',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const demoButtonGroup = style({
@@ -283,12 +209,6 @@ export const demoPlayground = style({
   alignItems: 'center',
   padding: '1rem',
   marginBottom: '1.5rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#111827',
-      borderColor: '#374151',
-    },
-  },
 });
 
 export const demoBox = style({
@@ -297,11 +217,6 @@ export const demoBox = style({
   backgroundColor: '#2563eb',
   borderRadius: '0.5rem',
   transition: 'transform',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#60a5fa',
-    },
-  },
 });
 
 export const demoBoxAnimated = style({
@@ -314,9 +229,6 @@ export const demoBoxAnimated = style({
   '@media': {
     '(max-width: 768px)': {
       transform: 'translateX(100px)',
-    },
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#60a5fa',
     },
   },
 });
@@ -335,12 +247,6 @@ export const guidelineList = style({
   backgroundColor: '#ffffff',
   borderRadius: '0.75rem',
   overflow: 'hidden',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#111827',
-      borderColor: '#374151',
-    },
-  },
 });
 
 export const guidelineRow = style({
@@ -357,9 +263,6 @@ export const guidelineRow = style({
       gridTemplateColumns: '1fr',
       gap: '0.5rem',
     },
-    '(prefers-color-scheme: dark)': {
-      borderBottomColor: '#374151',
-    },
   },
 });
 
@@ -367,20 +270,10 @@ export const guidelineTitle = style({
   fontSize: '0.875rem',
   fontWeight: 600,
   color: '#111827',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const guidelineText = style({
   fontSize: '0.875rem',
   color: '#6b7280',
   lineHeight: 1.6,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#d1d5db',
-    },
-  },
 });

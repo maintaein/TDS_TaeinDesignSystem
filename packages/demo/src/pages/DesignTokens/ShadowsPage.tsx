@@ -210,14 +210,6 @@ export function ShadowsPage() {
           </div>
 
           <div className={styles.guidelineRow}>
-            <h3 className={styles.guidelineTitle}>다크 모드</h3>
-            <p className={styles.guidelineText}>
-              다크 모드에서는 그림자가 덜 두드러지므로 opacity를 낮추거나 다른
-              방식으로 깊이를 표현합니다.
-            </p>
-          </div>
-
-          <div className={styles.guidelineRow}>
             <h3 className={styles.guidelineTitle}>성능</h3>
             <p className={styles.guidelineText}>
               box-shadow는 GPU 가속이 되지 않으므로, 과도한 사용은 피합니다.

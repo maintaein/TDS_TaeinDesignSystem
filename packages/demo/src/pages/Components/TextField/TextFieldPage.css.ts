@@ -17,11 +17,6 @@ export const header = style({
   marginBottom: '4rem',
   paddingBottom: '3rem',
   borderBottom: '1px solid #e5e7eb',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      borderBottomColor: '#374151',
-    },
-  },
 });
 
 export const title = style({
@@ -32,9 +27,6 @@ export const title = style({
   lineHeight: 1.1,
   marginBottom: '1rem',
   '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
     '(max-width: 768px)': {
       fontSize: '2.5rem',
     },
@@ -46,11 +38,6 @@ export const description = style({
   lineHeight: 1.7,
   color: '#6b7280',
   maxWidth: '800px',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 // Quick Reference Section
@@ -82,11 +69,6 @@ export const quickRefTitle = style({
   marginBottom: '0.75rem',
   textTransform: 'uppercase',
   letterSpacing: '0.05em',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 // Section
@@ -106,22 +88,12 @@ export const sectionTitle = style({
   color: '#1a2332',
   marginBottom: '0.5rem',
   letterSpacing: '-0.01em',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const sectionDescription = style({
   fontSize: '1rem',
   lineHeight: 1.6,
   color: '#6b7280',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 // Examples
@@ -134,11 +106,6 @@ export const exampleTitle = style({
   fontWeight: 600,
   color: '#1a2332',
   marginBottom: '1rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 // Props Table
@@ -148,12 +115,6 @@ export const propsTableWrapper = style({
   borderRadius: '0.75rem',
   padding: '1.5rem',
   overflow: 'auto',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#1f2937',
-      borderColor: '#374151',
-    },
-  },
 });
 
 // Guidelines List (AnimationPage 스타일)
@@ -165,12 +126,6 @@ export const guidelineList = style({
   backgroundColor: '#ffffff',
   borderRadius: '0.75rem',
   overflow: 'hidden',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#111827',
-      borderColor: '#374151',
-    },
-  },
 });
 
 export const guidelineRow = style({
@@ -187,9 +142,6 @@ export const guidelineRow = style({
       gridTemplateColumns: '1fr',
       gap: '0.5rem',
     },
-    '(prefers-color-scheme: dark)': {
-      borderBottomColor: '#374151',
-    },
   },
 });
 
@@ -197,22 +149,12 @@ export const guidelineTitle = style({
   fontSize: '0.875rem',
   fontWeight: 600,
   color: '#111827',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const guidelineText = style({
   fontSize: '0.875rem',
   color: '#6b7280',
   lineHeight: 1.6,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#d1d5db',
-    },
-  },
 });
 
 globalStyle(`${guidelineText} code`, {
@@ -223,13 +165,6 @@ globalStyle(`${guidelineText} code`, {
   border: '1px solid #e2e8f0',
   borderRadius: '0.25rem',
   color: '#dc2626',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#0f172a',
-      borderColor: '#334155',
-      color: '#f87171',
-    },
-  },
 });
 
 // Best Practices Grid
@@ -263,12 +198,6 @@ export const practiceIcon = style({
   color: '#059669',
   backgroundColor: '#d1fae5',
   borderRadius: '0.5rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#10b981',
-      backgroundColor: '#064e3b',
-    },
-  },
 });
 
 export const practiceIconError = style({
@@ -282,23 +211,12 @@ export const practiceIconError = style({
   color: '#dc2626',
   backgroundColor: '#fee2e2',
   borderRadius: '0.5rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f87171',
-      backgroundColor: '#7f1d1d',
-    },
-  },
 });
 
 export const practiceTitle = style({
   fontSize: '1.25rem',
   fontWeight: 600,
   color: '#1a2332',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const practiceList = style({
@@ -306,9 +224,4 @@ export const practiceList = style({
   fontSize: '0.9375rem',
   lineHeight: 1.6,
   color: '#475569',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#cbd5e1',
-    },
-  },
 });

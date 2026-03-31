@@ -1,6 +1,4 @@
-import { useState } from 'react';
 import {
-  TextField,
   Card,
   List,
   ListItem,
@@ -13,10 +11,6 @@ import { AccessibilitySection } from '../../../components/AccessibilitySection';
 import * as styles from './TextFieldPage.css';
 
 export function TextFieldPage() {
-  const [basicValue, setBasicValue] = useState('');
-  const [emailValue, setEmailValue] = useState('');
-  const [passwordValue, setPasswordValue] = useState('');
-  const [errorValue, setErrorValue] = useState('invalid@');
 
   const propsData: PropDefinition[] = [
     {
@@ -87,8 +81,7 @@ export function TextFieldPage() {
       <header className={styles.header}>
         <h1 className={styles.title}>TextField</h1>
         <p className={styles.description}>
-          사용자로부터 텍스트 입력을 받는 폼 컴포넌트입니다. 다양한 타입과
-          크기를 지원하며, 에러 처리와 접근성을 고려한 설계를 제공합니다.
+          TextField 컴포넌트는 이름, 이메일, 비밀번호, 검색어 등 한 줄 텍스트를 입력받을 때 사용합니다.
         </p>
       </header>
 
@@ -134,20 +127,52 @@ export function TextFieldPage() {
           <LivePreview
             title="기본 사용"
             description="가장 기본적인 TextField 사용 예제입니다."
-            code={`<TextField
+            editable
+            code={`const [value, setValue] = useState('');
+
+<TextField
   label="이름"
   placeholder="홍길동"
   value={value}
   onChange={(e) => setValue(e.target.value)}
 />`}
-          >
-            <TextField
-              label="이름"
-              placeholder="홍길동"
-              value={basicValue}
-              onChange={(e) => setBasicValue(e.target.value)}
-            />
-          </LivePreview>
+          />
+        </div>
+
+        {/* Controlled State Example */}
+        <div className={styles.example}>
+          <h3 className={styles.exampleTitle}>Controlled (외부 상태 제어)</h3>
+          <LivePreview
+            title="외부 상태 제어"
+            description="value와 onChange를 함께 전달하여 부모 컴포넌트에서 값을 직접 관리합니다. 입력값에 따라 실시간 유효성 검사를 수행하거나, 다른 컴포넌트와 값을 동기화하거나, 입력 포맷을 강제해야 할 때 사용하세요."
+            editable
+            code={`const [value, setValue] = useState('');
+
+<TextField
+  label="이메일"
+  type="email"
+  placeholder="example@email.com"
+  value={value}
+  onChange={(e) => setValue(e.target.value)}
+  helperText={\`\${value.length}자 입력됨\`}
+/>`}
+          />
+        </div>
+
+        {/* Uncontrolled State Example */}
+        <div className={styles.example}>
+          <h3 className={styles.exampleTitle}>Uncontrolled (내부 상태 제어)</h3>
+          <LivePreview
+            title="내부 상태 제어"
+            description="defaultValue로 초기값만 설정하면 컴포넌트가 자체적으로 값을 관리합니다. 단순한 텍스트 입력이나, 입력값을 외부에서 추적할 필요가 없거나, 폼 제출 시 FormData로 한번에 수집하는 경우에 적합합니다."
+            editable
+            code={`<TextField
+  label="닉네임"
+  placeholder="닉네임을 입력하세요"
+  defaultValue="홍길동"
+  helperText="초기값 설정 후 자체 관리"
+/>`}
+          />
         </div>
 
         {/* Sizes */}
@@ -156,22 +181,13 @@ export function TextFieldPage() {
           <LivePreview
             title="크기 옵션"
             description="sm, md, lg 세 가지 크기를 제공합니다."
+            editable
             code={`<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
   <TextField label="Small" size="sm" placeholder="작은 크기" />
   <TextField label="Medium (기본)" size="md" placeholder="중간 크기" />
   <TextField label="Large" size="lg" placeholder="큰 크기" />
 </div>`}
-          >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <TextField label="Small" size="sm" placeholder="작은 크기" />
-              <TextField
-                label="Medium (기본)"
-                size="md"
-                placeholder="중간 크기"
-              />
-              <TextField label="Large" size="lg" placeholder="큰 크기" />
-            </div>
-          </LivePreview>
+          />
         </div>
 
         {/* Types */}
@@ -180,20 +196,24 @@ export function TextFieldPage() {
           <LivePreview
             title="다양한 타입"
             description="text, email, password, number, tel, url 타입을 지원합니다."
-            code={`<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            editable
+            code={`const [email, setEmail] = useState('');
+const [password, setPassword] = useState('');
+
+<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
   <TextField
     label="이메일"
     type="email"
     placeholder="example@email.com"
-    value={emailValue}
-    onChange={(e) => setEmailValue(e.target.value)}
+    value={email}
+    onChange={(e) => setEmail(e.target.value)}
   />
   <TextField
     label="비밀번호"
     type="password"
     placeholder="••••••••"
-    value={passwordValue}
-    onChange={(e) => setPasswordValue(e.target.value)}
+    value={password}
+    onChange={(e) => setPassword(e.target.value)}
   />
   <TextField
     label="전화번호"
@@ -206,36 +226,7 @@ export function TextFieldPage() {
     placeholder="https://example.com"
   />
 </div>`}
-          >
-            <div
-              style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
-            >
-              <TextField
-                label="이메일"
-                type="email"
-                placeholder="example@email.com"
-                value={emailValue}
-                onChange={(e) => setEmailValue(e.target.value)}
-              />
-              <TextField
-                label="비밀번호"
-                type="password"
-                placeholder="••••••••"
-                value={passwordValue}
-                onChange={(e) => setPasswordValue(e.target.value)}
-              />
-              <TextField
-                label="전화번호"
-                type="tel"
-                placeholder="010-1234-5678"
-              />
-              <TextField
-                label="웹사이트"
-                type="url"
-                placeholder="https://example.com"
-              />
-            </div>
-          </LivePreview>
+          />
         </div>
 
         {/* States */}
@@ -244,12 +235,15 @@ export function TextFieldPage() {
           <LivePreview
             title="상태 표시"
             description="에러, 비활성화, 필수 입력 등의 상태를 표현합니다."
-            code={`<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            editable
+            code={`const [value, setValue] = useState('invalid@');
+
+<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
   <TextField
     label="이메일"
     type="email"
-    value={errorValue}
-    onChange={(e) => setErrorValue(e.target.value)}
+    value={value}
+    onChange={(e) => setValue(e.target.value)}
     error
     errorMessage="올바른 이메일 주소를 입력하세요"
   />
@@ -265,31 +259,7 @@ export function TextFieldPage() {
     helperText="이 항목은 반드시 입력해야 합니다"
   />
 </div>`}
-          >
-            <div
-              style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
-            >
-              <TextField
-                label="이메일"
-                type="email"
-                value={errorValue}
-                onChange={(e) => setErrorValue(e.target.value)}
-                error
-                errorMessage="올바른 이메일 주소를 입력하세요"
-              />
-              <TextField
-                label="비활성화된 입력"
-                placeholder="입력할 수 없습니다"
-                disabled
-              />
-              <TextField
-                label="필수 입력"
-                placeholder="필수 항목입니다"
-                required
-                helperText="이 항목은 반드시 입력해야 합니다"
-              />
-            </div>
-          </LivePreview>
+          />
         </div>
 
         {/* Helper Text */}
@@ -298,18 +268,13 @@ export function TextFieldPage() {
           <LivePreview
             title="도움말 텍스트"
             description="입력 필드 아래에 도움말을 표시할 수 있습니다."
+            editable
             code={`<TextField
   label="사용자명"
   placeholder="영문, 숫자 조합 4-20자"
   helperText="영문 소문자와 숫자만 사용 가능합니다"
 />`}
-          >
-            <TextField
-              label="사용자명"
-              placeholder="영문, 숫자 조합 4-20자"
-              helperText="영문 소문자와 숫자만 사용 가능합니다"
-            />
-          </LivePreview>
+          />
         </div>
 
         {/* Full Width */}
@@ -318,18 +283,13 @@ export function TextFieldPage() {
           <LivePreview
             title="전체 너비"
             description="fullWidth prop으로 부모 요소의 전체 너비를 사용합니다."
+            editable
             code={`<TextField
   label="주소"
   placeholder="서울특별시 강남구..."
   fullWidth
 />`}
-          >
-            <TextField
-              label="주소"
-              placeholder="서울특별시 강남구..."
-              fullWidth
-            />
-          </LivePreview>
+          />
         </div>
       </section>
 
@@ -349,38 +309,38 @@ export function TextFieldPage() {
       {/* Accessibility */}
       <AccessibilitySection
         componentName="TextField"
-        intro="TextField 컴포넌트는 다음과 같이 기본적인 접근성을 제공해요. 덕분에 별도의 설정 없이도 기본적으로 사용자의 접근성을 고려한 형태의 TextField 컴포넌트를 제공할 수 있어요."
+        intro="TextField 컴포넌트는 다음과 같이 기본적인 접근성을 제공합니다. 덕분에 별도의 설정 없이도 기본적으로 사용자의 접근성을 고려한 형태의 TextField 컴포넌트를 제공할 수 있습니다."
         features={[
           {
             attribute: 'label',
-            effect: '스크린 리더에서 입력 필드의 용도를 읽어줘요.',
-            description: '레이블이 input과 자동으로 연결되어 사용자가 무엇을 입력해야 하는지 명확히 알 수 있어요.',
+            effect: '스크린 리더에서 입력 필드의 용도를 읽어줍니다.',
+            description: '레이블이 input과 자동으로 연결되어 사용자가 무엇을 입력해야 하는지 명확히 알 수 있습니다.',
           },
           {
             attribute: 'required',
-            effect: '필수 입력 항목임을 스크린 리더에 알려줘요.',
-            description: 'aria-required="true"가 설정되어 필수 입력 필드라는 정보를 제공해요.',
+            effect: '필수 입력 항목임을 스크린 리더에 알려줍니다.',
+            description: 'aria-required="true"가 설정되어 필수 입력 필드라는 정보를 제공합니다.',
           },
           {
             attribute: 'error + errorMessage',
-            effect: '에러 메시지를 스크린 리더가 읽어줘요.',
-            description: 'aria-describedby로 에러 메시지가 연결되어 사용자가 무엇이 잘못되었는지 알 수 있어요.',
+            effect: '에러 메시지를 스크린 리더가 읽어줍니다.',
+            description: 'aria-describedby로 에러 메시지가 연결되어 사용자가 무엇이 잘못되었는지 알 수 있습니다.',
           },
           {
             attribute: 'disabled',
-            effect: '비활성화 상태를 스크린 리더에서 알려줘요.',
-            description: 'aria-disabled="true"가 설정되어 입력할 수 없는 상태임을 전달해요.',
+            effect: '비활성화 상태를 스크린 리더에서 알려줍니다.',
+            description: 'aria-disabled="true"가 설정되어 입력할 수 없는 상태임을 전달합니다.',
           },
           {
             attribute: 'helperText',
-            effect: '추가 설명을 스크린 리더가 읽어줘요.',
-            description: 'aria-describedby로 도움말이 연결되어 입력에 대한 가이드를 제공해요.',
+            effect: '추가 설명을 스크린 리더가 읽어줍니다.',
+            description: 'aria-describedby로 도움말이 연결되어 입력에 대한 가이드를 제공합니다.',
           },
         ]}
         additionalGuidance={[
           {
             title: '명확한 레이블 제공하기',
-            description: 'placeholder만으로는 접근성이 충분하지 않아요. 반드시 label prop을 사용해 명확한 레이블을 제공해주세요.',
+            description: 'placeholder만으로는 접근성이 충분하지 않습니다. 반드시 label prop을 사용해 명확한 레이블을 제공해주세요.',
             examples: [
               {
                 code: `// Good ✓
@@ -393,7 +353,7 @@ export function TextFieldPage() {
 <TextField
   placeholder="이메일 주소를 입력하세요"
 />`,
-                explanation: 'placeholder는 입력 시 사라지기 때문에 레이블 역할을 할 수 없어요.',
+                explanation: 'placeholder는 입력 시 사라지기 때문에 레이블 역할을 할 수 없습니다.',
               },
             ],
           },
@@ -415,7 +375,7 @@ export function TextFieldPage() {
   error
   errorMessage="잘못된 입력"
 />`,
-                explanation: '구체적인 에러 메시지가 사용자의 문제 해결을 도와줘요.',
+                explanation: '구체적인 에러 메시지가 사용자의 문제 해결을 도와줍니다.',
               },
             ],
           },

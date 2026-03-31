@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Modal, Card, Text, List, ListItem } from '@taein-designsystem/core';
+import { Button, TextField, Card, Text, Badge, Switch, Chip } from '@taein-designsystem/core';
 import { LivePreview } from '../../components/LivePreview';
 import * as styles from './IntroductionPage.css';
 
 export function IntroductionPage() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalSize, setModalSize] = useState<'sm' | 'md' | 'lg'>('md');
   const navigate = useNavigate();
+  const [email, setEmail] = useState('');
 
   return (
     <div className={styles.container}>
@@ -19,8 +18,8 @@ export function IntroductionPage() {
             <span className={styles.heroTitleSub}>Taein Design System</span>
           </h1>
           <p className={styles.heroDescription}>
-            React 기반의 포괄적인 디자인 시스템입니다. <br />
-            일관성, 접근성, 개발자 경험을 최우선으로 설계되었습니다.
+            일관된 UI와 효율적인 개발을 위해 만든 React 기반 디자인 시스템입니다.<br />
+            가볍고, 배우기 쉽고, AI 친화적인 라이브러리를 지향합니다.
           </p>
           <div className={styles.heroActions}>
             <Button variant="primary" size="lg" onClick={() => navigate('/getting-started')}>
@@ -33,265 +32,173 @@ export function IntroductionPage() {
         </div>
       </section>
 
-      {/* Core Values */}
+      {/* TDS goal */}
       <section className={styles.section}>
-        <Text variant="h2" className={styles.sectionTitle}>핵심 가치</Text>
-        <div className={styles.valuesGrid}>
-          <div className={styles.valueCard}>
-            <div className={styles.valueIcon}>🎯</div>
-            <h3 className={styles.valueTitle}>일관성</h3>
-            <p className={styles.valueDescription}>
-              Atomic Design 원칙에 따라 체계적으로 구성된 컴포넌트로 일관된 사용자 경험을 제공합니다.
-            </p>
+        <Text variant="h2" className={styles.sectionTitle}>TDS의 목표</Text>
+        <div className={styles.goalList}>
+          {/* 일관성과 효율 */}
+          <div className={styles.goalRow}>
+            <div className={styles.goalIcon}>
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                <rect width="48" height="48" rx="12" fill="#eff6ff" />
+                <path d="M14 24h20M24 14v20" stroke="#2563eb" strokeWidth="2.5" strokeLinecap="round" />
+              </svg>
+            </div>
+            <div className={styles.goalContent}>
+              <h3 className={styles.goalTitle}>일관성과 효율</h3>
+              <p className={styles.goalDescription}>
+                디자인 토큰과 통일된 API 패턴으로 학습 비용을 줄이고 일관된 UI를 보장합니다.
+              </p>
+              <ul className={styles.goalDetails}>
+                <li className={styles.goalDetailItem}>모든 컴포넌트가 동일한 API 패턴(variant, size, disabled)을 따릅니다</li>
+                <li className={styles.goalDetailItem}>색상, 간격, 타이포그래피를 디자인 토큰으로 통합 관리합니다</li>
+                <li className={styles.goalDetailItem}>Compound Component 패턴으로 유연한 조합이 가능합니다</li>
+              </ul>
+            </div>
           </div>
-          <div className={styles.valueCard}>
-            <div className={styles.valueIcon}>♿</div>
-            <h3 className={styles.valueTitle}>접근성</h3>
-            <p className={styles.valueDescription}>
-              WCAG 2.2 AA 기준을 준수하며, 키보드 네비게이션과 스크린 리더를 완벽하게 지원합니다.
-            </p>
+
+          {/* 초심자 친화 */}
+          <div className={styles.goalRow}>
+            <div className={styles.goalIcon}>
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                <rect width="48" height="48" rx="12" fill="#f0fdf4" />
+                <path d="M16 24l5 5 10-10" stroke="#16a34a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+            <div className={styles.goalContent}>
+              <h3 className={styles.goalTitle}>초심자 친화</h3>
+              <p className={styles.goalDescription}>
+                처음 디자인 시스템을 접하는 개발자도 바로 사용할 수 있도록 문서와 예제를 제공합니다.
+              </p>
+              <ul className={styles.goalDetails}>
+                <li className={styles.goalDetailItem}>모든 컴포넌트 페이지에 사용법, Props 설명, 접근성 가이드를 제공합니다</li>
+                <li className={styles.goalDetailItem}>Best Practices와 주의사항을 함께 안내합니다</li>
+                <li className={styles.goalDetailItem}>라이브 프리뷰로 코드와 결과를 동시에 확인할 수 있습니다</li>
+              </ul>
+            </div>
           </div>
-          <div className={styles.valueCard}>
-            <div className={styles.valueIcon}>⚡</div>
-            <h3 className={styles.valueTitle}>개발자 경험</h3>
-            <p className={styles.valueDescription}>
-              TypeScript 완전 지원, 직관적인 API, 풍부한 문서로 빠르고 즐거운 개발 경험을 제공합니다.
-            </p>
+
+          {/* AI 친화 */}
+          <div className={styles.goalRow}>
+            <div className={styles.goalIcon}>
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                <rect width="48" height="48" rx="12" fill="#faf5ff" />
+                <circle cx="24" cy="21" r="6" stroke="#7c3aed" strokeWidth="2" />
+                <path d="M19 31c0-2.8 2.2-5 5-5s5 2.2 5 5" stroke="#7c3aed" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            </div>
+            <div className={styles.goalContent}>
+              <h3 className={styles.goalTitle}>AI 친화</h3>
+              <p className={styles.goalDescription}>
+                생성형 AI가 컴포넌트를 정확히 이해하고 코드를 생성할 수 있도록 설계했습니다.
+              </p>
+              <ul className={styles.goalDetails}>
+                <li className={styles.goalDetailItem}>
+                  <strong>llms.txt</strong> — AI 도구(Cursor, Context7 등)가 읽을 수 있는 구조화된 API 문서를 제공합니다.
+                  Cursor의 @Docs나 Context7 인덱싱을 통해 AI가 컴포넌트 사용법을 정확히 참조합니다
+                </li>
+                <li className={styles.goalDetailItem}>
+                  <strong>JSDoc 주석</strong> — 모든 Props 인터페이스에 JSDoc을 작성하여, npm 설치 후 .d.ts 파일을 통해
+                  AI가 자동으로 타입과 설명을 읽을 수 있습니다
+                </li>
+                <li className={styles.goalDetailItem}>
+                  <strong>일관된 API</strong> — 30개 컴포넌트 모두 동일한 패턴(variant, size, disabled)을 따르므로
+                  AI가 하나의 컴포넌트를 학습하면 나머지도 예측할 수 있습니다
+                </li>
+                <li className={styles.goalDetailItem}>
+                  <strong>엄격한 TypeScript</strong> — any 타입 없이 모든 Props가 정확히 타이핑되어
+                  AI 코드 생성의 정확도가 높아집니다
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* 경량 번들 */}
+          <div className={styles.goalRow}>
+            <div className={styles.goalIcon}>
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                <rect width="48" height="48" rx="12" fill="#fefce8" />
+                <path d="M24 14l8 12H16l8-12z" stroke="#ca8a04" strokeWidth="2" strokeLinejoin="round" />
+                <line x1="24" y1="29" x2="24" y2="34" stroke="#ca8a04" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            </div>
+            <div className={styles.goalContent}>
+              <h3 className={styles.goalTitle}>경량 번들</h3>
+              <p className={styles.goalDescription}>
+                전체 라이브러리가 ~23KB(gzip)로, 성능 부담 없이 사용할 수 있습니다.
+              </p>
+              <ul className={styles.goalDetails}>
+                <li className={styles.goalDetailItem}>런타임 의존성은 React, React-DOM 단 2개뿐입니다</li>
+                <li className={styles.goalDetailItem}>Vanilla Extract의 Zero-runtime CSS로 런타임 스타일 연산이 없습니다</li>
+                <li className={styles.goalDetailItem}>Tree-shaking을 지원하여 사용하는 컴포넌트만 번들에 포함됩니다</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Key Features */}
-      <section className={styles.section}>
-        <Text variant="h2" className={styles.sectionTitle}>주요 특징</Text>
-        <List spacing="none" divider={false} className={styles.featuresList}>
-          <ListItem className={styles.featuresListItem}>
-            <h3 className={styles.featureTitle}>27개 컴포넌트</h3>
-            <p className={styles.featureDescription}>
-              Button부터 Modal까지, 실무에 필요한 모든 컴포넌트를 제공합니다.
-            </p>
-          </ListItem>
-          <ListItem className={styles.featuresListItem}>
-            <h3 className={styles.featureTitle}>924 Tests</h3>
-            <p className={styles.featureDescription}>
-              99% 테스트 커버리지로 안정성과 신뢰성을 보장합니다.
-            </p>
-          </ListItem>
-          <ListItem className={styles.featuresListItem}>
-            <h3 className={styles.featureTitle}>~23KB 번들</h3>
-            <p className={styles.featureDescription}>
-              Tree-shaking 지원으로 가벼운 번들 크기를 유지합니다.
-            </p>
-          </ListItem>
-          <ListItem className={styles.featuresListItem}>
-            <h3 className={styles.featureTitle}>TypeScript</h3>
-            <p className={styles.featureDescription}>
-              완벽한 타입 정의로 타입 안전성과 자동완성을 제공합니다.
-            </p>
-          </ListItem>
-          <ListItem className={styles.featuresListItem}>
-            <h3 className={styles.featureTitle}>다크모드</h3>
-            <p className={styles.featureDescription}>
-              내장된 테마 시스템으로 라이트/다크 모드를 쉽게 전환할 수 있습니다.
-            </p>
-          </ListItem>
-          <ListItem className={styles.featuresListItem}>
-            <h3 className={styles.featureTitle}>반응형</h3>
-            <p className={styles.featureDescription}>
-              모바일부터 데스크톱까지 모든 화면 크기를 완벽 지원합니다.
-            </p>
-          </ListItem>
-        </List>
-      </section>
-
-      {/* Interactive Preview */}
+      {/* Quick Preview */}
       <section className={styles.section}>
         <Text variant="h2" className={styles.sectionTitle}>빠른 미리보기</Text>
         <p className={styles.sectionDescription}>
-          TDS 컴포넌트를 직접 체험해보세요. 다양한 크기와 옵션을 가진 모달을 확인할 수 있습니다.
+          TDS 컴포넌트를 직접 체험해보세요. 다양한 컴포넌트를 조합하여 UI를 구성할 수 있습니다.
         </p>
         <div className={styles.preview}>
           <LivePreview
-            code={`import { Button, Modal } from '@taein-designsystem/core';
+            code={`import { Button, TextField, Card, Badge, Switch, Chip } from '@taein-designsystem/core';
 
 function Example() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [size, setSize] = useState<'sm' | 'md' | 'lg'>('md');
+  const [email, setEmail] = useState('');
 
   return (
-    <>
-      <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-        <Button onClick={() => { setSize('sm'); setIsOpen(true); }}>
-          Small 모달
-        </Button>
-        <Button variant="light" onClick={() => { setSize('md'); setIsOpen(true); }}>
-          Medium 모달
-        </Button>
-        <Button variant="primary" onClick={() => { setSize('lg'); setIsOpen(true); }}>
-          Large 모달 (이미지)
-        </Button>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
+        <Button variant="primary">Primary</Button>
+        <Button variant="dark">Dark</Button>
+        <Button variant="light">Light</Button>
+        <Badge variant="primary">New</Badge>
+        <Chip label="React" />
       </div>
-      <Modal
-        open={isOpen}
-        onClose={() => setIsOpen(false)}
-        size={size}
-        closeOnBackdropClick={true}
-        closeOnEscape={true}
-      >
-        {size === 'lg' ? (
-          <div>
-            <img
-              src="/images/tds-hero.jpg"
-              alt="TDS Design System"
-              style={{ width: '100%', height: '300px', objectFit: 'cover' }}
-            />
-            <div style={{ padding: '2rem' }}>
-              <h2 style={{ marginBottom: '1rem' }}>TDS 디자인 시스템</h2>
-              <p style={{ marginBottom: '0.75rem', lineHeight: '1.6' }}>
-                일관성, 접근성, 개발자 경험을 최우선으로 설계되었습니다.
-              </p>
-              <p style={{ marginBottom: '1.5rem', lineHeight: '1.6', color: '#6b7280' }}>
-                큰 크기의 모달입니다. 이미지와 함께 풍부한 콘텐츠를 표시할 수 있습니다.
-              </p>
-              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <Button variant="primary" onClick={() => setIsOpen(false)}>확인</Button>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div style={{ padding: '2rem' }}>
-            <h2 style={{ marginBottom: '1rem' }}>TDS 디자인 시스템</h2>
-            <p style={{ marginBottom: '0.5rem', lineHeight: '1.6' }}>
-              일관성, 접근성, 개발자 경험을 최우선으로 설계되었습니다.
-            </p>
-            <p style={{ marginBottom: '1.5rem', lineHeight: '1.6', color: '#6b7280' }}>
-              {size === 'sm' ? '작은 크기의 모달입니다.' : '중간 크기의 모달입니다.'}
-            </p>
-            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <Button variant="primary" onClick={() => setIsOpen(false)}>확인</Button>
-            </div>
-          </div>
-        )}
-      </Modal>
-    </>
+
+      <TextField
+        label="이메일"
+        placeholder="example@email.com"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+
+      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <Switch label="알림 받기" />
+      </div>
+    </div>
   );
 }`}
             language="tsx"
-            title="인터랙티브 모달 예시"
-            description="다양한 크기와 이미지를 포함한 모달 컴포넌트"
-            centered={true}
+            title="컴포넌트 조합 예시"
+            description="Button, TextField, Badge, Switch 등을 조합한 간단한 UI"
             padding="lg"
           >
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <Button
-                size="md"
-                onClick={() => {
-                  setModalSize('sm');
-                  setIsModalOpen(true);
-                }}
-              >
-                Small 모달
-              </Button>
-              <Button
-                variant="light"
-                size="md"
-                onClick={() => {
-                  setModalSize('md');
-                  setIsModalOpen(true);
-                }}
-              >
-                Medium 모달
-              </Button>
-              <Button
-                variant="primary"
-                size="md"
-                onClick={() => {
-                  setModalSize('lg');
-                  setIsModalOpen(true);
-                }}
-              >
-                Large 모달 (이미지)
-              </Button>
-            </div>
-            <Modal
-              open={isModalOpen}
-              onClose={() => setIsModalOpen(false)}
-              size={modalSize}
-              closeOnBackdropClick={true}
-              closeOnEscape={true}
-              aria-label="TDS 디자인 시스템"
-            >
-              {modalSize === 'lg' ? (
-                <div>
-                  <img
-                    src="/images/tds-hero.jpg"
-                    alt="TDS Design System"
-                    style={{ width: '100%', height: '300px', objectFit: 'cover' }}
-                  />
-                  <div style={{ padding: '2rem' }}>
-                    <h2 style={{ marginBottom: '1rem', fontSize: '1.75rem', fontWeight: 600 }}>
-                      TDS 디자인 시스템
-                    </h2>
-                    <p style={{ marginBottom: '0.75rem', lineHeight: 1.6, fontSize: '1rem' }}>
-                      일관성, 접근성, 개발자 경험을 최우선으로 설계되었습니다.
-                    </p>
-                    <p style={{ marginBottom: '1.5rem', lineHeight: 1.6, color: '#6b7280' }}>
-                      큰 크기의 모달입니다. 이미지와 함께 풍부한 콘텐츠를 표시할 수 있습니다. React
-                      기반의 포괄적인 디자인 시스템으로 27개의 컴포넌트와 924개의 테스트를
-                      제공합니다.
-                    </p>
-                    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                      <Button variant="primary" onClick={() => setIsModalOpen(false)}>
-                        확인
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <div style={{ padding: '2rem' }}>
-                  <h2 style={{ marginBottom: '1rem', fontSize: '1.5rem', fontWeight: 600 }}>
-                    TDS 디자인 시스템
-                  </h2>
-                  <p style={{ marginBottom: '0.5rem', lineHeight: 1.6 }}>
-                    일관성, 접근성, 개발자 경험을 최우선으로 설계되었습니다.
-                  </p>
-                  <p style={{ marginBottom: '1.5rem', lineHeight: 1.6, color: '#6b7280' }}>
-                    {modalSize === 'sm'
-                      ? '작은 크기의 모달입니다. 간단한 알림이나 확인 메시지에 적합합니다.'
-                      : '중간 크기의 모달입니다. 일반적인 콘텐츠 표시에 적합합니다.'}
-                  </p>
-                  <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                    <Button variant="primary" onClick={() => setIsModalOpen(false)}>
-                      확인
-                    </Button>
-                  </div>
-                </div>
-              )}
-            </Modal>
-          </LivePreview>
-        </div>
-      </section>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+              <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
+                <Button variant="primary">Primary</Button>
+                <Button variant="dark">Dark</Button>
+                <Button variant="light">Light</Button>
+                <Badge variant="primary">New</Badge>
+                <Chip label="React" />
+              </div>
 
-      {/* Statistics */}
-      <section className={styles.section}>
-        <Text variant="h2" className={styles.sectionTitle}>한눈에 보는 TDS</Text>
-        <div className={styles.statsGrid}>
-          <div className={styles.statCard}>
-            <div className={styles.statNumber}>27</div>
-            <div className={styles.statLabel}>Components</div>
-          </div>
-          <div className={styles.statCard}>
-            <div className={styles.statNumber}>924</div>
-            <div className={styles.statLabel}>Tests</div>
-          </div>
-          <div className={styles.statCard}>
-            <div className={styles.statNumber}>99%</div>
-            <div className={styles.statLabel}>Coverage</div>
-          </div>
-          <div className={styles.statCard}>
-            <div className={styles.statNumber}>~23KB</div>
-            <div className={styles.statLabel}>Bundle Size</div>
-          </div>
+              <TextField
+                label="이메일"
+                placeholder="example@email.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <Switch label="알림 받기" />
+              </div>
+            </div>
+          </LivePreview>
         </div>
       </section>
 
@@ -306,12 +213,16 @@ function Example() {
             className={styles.nextStepCard}
           >
             <Card.Body padding="lg">
-              <div className={styles.nextStepIcon}>🚀</div>
+              <div className={styles.nextStepIcon}>
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                  <path d="M8 16h16M18 10l6 6-6 6" stroke="#2563eb" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
               <h3 className={styles.nextStepTitle}>시작하기</h3>
               <p className={styles.nextStepDescription}>
                 TDS를 프로젝트에 설치하고 사용하는 방법을 알아보세요.
               </p>
-              <div className={styles.nextStepArrow}>→</div>
+              <div className={styles.nextStepArrow}>&rarr;</div>
             </Card.Body>
           </Card>
           <Card
@@ -321,27 +232,39 @@ function Example() {
             className={styles.nextStepCard}
           >
             <Card.Body padding="lg">
-              <div className={styles.nextStepIcon}>🎨</div>
+              <div className={styles.nextStepIcon}>
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                  <circle cx="16" cy="16" r="8" stroke="#10b981" strokeWidth="2.5" />
+                  <circle cx="16" cy="16" r="3" fill="#10b981" />
+                </svg>
+              </div>
               <h3 className={styles.nextStepTitle}>디자인 토큰</h3>
               <p className={styles.nextStepDescription}>
                 색상, 타이포그래피, 간격 등 디자인 시스템의 기본 요소를 살펴보세요.
               </p>
-              <div className={styles.nextStepArrow}>→</div>
+              <div className={styles.nextStepArrow}>&rarr;</div>
             </Card.Body>
           </Card>
           <Card
             variant="interactive"
             accentColor="#8b5cf6"
-            onClick={() => navigate('/components')}
+            onClick={() => navigate('/components/overview')}
             className={styles.nextStepCard}
           >
             <Card.Body padding="lg">
-              <div className={styles.nextStepIcon}>🧩</div>
+              <div className={styles.nextStepIcon}>
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                  <rect x="6" y="6" width="8" height="8" rx="2" stroke="#8b5cf6" strokeWidth="2" />
+                  <rect x="18" y="6" width="8" height="8" rx="2" stroke="#8b5cf6" strokeWidth="2" />
+                  <rect x="6" y="18" width="8" height="8" rx="2" stroke="#8b5cf6" strokeWidth="2" />
+                  <rect x="18" y="18" width="8" height="8" rx="2" stroke="#8b5cf6" strokeWidth="2" />
+                </svg>
+              </div>
               <h3 className={styles.nextStepTitle}>컴포넌트</h3>
               <p className={styles.nextStepDescription}>
-                27개의 검증된 컴포넌트와 사용 예시를 확인하세요.
+                30개의 검증된 컴포넌트와 사용 예시를 확인하세요.
               </p>
-              <div className={styles.nextStepArrow}>→</div>
+              <div className={styles.nextStepArrow}>&rarr;</div>
             </Card.Body>
           </Card>
         </div>

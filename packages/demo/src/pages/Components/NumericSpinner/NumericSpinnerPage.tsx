@@ -1,6 +1,4 @@
-import { useState } from 'react';
 import {
-  NumericSpinner,
   Card,
   List,
   ListItem,
@@ -13,19 +11,6 @@ import { AccessibilitySection } from '../../../components/AccessibilitySection';
 import * as styles from './NumericSpinnerPage.css';
 
 export function NumericSpinnerPage() {
-  const [basicValue, setBasicValue] = useState<number>(1);
-  const [sizeSmValue, setSizeSmValue] = useState<number>(1);
-  const [sizeMdValue, setSizeMdValue] = useState<number>(1);
-  const [sizeLgValue, setSizeLgValue] = useState<number>(1);
-  const [quantityValue, setQuantityValue] = useState<number>(1);
-  const [priceValue, setPriceValue] = useState<number>(10);
-  const [requiredValue, setRequiredValue] = useState<number>(1);
-  const [disabledValue1, setDisabledValue1] = useState<number>(5);
-  const [disabledValue2, setDisabledValue2] = useState<number>(10);
-  const [disabledValue3, setDisabledValue3] = useState<number>(0);
-  const [fullWidthValue, setFullWidthValue] = useState<number>(5);
-  const [customWidthValue, setCustomWidthValue] = useState<number>(100);
-  const [errorValue, setErrorValue] = useState<number>(0);
 
   const propsData: PropDefinition[] = [
     {
@@ -114,7 +99,7 @@ export function NumericSpinnerPage() {
       <header className={styles.header}>
         <h1 className={styles.title}>NumericSpinner</h1>
         <p className={styles.description}>
-          사용자로부터 숫자 입력을 받는 폼 컴포넌트입니다. 증가/감소 버튼으로 값을 조정할 수 있으며, 최소/최대값 제한, 증감 단위 설정을 지원합니다.
+          NumericSpinner 컴포넌트는 수량, 인원수, 페이지 번호 등 숫자를 버튼으로 증감할 때 사용합니다.
         </p>
       </header>
 
@@ -161,68 +146,52 @@ export function NumericSpinnerPage() {
           <LivePreview
             title="기본 사용법"
             description="가장 기본적인 NumericSpinner 사용 예제입니다."
-            code={`const [value, setValue] = useState<number>(1);
+            editable
+            code={`const [value, setValue] = useState(1);
 
 <NumericSpinner
   label="수량"
   value={value}
   onChange={(e) => setValue(Number(e.target.value))}
 />`}
-          >
-            <NumericSpinner
-              label="수량"
-              value={basicValue}
-              onChange={(e) => setBasicValue(Number(e.target.value))}
-            />
-          </LivePreview>
+          />
         </div>
 
-        {/* State Management Example */}
+        {/* Controlled State Example */}
         <div className={styles.example}>
-          <h3 className={styles.exampleTitle}>State</h3>
+          <h3 className={styles.exampleTitle}>Controlled (외부 상태 제어)</h3>
           <LivePreview
-            title="상태"
-            description="NumericSpinner는 외부 관리와 내부 관리 두 가지 상태 관리 패턴을 지원합니다. 
-value를 전달하면 외부에서 상태를 제어하고, defaultValue를 전달하면 컴포넌트가 자체적으로 상태를 관리합니다."
-            code={`// Controlled: 외부에서 상태 관리
-const [value, setValue] = useState<number>(1);
+            title="외부 상태 제어"
+            description="value와 onChange를 함께 전달하여 부모 컴포넌트에서 값을 직접 관리합니다. 현재 값에 따라 가격을 계산하거나, 다른 컴포넌트와 값을 동기화하거나, 값 변경 시 유효성 검사를 수행해야 할 때 사용하세요."
+            editable
+            code={`const [value, setValue] = useState(1);
 
 <NumericSpinner
-  label="수량 (Controlled)"
+  label="수량"
   value={value}
   onChange={(e) => setValue(Number(e.target.value))}
   min={0}
   max={10}
   helperText={\`현재 값: \${value}\`}
-/>
+/>`}
+          />
+        </div>
 
-// Uncontrolled: 컴포넌트 내부에서 상태 관리
-<NumericSpinner
-  label="수량 (Uncontrolled)"
+        {/* Uncontrolled State Example */}
+        <div className={styles.example}>
+          <h3 className={styles.exampleTitle}>Uncontrolled (내부 상태 제어)</h3>
+          <LivePreview
+            title="내부 상태 제어"
+            description="defaultValue로 초기값만 설정하면 컴포넌트가 자체적으로 값을 관리합니다. 단순한 수량 입력이나, 값 변경을 외부에서 추적할 필요가 없거나, 폼 제출 시 FormData로 한번에 수집하는 경우에 적합합니다."
+            editable
+            code={`<NumericSpinner
+  label="수량"
   defaultValue={5}
   min={0}
   max={10}
   helperText="초기값 5, 이후 자체 관리"
 />`}
-          >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-              <NumericSpinner
-                label="수량 (Controlled)"
-                value={basicValue}
-                onChange={(e) => setBasicValue(Number(e.target.value))}
-                min={0}
-                max={10}
-                helperText={`현재 값: ${basicValue}`}
-              />
-              <NumericSpinner
-                label="수량 (Uncontrolled)"
-                defaultValue={5}
-                min={0}
-                max={10}
-                helperText="초기값 5, 이후 자체 관리"
-              />
-            </div>
-          </LivePreview>
+          />
         </div>
 
         {/* Sizes Example */}
@@ -231,9 +200,10 @@ const [value, setValue] = useState<number>(1);
           <LivePreview
             title="크기 옵션"
             description="sm, md, lg 세 가지 크기를 제공합니다."
-            code={`const [smValue, setSmValue] = useState<number>(1);
-const [mdValue, setMdValue] = useState<number>(1);
-const [lgValue, setLgValue] = useState<number>(1);
+            editable
+            code={`const [smValue, setSmValue] = useState(1);
+const [mdValue, setMdValue] = useState(1);
+const [lgValue, setLgValue] = useState(1);
 
 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
   <NumericSpinner
@@ -255,28 +225,7 @@ const [lgValue, setLgValue] = useState<number>(1);
     onChange={(e) => setLgValue(Number(e.target.value))}
   />
 </div>`}
-          >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <NumericSpinner
-                label="Small"
-                size="sm"
-                value={sizeSmValue}
-                onChange={(e) => setSizeSmValue(Number(e.target.value))}
-              />
-              <NumericSpinner
-                label="Medium (기본)"
-                size="md"
-                value={sizeMdValue}
-                onChange={(e) => setSizeMdValue(Number(e.target.value))}
-              />
-              <NumericSpinner
-                label="Large"
-                size="lg"
-                value={sizeLgValue}
-                onChange={(e) => setSizeLgValue(Number(e.target.value))}
-              />
-            </div>
-          </LivePreview>
+          />
         </div>
 
         {/* Min/Max Example */}
@@ -285,7 +234,8 @@ const [lgValue, setLgValue] = useState<number>(1);
           <LivePreview
             title="최소/최대값 설정"
             description="min과 max prop으로 값의 범위를 제한할 수 있습니다."
-            code={`const [value, setValue] = useState<number>(1);
+            editable
+            code={`const [value, setValue] = useState(1);
 
 <NumericSpinner
   label="수량 선택"
@@ -295,16 +245,7 @@ const [lgValue, setLgValue] = useState<number>(1);
   max={10}
   helperText="1개에서 10개까지 선택 가능합니다"
 />`}
-          >
-            <NumericSpinner
-              label="수량 선택"
-              value={quantityValue}
-              onChange={(e) => setQuantityValue(Number(e.target.value))}
-              min={1}
-              max={10}
-              helperText="1개에서 10개까지 선택 가능합니다"
-            />
-          </LivePreview>
+          />
         </div>
 
         {/* Step Example */}
@@ -313,7 +254,8 @@ const [lgValue, setLgValue] = useState<number>(1);
           <LivePreview
             title="증감 단위 설정"
             description="step prop으로 버튼 클릭 시 변경되는 값의 단위를 설정할 수 있습니다."
-            code={`const [value, setValue] = useState<number>(10);
+            editable
+            code={`const [value, setValue] = useState(10);
 
 <NumericSpinner
   label="가격 (원)"
@@ -324,17 +266,7 @@ const [lgValue, setLgValue] = useState<number>(1);
   step={10}
   helperText="10원 단위로 조정됩니다"
 />`}
-          >
-            <NumericSpinner
-              label="가격 (원)"
-              value={priceValue}
-              onChange={(e) => setPriceValue(Number(e.target.value))}
-              min={0}
-              max={100}
-              step={10}
-              helperText="10원 단위로 조정됩니다"
-            />
-          </LivePreview>
+          />
         </div>
 
         {/* Required Example */}
@@ -343,7 +275,8 @@ const [lgValue, setLgValue] = useState<number>(1);
           <LivePreview
             title="필수 입력 표시"
             description="required prop으로 필수 항목임을 나타냅니다."
-            code={`const [value, setValue] = useState<number>(1);
+            editable
+            code={`const [value, setValue] = useState(1);
 
 <NumericSpinner
   label="참석 인원"
@@ -354,17 +287,7 @@ const [lgValue, setLgValue] = useState<number>(1);
   min={1}
   max={100}
 />`}
-          >
-            <NumericSpinner
-              label="참석 인원"
-              required
-              helperText="최소 1명 이상 입력해야 합니다"
-              value={requiredValue}
-              onChange={(e) => setRequiredValue(Number(e.target.value))}
-              min={1}
-              max={100}
-            />
-          </LivePreview>
+          />
         </div>
 
         {/* Disabled Example */}
@@ -373,9 +296,10 @@ const [lgValue, setLgValue] = useState<number>(1);
           <LivePreview
             title="비활성화 상태"
             description="disabled prop으로 상호작용을 막을 수 있습니다. 최대/최소값에 도달하면 해당 버튼이 자동으로 비활성화됩니다."
-            code={`const [value1, setValue1] = useState<number>(5);
-const [value2, setValue2] = useState<number>(10);
-const [value3, setValue3] = useState<number>(0);
+            editable
+            code={`const [value1, setValue1] = useState(5);
+const [value2, setValue2] = useState(10);
+const [value3, setValue3] = useState(0);
 
 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
   <NumericSpinner
@@ -397,28 +321,7 @@ const [value3, setValue3] = useState<number>(0);
     min={0}
   />
 </div>`}
-          >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <NumericSpinner
-                label="비활성화된 입력"
-                disabled
-                value={disabledValue1}
-                onChange={(e) => setDisabledValue1(Number(e.target.value))}
-              />
-              <NumericSpinner
-                label="최대값 도달"
-                value={disabledValue2}
-                onChange={(e) => setDisabledValue2(Number(e.target.value))}
-                max={10}
-              />
-              <NumericSpinner
-                label="최소값 도달"
-                value={disabledValue3}
-                onChange={(e) => setDisabledValue3(Number(e.target.value))}
-                min={0}
-              />
-            </div>
-          </LivePreview>
+          />
         </div>
 
         {/* Error State Example */}
@@ -427,7 +330,8 @@ const [value3, setValue3] = useState<number>(0);
           <LivePreview
             title="에러 상태"
             description="error와 errorMessage로 유효성 검사 오류를 표시합니다."
-            code={`const [value, setValue] = useState<number>(0);
+            editable
+            code={`const [value, setValue] = useState(0);
 
 <NumericSpinner
   label="최소 주문 수량"
@@ -439,18 +343,7 @@ const [value3, setValue3] = useState<number>(0);
   min={1}
   max={100}
 />`}
-          >
-            <NumericSpinner
-              label="최소 주문 수량"
-              required
-              error
-              errorMessage="최소 1개 이상 주문해야 합니다"
-              value={errorValue}
-              onChange={(e) => setErrorValue(Number(e.target.value))}
-              min={1}
-              max={100}
-            />
-          </LivePreview>
+          />
         </div>
 
         {/* Full Width Example */}
@@ -459,7 +352,8 @@ const [value3, setValue3] = useState<number>(0);
           <LivePreview
             title="전체 너비"
             description="fullWidth prop으로 부모 요소의 전체 너비를 사용합니다."
-            code={`const [value, setValue] = useState<number>(5);
+            editable
+            code={`const [value, setValue] = useState(5);
 
 <NumericSpinner
   label="수량"
@@ -469,16 +363,7 @@ const [value3, setValue3] = useState<number>(0);
   max={100}
   fullWidth
 />`}
-          >
-            <NumericSpinner
-              label="수량"
-              value={fullWidthValue}
-              onChange={(e) => setFullWidthValue(Number(e.target.value))}
-              min={1}
-              max={100}
-              fullWidth
-            />
-          </LivePreview>
+          />
         </div>
 
         {/* Custom Width Example */}
@@ -487,7 +372,8 @@ const [value3, setValue3] = useState<number>(0);
           <LivePreview
             title="커스텀 입력 너비"
             description="inputWidth prop으로 input 필드의 너비를 직접 지정할 수 있습니다."
-            code={`const [value, setValue] = useState<number>(100);
+            editable
+            code={`const [value, setValue] = useState(100);
 
 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
   <NumericSpinner
@@ -503,22 +389,7 @@ const [value3, setValue3] = useState<number>(0);
     inputWidth="150px"
   />
 </div>`}
-          >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <NumericSpinner
-                label="좁은 너비 (60px)"
-                value={customWidthValue}
-                onChange={(e) => setCustomWidthValue(Number(e.target.value))}
-                inputWidth="60px"
-              />
-              <NumericSpinner
-                label="넓은 너비 (150px)"
-                value={customWidthValue}
-                onChange={(e) => setCustomWidthValue(Number(e.target.value))}
-                inputWidth="150px"
-              />
-            </div>
-          </LivePreview>
+          />
         </div>
       </section>
 
@@ -538,37 +409,37 @@ const [value3, setValue3] = useState<number>(0);
       {/* Accessibility */}
       <AccessibilitySection
         componentName="NumericSpinner"
-        intro="NumericSpinner 컴포넌트는 다음과 같이 기본적인 접근성을 제공해요. 덕분에 별도의 설정 없이도 기본적으로 사용자의 접근성을 고려한 형태의 NumericSpinner 컴포넌트를 제공할 수 있어요."
+        intro="NumericSpinner 컴포넌트는 다음과 같이 기본적인 접근성을 제공합니다. 덕분에 별도의 설정 없이도 기본적으로 사용자의 접근성을 고려한 형태의 NumericSpinner 컴포넌트를 제공할 수 있습니다."
         features={[
           {
             attribute: 'label',
-            effect: '스크린 리더에서 입력 필드의 용도를 읽어줘요.',
-            description: '레이블이 input과 자동으로 연결되어 사용자가 무엇을 입력해야 하는지 명확히 알 수 있어요.',
+            effect: '스크린 리더에서 입력 필드의 용도를 읽어줍니다.',
+            description: '레이블이 input과 자동으로 연결되어 사용자가 무엇을 입력해야 하는지 명확히 알 수 있습니다.',
           },
           {
             attribute: 'aria-label (버튼)',
-            effect: '증가/감소 버튼의 역할을 스크린 리더에 알려줘요.',
-            description: '"값 증가", "값 감소" 레이블이 각 버튼에 설정되어 버튼의 기능을 명확히 전달해요.',
+            effect: '증가/감소 버튼의 역할을 스크린 리더에 알립니다.',
+            description: '"값 증가", "값 감소" 레이블이 각 버튼에 설정되어 버튼의 기능을 명확히 전달합니다.',
           },
           {
             attribute: 'min + max',
-            effect: '입력 가능한 범위를 스크린 리더에서 알려줘요.',
-            description: 'min, max 속성으로 값의 범위가 명확히 전달되어 사용자가 유효한 값을 입력할 수 있어요.',
+            effect: '입력 가능한 범위를 스크린 리더에서 알립니다.',
+            description: 'min, max 속성으로 값의 범위가 명확히 전달되어 사용자가 유효한 값을 입력할 수 있습니다.',
           },
           {
             attribute: 'required',
-            effect: '필수 입력 항목임을 스크린 리더에 알려줘요.',
-            description: 'aria-required="true"가 설정되어 필수 입력 필드라는 정보를 제공해요.',
+            effect: '필수 입력 항목임을 스크린 리더에 알립니다.',
+            description: 'aria-required="true"가 설정되어 필수 입력 필드라는 정보를 제공합니다.',
           },
           {
             attribute: 'error + errorMessage',
-            effect: '에러 메시지를 스크린 리더가 읽어줘요.',
-            description: 'aria-describedby로 에러 메시지가 연결되어 사용자가 무엇이 잘못되었는지 알 수 있어요.',
+            effect: '에러 메시지를 스크린 리더가 읽어줍니다.',
+            description: 'aria-describedby로 에러 메시지가 연결되어 사용자가 무엇이 잘못되었는지 알 수 있습니다.',
           },
           {
             attribute: 'disabled',
-            effect: '비활성화 상태를 스크린 리더에서 알려줘요.',
-            description: 'aria-disabled="true"가 설정되어 입력할 수 없는 상태임을 전달해요.',
+            effect: '비활성화 상태를 스크린 리더에서 알립니다.',
+            description: 'aria-disabled="true"가 설정되어 입력할 수 없는 상태임을 전달합니다.',
           },
         ]}
         additionalGuidance={[
@@ -590,7 +461,7 @@ const [value3, setValue3] = useState<number>(0);
   label="값"
   value={5}
 />`,
-                explanation: '단위와 의미가 명확한 레이블이 사용자 경험을 개선해요.',
+                explanation: '단위와 의미가 명확한 레이블이 사용자 경험을 개선합니다.',
               },
             ],
           },
@@ -613,7 +484,7 @@ const [value3, setValue3] = useState<number>(0);
   label="나이"
   value={25}
 />`,
-                explanation: '범위 제한이 있으면 잘못된 입력을 미리 방지할 수 있어요.',
+                explanation: '범위 제한이 있으면 잘못된 입력을 미리 방지할 수 있습니다.',
               },
             ],
           },

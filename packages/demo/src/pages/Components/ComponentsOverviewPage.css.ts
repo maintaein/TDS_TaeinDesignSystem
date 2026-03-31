@@ -22,22 +22,12 @@ export const title = style({
   marginBottom: '1rem',
   color: '#2563eb',
   letterSpacing: '-0.02em',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#60a5fa',
-    },
-  },
 });
 
 export const description = style({
   fontSize: '1.125rem',
   color: '#6b7280',
   lineHeight: 1.6,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const statsGrid = style({
@@ -53,12 +43,6 @@ export const statCard = style({
   borderRadius: '1rem',
   textAlign: 'center',
   border: '1px solid #e5e7eb',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      background: '#1f2937',
-      borderColor: '#374151',
-    },
-  },
 });
 
 
@@ -69,11 +53,6 @@ export const statNumber = style({
   marginBottom: '0.5rem',
   wordBreak: 'break-word',
   overflowWrap: 'break-word',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#60a5fa',
-    },
-  },
 });
 
 export const statLabel = style({
@@ -82,11 +61,6 @@ export const statLabel = style({
   fontWeight: 500,
   textTransform: 'uppercase',
   letterSpacing: '0.05em',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const categorySection = style({
@@ -104,11 +78,6 @@ export const categoryTitle = style({
   fontSize: '1.8rem',
   fontWeight: 600,
   color: '#111827',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const categoryBadgeCustom = style({
@@ -145,11 +114,6 @@ export const componentName = style({
   willChange: 'transform, color',
   // backfaceVisibility: 'hidden',
   transform: 'translateX(0)',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const componentDescription = style({
@@ -162,11 +126,6 @@ export const componentDescription = style({
   // backfaceVisibility: 'hidden',
   WebkitFontSmoothing: 'antialiased',
   transform: 'translateX(0)',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const componentArrow = style({
@@ -175,11 +134,6 @@ export const componentArrow = style({
   opacity: 0,
   transform: 'translateX(-10px)',
   transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const componentCardCustom = style({
@@ -224,11 +178,6 @@ export const ctaTitle = style({
   textAlign: 'center',
   marginBottom: '2rem',
   color: '#111827',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const ctaGrid = style({
@@ -247,20 +196,10 @@ export const ctaCardTitle = style({
   fontWeight: 700,
   color: '#111827',
   marginBottom: '0.5rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const ctaCardDescription = style({
   fontSize: '0.875rem',
   color: '#6b7280',
   lineHeight: 1.6,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });

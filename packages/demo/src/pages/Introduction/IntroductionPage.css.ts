@@ -41,9 +41,6 @@ export const heroTitleMain = style({
     '(max-width: 768px)': {
       fontSize: '3rem',
     },
-    '(prefers-color-scheme: dark)': {
-      color: '#60a5fa',
-    },
   },
 });
 
@@ -54,9 +51,6 @@ export const heroTitleSub = style({
   '@media': {
     '(max-width: 768px)': {
       fontSize: '1.25rem',
-    },
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
     },
   },
 });
@@ -69,9 +63,6 @@ export const heroDescription = style({
   '@media': {
     '(max-width: 768px)': {
       fontSize: '1rem',
-    },
-    '(prefers-color-scheme: dark)': {
-      color: '#d1d5db',
     },
   },
 });
@@ -107,9 +98,6 @@ export const sectionTitle = style({
     '(max-width: 768px)': {
       fontSize: '1.75rem',
     },
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
   },
 });
 
@@ -118,120 +106,97 @@ export const sectionDescription = style({
   color: '#6b7280',
   marginBottom: '2rem',
   lineHeight: 1.6,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
-export const valuesGrid = style({
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-  gap: '2rem',
-  marginTop: '2rem',
-});
-
-export const valueCard = style({
-  padding: '2rem',
-  backgroundColor: '#f9fafb',
-  borderRadius: '1rem',
-  border: '1px solid #e5e7eb',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#1f2937',
-      borderColor: '#374151',
-    },
-  },
-});
-
-export const valueIcon = style({
-  fontSize: '3rem',
-  marginBottom: '1rem',
-});
-
-export const valueTitle = style({
-  fontSize: '1.5rem',
-  fontWeight: 600,
-  color: '#111827',
-  marginBottom: '0.75rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
-});
-
-export const valueDescription = style({
-  fontSize: '1rem',
-  color: '#6b7280',
-  lineHeight: 1.6,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#d1d5db',
-    },
-  },
-});
-
-export const featuresList = style({
+export const goalList = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '0',
   marginTop: '2rem',
-  backgroundColor: '#ffffff',
-  overflow: 'hidden',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#111827',
-    },
-  },
 });
 
-export const featuresListItem = style({
-  display: 'grid',
-  gridTemplateColumns: '200px 1fr',
-  gap: '2rem',
-  padding: '1.5rem 2rem',
+export const goalRow = style({
+  display: 'flex',
+  gap: '1.5rem',
+  padding: '2rem 0',
   borderBottom: '1px solid #e5e7eb',
   selectors: {
+    '&:first-child': {
+      paddingTop: '0',
+    },
     '&:last-child': {
       borderBottom: 'none',
     },
   },
   '@media': {
     '(max-width: 768px)': {
-      gridTemplateColumns: '1fr',
-      gap: '0.5rem',
-    },
-    '(prefers-color-scheme: dark)': {
-      borderBottomColor: '#374151',
+      gap: '1rem',
+      padding: '1.5rem 0',
     },
   },
 });
 
-export const featureTitle = style({
-  fontSize: '1.125rem',
-  fontWeight: 600,
-  color: '#2563eb',
-  textAlign: 'left',
+export const goalIcon = style({
+  flexShrink: 0,
+  width: '48px',
+  height: '48px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginTop: '2px',
   '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#60a5fa',
+    '(max-width: 768px)': {
+      width: '40px',
+      height: '40px',
     },
   },
 });
 
-export const featureDescription = style({
-  fontSize: '0.9375rem',
+export const goalContent = style({
+  flex: 1,
+  minWidth: 0,
+});
+
+export const goalTitle = style({
+  fontSize: '1.25rem',
+  fontWeight: 600,
+  color: '#111827',
+  marginBottom: '0.375rem',
+});
+
+export const goalDescription = style({
+  fontSize: '1rem',
   color: '#4b5563',
   lineHeight: 1.6,
-  textAlign: 'left',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
+  marginBottom: '0.75rem',
+});
+
+export const goalDetails = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '0.375rem',
+  paddingLeft: '0',
+  listStyle: 'none',
+  margin: 0,
+});
+
+export const goalDetailItem = style({
+  display: 'flex',
+  alignItems: 'baseline',
+  gap: '0.5rem',
+  fontSize: '0.875rem',
+  color: '#6b7280',
+  lineHeight: 1.5,
+  selectors: {
+    '&::before': {
+      content: '"\\2022"',
       color: '#d1d5db',
+      fontSize: '0.75rem',
+      flexShrink: 0,
     },
   },
 });
+
 
 export const preview = style({
   marginTop: '2rem',
@@ -249,11 +214,6 @@ export const statCard = style({
   padding: '2rem',
   backgroundColor: '#eff6ff',
   borderRadius: '1rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#1e3a8a',
-    },
-  },
 });
 
 export const statNumber = style({
@@ -265,9 +225,6 @@ export const statNumber = style({
     '(max-width: 768px)': {
       fontSize: '2.5rem',
     },
-    '(prefers-color-scheme: dark)': {
-      color: '#93c5fd',
-    },
   },
 });
 
@@ -277,11 +234,6 @@ export const statLabel = style({
   color: '#1e40af',
   textTransform: 'uppercase',
   letterSpacing: '0.05em',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#bfdbfe',
-    },
-  },
 });
 
 export const nextStepsGrid = style({
@@ -313,11 +265,6 @@ export const nextStepTitle = style({
   transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
   willChange: 'transform, color',
   transform: 'translateX(0)',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const nextStepDescription = style({
@@ -328,11 +275,6 @@ export const nextStepDescription = style({
   willChange: 'transform',
   WebkitFontSmoothing: 'antialiased',
   transform: 'translateX(0)',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#d1d5db',
-    },
-  },
 });
 
 export const nextStepArrow = style({
@@ -341,11 +283,6 @@ export const nextStepArrow = style({
   opacity: 0,
   transform: 'translateX(-10px)',
   transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 // Card 호버 시 자식 요소 애니메이션

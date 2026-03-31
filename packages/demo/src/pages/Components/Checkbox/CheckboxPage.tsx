@@ -1,6 +1,4 @@
-import { useState } from 'react';
 import {
-  Checkbox,
   Card,
   List,
   ListItem,
@@ -13,11 +11,6 @@ import { AccessibilitySection } from '../../../components/AccessibilitySection';
 import * as styles from './CheckboxPage.css';
 
 export function CheckboxPage() {
-  const [basicChecked, setBasicChecked] = useState(false);
-  const [termsChecked, setTermsChecked] = useState(false);
-  const [newsChecked, setNewsChecked] = useState(true);
-  const [disabledChecked] = useState(true);
-  const [errorChecked, setErrorChecked] = useState(false);
 
   const propsData: PropDefinition[] = [
     {
@@ -88,7 +81,7 @@ export function CheckboxPage() {
       <header className={styles.header}>
         <h1 className={styles.title}>Checkbox</h1>
         <p className={styles.description}>
-          사용자로부터 예/아니오 선택을 받는 폼 컴포넌트입니다. 다양한 크기, 상태 표시, 불확정 상태를 지원하며, 접근성을 고려한 설계를 제공합니다.
+          Checkbox 컴포넌트는 약관 동의, 다중 항목 선택, 설정 토글 등 사용자가 하나 이상의 항목을 선택하거나 해제할 때 사용합니다.
         </p>
       </header>
 
@@ -133,6 +126,7 @@ export function CheckboxPage() {
           <LivePreview
             title="기본 사용법"
             description="가장 기본적인 체크박스 사용 예제입니다."
+            editable
             code={`const [checked, setChecked] = useState(false);
 
 <Checkbox
@@ -140,53 +134,47 @@ export function CheckboxPage() {
   checked={checked}
   onChange={(e) => setChecked(e.target.checked)}
 />`}
-          >
-            <Checkbox
-              label="기본 체크박스"
-              checked={basicChecked}
-              onChange={(e) => setBasicChecked(e.target.checked)}
-            />
-          </LivePreview>
+          />
         </div>
 
-        {/* State Management Example */}
+        {/* Controlled State Example */}
         <div className={styles.example}>
-          <h3 className={styles.exampleTitle}>State</h3>
+          <h3 className={styles.exampleTitle}>Controlled (외부 상태 제어)</h3>
           <LivePreview
-            title="상태"
-            description={`Checkbox는 외부 관리와 내부 관리 두 가지 상태 관리 패턴을 지원합니다.
-checked를 전달하면 외부에서 상태를 제어하고, defaultChecked를 전달하면 컴포넌트가 자체적으로 상태를 관리합니다.`}
-            code={`// Controlled: 외부에서 상태 관리
-const [checked, setChecked] = useState(false);
+            title="외부 상태 제어"
+            description="checked와 onChange를 함께 전달하여 부모 컴포넌트에서 상태를 직접 관리합니다. 체크 상태에 따라 다른 UI를 표시하거나, 폼 제출 시 값을 검증하거나, 여러 체크박스의 상태를 연동해야 할 때 사용하세요."
+            editable
+            code={`const [checked, setChecked] = useState(false);
 
 <Checkbox
-  label="알림 수신 동의 (Controlled)"
+  label="알림 수신 동의"
   checked={checked}
   onChange={(e) => setChecked(e.target.checked)}
   helperText={\`현재 상태: \${checked ? '동의' : '미동의'}\`}
-/>
-
-// Uncontrolled: 컴포넌트 내부에서 상태 관리
-<Checkbox
-  label="마케팅 수신 동의 (Uncontrolled)"
-  defaultChecked={true}
-  helperText="초기값 true, 이후 자체 관리"
 />`}
-          >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <Checkbox
-                label="알림 수신 동의 (Controlled)"
-                checked={basicChecked}
-                onChange={(e) => setBasicChecked(e.target.checked)}
-                helperText={`현재 상태: ${basicChecked ? '동의' : '미동의'}`}
-              />
-              <Checkbox
-                label="마케팅 수신 동의 (Uncontrolled)"
-                defaultChecked={true}
-                helperText="초기값 true, 이후 자체 관리"
-              />
-            </div>
-          </LivePreview>
+          />
+        </div>
+
+        {/* Uncontrolled State Example */}
+        <div className={styles.example}>
+          <h3 className={styles.exampleTitle}>Uncontrolled (내부 상태 제어)</h3>
+          <LivePreview
+            title="내부 상태 제어"
+            description="defaultChecked로 초기값만 설정하면 컴포넌트가 자체적으로 상태를 관리합니다. 단순한 설정 토글이나, 체크 상태를 외부에서 추적할 필요가 없거나, 폼 제출 시 FormData로 한번에 수집하는 경우에 적합합니다."
+            editable
+            code={`<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+  <Checkbox
+    label="마케팅 수신 동의"
+    defaultChecked={true}
+    helperText="초기값 true, 이후 자체 관리"
+  />
+  <Checkbox
+    label="선택 약관 동의"
+    defaultChecked={false}
+    helperText="초기값 false, 이후 자체 관리"
+  />
+</div>`}
+          />
         </div>
 
         {/* Sizes Example */}
@@ -195,16 +183,13 @@ const [checked, setChecked] = useState(false);
           <LivePreview
             title="크기 옵션"
             description="sm, md, lg 세 가지 크기를 제공합니다."
-            code={`<Checkbox label="Small Checkbox" size="sm" />
-<Checkbox label="Medium Checkbox" size="md" />
-<Checkbox label="Large Checkbox" size="lg" />`}
-          >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <Checkbox label="Small Checkbox" size="sm" />
-              <Checkbox label="Medium Checkbox" size="md" />
-              <Checkbox label="Large Checkbox" size="lg" />
-            </div>
-          </LivePreview>
+            editable
+            code={`<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+  <Checkbox label="Small Checkbox" size="sm" />
+  <Checkbox label="Medium Checkbox" size="md" />
+  <Checkbox label="Large Checkbox" size="lg" />
+</div>`}
+          />
         </div>
 
         {/* Required Example */}
@@ -213,22 +198,17 @@ const [checked, setChecked] = useState(false);
           <LivePreview
             title="필수 입력 표시"
             description="required prop으로 필수 항목임을 나타냅니다."
-            code={`<Checkbox
+            editable
+            code={`const [checked, setChecked] = useState(false);
+
+<Checkbox
   label="필수 동의 항목"
   required
   helperText="서비스 이용을 위해 필수로 동의해야 합니다"
   checked={checked}
   onChange={(e) => setChecked(e.target.checked)}
 />`}
-          >
-            <Checkbox
-              label="필수 동의 항목"
-              required
-              helperText="서비스 이용을 위해 필수로 동의해야 합니다"
-              checked={termsChecked}
-              onChange={(e) => setTermsChecked(e.target.checked)}
-            />
-          </LivePreview>
+          />
         </div>
 
         {/* Helper Text Example */}
@@ -237,20 +217,16 @@ const [checked, setChecked] = useState(false);
           <LivePreview
             title="도움말 텍스트"
             description="helperText로 추가 설명을 제공할 수 있습니다."
-            code={`<Checkbox
+            editable
+            code={`const [checked, setChecked] = useState(true);
+
+<Checkbox
   label="뉴스레터 구독"
   helperText="최신 소식과 업데이트를 받아보세요"
   checked={checked}
   onChange={(e) => setChecked(e.target.checked)}
 />`}
-          >
-            <Checkbox
-              label="뉴스레터 구독"
-              helperText="최신 소식과 업데이트를 받아보세요"
-              checked={newsChecked}
-              onChange={(e) => setNewsChecked(e.target.checked)}
-            />
-          </LivePreview>
+          />
         </div>
 
         {/* Disabled Example */}
@@ -259,14 +235,12 @@ const [checked, setChecked] = useState(false);
           <LivePreview
             title="비활성화 상태"
             description="disabled prop으로 상호작용을 막을 수 있습니다."
-            code={`<Checkbox label="비활성화 (체크 안됨)" disabled />
-<Checkbox label="비활성화 (체크됨)" disabled checked />`}
-          >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <Checkbox label="비활성화 (체크 안됨)" disabled />
-              <Checkbox label="비활성화 (체크됨)" disabled checked={disabledChecked} />
-            </div>
-          </LivePreview>
+            editable
+            code={`<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+  <Checkbox label="비활성화 (체크 안됨)" disabled />
+  <Checkbox label="비활성화 (체크됨)" disabled defaultChecked />
+</div>`}
+          />
         </div>
 
         {/* Error State Example */}
@@ -275,7 +249,10 @@ const [checked, setChecked] = useState(false);
           <LivePreview
             title="에러 상태"
             description="error와 errorMessage로 유효성 검사 오류를 표시합니다."
-            code={`<Checkbox
+            editable
+            code={`const [checked, setChecked] = useState(false);
+
+<Checkbox
   label="필수 약관 동의"
   required
   error
@@ -283,16 +260,7 @@ const [checked, setChecked] = useState(false);
   checked={checked}
   onChange={(e) => setChecked(e.target.checked)}
 />`}
-          >
-            <Checkbox
-              label="필수 약관 동의"
-              required
-              error
-              errorMessage="서비스 이용을 위해 필수 항목에 동의해야 합니다"
-              checked={errorChecked}
-              onChange={(e) => setErrorChecked(e.target.checked)}
-            />
-          </LivePreview>
+          />
         </div>
       </section>
 
@@ -312,32 +280,32 @@ const [checked, setChecked] = useState(false);
       {/* Accessibility */}
       <AccessibilitySection
         componentName="Checkbox"
-        intro="Checkbox 컴포넌트는 다음과 같이 기본적인 접근성을 제공해요. 덕분에 별도의 설정 없이도 기본적으로 사용자의 접근성을 고려한 형태의 Checkbox 컴포넌트를 제공할 수 있어요."
+        intro="Checkbox 컴포넌트는 다음과 같이 기본적인 접근성을 제공합니다. 덕분에 별도의 설정 없이도 기본적으로 사용자의 접근성을 고려한 형태의 Checkbox 컴포넌트를 제공할 수 있습니다."
         features={[
           {
             attribute: 'label',
-            effect: '스크린 리더에서 체크박스의 용도를 읽어줘요.',
-            description: '레이블이 input[type="checkbox"]와 자동으로 연결되어 사용자가 무엇을 선택하는지 명확히 알 수 있어요.',
+            effect: '스크린 리더에서 체크박스의 용도를 읽어줍니다.',
+            description: '레이블이 input[type="checkbox"]와 자동으로 연결되어 사용자가 무엇을 선택하는지 명확히 알 수 있습니다.',
           },
           {
             attribute: 'required',
-            effect: '필수 선택 항목임을 스크린 리더에 알려줘요.',
-            description: 'aria-required="true"가 설정되어 필수 항목이라는 정보를 제공해요.',
+            effect: '필수 선택 항목임을 스크린 리더에 알립니다.',
+            description: 'aria-required="true"가 설정되어 필수 항목이라는 정보를 제공합니다.',
           },
           {
             attribute: 'error + errorMessage',
-            effect: '에러 메시지를 스크린 리더가 읽어줘요.',
-            description: 'aria-describedby로 에러 메시지가 연결되어 사용자가 무엇이 잘못되었는지 알 수 있어요.',
+            effect: '에러 메시지를 스크린 리더가 읽어줍니다.',
+            description: 'aria-describedby로 에러 메시지가 연결되어 사용자가 무엇이 잘못되었는지 알 수 있습니다.',
           },
           {
             attribute: 'disabled',
-            effect: '비활성화 상태를 스크린 리더에서 알려줘요.',
-            description: 'aria-disabled="true"가 설정되어 선택할 수 없는 상태임을 전달해요.',
+            effect: '비활성화 상태를 스크린 리더에서 알립니다.',
+            description: 'aria-disabled="true"가 설정되어 선택할 수 없는 상태임을 전달합니다.',
           },
           {
             attribute: 'checked',
-            effect: '현재 선택 상태를 스크린 리더가 읽어줘요.',
-            description: 'aria-checked 속성으로 체크 여부를 명확히 전달해요.',
+            effect: '현재 선택 상태를 스크린 리더가 읽어줍니다.',
+            description: 'aria-checked 속성으로 체크 여부를 명확히 전달합니다.',
           },
         ]}
       />

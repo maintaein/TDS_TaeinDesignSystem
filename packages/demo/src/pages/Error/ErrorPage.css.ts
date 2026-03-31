@@ -47,11 +47,6 @@ export const container = style({
   overflow: 'hidden',
   background: 'linear-gradient(135deg,rgb(255, 255, 255) 0%,rgb(255, 255, 255) 100%)',
   padding: '2rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
-    },
-  },
 });
 
 // 백그라운드
@@ -210,11 +205,6 @@ export const errorCode = style({
   fontFamily: '"Outfit", "Helvetica Neue", sans-serif',
   letterSpacing: '-0.05em',
   animation: `${scaleIn} 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)`,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      textShadow: '0 10px 60px rgba(33, 150, 243, 0.5)',
-    },
-  },
 });
 
 export const errorSubtitle = style({
@@ -225,11 +215,6 @@ export const errorSubtitle = style({
   fontFamily: '"Outfit", "Helvetica Neue", sans-serif',
   letterSpacing: '-0.02em',
   animation: `${slideIn} 0.8s ease-out 0.2s backwards`,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f1f5f9',
-    },
-  },
 });
 
 export const errorMessage = style({
@@ -239,14 +224,9 @@ export const errorMessage = style({
   marginBottom: '3rem',
   maxWidth: '600px',
   margin: '0 auto 3rem',
-  fontFamily: '"Noto Sans KR", sans-serif',
+  fontFamily: '"Pretendard Variable", sans-serif',
   fontWeight: 400,
   animation: `${slideIn} 0.8s ease-out 0.4s backwards`,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#94a3b8',
-    },
-  },
 });
 
 export const actions = style({
@@ -305,11 +285,6 @@ const iconBase = style({
   height: '60px',
   color: '#2196F3',
   opacity: 0.15,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      opacity: 0.2,
-    },
-  },
 });
 
 export const icon1 = style([

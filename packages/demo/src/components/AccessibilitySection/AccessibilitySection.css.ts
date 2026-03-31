@@ -18,22 +18,12 @@ export const sectionTitle = style({
   color: '#1a2332',
   marginBottom: '0.5rem',
   letterSpacing: '-0.01em',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const sectionDescription = style({
   fontSize: '1rem',
   lineHeight: 1.6,
   color: '#6b7280',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 // Subsection
@@ -55,11 +45,6 @@ export const subsectionTitle = style({
   fontSize: '1.25rem',
   fontWeight: 600,
   color: '#1a2332',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const subsectionIntro = style({
@@ -71,13 +56,6 @@ export const subsectionIntro = style({
   backgroundColor: '#f9fafb',
   borderRadius: '0.5rem',
   border: '1px solid #e5e7eb',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#1f2937',
-      borderColor: '#374151',
-      color: '#d1d5db',
-    },
-  },
 });
 
 // Table
@@ -89,21 +67,10 @@ export const accessibilityTable = style({
   border: '1px solid #e5e7eb',
   borderRadius: '0.5rem',
   overflow: 'hidden',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#1f2937',
-      borderColor: '#374151',
-    },
-  },
 });
 
 export const tableHeader = style({
   backgroundColor: '#f9fafb',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#111827',
-    },
-  },
 });
 
 export const tableHeaderCell = style({
@@ -113,27 +80,12 @@ export const tableHeaderCell = style({
   fontWeight: 600,
   color: '#6b7280',
   borderBottom: '1px solid #e5e7eb',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-      borderBottomColor: '#374151',
-    },
-  },
 });
 
 export const tableRow = style({
   selectors: {
     '&:hover': {
       backgroundColor: '#f9fafb',
-    },
-  },
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      selectors: {
-        '&:hover': {
-          backgroundColor: '#111827',
-        },
-      },
     },
   },
 });
@@ -144,12 +96,6 @@ export const tableCell = style({
   lineHeight: 1.6,
   color: '#374151',
   borderBottom: '1px solid #f3f4f6',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#d1d5db',
-      borderBottomColor: '#374151',
-    },
-  },
   selectors: {
     [`${tableRow}:last-child &`]: {
       borderBottom: 'none',
@@ -160,20 +106,10 @@ export const tableCell = style({
 export const attributeCell = style({
   fontWeight: 600,
   color: '#1a2332',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const effectCell = style({
   color: '#059669',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#34d399',
-    },
-  },
 });
 
 // Additional Accessibility Section
@@ -186,11 +122,6 @@ export const additionalContent = style({
   lineHeight: 1.8,
   color: '#4b5563',
   marginBottom: '2rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#d1d5db',
-    },
-  },
 });
 
 export const guidanceBlock = style({
@@ -205,11 +136,6 @@ export const guidanceTitle = style({
   fontWeight: 600,
   color: '#1a2332',
   marginBottom: '0.75rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const guidanceText = style({
@@ -217,11 +143,6 @@ export const guidanceText = style({
   lineHeight: 1.7,
   color: '#4b5563',
   marginBottom: '1rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#d1d5db',
-    },
-  },
 });
 
 export const codeExample = style({

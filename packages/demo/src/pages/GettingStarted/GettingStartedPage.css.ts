@@ -1,7 +1,7 @@
 import { style, globalStyle } from '@vanilla-extract/css';
 
 export const container = style({
-  maxWidth: '1000px',
+  maxWidth: '1200px',
   margin: '0 auto',
   padding: '2rem',
   '@media': {
@@ -20,9 +20,6 @@ export const title = style({
     '(max-width: 768px)': {
       fontSize: '2rem',
     },
-    '(prefers-color-scheme: dark)': {
-      color: '#60a5fa',
-    },
   },
 });
 
@@ -35,9 +32,6 @@ export const description = style({
     '(max-width: 768px)': {
       fontSize: '1rem',
     },
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
   },
 });
 
@@ -47,11 +41,6 @@ export const section = style({
   borderBottom: '1px solid #e5e7eb',
   ':last-child': {
     borderBottom: 'none',
-  },
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      borderBottomColor: '#374151',
-    },
   },
 });
 
@@ -64,9 +53,6 @@ export const sectionTitle = style({
     '(max-width: 768px)': {
       fontSize: '1.5rem',
     },
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
   },
 });
 
@@ -75,11 +61,6 @@ export const sectionDescription = style({
   color: '#6b7280',
   marginBottom: '2rem',
   lineHeight: 1.6,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const installTabs = style({
@@ -99,11 +80,6 @@ export const installTitle = style({
   fontSize: '1rem',
   fontWeight: 600,
   color: '#2563eb',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#60a5fa',
-    },
-  },
 });
 
 export const codeExample = style({
@@ -115,11 +91,6 @@ export const exampleTitle = style({
   fontWeight: 600,
   color: '#111827',
   marginBottom: '0.5rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const exampleDescription = style({
@@ -127,11 +98,6 @@ export const exampleDescription = style({
   color: '#6b7280',
   marginBottom: '1rem',
   lineHeight: 1.5,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#d1d5db',
-    },
-  },
 });
 
 export const infoBox = style({
@@ -140,12 +106,6 @@ export const infoBox = style({
   border: '1px solid #bfdbfe',
   borderRadius: '0.75rem',
   marginTop: '2rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#1e3a8a',
-      borderColor: '#1e40af',
-    },
-  },
 });
 
 export const infoTitle = style({
@@ -153,11 +113,6 @@ export const infoTitle = style({
   fontWeight: 600,
   color: '#1e40af',
   marginBottom: '0.5rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#93c5fd',
-    },
-  },
 });
 
 export const infoText = style({
@@ -165,11 +120,6 @@ export const infoText = style({
   color: '#1e40af',
   lineHeight: 1.6,
   margin: 0,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#bfdbfe',
-    },
-  },
 });
 
 export const nextStepsGrid = style({
@@ -201,11 +151,6 @@ export const nextStepTitle = style({
   transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
   willChange: 'transform, color',
   transform: 'translateX(0)',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const nextStepDescription = style({
@@ -216,11 +161,6 @@ export const nextStepDescription = style({
   willChange: 'transform',
   WebkitFontSmoothing: 'antialiased',
   transform: 'translateX(0)',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#d1d5db',
-    },
-  },
 });
 
 export const nextStepArrow = style({
@@ -229,11 +169,6 @@ export const nextStepArrow = style({
   opacity: 0,
   transform: 'translateX(-10px)',
   transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const helpBox = style({
@@ -242,12 +177,6 @@ export const helpBox = style({
   backgroundColor: '#f9fafb',
   borderRadius: '1rem',
   border: '1px solid #e5e7eb',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#1f2937',
-      borderColor: '#374151',
-    },
-  },
 });
 
 export const helpTitle = style({
@@ -255,11 +184,6 @@ export const helpTitle = style({
   fontWeight: 600,
   color: '#111827',
   marginBottom: '0.75rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const helpText = style({
@@ -267,11 +191,6 @@ export const helpText = style({
   color: '#6b7280',
   marginBottom: '2rem',
   lineHeight: 1.6,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#d1d5db',
-    },
-  },
 });
 
 export const helpActions = style({

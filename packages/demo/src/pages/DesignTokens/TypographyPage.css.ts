@@ -20,9 +20,6 @@ export const title = style({
     '(max-width: 768px)': {
       fontSize: '2rem',
     },
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
   },
 });
 
@@ -31,11 +28,6 @@ export const description = style({
   color: '#6b7280',
   marginBottom: '3rem',
   lineHeight: 1.6,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const section = style({
@@ -51,9 +43,6 @@ export const sectionTitle = style({
     '(max-width: 768px)': {
       fontSize: '1.5rem',
     },
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
   },
 });
 
@@ -62,11 +51,6 @@ export const sectionDescription = style({
   color: '#6b7280',
   marginBottom: '1.5rem',
   lineHeight: 1.5,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#d1d5db',
-    },
-  },
 });
 
 export const fontFamilyGrid = style({
@@ -80,12 +64,6 @@ export const fontFamilyCard = style({
   backgroundColor: '#ffffff',
   borderRadius: '0.75rem',
   border: '1px solid #e5e7eb',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#111827',
-      borderColor: '#374151',
-    },
-  },
 });
 
 export const fontFamilyTitle = style({
@@ -93,33 +71,18 @@ export const fontFamilyTitle = style({
   fontWeight: 600,
   color: '#111827',
   marginBottom: '1rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const fontFamilySample = style({
   fontSize: '1.25rem',
   color: '#111827',
   marginBottom: '0.5rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const fontFamilyKorean = style({
   fontSize: '1.25rem',
   color: '#6b7280',
   marginBottom: '1rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const sizeScale = style({
@@ -136,12 +99,6 @@ export const sizeRow = style({
   backgroundColor: '#f9fafb',
   borderRadius: '0.5rem',
   border: '1px solid #e5e7eb',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#1f2937',
-      borderColor: '#374151',
-    },
-  },
 });
 
 export const sizeLabel = style({
@@ -156,31 +113,16 @@ export const sizeName = style({
   fontWeight: 600,
   color: '#2563eb',
   fontFamily: 'monospace',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#60a5fa',
-    },
-  },
 });
 
 export const sizeValue = style({
   fontSize: '0.75rem',
   color: '#6b7280',
   fontFamily: 'monospace',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const sizeSample = style({
   color: '#111827',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const weightGrid = style({
@@ -194,12 +136,6 @@ export const weightCard = style({
   backgroundColor: '#ffffff',
   borderRadius: '0.75rem',
   border: '1px solid #e5e7eb',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#111827',
-      borderColor: '#374151',
-    },
-  },
 });
 
 export const weightHeader = style({
@@ -214,43 +150,23 @@ export const weightName = style({
   fontWeight: 600,
   color: '#2563eb',
   fontFamily: 'monospace',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#60a5fa',
-    },
-  },
 });
 
 export const weightValue = style({
   fontSize: '0.75rem',
   color: '#6b7280',
   fontFamily: 'monospace',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const weightSample = style({
   fontSize: '1.25rem',
   color: '#111827',
   marginBottom: '0.5rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const weightDescription = style({
   fontSize: '0.875rem',
   color: '#6b7280',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const lineHeightGrid = style({
@@ -264,12 +180,6 @@ export const lineHeightCard = style({
   backgroundColor: '#ffffff',
   borderRadius: '0.75rem',
   border: '1px solid #e5e7eb',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#111827',
-      borderColor: '#374151',
-    },
-  },
 });
 
 export const lineHeightHeader = style({
@@ -284,43 +194,23 @@ export const lineHeightName = style({
   fontWeight: 600,
   color: '#2563eb',
   fontFamily: 'monospace',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#60a5fa',
-    },
-  },
 });
 
 export const lineHeightValue = style({
   fontSize: '0.75rem',
   color: '#6b7280',
   fontFamily: 'monospace',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const lineHeightSample = style({
   fontSize: '1rem',
   color: '#111827',
   marginBottom: '0.5rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const lineHeightDescription = style({
   fontSize: '0.875rem',
   color: '#6b7280',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const guidelineList = style({
@@ -331,12 +221,6 @@ export const guidelineList = style({
   backgroundColor: '#ffffff',
   borderRadius: '0.75rem',
   overflow: 'hidden',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#111827',
-      borderColor: '#374151',
-    },
-  },
 });
 
 export const guidelineRow = style({
@@ -353,9 +237,6 @@ export const guidelineRow = style({
       gridTemplateColumns: '1fr',
       gap: '0.5rem',
     },
-    '(prefers-color-scheme: dark)': {
-      borderBottomColor: '#374151',
-    },
   },
 });
 
@@ -363,20 +244,10 @@ export const guidelineTitle = style({
   fontSize: '0.875rem',
   fontWeight: 600,
   color: '#111827',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const guidelineText = style({
   fontSize: '0.875rem',
   color: '#6b7280',
   lineHeight: 1.6,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#d1d5db',
-    },
-  },
 });
