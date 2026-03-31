@@ -11,12 +11,17 @@
   },
   "dependencies": {
     "@taein-designsystem/core": "workspace:*",
+    "clsx": "^2.1.1",
+    "prismjs": "^1.30.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^6.20.1",
-    "react-syntax-highlighter": "^16.1.0"
+    "react-simple-code-editor": "^0.14.1",
+    "react-syntax-highlighter": "^16.1.0",
+    "sucrase": "^3.35.1"
   },
   "devDependencies": {
+    "@types/prismjs": "^1.26.5",
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
     "@types/react-syntax-highlighter": "^15.5.13",

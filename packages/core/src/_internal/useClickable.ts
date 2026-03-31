@@ -1,15 +1,15 @@
 import { useCallback } from 'react';
 
 export interface UseClickableProps {
-  /** 클릭 이벤트 핸들러 */
+  // 클릭 이벤트 핸들러
   onClick?: (
     event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
   ) => void;
-  /** 키보드 이벤트 핸들러 */
+  // 키보드 이벤트 핸들러
   onKeyDown?: (event: React.KeyboardEvent<HTMLElement>) => void;
-  /** 비활성화 상태 */
+  // 비활성화 상태
   disabled?: boolean;
-  /** ARIA role (기본값: 'button') */
+  // ARIA role (기본값: 'button')
   role?: string;
 }
 
@@ -21,23 +21,7 @@ export interface UseClickableReturn {
   'aria-disabled'?: boolean;
 }
 
-/**
- * 클릭 가능한 요소(div, span 등)에 버튼과 같은 인터랙션을 추가하는 Hook
- *
- * 주요 기능:
- * - 클릭 이벤트 핸들링
- * - 키보드 인터랙션 (Enter, Space)
- * - 접근성 속성 (role, tabIndex, aria-disabled)
- * - disabled 상태 관리
- *
- * @example
- * ```tsx
- * const MyClickableDiv = ({ onClick, disabled }) => {
- *   const clickableProps = useClickable({ onClick, disabled });
- *   return <div {...clickableProps}>클릭 가능한 영역</div>;
- * }
- * ```
- */
+// 클릭 가능한 요소에 버튼과 같은 인터랙션을 추가하는 Hook
 export const useClickable = ({
   onClick,
   onKeyDown,

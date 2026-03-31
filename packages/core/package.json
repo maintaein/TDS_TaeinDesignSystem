@@ -1,20 +1,45 @@
 {
   "name": "@taein-designsystem/core",
   "version": "0.1.0",
-  "description": "TDS - Taein Design System - 핵심 컴포넌트",
-  "main": "./dist/index.cjs.js",
-  "module": "./dist/index.esm.js",
+  "description": "TDS_TaeinDesignSystem - React 기반 — 30개 컴포넌트, Zero-runtime CSS, Tree-shakable",
+  "keywords": [
+    "design-system",
+    "react",
+    "typescript",
+    "vanilla-extract",
+    "components",
+    "ui",
+    "accessible"
+  ],
+  "author": "Taein <daumdaum005@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maintaein/TDS_TaeinDesignSystem.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://github.com/maintaein/TDS_TaeinDesignSystem#readme",
+  "bugs": {
+    "url": "https://github.com/maintaein/TDS_TaeinDesignSystem/issues"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.esm.js",
-      "require": "./dist/index.cjs.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     },
     "./styles.css": "./dist/core.css"
   },
+  "sideEffects": [
+    "./dist/core.css"
+  ],
   "files": [
-    "dist"
+    "dist",
+    "llms.txt",
+    "llms-full.txt"
   ],
   "scripts": {
     "dev": "vite build --watch",

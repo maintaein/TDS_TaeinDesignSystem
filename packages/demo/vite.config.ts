@@ -10,6 +10,18 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: true,
+    sourcemap: false,
+    cssMinify: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'router': ['react-router-dom'],
+          'syntax-highlighter': ['react-syntax-highlighter'],
+          'design-system': ['@taein-designsystem/core'],
+          'prismjs': ['prismjs', 'react-simple-code-editor'],
+        },
+      },
+    },
   },
 });
