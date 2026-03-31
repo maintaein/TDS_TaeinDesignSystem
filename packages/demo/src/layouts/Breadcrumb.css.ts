@@ -8,12 +8,6 @@ export const breadcrumb = style({
   fontSize: '0.875rem',
   color: '#6b7280',
   borderBottom: '1px solid #e5e7eb',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-      borderBottomColor: '#374151',
-    },
-  },
 });
 
 export const breadcrumbItem = style({
@@ -24,28 +18,13 @@ export const breadcrumbItem = style({
 
 export const breadcrumbText = style({
   color: '#6b7280',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const breadcrumbCurrent = style({
   color: '#1f2937',
   fontWeight: 500,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f3f4f6',
-    },
-  },
 });
 
 export const separator = style({
   color: '#d1d5db',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#4b5563',
-    },
-  },
 });

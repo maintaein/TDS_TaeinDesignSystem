@@ -11,12 +11,6 @@ export const header = style({
   backgroundColor: '#ffffff',
   borderBottom: '1px solid #e5e7eb',
   boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#1f2937',
-      borderBottomColor: '#374151',
-    },
-  },
 });
 
 export const leftSection = style({
@@ -29,20 +23,6 @@ export const logo = style({
   fontSize: '1.25rem',
   fontWeight: 'bold',
   color: '#2563eb',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#60a5fa',
-    },
-  },
-});
-
-export const menuButton = style({
-  display: 'none',
-  '@media': {
-    '(max-width: 768px)': {
-      display: 'block',
-    },
-  },
 });
 
 export const rightSection = style({
@@ -51,26 +31,63 @@ export const rightSection = style({
   gap: '0.75rem',
 });
 
+export const searchWrapper = style({
+  position: 'relative',
+});
+
+export const searchInputWrapper = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '0.5rem',
+  padding: '0.4375rem 0.75rem',
+  width: '240px',
+  backgroundColor: '#f9fafb',
+  border: '1px solid #e5e7eb',
+  borderRadius: '8px',
+  transition: 'all 0.15s',
+  selectors: {
+    '&:focus-within': {
+      backgroundColor: '#ffffff',
+      borderColor: '#2563eb',
+      boxShadow: '0 0 0 3px rgba(37, 99, 235, 0.1)',
+    },
+  },
+  '@media': {
+    '(max-width: 640px)': {
+      width: '160px',
+    },
+  },
+});
+
+export const searchIcon = style({
+  flexShrink: 0,
+  color: '#9ca3af',
+});
+
+export const searchInput = style({
+  flex: 1,
+  fontSize: '0.875rem',
+  lineHeight: 1.5,
+  color: '#111827',
+  backgroundColor: 'transparent',
+  border: 'none',
+  outline: 'none',
+  '::placeholder': {
+    color: '#9ca3af',
+  },
+});
+
 export const githubLink = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  width: '2.5rem',
-  height: '2.5rem',
+  width: '2.75rem',
+  height: '2.75rem',
   borderRadius: '0.375rem',
   color: '#4b5563',
   transition: 'all 0.2s',
   ':hover': {
     backgroundColor: '#f3f4f6',
     color: '#1f2937',
-  },
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-      ':hover': {
-        backgroundColor: '#374151',
-        color: '#f3f4f6',
-      },
-    },
   },
 });

@@ -1,55 +1,132 @@
+import { useState, useRef, useEffect, useCallback, type ChangeEvent, type KeyboardEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { IconButton } from '@taein-designsystem/core';
-import { useTheme } from '@taein-designsystem/core';
+import { SearchDropdown } from '../components/SearchDialog';
+import { useSearch } from '../hooks/useSearch';
 import * as styles from './Header.css';
 
 interface HeaderProps {
   onMenuClick: () => void;
+  showMenuButton?: boolean;
 }
 
-export function Header({ onMenuClick }: HeaderProps) {
-  const { theme, toggleTheme } = useTheme();
+export function Header({ onMenuClick, showMenuButton = false }: HeaderProps) {
+  const { query, setQuery, groupedResults, hasResults, reset } = useSearch();
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+
+  // flat 결과 리스트 (키보드 탐색용)
+  const flatResults = Array.from(groupedResults.values()).flat();
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+    setSelectedIndex(0);
+    setIsOpen(e.target.value.trim().length > 0);
+  };
+
+  const handleSelect = useCallback(
+    (path: string) => {
+      navigate(path);
+      reset();
+      setIsOpen(false);
+      setSelectedIndex(0);
+      inputRef.current?.blur();
+    },
+    [navigate, reset],
+  );
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (!isOpen || flatResults.length === 0) {
+      if (e.key === 'Escape') {
+        reset();
+        setIsOpen(false);
+        inputRef.current?.blur();
+      }
+      return;
+    }
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        setSelectedIndex((prev) =>
+          prev < flatResults.length - 1 ? prev + 1 : 0,
+        );
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        setSelectedIndex((prev) =>
+          prev > 0 ? prev - 1 : flatResults.length - 1,
+        );
+        break;
+      case 'Enter':
+        e.preventDefault();
+        if (flatResults[selectedIndex]) {
+          handleSelect(flatResults[selectedIndex].entry.path);
+        }
+        break;
+      case 'Escape':
+        e.preventDefault();
+        reset();
+        setIsOpen(false);
+        inputRef.current?.blur();
+        break;
+    }
+  };
+
+  // 외부 클릭 시 닫기
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <header className={styles.header}>
       <div className={styles.leftSection}>
-        <IconButton
-          className={styles.menuButton}
-          onClick={onMenuClick}
-          aria-label="메뉴 열기"
-          size="md"
-          variant="light"
-        >
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
+        {showMenuButton && (
+          <IconButton
+            onClick={onMenuClick}
+            aria-label="메뉴 열기"
+            size="md"
+            ghost
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
-        </IconButton>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </IconButton>
+        )}
         <div className={styles.logo}>TDS</div>
       </div>
 
       <div className={styles.rightSection}>
-        <IconButton
-          onClick={toggleTheme}
-          aria-label={
-            theme === 'light' ? '다크 모드로 전환' : '라이트 모드로 전환'
-          }
-          size="md"
-          variant="light"
-        >
-          {theme === 'light' ? (
+        <div ref={wrapperRef} className={styles.searchWrapper}>
+          <div className={styles.searchInputWrapper}>
             <svg
-              width="20"
-              height="20"
+              className={styles.searchIcon}
+              width="16"
+              height="16"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -58,26 +135,35 @@ export function Header({ onMenuClick }: HeaderProps) {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
               />
             </svg>
-          ) : (
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-              />
-            </svg>
-          )}
-        </IconButton>
+            <input
+              ref={inputRef}
+              type="text"
+              value={query}
+              onChange={handleChange}
+              onKeyDown={handleKeyDown}
+              onFocus={() => {
+                if (query.trim()) setIsOpen(true);
+              }}
+              placeholder="검색..."
+              className={styles.searchInput}
+              aria-label="검색"
+              aria-autocomplete="list"
+              aria-expanded={isOpen && hasResults}
+              aria-controls="header-search-results"
+            />
+          </div>
+          <SearchDropdown
+            open={isOpen && hasResults}
+            query={query}
+            groupedResults={groupedResults}
+            selectedIndex={selectedIndex}
+            onSelect={handleSelect}
+            onHover={setSelectedIndex}
+          />
+        </div>
 
         <a
           href="https://github.com"

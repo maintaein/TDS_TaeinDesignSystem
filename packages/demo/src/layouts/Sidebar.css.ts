@@ -1,34 +1,33 @@
 import { style } from '@vanilla-extract/css';
 
+// ─── 기본 사이드바 (데스크톱: 전체 폭) ─────────────────────────────
+
 export const sidebar = style({
   width: '280px',
   height: '100%',
   backgroundColor: '#ffffff',
   borderRight: '1px solid #e5e7eb',
   overflowY: 'auto',
-  transition: 'transform 0.3s ease',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#1f2937',
-      borderRightColor: '#374151',
-    },
-    '(max-width: 768px)': {
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      zIndex: 50,
-      boxShadow: '2px 0 8px rgba(0, 0, 0, 0.1)',
-    },
-  },
+  flexShrink: 0,
 });
 
-export const sidebarHidden = style({
-  '@media': {
-    '(max-width: 768px)': {
-      transform: 'translateX(-100%)',
-    },
-  },
+// 1024px 이하: 고정 위치, 왼쪽에서 슬라이드
+export const sidebarOverlay = style({
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  zIndex: 50,
+  height: '100vh',
+  boxShadow: '2px 0 8px rgba(0, 0, 0, 0.1)',
+  transition: 'transform 0.3s ease',
 });
+
+// 오버레이 모드에서 사이드바 숨김
+export const sidebarHidden = style({
+  transform: 'translateX(-100%)',
+});
+
+// ─── 네비게이션 ─────────────────────────────────────────────────────
 
 export const nav = style({
   padding: '1.5rem 0',
@@ -54,18 +53,11 @@ export const navItem = style({
   cursor: 'pointer',
   transition: 'all 0.2s',
   borderRadius: '0.375rem',
+  textDecoration: 'none',
+  minHeight: '44px',
   ':hover': {
     backgroundColor: '#f3f4f6',
     color: '#1f2937',
-  },
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-      ':hover': {
-        backgroundColor: '#374151',
-        color: '#f3f4f6',
-      },
-    },
   },
 });
 
@@ -73,18 +65,6 @@ export const navItemActive = style({
   color: '#2563eb',
   backgroundColor: '#eff6ff',
   fontWeight: 600,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#60a5fa',
-      backgroundColor: '#1e3a8a',
-    },
-  },
-});
-
-export const navItemWithChildren = style({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
 });
 
 export const chevron = style({
@@ -100,20 +80,4 @@ export const chevronExpanded = style({
 
 export const navChildren = style({
   paddingLeft: '1.5rem',
-});
-
-export const backdrop = style({
-  display: 'none',
-  '@media': {
-    '(max-width: 768px)': {
-      display: 'block',
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      zIndex: 40,
-    },
-  },
 });
