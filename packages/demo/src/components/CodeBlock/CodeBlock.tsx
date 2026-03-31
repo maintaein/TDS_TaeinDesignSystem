@@ -1,8 +1,18 @@
 import { useState } from 'react';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus, vs } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { useTheme } from '@taein-designsystem/core';
+import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
+import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx';
+import typescript from 'react-syntax-highlighter/dist/esm/languages/prism/typescript';
+import bash from 'react-syntax-highlighter/dist/esm/languages/prism/bash';
+import json from 'react-syntax-highlighter/dist/esm/languages/prism/json';
+import css from 'react-syntax-highlighter/dist/esm/languages/prism/css';
+import { vs } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import * as styles from './CodeBlock.css';
+
+SyntaxHighlighter.registerLanguage('tsx', tsx);
+SyntaxHighlighter.registerLanguage('typescript', typescript);
+SyntaxHighlighter.registerLanguage('bash', bash);
+SyntaxHighlighter.registerLanguage('json', json);
+SyntaxHighlighter.registerLanguage('css', css);
 
 export interface CodeBlockProps {
   code: string;
@@ -19,7 +29,6 @@ export function CodeBlock({
   fileName,
   className,
 }: CodeBlockProps) {
-  const { theme } = useTheme();
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
@@ -75,7 +84,7 @@ export function CodeBlock({
       <div className={styles.codeContainer}>
         <SyntaxHighlighter
           language={language}
-          style={theme === 'dark' ? vscDarkPlus : vs}
+          style={vs}
           showLineNumbers={showLineNumbers}
           customStyle={{
             margin: 0,

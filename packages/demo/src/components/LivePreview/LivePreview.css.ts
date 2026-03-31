@@ -14,11 +14,6 @@ export const title = style({
   fontWeight: 600,
   color: '#111827',
   marginBottom: '0.5rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const description = style({
@@ -26,11 +21,6 @@ export const description = style({
   color: '#6b7280',
   lineHeight: '1.5',
   whiteSpace: 'pre-wrap',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const preview = style({
@@ -39,12 +29,6 @@ export const preview = style({
   backgroundColor: '#ffffff',
   border: '1px solid #e5e7eb',
   borderRadius: '0.5rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#1f2937',
-      borderColor: '#374151',
-    },
-  },
 });
 
 export const previewCentered = style({
@@ -68,4 +52,31 @@ export const previewPadding = styleVariants({
   lg: {
     padding: '3rem',
   },
+});
+
+export const previewEmpty = style({
+  minHeight: '80px',
+});
+
+export const errorBar = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '0.5rem',
+  padding: '0.625rem 1rem',
+  backgroundColor: '#ef4444',
+  color: '#ffffff',
+  fontSize: '0.8125rem',
+  fontFamily:
+    'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+  lineHeight: '1.4',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+  borderRadius: '0 0 0.5rem 0.5rem',
+});
+
+export const errorIcon = style({
+  flexShrink: 0,
+  width: '16px',
+  height: '16px',
 });

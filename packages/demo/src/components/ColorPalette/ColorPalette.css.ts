@@ -35,11 +35,6 @@ export const colorSwatch = style({
   ':hover': {
     boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
   },
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      borderColor: '#374151',
-    },
-  },
 });
 
 export const copiedIndicator = style({
@@ -56,11 +51,6 @@ export const copiedIndicator = style({
   borderRadius: '50%',
   color: '#10b981',
   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: 'rgba(31, 41, 55, 0.9)',
-    },
-  },
 });
 
 export const colorInfo = style({
@@ -73,11 +63,6 @@ export const colorName = style({
   fontSize: '0.875rem',
   fontWeight: 600,
   color: '#111827',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-    },
-  },
 });
 
 export const colorHex = style({
@@ -86,20 +71,10 @@ export const colorHex = style({
   color: '#6b7280',
   fontFamily:
     'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#9ca3af',
-    },
-  },
 });
 
 export const colorDescription = style({
   fontSize: '0.75rem',
   color: '#9ca3af',
   lineHeight: '1.4',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#6b7280',
-    },
-  },
 });

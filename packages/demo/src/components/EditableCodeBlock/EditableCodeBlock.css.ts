@@ -1,24 +1,10 @@
 import { style } from '@vanilla-extract/css';
 
-export const codeBlock = style({
+export const container = style({
   width: '100%',
-  marginBottom: '1.5rem',
   borderRadius: '0.5rem',
   border: '1px solid #e5e7eb',
   overflow: 'hidden',
-  contentVisibility: 'auto',
-  containIntrinsicSize: 'auto 300px',
-});
-
-export const fileName = style({
-  padding: '0.75rem 1rem',
-  backgroundColor: '#f9fafb',
-  borderBottom: '1px solid #e5e7eb',
-  fontSize: '0.875rem',
-  fontWeight: 500,
-  color: '#374151',
-  fontFamily:
-    'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
 });
 
 export const header = style({
@@ -30,7 +16,7 @@ export const header = style({
   borderBottom: '1px solid #e5e7eb',
 });
 
-export const language = style({
+export const label = style({
   fontSize: '0.75rem',
   fontWeight: 600,
   color: '#6b7280',
@@ -68,7 +54,15 @@ export const copyText = style({
   },
 });
 
-export const codeContainer = style({
+export const editorContainer = style({
   overflow: 'auto',
   maxHeight: '500px',
+});
+
+export const editor = style({
+  fontFamily:
+    'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+  fontSize: '0.875rem',
+  lineHeight: '1.5',
+  minHeight: '60px',
 });

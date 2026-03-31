@@ -17,11 +17,6 @@ export const searchIcon = style({
   left: '0.75rem',
   color: '#9ca3af',
   pointerEvents: 'none',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#6b7280',
-    },
-  },
 });
 
 export const input = style({
@@ -41,20 +36,6 @@ export const input = style({
   '::placeholder': {
     color: '#9ca3af',
   },
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#f9fafb',
-      backgroundColor: '#1f2937',
-      borderColor: '#4b5563',
-      ':focus': {
-        borderColor: '#3b82f6',
-        boxShadow: '0 0 0 3px rgba(59, 130, 246, 0.1)',
-      },
-      '::placeholder': {
-        color: '#6b7280',
-      },
-    },
-  },
 });
 
 export const resultsList = style({
@@ -72,12 +53,6 @@ export const resultsList = style({
   padding: '0.25rem',
   margin: 0,
   zIndex: 50,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#1f2937',
-      borderColor: '#374151',
-    },
-  },
 });
 
 export const resultItem = style({
@@ -97,26 +72,12 @@ export const resultItem = style({
   ':hover': {
     backgroundColor: '#f3f4f6',
   },
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#d1d5db',
-      ':hover': {
-        backgroundColor: '#374151',
-      },
-    },
-  },
 });
 
 export const resultItemSelected = style({
   backgroundColor: '#eff6ff',
   color: '#2563eb',
   fontWeight: 500,
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      backgroundColor: '#1e3a8a',
-      color: '#60a5fa',
-    },
-  },
 });
 
 export const resultLabel = style({
@@ -129,10 +90,4 @@ export const resultCategory = style({
   backgroundColor: '#f3f4f6',
   padding: '0.125rem 0.5rem',
   borderRadius: '0.25rem',
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      color: '#6b7280',
-      backgroundColor: '#4b5563',
-    },
-  },
 });
