@@ -1,0 +1,499 @@
+import {
+  Card,
+  List,
+  ListItem,
+} from '@taein-designsystem/core';
+import { LivePreview } from '../../../components/LivePreview';
+import { CodeBlock } from '../../../components/CodeBlock';
+import { PropsTable } from '../../../components/PropsTable';
+import type { PropDefinition } from '../../../components/PropsTable/PropsTable';
+import { AccessibilitySection } from '../../../components/AccessibilitySection';
+import * as styles from './LoaderPage.css';
+
+export function LoaderPage() {
+
+  const propsData: PropDefinition[] = [
+    {
+      name: 'type',
+      type: "'spinner' | 'dots' | 'bar'",
+      default: "'spinner'",
+      description: '로더 타입 (스피너, 점 애니메이션, 프로그레스 바)',
+    },
+    {
+      name: 'size',
+      type: "'sm' | 'md' | 'lg' | 'xl'",
+      default: "'md'",
+      description: '로더 크기',
+    },
+    {
+      name: 'color',
+      type: "'primary' | 'secondary' | 'white'",
+      default: "'primary'",
+      description: '로더 색상',
+    },
+    {
+      name: 'label',
+      type: 'string',
+      description: '로더 하단에 표시할 텍스트 라벨',
+    },
+    {
+      name: 'fullScreen',
+      type: 'boolean',
+      default: 'false',
+      description: '전체 화면 로더 (fixed 포지션, 반투명 배경)',
+    },
+    {
+      name: 'overlay',
+      type: 'boolean',
+      default: 'false',
+      description: '오버레이 로더 (absolute 포지션, 부모 요소 위에 겹침)',
+    },
+    {
+      name: 'aria-label',
+      type: 'string',
+      description: '접근성 레이블 (기본값: label 또는 "로딩 중")',
+    },
+    {
+      name: 'className',
+      type: 'string',
+      description: '추가 CSS 클래스',
+    },
+  ];
+
+  return (
+    <article className={styles.container}>
+      {/* Header */}
+      <header className={styles.header}>
+        <h1 className={styles.title}>Loader</h1>
+        <p className={styles.description}>
+          Loader 컴포넌트는 페이지 전체 또는 특정 영역이 로딩 중일 때 사용합니다. 오버레이, 라벨 등을 함께 표시할 수 있습니다.
+        </p>
+      </header>
+
+      {/* Loader vs LoadingSpinner */}
+      <section className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>Loader vs LoadingSpinner</h2>
+          <p className={styles.sectionDescription}>
+            TDS는 로딩 인디케이터를 두 계층으로 나누어 제공합니다. 목적에 맞는 컴포넌트를 선택하세요.
+          </p>
+        </div>
+
+        <div className={styles.practicesGrid}>
+          <Card>
+            <Card.Body padding="lg">
+              <div className={styles.practiceHeader}>
+                <h3 className={styles.practiceTitle}>LoadingSpinner (저수준)</h3>
+              </div>
+              <List spacing="sm" className={styles.practiceList}>
+                <ListItem>순수한 스피너/점 애니메이션만 렌더링</ListItem>
+                <ListItem>CSS 색상 문자열로 색상 직접 지정 (예: "#8b5cf6")</ListItem>
+                <ListItem>inline-flex — 텍스트, 버튼 옆에 자연스럽게 배치</ListItem>
+                <ListItem>라벨, 오버레이, 전체 화면 기능 없음</ListItem>
+                <ListItem>커스텀 로딩 UI를 직접 조합할 때 사용</ListItem>
+              </List>
+            </Card.Body>
+          </Card>
+
+          <Card>
+            <Card.Body padding="lg">
+              <div className={styles.practiceHeader}>
+                <h3 className={styles.practiceTitle}>Loader (고수준) ← 현재 페이지</h3>
+              </div>
+              <List spacing="sm" className={styles.practiceList}>
+                <ListItem>내부에서 LoadingSpinner를 사용하여 구현</ListItem>
+                <ListItem>디자인 토큰 기반 색상 프리셋 (primary / secondary / white)</ListItem>
+                <ListItem>label, overlay, fullScreen 등 앱 수준 기능 내장</ListItem>
+                <ListItem>bar 타입 (프로그레스 바) 추가 지원</ListItem>
+                <ListItem>빠르게 로딩 UI를 완성하고 싶을 때 사용</ListItem>
+              </List>
+            </Card.Body>
+          </Card>
+        </div>
+
+        <div className={styles.example} style={{ marginTop: '1.5rem' }}>
+          <h3 className={styles.exampleTitle}>언제 어떤 걸 쓸까?</h3>
+          <CodeBlock
+            language="tsx"
+            code={`// 1. 간단한 로딩 UI → Loader 사용
+<Loader label="불러오는 중..." />
+<Loader overlay />
+<Loader fullScreen />
+
+// 2. 커스텀 로딩 UI를 직접 만들 때 → LoadingSpinner 사용
+<div className={myCustomOverlay}>
+  <LoadingSpinner size="xl" color="#8b5cf6" />
+  <p>커스텀 레이아웃의 로딩 화면</p>
+</div>
+
+// 3. 브랜드 색상이 아닌 임의의 색상 → LoadingSpinner 사용
+<LoadingSpinner color="#ea580c" />`}
+          />
+        </div>
+      </section>
+
+      {/* Quick Reference */}
+      <section className={styles.quickReference}>
+        <Card className={styles.quickRefCard}>
+          <Card.Body padding="md">
+            <h3 className={styles.quickRefTitle}>Import</h3>
+            <CodeBlock
+              language="typescript"
+              code={`import { Loader } from '@taein-designsystem/core';`}
+            />
+          </Card.Body>
+        </Card>
+        <Card className={styles.quickRefCard}>
+          <Card.Body padding="md">
+            <h3 className={styles.quickRefTitle}>Spinner</h3>
+            <CodeBlock
+              language="tsx"
+              code={`<Loader type="spinner" size="md" />`}
+            />
+          </Card.Body>
+        </Card>
+        <Card className={styles.quickRefCard}>
+          <Card.Body padding="md">
+            <h3 className={styles.quickRefTitle}>With Label</h3>
+            <CodeBlock
+              language="tsx"
+              code={`<Loader label="불러오는 중..." />`}
+            />
+          </Card.Body>
+        </Card>
+      </section>
+
+      {/* Types */}
+      <section className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>Types</h2>
+          <p className={styles.sectionDescription}>
+            세 가지 로더 타입을 제공합니다.
+          </p>
+        </div>
+
+        <div className={styles.example}>
+          <h3 className={styles.exampleTitle}>Spinner</h3>
+          <LivePreview
+            title="스피너"
+            description="회전하는 원형 스피너입니다. 가장 일반적인 로딩 인디케이터입니다."
+            editable
+            code={`<div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+  <Loader type="spinner" size="sm" />
+  <Loader type="spinner" size="md" />
+  <Loader type="spinner" size="lg" />
+  <Loader type="spinner" size="xl" />
+</div>`}
+          />
+        </div>
+
+        <div className={styles.example}>
+          <h3 className={styles.exampleTitle}>Dots</h3>
+          <LivePreview
+            title="점 애니메이션"
+            description="세 개의 점이 순서대로 깜빡이는 애니메이션입니다. 채팅이나 타이핑 인디케이터에 적합합니다."
+            editable
+            code={`<div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+  <Loader type="dots" size="sm" />
+  <Loader type="dots" size="md" />
+  <Loader type="dots" size="lg" />
+  <Loader type="dots" size="xl" />
+</div>`}
+          />
+        </div>
+
+        <div className={styles.example}>
+          <h3 className={styles.exampleTitle}>Bar</h3>
+          <LivePreview
+            title="프로그레스 바"
+            description="좌우로 움직이는 프로그레스 바입니다. 페이지 상단이나 섹션 로딩에 적합합니다."
+            editable
+            code={`<div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+  <Loader type="bar" size="sm" />
+  <Loader type="bar" size="md" />
+  <Loader type="bar" size="lg" />
+  <Loader type="bar" size="xl" />
+</div>`}
+          />
+        </div>
+      </section>
+
+      {/* Colors */}
+      <section className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>Colors</h2>
+          <p className={styles.sectionDescription}>
+            로더 색상을 지정합니다. white는 어두운 배경에서 사용합니다.
+          </p>
+        </div>
+
+        <div className={styles.example}>
+          <h3 className={styles.exampleTitle}>Color Variants</h3>
+          <LivePreview
+            title="색상 변형"
+            description="primary(브랜드 색상), secondary(회색), white(흰색) 세 가지 색상을 제공합니다."
+            editable
+            code={`<div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+    <Loader color="primary" size="lg" />
+    <span style={{ fontSize: '0.75rem', color: '#6b7280' }}>primary</span>
+  </div>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+    <Loader color="secondary" size="lg" />
+    <span style={{ fontSize: '0.75rem', color: '#6b7280' }}>secondary</span>
+  </div>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', backgroundColor: '#1f2937', padding: '1rem', borderRadius: '0.5rem' }}>
+    <Loader color="white" size="lg" />
+    <span style={{ fontSize: '0.75rem', color: '#9ca3af' }}>white</span>
+  </div>
+</div>`}
+          />
+        </div>
+
+        <div className={styles.example}>
+          <h3 className={styles.exampleTitle}>Colors with Types</h3>
+          <LivePreview
+            title="타입별 색상"
+            description="모든 타입에 색상을 적용할 수 있습니다."
+            editable
+            code={`<div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+  <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+    <span style={{ width: '80px', fontSize: '0.75rem', color: '#6b7280' }}>Spinner</span>
+    <Loader type="spinner" color="primary" />
+    <Loader type="spinner" color="secondary" />
+  </div>
+  <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+    <span style={{ width: '80px', fontSize: '0.75rem', color: '#6b7280' }}>Dots</span>
+    <Loader type="dots" color="primary" />
+    <Loader type="dots" color="secondary" />
+  </div>
+  <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+    <span style={{ width: '80px', fontSize: '0.75rem', color: '#6b7280' }}>Bar</span>
+    <Loader type="bar" color="primary" size="sm" />
+  </div>
+  <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+    <span style={{ width: '80px', fontSize: '0.75rem', color: '#6b7280' }}>Bar</span>
+    <Loader type="bar" color="secondary" size="sm" />
+  </div>
+</div>`}
+          />
+        </div>
+      </section>
+
+      {/* Label */}
+      <section className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>Label</h2>
+          <p className={styles.sectionDescription}>
+            로더 하단에 텍스트 라벨을 표시합니다.
+          </p>
+        </div>
+
+        <div className={styles.example}>
+          <h3 className={styles.exampleTitle}>With Label</h3>
+          <LivePreview
+            title="라벨 텍스트"
+            description="label prop으로 로더 하단에 현재 상태를 안내하는 텍스트를 표시합니다."
+            editable
+            code={`<div style={{ display: 'flex', gap: '3rem', alignItems: 'flex-start' }}>
+  <Loader type="spinner" label="불러오는 중..." />
+  <Loader type="dots" label="연결 대기 중..." />
+  <Loader type="spinner" label="저장 중..." color="secondary" />
+</div>`}
+          />
+        </div>
+      </section>
+
+      {/* Overlay */}
+      <section className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>Overlay</h2>
+          <p className={styles.sectionDescription}>
+            부모 요소 위에 반투명 배경과 함께 로더를 겹쳐 표시합니다.
+          </p>
+        </div>
+
+        <div className={styles.example}>
+          <h3 className={styles.exampleTitle}>Overlay Mode</h3>
+          <LivePreview
+            title="오버레이 로더"
+            description="overlay prop으로 부모 요소를 덮는 로딩 상태를 표현합니다. 부모에 position: relative가 필요합니다."
+            editable
+            code={`const [loading, setLoading] = useState(true);
+
+<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+  <Button size="sm" variant="light" onClick={() => setLoading(!loading)}>
+    {loading ? '로딩 해제' : '로딩 시작'}
+  </Button>
+  <div style={{ position: 'relative', padding: '2rem', backgroundColor: '#f9fafb', borderRadius: '0.75rem', minHeight: '150px' }}>
+    <p style={{ fontWeight: 500, marginBottom: '0.5rem' }}>카드 콘텐츠</p>
+    <p style={{ fontSize: '0.875rem', color: '#6b7280' }}>이 영역 위에 오버레이 로더가 표시됩니다.</p>
+    {loading && <Loader overlay label="데이터 로딩 중..." />}
+  </div>
+</div>`}
+          />
+        </div>
+      </section>
+
+      {/* Combination */}
+      <section className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>Combinations</h2>
+          <p className={styles.sectionDescription}>
+            실제 사용 맥락에 맞는 조합 예제입니다.
+          </p>
+        </div>
+
+        <div className={styles.example}>
+          <h3 className={styles.exampleTitle}>Loading States</h3>
+          <LivePreview
+            title="로딩 상태 시뮬레이션"
+            description="버튼 클릭으로 로딩 상태를 토글하여 실제 사용 패턴을 시뮬레이션합니다."
+            editable
+            code={`const [state, setState] = useState('idle');
+const handleLoad = () => {
+  setState('loading');
+  setTimeout(() => setState('done'), 2000);
+};
+
+<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'flex-start' }}>
+  <Button size="sm" onClick={handleLoad} disabled={state === 'loading'}>
+    {state === 'loading' ? '로딩 중...' : '데이터 불러오기'}
+  </Button>
+  {state === 'loading' && <Loader type="dots" label="데이터를 가져오는 중..." />}
+  {state === 'done' && (
+    <div style={{ padding: '1rem', backgroundColor: '#f0fdf4', borderRadius: '0.5rem', borderLeft: '3px solid #00C73C' }}>
+      <span style={{ color: '#059669', fontWeight: 500 }}>데이터를 성공적으로 불러왔습니다!</span>
+    </div>
+  )}
+</div>`}
+          />
+        </div>
+
+        <div className={styles.example}>
+          <h3 className={styles.exampleTitle}>Inline Loader</h3>
+          <LivePreview
+            title="인라인 로더"
+            description="텍스트와 함께 인라인으로 배치하는 패턴입니다."
+            editable
+            code={`<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+    <Loader type="spinner" size="sm" />
+    <span style={{ fontSize: '0.875rem', color: '#6b7280' }}>메시지를 전송하는 중...</span>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+    <Loader type="dots" size="sm" />
+    <span style={{ fontSize: '0.875rem', color: '#6b7280' }}>상대방이 입력 중</span>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+    <Loader type="spinner" size="sm" color="secondary" />
+    <span style={{ fontSize: '0.875rem', color: '#6b7280' }}>업로드 준비 중...</span>
+  </div>
+</div>`}
+          />
+        </div>
+      </section>
+
+      {/* Props API */}
+      <section className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>Props API</h2>
+          <p className={styles.sectionDescription}>
+            Loader 컴포넌트의 모든 Props와 타입 정보입니다. HTML div 속성도 모두 사용 가능합니다.
+          </p>
+        </div>
+        <div className={styles.propsTableWrapper}>
+          <PropsTable props={propsData} />
+        </div>
+      </section>
+
+      {/* Accessibility */}
+      <AccessibilitySection
+        componentName="Loader"
+        intro="Loader 컴포넌트는 다음과 같은 접근성 기능을 기본 제공합니다."
+        features={[
+          {
+            attribute: 'role="status"',
+            effect: '로더가 상태 정보임을 전달합니다.',
+            description: 'role="status"로 설정되어 스크린 리더가 로딩 상태임을 인식합니다.',
+          },
+          {
+            attribute: 'aria-busy="true"',
+            effect: '작업이 진행 중임을 알립니다.',
+            description: 'bar 타입에서 aria-busy="true"가 설정되어 콘텐츠가 아직 로딩 중임을 전달합니다.',
+          },
+          {
+            attribute: 'aria-live="polite"',
+            effect: '상태 변화를 자동으로 읽습니다.',
+            description: 'bar 타입에서 aria-live="polite"로 설정되어 로딩 완료 시 스크린 리더가 알립니다.',
+          },
+          {
+            attribute: 'aria-label',
+            effect: '로더의 용도를 설명합니다.',
+            description: 'label prop 또는 aria-label로 "로딩 중" 등 기본 레이블이 제공됩니다.',
+          },
+        ]}
+        additionalGuidance={[
+          {
+            title: '맥락에 맞는 라벨',
+            description: '어떤 콘텐츠를 로딩하는지 구체적으로 안내하세요.',
+            examples: [
+              {
+                code: `// Good
+<Loader label="프로필 정보를 불러오는 중..." />
+
+// Bad - 맥락 부족
+<Loader />`,
+                explanation: 'label이나 aria-label로 구체적인 맥락을 전달하면 스크린 리더 사용자의 이해도가 높아집니다.',
+              },
+            ],
+          },
+        ]}
+      />
+
+      {/* Best Practices */}
+      <section className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>Best Practices</h2>
+          <p className={styles.sectionDescription}>
+            Loader를 효과적으로 사용하기 위한 권장사항입니다.
+          </p>
+        </div>
+
+        <div className={styles.practicesGrid}>
+          <Card>
+            <Card.Body padding="lg">
+              <div className={styles.practiceHeader}>
+                <span className={styles.practiceIcon}>&#10003;</span>
+                <h3 className={styles.practiceTitle}>Do</h3>
+              </div>
+              <List spacing="sm" className={styles.practiceList}>
+                <ListItem>200ms 이상 걸리는 작업에만 로더 표시</ListItem>
+                <ListItem>무엇을 로딩하는지 label로 안내</ListItem>
+                <ListItem>부분 로딩에는 overlay, 전체 로딩에는 fullScreen 사용</ListItem>
+                <ListItem>인라인 로더는 sm 크기 사용</ListItem>
+                <ListItem>어두운 배경에서는 white 색상 사용</ListItem>
+              </List>
+            </Card.Body>
+          </Card>
+
+          <Card>
+            <Card.Body padding="lg">
+              <div className={styles.practiceHeader}>
+                <span className={styles.practiceIconError}>&#10007;</span>
+                <h3 className={styles.practiceTitle}>Don't</h3>
+              </div>
+              <List spacing="sm" className={styles.practiceList}>
+                <ListItem>즉시 완료되는 작업에 로더 표시하지 않기</ListItem>
+                <ListItem>한 화면에 여러 개의 fullScreen 로더 사용하지 않기</ListItem>
+                <ListItem>로딩 중 사용자 인터랙션을 막지 않는 곳에 overlay 남용하지 않기</ListItem>
+                <ListItem>라벨 없이 장시간 로딩 상태를 유지하지 않기</ListItem>
+                <ListItem>로딩 완료 후 로더를 방치하지 않기</ListItem>
+              </List>
+            </Card.Body>
+          </Card>
+        </div>
+      </section>
+    </article>
+  );
+}

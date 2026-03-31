@@ -38,20 +38,20 @@ export function TypographyPage() {
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>Font Family</h2>
         <p className={styles.sectionDescription}>
-          시스템 폰트를 사용하여 빠른 로딩과 최적의 가독성을 제공합니다.
+          기본 폰트로 Pretendard를 사용하며, 폰트가 로드되지 않은 환경에서는 시스템 폰트로 자연스럽게 대체됩니다.
         </p>
 
         <div className={styles.fontFamilyGrid}>
           <div className={styles.fontFamilyCard}>
             <h3 className={styles.fontFamilyTitle}>Sans-serif (Default)</h3>
-            <p className={styles.fontFamilySample} style={{ fontFamily: 'sans-serif' }}>
+            <p className={styles.fontFamilySample}>
               The quick brown fox jumps over the lazy dog
             </p>
-            <p className={styles.fontFamilyKorean} style={{ fontFamily: 'sans-serif' }}>
+            <p className={styles.fontFamilyKorean}>
               가나다라마바사아자차카타파하
             </p>
             <CodeBlock
-              code="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+              code={`"Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif`}
               language="css"
               showLineNumbers={false}
             />

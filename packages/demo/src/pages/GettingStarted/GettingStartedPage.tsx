@@ -70,6 +70,26 @@ import '@taein-designsystem/core/styles.css';`}
         </div>
 
         <div className={styles.codeExample}>
+          <h3 className={styles.exampleTitle}>폰트 설정 (권장)</h3>
+          <p className={styles.exampleDescription}>
+            TDS는 기본 폰트로 Pretendard를 사용합니다.
+            폰트가 로드되지 않은 환경에서는 시스템 폰트로 자동 대체되지만,
+            최적의 경험을 위해 Pretendard를 로드하는 것을 권장합니다.
+          </p>
+          <CodeBlock
+            code={`<!-- index.html의 <head>에 추가 -->
+<link
+  rel="stylesheet"
+  as="style"
+  crossorigin
+  href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+/>`}
+            language="html"
+            fileName="index.html"
+          />
+        </div>
+
+        <div className={styles.codeExample}>
           <h3 className={styles.exampleTitle}>컴포넌트 Import</h3>
           <p className={styles.exampleDescription}>
             필요한 컴포넌트를 import하여 사용합니다.

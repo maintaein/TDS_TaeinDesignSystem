@@ -1,21 +1,167 @@
+import { lazy, Suspense, type ReactNode } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { RootLayout } from '../layouts/RootLayout';
 import { IntroductionPage } from '../pages/Introduction/IntroductionPage';
-import { GettingStartedPage } from '../pages/GettingStarted/GettingStartedPage';
-import { ComponentTestPage } from '../pages/ComponentTest';
-import { ColorsPage } from '../pages/DesignTokens/ColorsPage';
-import { TypographyPage } from '../pages/DesignTokens/TypographyPage';
-import { SpacingPage } from '../pages/DesignTokens/SpacingPage';
-import { ShadowsPage } from '../pages/DesignTokens/ShadowsPage';
-import { AnimationPage } from '../pages/DesignTokens/AnimationPage';
-import { ComponentsOverviewPage } from '../pages/Components/ComponentsOverviewPage';
-import { TextFieldPage } from '../pages/Components/TextField';
-import { TextAreaPage } from '../pages/Components/TextArea';
-import { CheckboxPage } from '../pages/Components/Checkbox';
-import { SwitchPage } from '../pages/Components/Switch';
-import { NumericSpinnerPage } from '../pages/Components/NumericSpinner';
-import { AccessibilityPage } from '../pages/Guidelines';
 import { ErrorPage } from '../pages/Error';
+
+// ─── Lazy-loaded pages ─────────────────────────────────────────────
+
+// Getting Started
+const GettingStartedPage = lazy(() =>
+  import('../pages/GettingStarted/GettingStartedPage').then((m) => ({ default: m.GettingStartedPage }))
+);
+
+// Design Tokens
+const ColorsPage = lazy(() =>
+  import('../pages/DesignTokens/ColorsPage').then((m) => ({ default: m.ColorsPage }))
+);
+const TypographyPage = lazy(() =>
+  import('../pages/DesignTokens/TypographyPage').then((m) => ({ default: m.TypographyPage }))
+);
+const SpacingPage = lazy(() =>
+  import('../pages/DesignTokens/SpacingPage').then((m) => ({ default: m.SpacingPage }))
+);
+const ShadowsPage = lazy(() =>
+  import('../pages/DesignTokens/ShadowsPage').then((m) => ({ default: m.ShadowsPage }))
+);
+const AnimationPage = lazy(() =>
+  import('../pages/DesignTokens/AnimationPage').then((m) => ({ default: m.AnimationPage }))
+);
+
+// Components
+const ComponentsOverviewPage = lazy(() =>
+  import('../pages/Components/ComponentsOverviewPage').then((m) => ({ default: m.ComponentsOverviewPage }))
+);
+const TextFieldPage = lazy(() =>
+  import('../pages/Components/TextField').then((m) => ({ default: m.TextFieldPage }))
+);
+const TextAreaPage = lazy(() =>
+  import('../pages/Components/TextArea').then((m) => ({ default: m.TextAreaPage }))
+);
+const CheckboxPage = lazy(() =>
+  import('../pages/Components/Checkbox').then((m) => ({ default: m.CheckboxPage }))
+);
+const SwitchPage = lazy(() =>
+  import('../pages/Components/Switch').then((m) => ({ default: m.SwitchPage }))
+);
+const NumericSpinnerPage = lazy(() =>
+  import('../pages/Components/NumericSpinner').then((m) => ({ default: m.NumericSpinnerPage }))
+);
+const SegmentedButtonsPage = lazy(() =>
+  import('../pages/Components/SegmentedButtons').then((m) => ({ default: m.SegmentedButtonsPage }))
+);
+const SliderPage = lazy(() =>
+  import('../pages/Components/Slider').then((m) => ({ default: m.SliderPage }))
+);
+const ButtonPage = lazy(() =>
+  import('../pages/Components/Button').then((m) => ({ default: m.ButtonPage }))
+);
+const IconPage = lazy(() =>
+  import('../pages/Components/Icon').then((m) => ({ default: m.IconPage }))
+);
+const IconButtonPage = lazy(() =>
+  import('../pages/Components/IconButton').then((m) => ({ default: m.IconButtonPage }))
+);
+const TextPage = lazy(() =>
+  import('../pages/Components/Text').then((m) => ({ default: m.TextPage }))
+);
+const BadgePage = lazy(() =>
+  import('../pages/Components/Badge').then((m) => ({ default: m.BadgePage }))
+);
+const LoaderPage = lazy(() =>
+  import('../pages/Components/Loader').then((m) => ({ default: m.LoaderPage }))
+);
+const SkeletonPage = lazy(() =>
+  import('../pages/Components/Skeleton').then((m) => ({ default: m.SkeletonPage }))
+);
+const SnackbarPage = lazy(() =>
+  import('../pages/Components/Snackbar').then((m) => ({ default: m.SnackbarPage }))
+);
+const TooltipPage = lazy(() =>
+  import('../pages/Components/Tooltip').then((m) => ({ default: m.TooltipPage }))
+);
+const ModalPage = lazy(() =>
+  import('../pages/Components/Modal').then((m) => ({ default: m.ModalPage }))
+);
+const BottomSheetPage = lazy(() =>
+  import('../pages/Components/BottomSheet').then((m) => ({ default: m.BottomSheetPage }))
+);
+const SideSheetPage = lazy(() =>
+  import('../pages/Components/SideSheet').then((m) => ({ default: m.SideSheetPage }))
+);
+const HeaderBarPage = lazy(() =>
+  import('../pages/Components/HeaderBar').then((m) => ({ default: m.HeaderBarPage }))
+);
+const DividerPage = lazy(() =>
+  import('../pages/Components/Divider').then((m) => ({ default: m.DividerPage }))
+);
+const BorderPage = lazy(() =>
+  import('../pages/Components/Border').then((m) => ({ default: m.BorderPage }))
+);
+const ListPage = lazy(() =>
+  import('../pages/Components/List').then((m) => ({ default: m.ListPage }))
+);
+const BoardRowPage = lazy(() =>
+  import('../pages/Components/BoardRow').then((m) => ({ default: m.BoardRowPage }))
+);
+const AvatarPage = lazy(() =>
+  import('../pages/Components/Avatar').then((m) => ({ default: m.AvatarPage }))
+);
+const PopoverPage = lazy(() =>
+  import('../pages/Components/Popover').then((m) => ({ default: m.PopoverPage }))
+);
+const ChipPage = lazy(() =>
+  import('../pages/Components/Chip').then((m) => ({ default: m.ChipPage }))
+);
+const CardPage = lazy(() =>
+  import('../pages/Components/Card').then((m) => ({ default: m.CardPage }))
+);
+const FormFieldPage = lazy(() =>
+  import('../pages/Components/FormField').then((m) => ({ default: m.FormFieldPage }))
+);
+const LoadingSpinnerPage = lazy(() =>
+  import('../pages/Components/LoadingSpinner').then((m) => ({ default: m.LoadingSpinnerPage }))
+);
+
+// Guidelines
+const DesignPrinciplesPage = lazy(() =>
+  import('../pages/Guidelines/DesignPrinciplesPage').then((m) => ({ default: m.DesignPrinciplesPage }))
+);
+const AccessibilityPage = lazy(() =>
+  import('../pages/Guidelines/AccessibilityPage').then((m) => ({ default: m.AccessibilityPage }))
+);
+const PerformancePage = lazy(() =>
+  import('../pages/Guidelines/PerformancePage').then((m) => ({ default: m.PerformancePage }))
+);
+
+// ─── Suspense wrapper ──────────────────────────────────────────────
+
+function PageLoader() {
+  return (
+    <div
+      style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '200px' }}
+      role="status"
+      aria-label="페이지 로딩 중"
+    >
+      <div
+        style={{
+          width: '32px',
+          height: '32px',
+          border: '3px solid #e5e7eb',
+          borderTopColor: '#6366f1',
+          borderRadius: '50%',
+          animation: 'spin 0.8s linear infinite',
+        }}
+      />
+    </div>
+  );
+}
+
+function LazyPage({ children }: { children: ReactNode }) {
+  return <Suspense fallback={<PageLoader />}>{children}</Suspense>;
+}
+
+// ─── Router ────────────────────────────────────────────────────────
 
 const router = createBrowserRouter([
   {
@@ -29,34 +175,30 @@ const router = createBrowserRouter([
       },
       {
         path: 'getting-started',
-        element: <GettingStartedPage />,
-      },
-      {
-        path: 'component-test',
-        element: <ComponentTestPage />,
+        element: <LazyPage><GettingStartedPage /></LazyPage>,
       },
       {
         path: 'design-tokens',
         children: [
           {
             path: 'colors',
-            element: <ColorsPage />,
+            element: <LazyPage><ColorsPage /></LazyPage>,
           },
           {
             path: 'typography',
-            element: <TypographyPage />,
+            element: <LazyPage><TypographyPage /></LazyPage>,
           },
           {
             path: 'spacing',
-            element: <SpacingPage />,
+            element: <LazyPage><SpacingPage /></LazyPage>,
           },
           {
             path: 'shadows',
-            element: <ShadowsPage />,
+            element: <LazyPage><ShadowsPage /></LazyPage>,
           },
           {
             path: 'animation',
-            element: <AnimationPage />,
+            element: <LazyPage><AnimationPage /></LazyPage>,
           },
         ],
       },
@@ -65,36 +207,127 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'overview',
-            element: <ComponentsOverviewPage />,
+            element: <LazyPage><ComponentsOverviewPage /></LazyPage>,
           },
           {
             path: 'text-field',
-            element: <TextFieldPage />,
+            element: <LazyPage><TextFieldPage /></LazyPage>,
           },
           {
             path: 'text-area',
-            element: <TextAreaPage />,
+            element: <LazyPage><TextAreaPage /></LazyPage>,
           },
           {
             path: 'checkbox',
-            element: <CheckboxPage />,
+            element: <LazyPage><CheckboxPage /></LazyPage>,
           },
           {
             path: 'switch',
-            element: <SwitchPage />,
+            element: <LazyPage><SwitchPage /></LazyPage>,
           },
           {
             path: 'numeric-spinner',
-            element: <NumericSpinnerPage />,
+            element: <LazyPage><NumericSpinnerPage /></LazyPage>,
           },
-        ],
-      },
-      {
-        path: 'patterns',
-        children: [
           {
-            path: 'overview',
-            element: <div>패턴 개요 (준비 중)</div>,
+            path: 'segmented-buttons',
+            element: <LazyPage><SegmentedButtonsPage /></LazyPage>,
+          },
+          {
+            path: 'slider',
+            element: <LazyPage><SliderPage /></LazyPage>,
+          },
+          {
+            path: 'button',
+            element: <LazyPage><ButtonPage /></LazyPage>,
+          },
+          {
+            path: 'icon',
+            element: <LazyPage><IconPage /></LazyPage>,
+          },
+          {
+            path: 'icon-button',
+            element: <LazyPage><IconButtonPage /></LazyPage>,
+          },
+          {
+            path: 'text',
+            element: <LazyPage><TextPage /></LazyPage>,
+          },
+          {
+            path: 'badge',
+            element: <LazyPage><BadgePage /></LazyPage>,
+          },
+          {
+            path: 'loader',
+            element: <LazyPage><LoaderPage /></LazyPage>,
+          },
+          {
+            path: 'skeleton',
+            element: <LazyPage><SkeletonPage /></LazyPage>,
+          },
+          {
+            path: 'snackbar',
+            element: <LazyPage><SnackbarPage /></LazyPage>,
+          },
+          {
+            path: 'tooltip',
+            element: <LazyPage><TooltipPage /></LazyPage>,
+          },
+          {
+            path: 'modal',
+            element: <LazyPage><ModalPage /></LazyPage>,
+          },
+          {
+            path: 'bottom-sheet',
+            element: <LazyPage><BottomSheetPage /></LazyPage>,
+          },
+          {
+            path: 'side-sheet',
+            element: <LazyPage><SideSheetPage /></LazyPage>,
+          },
+          {
+            path: 'header-bar',
+            element: <LazyPage><HeaderBarPage /></LazyPage>,
+          },
+          {
+            path: 'divider',
+            element: <LazyPage><DividerPage /></LazyPage>,
+          },
+          {
+            path: 'border',
+            element: <LazyPage><BorderPage /></LazyPage>,
+          },
+          {
+            path: 'list',
+            element: <LazyPage><ListPage /></LazyPage>,
+          },
+          {
+            path: 'board-row',
+            element: <LazyPage><BoardRowPage /></LazyPage>,
+          },
+          {
+            path: 'avatar',
+            element: <LazyPage><AvatarPage /></LazyPage>,
+          },
+          {
+            path: 'popover',
+            element: <LazyPage><PopoverPage /></LazyPage>,
+          },
+          {
+            path: 'chip',
+            element: <LazyPage><ChipPage /></LazyPage>,
+          },
+          {
+            path: 'card',
+            element: <LazyPage><CardPage /></LazyPage>,
+          },
+          {
+            path: 'form-field',
+            element: <LazyPage><FormFieldPage /></LazyPage>,
+          },
+          {
+            path: 'loading-spinner',
+            element: <LazyPage><LoadingSpinnerPage /></LazyPage>,
           },
         ],
       },
@@ -103,15 +336,15 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'design-principles',
-            element: <div>디자인 원칙 (준비 중)</div>,
+            element: <LazyPage><DesignPrinciplesPage /></LazyPage>,
           },
           {
             path: 'accessibility',
-            element: <AccessibilityPage />,
+            element: <LazyPage><AccessibilityPage /></LazyPage>,
           },
           {
             path: 'performance',
-            element: <div>성능 (준비 중)</div>,
+            element: <LazyPage><PerformancePage /></LazyPage>,
           },
         ],
       },
