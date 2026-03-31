@@ -1,4 +1,11 @@
-import { forwardRef, useId, useState, useCallback, type InputHTMLAttributes, type ChangeEvent } from 'react';
+import {
+  forwardRef,
+  useId,
+  useState,
+  useCallback,
+  type InputHTMLAttributes,
+  type ChangeEvent,
+} from 'react';
 import clsx from 'clsx';
 import {
   container,
@@ -83,9 +90,8 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
     const [internalValue, setInternalValue] = useState(Number(defaultValue));
 
     const currentValue = isControlled ? Number(value) : internalValue;
-    const fillPercent = max !== min
-      ? ((currentValue - min) / (max - min)) * 100
-      : 0;
+    const fillPercent =
+      max !== min ? ((currentValue - min) / (max - min)) * 100 : 0;
 
     const handleChange = useCallback(
       (e: ChangeEvent<HTMLInputElement>) => {
@@ -132,7 +138,6 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
             aria-valuemax={max}
             aria-valuenow={currentValue}
             aria-disabled={disabled}
-            aria-required={required}
             aria-describedby={helperText ? helperId : undefined}
             {...props}
           />

@@ -199,7 +199,9 @@ const ModalRoot = ({
       )}
       <div className={modalContentStyle}>{children}</div>
       {footer && (
-        <footer className={clsx(modalFooterStyle, footerAlignStyles[footerAlign])}>
+        <footer
+          className={clsx(modalFooterStyle, footerAlignStyles[footerAlign])}
+        >
           {footer}
         </footer>
       )}
@@ -212,11 +214,13 @@ const ModalRoot = ({
     <ModalContext.Provider value={contextValue}>
       <div className={modalContainer}>
         <div
+          role="presentation"
           className={backdrop}
           onClick={handleBackdropClick}
           data-backdrop="true"
           aria-hidden="true"
         />
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
         <div
           ref={dialogRef}
           role="dialog"
@@ -239,7 +243,6 @@ const ModalRoot = ({
 
 ModalRoot.displayName = 'Modal';
 
-
 // ─── Compound 서브 컴포넌트 ──────────────────────────────────────────
 
 // ModalHeader
@@ -256,7 +259,11 @@ export const ModalHeader = forwardRef<HTMLDivElement, ModalHeaderProps>(
     const context = useModalContext();
 
     return (
-      <header ref={ref} className={clsx(modalHeaderStyle, className)} {...props}>
+      <header
+        ref={ref}
+        className={clsx(modalHeaderStyle, className)}
+        {...props}
+      >
         <div className={modalHeaderContent}>{children}</div>
         {showClose && (
           <button
@@ -302,7 +309,11 @@ export interface ModalTitleProps extends HTMLAttributes<HTMLHeadingElement> {
 export const ModalTitle = forwardRef<HTMLHeadingElement, ModalTitleProps>(
   ({ children, as: Component = 'h2', className, ...props }, ref) => {
     return (
-      <Component ref={ref} className={clsx(modalTitleStyle, className)} {...props}>
+      <Component
+        ref={ref}
+        className={clsx(modalTitleStyle, className)}
+        {...props}
+      >
         {children}
       </Component>
     );
@@ -354,7 +365,6 @@ export const ModalFooter = forwardRef<HTMLDivElement, ModalFooterProps>(
 );
 
 ModalFooter.displayName = 'ModalFooter';
-
 
 // ─── Modal = ModalRoot + Compound 서브 컴포넌트 ────────────────────────
 

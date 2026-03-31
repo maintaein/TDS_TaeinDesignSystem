@@ -2,6 +2,7 @@
   "name": "@taein-designsystem/monorepo",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "description": "TDS - Taein Design System",
   "scripts": {
     "dev": "pnpm --filter @taein-designsystem/demo dev",
@@ -10,9 +11,10 @@
     "build:all": "pnpm -r build",
     "test": "pnpm --filter @taein-designsystem/core test",
     "test:coverage": "pnpm --filter @taein-designsystem/core test:coverage",
-    "lint": "eslint . --ext .ts,.tsx",
+    "lint": "eslint .",
     "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
-    "typecheck": "pnpm -r typecheck"
+    "typecheck": "pnpm -r typecheck",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
@@ -28,9 +30,20 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.26",
     "globals": "^16.5.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
     "prettier": "^3.1.1",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.50.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
   },
   "engines": {
     "node": ">=18.0.0",

@@ -226,6 +226,7 @@ export const SegmentedButtons = ({
         const isDisabled = disabled || option.disabled;
 
         return (
+          // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
           <label
             key={option.value}
             className={clsx(

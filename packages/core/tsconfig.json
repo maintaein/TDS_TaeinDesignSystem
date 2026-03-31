@@ -1,14 +1,9 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./dist",
-    "declarationDir": "./dist",
-    "declaration": true,
-    "emitDeclarationOnly": false,
-    "noEmit": false,
-    "allowImportingTsExtensions": false,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "types": ["@testing-library/jest-dom/vitest"]
   },
   "include": ["src"],
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx", "src/test"]
+  "exclude": ["node_modules", "dist"]
 }

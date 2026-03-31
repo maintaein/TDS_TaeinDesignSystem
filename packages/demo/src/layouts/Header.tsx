@@ -1,4 +1,11 @@
-import { useState, useRef, useEffect, useCallback, type ChangeEvent, type KeyboardEvent } from 'react';
+import {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  type ChangeEvent,
+  type KeyboardEvent,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IconButton } from '@taein-designsystem/core';
 import { SearchDropdown } from '../components/SearchDialog';
@@ -35,7 +42,7 @@ export function Header({ onMenuClick, showMenuButton = false }: HeaderProps) {
       setSelectedIndex(0);
       inputRef.current?.blur();
     },
-    [navigate, reset],
+    [navigate, reset]
   );
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -52,13 +59,13 @@ export function Header({ onMenuClick, showMenuButton = false }: HeaderProps) {
       case 'ArrowDown':
         e.preventDefault();
         setSelectedIndex((prev) =>
-          prev < flatResults.length - 1 ? prev + 1 : 0,
+          prev < flatResults.length - 1 ? prev + 1 : 0
         );
         break;
       case 'ArrowUp':
         e.preventDefault();
         setSelectedIndex((prev) =>
-          prev > 0 ? prev - 1 : flatResults.length - 1,
+          prev > 0 ? prev - 1 : flatResults.length - 1
         );
         break;
       case 'Enter':
@@ -149,6 +156,7 @@ export function Header({ onMenuClick, showMenuButton = false }: HeaderProps) {
               }}
               placeholder="검색..."
               className={styles.searchInput}
+              role="combobox"
               aria-label="검색"
               aria-autocomplete="list"
               aria-expanded={isOpen && hasResults}

@@ -40,7 +40,9 @@ const useBottomSheetContext = () => {
   const context = useContext(BottomSheetContext);
   if (process.env.NODE_ENV === 'development') {
     if (!context) {
-      console.error('BottomSheet 서브 컴포넌트는 BottomSheet 내부에서 사용되어야 합니다');
+      console.error(
+        'BottomSheet 서브 컴포넌트는 BottomSheet 내부에서 사용되어야 합니다'
+      );
     }
   }
   return context;
@@ -262,10 +264,12 @@ const BottomSheetRoot = ({
     <BottomSheetContext.Provider value={contextValue}>
       <div className={bottomSheetContainer}>
         <div
+          role="presentation"
           className={clsx(backdrop, !open ? backdropExit : backdropEnter)}
           onClick={handleBackdropClick}
           aria-hidden="true"
         />
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- dialog 내부 클릭이 backdrop으로 전파되는 것을 막기 위한 stopPropagation */}
         <div
           ref={sheetRef}
           role="dialog"
@@ -281,7 +285,9 @@ const BottomSheetRoot = ({
           onClick={(e) => e.stopPropagation()}
           {...props}
         >
-          {showHandle && <div className={handle} data-testid="bottomsheet-handle" />}
+          {showHandle && (
+            <div className={handle} data-testid="bottomsheet-handle" />
+          )}
 
           {title ? (
             <>
@@ -328,29 +334,30 @@ export interface BottomSheetHeaderProps extends HTMLAttributes<HTMLElement> {
   className?: string;
 }
 
-export const BottomSheetHeader = forwardRef<HTMLElement, BottomSheetHeaderProps>(
-  ({ children, showClose = false, className, ...props }, ref) => {
-    const context = useBottomSheetContext();
+export const BottomSheetHeader = forwardRef<
+  HTMLElement,
+  BottomSheetHeaderProps
+>(({ children, showClose = false, className, ...props }, ref) => {
+  const context = useBottomSheetContext();
 
-    return (
-      <header ref={ref} className={clsx(header, className)} {...props}>
-        <div style={{ flex: 1 }}>{children}</div>
-        {showClose && context && (
-          <IconButton
-            variant="dark"
-            buttonStyle="weak"
-            size="sm"
-            onClick={context.onClose}
-            aria-label="닫기"
-            className={closeButton}
-          >
-            <Icon name="close" size="sm" />
-          </IconButton>
-        )}
-      </header>
-    );
-  }
-);
+  return (
+    <header ref={ref} className={clsx(header, className)} {...props}>
+      <div style={{ flex: 1 }}>{children}</div>
+      {showClose && context && (
+        <IconButton
+          variant="dark"
+          buttonStyle="weak"
+          size="sm"
+          onClick={context.onClose}
+          aria-label="닫기"
+          className={closeButton}
+        >
+          <Icon name="close" size="sm" />
+        </IconButton>
+      )}
+    </header>
+  );
+});
 
 BottomSheetHeader.displayName = 'BottomSheetHeader';
 
@@ -362,15 +369,16 @@ export interface BottomSheetTitleProps extends HTMLAttributes<HTMLHeadingElement
   className?: string;
 }
 
-export const BottomSheetTitle = forwardRef<HTMLHeadingElement, BottomSheetTitleProps>(
-  ({ children, className, ...props }, ref) => {
-    return (
-      <h2 ref={ref} className={clsx(titleStyle, className)} {...props}>
-        {children}
-      </h2>
-    );
-  }
-);
+export const BottomSheetTitle = forwardRef<
+  HTMLHeadingElement,
+  BottomSheetTitleProps
+>(({ children, className, ...props }, ref) => {
+  return (
+    <h2 ref={ref} className={clsx(titleStyle, className)} {...props}>
+      {children}
+    </h2>
+  );
+});
 
 BottomSheetTitle.displayName = 'BottomSheetTitle';
 
@@ -382,18 +390,18 @@ export interface BottomSheetContentProps extends HTMLAttributes<HTMLDivElement> 
   className?: string;
 }
 
-export const BottomSheetContent = forwardRef<HTMLDivElement, BottomSheetContentProps>(
-  ({ children, className, ...props }, ref) => {
-    return (
-      <div ref={ref} className={clsx(content, className)} {...props}>
-        {children}
-      </div>
-    );
-  }
-);
+export const BottomSheetContent = forwardRef<
+  HTMLDivElement,
+  BottomSheetContentProps
+>(({ children, className, ...props }, ref) => {
+  return (
+    <div ref={ref} className={clsx(content, className)} {...props}>
+      {children}
+    </div>
+  );
+});
 
 BottomSheetContent.displayName = 'BottomSheetContent';
-
 
 // ─── BottomSheet = BottomSheetRoot + Compound 서브 컴포넌트 ────────────────────────
 

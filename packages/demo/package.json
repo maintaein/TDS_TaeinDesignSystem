@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "@taein-designsystem/core": "workspace:*",
@@ -21,6 +23,7 @@
     "sucrase": "^3.35.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.2",
     "@types/prismjs": "^1.26.5",
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
