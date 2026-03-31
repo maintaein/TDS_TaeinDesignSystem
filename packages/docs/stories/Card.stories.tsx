@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Card, CardFlat } from '@taein-designsystem/core';
+import { Card } from '@taein-designsystem/core';
 
 // Compound API (Card) - 기본 컴포넌트
 
@@ -523,12 +523,12 @@ export const ProfileCard: Story = {
   ),
 };
 
-// Flat API (CardFlat) - 간단한 사용
+// Flat API (Card) - 간단한 사용
 
 // Flat API 기본
 export const FlatAPIBasic: Story = {
   render: () => (
-    <CardFlat
+    <Card
       header={<h3 style={{ margin: 0 }}>Flat API</h3>}
       footer={
         <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
@@ -553,14 +553,14 @@ export const FlatAPIBasic: Story = {
       <p style={{ margin: 0 }}>
         header, footer, image props로 간단하게 카드를 구성합니다.
       </p>
-    </CardFlat>
+    </Card>
   ),
 };
 
 // Flat API 이미지
 export const FlatAPIWithImage: Story = {
   render: () => (
-    <CardFlat
+    <Card
       image="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=400"
       imageAlt="고양이"
       header={<h3 style={{ margin: 0 }}>이미지 카드</h3>}
@@ -570,21 +570,21 @@ export const FlatAPIWithImage: Story = {
       <p style={{ margin: 0, color: '#666' }}>
         image prop으로 이미지를 간단히 추가할 수 있습니다.
       </p>
-    </CardFlat>
+    </Card>
   ),
 };
 
 // Flat API 클릭 가능
 export const FlatAPIClickable: Story = {
   render: () => (
-    <CardFlat
+    <Card
       header={<h3 style={{ margin: 0 }}>클릭 가능</h3>}
-      onClick={() => alert('CardFlat 클릭!')}
+      onClick={() => alert('Card 클릭!')}
       variant="filled"
       style={{ width: '300px' }}
     >
       <p style={{ margin: 0 }}>onClick prop으로 클릭 이벤트를 추가합니다.</p>
-    </CardFlat>
+    </Card>
   ),
 };
 
@@ -614,7 +614,7 @@ export const APIComparison: Story = {
           }}
         >
           <h3 style={{ margin: '0 0 12px', color: '#4caf50' }}>
-            CardFlat (Flat API)
+            Card (Flat API)
           </h3>
           <ul style={{ margin: 0, paddingLeft: '20px', lineHeight: 1.8 }}>
             <li>간단한 카드 레이아웃</li>
@@ -662,13 +662,13 @@ export const APIComparison: Story = {
               overflow: 'auto',
             }}
           >
-            {`<CardFlat
+            {`<Card
   header={<h3>제목</h3>}
   image="/img.jpg"
   footer={<Button>확인</Button>}
 >
   내용
-</CardFlat>`}
+</Card>`}
           </pre>
         </div>
 

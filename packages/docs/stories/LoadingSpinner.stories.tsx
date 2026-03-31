@@ -184,9 +184,6 @@ export const Colors: Story = {
   ),
 };
 
-/**
- * 다크 배경에 흰색 스피너 예시입니다.
- */
 export const OnDarkBackground: Story = {
   render: () => (
     <div

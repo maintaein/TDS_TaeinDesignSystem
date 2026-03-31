@@ -312,24 +312,6 @@ export const SettingsMenu: Story = {
           align="start"
         />
         <ListItem
-          label="다크 모드"
-          value={
-            <label
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                cursor: 'pointer',
-              }}
-            >
-              <input type="checkbox" />
-              <span>다크 모드 사용</span>
-            </label>
-          }
-          layout="vertical"
-          align="start"
-        />
-        <ListItem
           label="언어 설정"
           value={
             <select
