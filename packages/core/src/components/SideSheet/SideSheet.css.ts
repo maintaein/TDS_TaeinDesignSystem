@@ -1,15 +1,15 @@
-import { style, styleVariants, keyframes } from '@vanilla-extract/css'
-import { themeContract } from '../../tokens/theme.css'
+import { style, styleVariants, keyframes } from '@vanilla-extract/css';
+import { themeContract } from '../../tokens/theme.css';
 
 const fadeIn = keyframes({
   '0%': { opacity: 0 },
   '100%': { opacity: 1 },
-})
+});
 
 const fadeOut = keyframes({
   '0%': { opacity: 1 },
   '100%': { opacity: 0 },
-})
+});
 
 const slideInRight = keyframes({
   '0%': {
@@ -18,7 +18,7 @@ const slideInRight = keyframes({
   '100%': {
     transform: 'translateX(0)',
   },
-})
+});
 
 const slideOutRight = keyframes({
   '0%': {
@@ -27,7 +27,7 @@ const slideOutRight = keyframes({
   '100%': {
     transform: 'translateX(100%)',
   },
-})
+});
 
 const slideInLeft = keyframes({
   '0%': {
@@ -36,7 +36,7 @@ const slideInLeft = keyframes({
   '100%': {
     transform: 'translateX(0)',
   },
-})
+});
 
 const slideOutLeft = keyframes({
   '0%': {
@@ -45,7 +45,7 @@ const slideOutLeft = keyframes({
   '100%': {
     transform: 'translateX(-100%)',
   },
-})
+});
 
 export const sideSheetContainer = style({
   position: 'fixed',
@@ -55,7 +55,7 @@ export const sideSheetContainer = style({
   bottom: 0,
   zIndex: 1400,
   display: 'flex',
-})
+});
 
 export const backdrop = style({
   position: 'fixed',
@@ -65,15 +65,15 @@ export const backdrop = style({
   bottom: 0,
   backgroundColor: 'rgba(0, 0, 0, 0.5)',
   zIndex: -1,
-})
+});
 
 export const backdropEnter = style({
   animation: `${fadeIn} 0.2s ${themeContract.animation.easing.easeOut}`,
-})
+});
 
 export const backdropExit = style({
   animation: `${fadeOut} 0.2s ${themeContract.animation.easing.easeOut} forwards`,
-})
+});
 
 export const sideSheet = style({
   position: 'relative',
@@ -88,7 +88,7 @@ export const sideSheet = style({
   ':focus': {
     outline: 'none',
   },
-})
+});
 
 export const positionStyles = styleVariants({
   right: {
@@ -97,23 +97,23 @@ export const positionStyles = styleVariants({
   left: {
     marginRight: 'auto',
   },
-})
+});
 
 export const sideSheetEnterRight = style({
   animation: `${slideInRight} 0.3s ${themeContract.animation.easing.easeOut}`,
-})
+});
 
 export const sideSheetExitRight = style({
   animation: `${slideOutRight} 0.3s ${themeContract.animation.easing.easeOut} forwards`,
-})
+});
 
 export const sideSheetEnterLeft = style({
   animation: `${slideInLeft} 0.3s ${themeContract.animation.easing.easeOut}`,
-})
+});
 
 export const sideSheetExitLeft = style({
   animation: `${slideOutLeft} 0.3s ${themeContract.animation.easing.easeOut} forwards`,
-})
+});
 
 export const widthStyles = styleVariants({
   sm: {
@@ -132,7 +132,7 @@ export const widthStyles = styleVariants({
     width: '100vw',
     maxWidth: '100vw',
   },
-})
+});
 
 export const header = style({
   display: 'flex',
@@ -141,7 +141,7 @@ export const header = style({
   padding: `${themeContract.spacing[4]} ${themeContract.spacing[6]}`,
   borderBottom: `1px solid ${themeContract.color.border.default}`,
   flexShrink: 0,
-})
+});
 
 export const title = style({
   margin: 0,
@@ -149,7 +149,7 @@ export const title = style({
   fontWeight: themeContract.font.weight.semibold,
   color: themeContract.color.text.primary,
   lineHeight: themeContract.font.lineHeight.tight,
-})
+});
 
 export const closeButton = style({
   padding: themeContract.spacing[2],
@@ -171,10 +171,10 @@ export const closeButton = style({
     outline: `2px solid ${themeContract.color.primary.main}`,
     outlineOffset: '2px',
   },
-})
+});
 
 export const content = style({
   padding: themeContract.spacing[6],
   overflowY: 'auto',
   flex: 1,
-})
+});

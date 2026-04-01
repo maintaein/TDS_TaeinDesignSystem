@@ -1,7 +1,6 @@
-import { style, styleVariants, ComplexStyleRule } from '@vanilla-extract/css'
-import { themeContract } from '../../tokens/theme.css'
+import { style, styleVariants, ComplexStyleRule } from '@vanilla-extract/css';
+import { themeContract } from '../../tokens/theme.css';
 
-// Chip 기본 스타일
 export const chip = style({
   display: 'inline-flex',
   alignItems: 'center',
@@ -16,9 +15,8 @@ export const chip = style({
   transition: 'all 0.2s ease',
   cursor: 'default',
   whiteSpace: 'nowrap',
-})
+});
 
-// 크기 스타일
 export const sizeStyles = styleVariants({
   sm: {
     padding: `${themeContract.spacing[1]} ${themeContract.spacing[2]}`,
@@ -35,9 +33,8 @@ export const sizeStyles = styleVariants({
     fontSize: themeContract.font.size.base,
     gap: themeContract.spacing[2],
   },
-})
+});
 
-// Variant 스타일 (filled, outlined)
 const createVariantStyle = (
   backgroundColor: string,
   color: string,
@@ -46,9 +43,8 @@ const createVariantStyle = (
   backgroundColor,
   color,
   border: border || 'none',
-})
+});
 
-// Filled variant 색상
 const filledVariants = {
   default: createVariantStyle(
     themeContract.color.surface.hover,
@@ -70,9 +66,8 @@ const filledVariants = {
     themeContract.color.warning.main,
     themeContract.color.warning.contrast
   ),
-}
+};
 
-// Outlined variant 색상
 const outlinedVariants = {
   default: createVariantStyle(
     'transparent',
@@ -99,30 +94,25 @@ const outlinedVariants = {
     themeContract.color.warning.main,
     `1px solid ${themeContract.color.warning.main}`
   ),
-}
+};
 
-// Variant 스타일 (복합)
 export const variantStyles = styleVariants({
   filled: {},
   outlined: {},
-})
+});
 
-// Color 스타일 (복합)
 export const colorStyles = styleVariants({
   default: {},
   primary: {},
   success: {},
   error: {},
   warning: {},
-})
+});
 
-// Filled + Color 조합
-export const filledColorStyles = styleVariants(filledVariants)
+export const filledColorStyles = styleVariants(filledVariants);
 
-// Outlined + Color 조합
-export const outlinedColorStyles = styleVariants(outlinedVariants)
+export const outlinedColorStyles = styleVariants(outlinedVariants);
 
-// 클릭 가능한 Chip
 export const clickable = style({
   cursor: 'pointer',
 
@@ -138,34 +128,28 @@ export const clickable = style({
     outline: `2px solid ${themeContract.color.border.focus}`,
     outlineOffset: '0px',
   },
-})
+});
 
-// 선택된 상태 - 색상별로 동적으로 처리해야 하므로 기본 스타일만 제공
 export const selected = style({
-  // 색상별 border는 인라인 스타일로 처리
-})
+});
 
-// 비활성화 상태
 export const disabled = style({
   opacity: 0.5,
   cursor: 'not-allowed',
   pointerEvents: 'none',
-})
+});
 
-// 라벨 스타일
 export const label = style({
   lineHeight: 1,
-})
+});
 
-// 아이콘/아바타 컨테이너
 export const iconContainer = style({
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
   flexShrink: 0,
-})
+});
 
-// 삭제 버튼
 export const deleteButton = style({
   display: 'inline-flex',
   alignItems: 'center',
@@ -193,13 +177,12 @@ export const deleteButton = style({
     cursor: 'not-allowed',
     opacity: 0.4,
   },
-})
+});
 
-// 삭제 아이콘
 export const deleteIcon = style({
   width: '18px',
   height: '18px',
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
-})
+});

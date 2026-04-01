@@ -1,6 +1,12 @@
-import { style, styleVariants } from '@vanilla-extract/css'
-import { themeContract } from '../../tokens/theme.css'
-import { primary, gray, success, error, warning } from '../../tokens/colors.css'
+import { style, styleVariants } from '@vanilla-extract/css';
+import { themeContract } from '../../tokens/theme.css';
+import {
+  primary,
+  gray,
+  success,
+  error,
+  warning,
+} from '../../tokens/colors.css';
 
 export const badge = style({
   display: 'inline-flex',
@@ -13,30 +19,30 @@ export const badge = style({
   transition: `all ${themeContract.animation.duration.base} ${themeContract.animation.easing.easeInOut}`,
   lineHeight: 1,
   minWidth: '20px',
-})
+});
 
 export const variantStyles = styleVariants({
   primary: {
-    backgroundColor: primary[600],
-    color: '#FFFFFF',
+    backgroundColor: `var(--badge-color, ${primary[600]})`,
+    color: themeContract.color.primary.contrast,
   },
   secondary: {
-    backgroundColor: gray[600],
-    color: '#FFFFFF',
+    backgroundColor: `var(--badge-color, ${gray[600]})`,
+    color: themeContract.color.primary.contrast,
   },
   success: {
-    backgroundColor: success[500],
-    color: '#FFFFFF',
+    backgroundColor: `var(--badge-color, ${success[500]})`,
+    color: themeContract.color.success.contrast,
   },
   error: {
-    backgroundColor: error[500],
-    color: '#FFFFFF',
+    backgroundColor: `var(--badge-color, ${error[500]})`,
+    color: themeContract.color.error.contrast,
   },
   warning: {
-    backgroundColor: warning[500],
-    color: gray[900],
+    backgroundColor: `var(--badge-color, ${warning[500]})`,
+    color: themeContract.color.warning.contrast,
   },
-})
+});
 
 export const sizeStyles = styleVariants({
   sm: {
@@ -57,7 +63,7 @@ export const sizeStyles = styleVariants({
     minWidth: '24px',
     height: '24px',
   },
-})
+});
 
 export const dotStyles = style({
   padding: 0,
@@ -65,4 +71,4 @@ export const dotStyles = style({
   width: '8px',
   height: '8px',
   borderRadius: '50%',
-})
+});

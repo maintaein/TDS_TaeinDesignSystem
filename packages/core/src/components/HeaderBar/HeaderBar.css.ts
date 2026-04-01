@@ -1,5 +1,5 @@
-import { style, styleVariants } from '@vanilla-extract/css'
-import { themeContract } from '../../tokens/theme.css'
+import { style, styleVariants } from '@vanilla-extract/css';
+import { themeContract } from '../../tokens/theme.css';
 
 export const headerBar = style({
   display: 'flex',
@@ -9,6 +9,9 @@ export const headerBar = style({
   padding: `${themeContract.spacing[4]} ${themeContract.spacing[6]}`,
   transition: `box-shadow ${themeContract.animation.duration.base} ${themeContract.animation.easing.easeInOut}`,
   zIndex: 100,
+  transform: 'translateZ(0)',
+  willChange: 'transform, backdrop-filter',
+  backfaceVisibility: 'hidden',
 
   '@media': {
     '(max-width: 768px)': {
@@ -16,7 +19,7 @@ export const headerBar = style({
       gap: themeContract.spacing[3],
     },
   },
-})
+});
 
 export const variantStyles = styleVariants({
   default: {
@@ -24,16 +27,17 @@ export const variantStyles = styleVariants({
     color: themeContract.color.text.primary,
   },
   dark: {
-    backgroundColor: themeContract.color.primary.dark,
-    color: themeContract.color.primary.contrast,
+    backgroundColor: themeContract.color.text.primary,
+    color: themeContract.color.background.paper,
   },
   transparent: {
-    backgroundColor: 'rgba(255, 255, 255, 0.4)',
+    backgroundColor: themeContract.color.surface.default,
     backdropFilter: 'blur(10px)',
     WebkitBackdropFilter: 'blur(10px)',
     color: themeContract.color.text.primary,
+    opacity: 0.9,
   },
-})
+});
 
 export const stickyStyles = styleVariants({
   true: {
@@ -43,7 +47,7 @@ export const stickyStyles = styleVariants({
   false: {
     position: 'relative',
   },
-})
+});
 
 export const elevationStyles = styleVariants({
   true: {
@@ -52,7 +56,7 @@ export const elevationStyles = styleVariants({
   false: {
     boxShadow: 'none',
   },
-})
+});
 
 export const borderStyles = styleVariants({
   true: {
@@ -61,14 +65,14 @@ export const borderStyles = styleVariants({
   false: {
     borderBottom: 'none',
   },
-})
+});
 
 export const leftSection = style({
   display: 'flex',
   alignItems: 'center',
   gap: themeContract.spacing[3],
   flexShrink: 0,
-})
+});
 
 export const logo = style({
   display: 'flex',
@@ -82,7 +86,7 @@ export const logo = style({
       maxHeight: '28px',
     },
   },
-})
+});
 
 export const title = style({
   fontSize: themeContract.font.size.lg,
@@ -95,7 +99,7 @@ export const title = style({
       fontSize: themeContract.font.size.base,
     },
   },
-})
+});
 
 export const centerSection = style({
   display: 'flex',
@@ -109,7 +113,7 @@ export const centerSection = style({
       gap: themeContract.spacing[2],
     },
   },
-})
+});
 
 export const rightSection = style({
   display: 'flex',
@@ -122,4 +126,4 @@ export const rightSection = style({
       gap: themeContract.spacing[2],
     },
   },
-})
+});

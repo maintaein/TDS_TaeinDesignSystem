@@ -10,15 +10,16 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'DesignSystemCore',
       formats: ['es', 'cjs'],
-      fileName: (format) => {
-        if (format === 'es') return 'index.esm.js';
-        if (format === 'cjs') return 'index.cjs.js';
-        return `index.${format}.js`;
+      fileName: (format, entryName) => {
+        const ext = format === 'es' ? 'mjs' : 'cjs';
+        return `${entryName}.${ext}`;
       },
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime'],
+      external: ['react', 'react-dom', 'react/jsx-runtime', 'clsx'],
       output: {
+        preserveModules: true,
+        preserveModulesRoot: 'src',
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',

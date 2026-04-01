@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { Snackbar } from '@designsystem/core'
-import { useState } from 'react'
+import type { Meta, StoryObj } from '@storybook/react';
+import { Snackbar } from '@taein-designsystem/core';
+import { useState } from 'react';
 
 const meta = {
   title: 'Components/Snackbar',
@@ -11,7 +11,7 @@ const meta = {
   tags: ['autodocs'],
   args: {
     open: true,
-    message: "1박 2일",
+    message: '1박 2일',
   },
   argTypes: {
     open: {
@@ -29,7 +29,14 @@ const meta = {
     },
     position: {
       control: 'select',
-      options: ['top-left', 'top-center', 'top-right', 'bottom-left', 'bottom-center', 'bottom-right'],
+      options: [
+        'top-left',
+        'top-center',
+        'top-right',
+        'bottom-left',
+        'bottom-center',
+        'bottom-right',
+      ],
       description: 'Position on screen',
     },
     autoHideDuration: {
@@ -37,36 +44,48 @@ const meta = {
       description: 'Auto hide duration in ms (null to disable)',
     },
   },
-} satisfies Meta<typeof Snackbar>
+} satisfies Meta<typeof Snackbar>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
     open: true,
     message: '기본 알림 메시지입니다.',
   },
-}
+};
 
 const SeveritiesComponent = () => {
-  const [openSuccess, setOpenSuccess] = useState(false)
-  const [openError, setOpenError] = useState(false)
-  const [openWarning, setOpenWarning] = useState(false)
-  const [openInfo, setOpenInfo] = useState(false)
+  const [openSuccess, setOpenSuccess] = useState(false);
+  const [openError, setOpenError] = useState(false);
+  const [openWarning, setOpenWarning] = useState(false);
+  const [openInfo, setOpenInfo] = useState(false);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-      <button onClick={() => setOpenSuccess(true)} style={{ padding: '0.5rem 1rem' }}>
+      <button
+        onClick={() => setOpenSuccess(true)}
+        style={{ padding: '0.5rem 1rem' }}
+      >
         Success 표시
       </button>
-      <button onClick={() => setOpenError(true)} style={{ padding: '0.5rem 1rem' }}>
+      <button
+        onClick={() => setOpenError(true)}
+        style={{ padding: '0.5rem 1rem' }}
+      >
         Error 표시
       </button>
-      <button onClick={() => setOpenWarning(true)} style={{ padding: '0.5rem 1rem' }}>
+      <button
+        onClick={() => setOpenWarning(true)}
+        style={{ padding: '0.5rem 1rem' }}
+      >
         Warning 표시
       </button>
-      <button onClick={() => setOpenInfo(true)} style={{ padding: '0.5rem 1rem' }}>
+      <button
+        onClick={() => setOpenInfo(true)}
+        style={{ padding: '0.5rem 1rem' }}
+      >
         Info 표시
       </button>
 
@@ -95,18 +114,32 @@ const SeveritiesComponent = () => {
         onClose={() => setOpenInfo(false)}
       />
     </div>
-  )
-}
+  );
+};
 
 export const Severities: Story = {
-  render: () => <SeveritiesComponent/>
-}
+  render: () => <SeveritiesComponent />,
+};
 
 const PositionsComponent = () => {
-  const [position, setPosition] = useState<'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'>('bottom-center')
-  const [open, setOpen] = useState(false)
+  const [position, setPosition] = useState<
+    | 'top-left'
+    | 'top-center'
+    | 'top-right'
+    | 'bottom-left'
+    | 'bottom-center'
+    | 'bottom-right'
+  >('bottom-center');
+  const [open, setOpen] = useState(false);
 
-  const positions = ['top-left', 'top-center', 'top-right', 'bottom-left', 'bottom-center', 'bottom-right'] as const
+  const positions = [
+    'top-left',
+    'top-center',
+    'top-right',
+    'bottom-left',
+    'bottom-center',
+    'bottom-right',
+  ] as const;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
@@ -114,8 +147,8 @@ const PositionsComponent = () => {
         <button
           key={pos}
           onClick={() => {
-            setPosition(pos)
-            setOpen(true)
+            setPosition(pos);
+            setOpen(true);
           }}
           style={{ padding: '0.5rem 1rem' }}
         >
@@ -130,20 +163,20 @@ const PositionsComponent = () => {
         onClose={() => setOpen(false)}
       />
     </div>
-  )
-}
+  );
+};
 
 export const Positions: Story = {
-  render: () => <PositionsComponent/>
-}
+  render: () => <PositionsComponent />,
+};
 
 const WithActionComponent = () => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   const handleUndo = () => {
-    alert('실행 취소됨')
-    setOpen(false)
-  }
+    alert('실행 취소됨');
+    setOpen(false);
+  };
 
   return (
     <div>
@@ -174,27 +207,36 @@ const WithActionComponent = () => {
         }
       />
     </div>
-  )
-}
+  );
+};
 
 export const WithAction: Story = {
-  render: () => <WithActionComponent/>
-}
+  render: () => <WithActionComponent />,
+};
 
 const AutoHideComponent = () => {
-  const [open3s, setOpen3s] = useState(false)
-  const [open10s, setOpen10s] = useState(false)
-  const [openNoAuto, setOpenNoAuto] = useState(false)
+  const [open3s, setOpen3s] = useState(false);
+  const [open10s, setOpen10s] = useState(false);
+  const [openNoAuto, setOpenNoAuto] = useState(false);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-      <button onClick={() => setOpen3s(true)} style={{ padding: '0.5rem 1rem' }}>
+      <button
+        onClick={() => setOpen3s(true)}
+        style={{ padding: '0.5rem 1rem' }}
+      >
         3초 후 자동 닫힘
       </button>
-      <button onClick={() => setOpen10s(true)} style={{ padding: '0.5rem 1rem' }}>
+      <button
+        onClick={() => setOpen10s(true)}
+        style={{ padding: '0.5rem 1rem' }}
+      >
         10초 후 자동 닫힘
       </button>
-      <button onClick={() => setOpenNoAuto(true)} style={{ padding: '0.5rem 1rem' }}>
+      <button
+        onClick={() => setOpenNoAuto(true)}
+        style={{ padding: '0.5rem 1rem' }}
+      >
         자동 닫힘 없음 (수동으로만 닫기)
       </button>
 
@@ -220,39 +262,60 @@ const AutoHideComponent = () => {
         onClose={() => setOpenNoAuto(false)}
       />
     </div>
-  )
-}
+  );
+};
 
 export const AutoHide: Story = {
-  render: () => <AutoHideComponent/>
-}
+  render: () => <AutoHideComponent />,
+};
 
 const MultipleSnackbarsComponent = () => {
-  const [snackbars, setSnackbars] = useState<Array<{ id: number; message: string; severity: 'success' | 'error' | 'warning' | 'info' }>>([])
-  let nextId = 0
+  const [snackbars, setSnackbars] = useState<
+    Array<{
+      id: number;
+      message: string;
+      severity: 'success' | 'error' | 'warning' | 'info';
+    }>
+  >([]);
+  let nextId = 0;
 
   const addSnackbar = (severity: 'success' | 'error' | 'warning' | 'info') => {
-    const id = nextId++
-    setSnackbars((prev) => [...prev, { id, message: `${severity} 알림 #${id}`, severity }])
-  }
+    const id = nextId++;
+    setSnackbars((prev) => [
+      ...prev,
+      { id, message: `${severity} 알림 #${id}`, severity },
+    ]);
+  };
 
   const removeSnackbar = (id: number) => {
-    setSnackbars((prev) => prev.filter((s) => s.id !== id))
-  }
+    setSnackbars((prev) => prev.filter((s) => s.id !== id));
+  };
 
   return (
     <div>
       <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
-        <button onClick={() => addSnackbar('success')} style={{ padding: '0.5rem 1rem' }}>
+        <button
+          onClick={() => addSnackbar('success')}
+          style={{ padding: '0.5rem 1rem' }}
+        >
           Success 추가
         </button>
-        <button onClick={() => addSnackbar('error')} style={{ padding: '0.5rem 1rem' }}>
+        <button
+          onClick={() => addSnackbar('error')}
+          style={{ padding: '0.5rem 1rem' }}
+        >
           Error 추가
         </button>
-        <button onClick={() => addSnackbar('warning')} style={{ padding: '0.5rem 1rem' }}>
+        <button
+          onClick={() => addSnackbar('warning')}
+          style={{ padding: '0.5rem 1rem' }}
+        >
           Warning 추가
         </button>
-        <button onClick={() => addSnackbar('info')} style={{ padding: '0.5rem 1rem' }}>
+        <button
+          onClick={() => addSnackbar('info')}
+          style={{ padding: '0.5rem 1rem' }}
+        >
           Info 추가
         </button>
       </div>
@@ -270,37 +333,71 @@ const MultipleSnackbarsComponent = () => {
         />
       ))}
     </div>
-  )
-}
+  );
+};
 
 export const MultipleSnackbars: Story = {
-  render: () => <MultipleSnackbarsComponent/>
-}
+  render: () => <MultipleSnackbarsComponent />,
+};
 
 const FormSubmissionComponent = () => {
-  const [open, setOpen] = useState(false)
-  const [severity, setSeverity] = useState<'success' | 'error'>('success')
-  const [message, setMessage] = useState('')
+  const [open, setOpen] = useState(false);
+  const [severity, setSeverity] = useState<'success' | 'error'>('success');
+  const [message, setMessage] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    const random = Math.random()
+    e.preventDefault();
+    const random = Math.random();
     if (random > 0.3) {
-      setSeverity('success')
-      setMessage('폼이 성공적으로 제출되었습니다!')
+      setSeverity('success');
+      setMessage('폼이 성공적으로 제출되었습니다!');
     } else {
-      setSeverity('error')
-      setMessage('폼 제출에 실패했습니다. 다시 시도해주세요.')
+      setSeverity('error');
+      setMessage('폼 제출에 실패했습니다. 다시 시도해주세요.');
     }
-    setOpen(true)
-  }
+    setOpen(true);
+  };
 
   return (
     <div>
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '300px' }}>
-        <input type="text" placeholder="이름" style={{ padding: '0.5rem', border: '1px solid #ccc', borderRadius: '4px' }} />
-        <input type="email" placeholder="이메일" style={{ padding: '0.5rem', border: '1px solid #ccc', borderRadius: '4px' }} />
-        <button type="submit" style={{ padding: '0.75rem', backgroundColor: '#1E88E5', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+      <form
+        onSubmit={handleSubmit}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1rem',
+          width: '300px',
+        }}
+      >
+        <input
+          type="text"
+          placeholder="이름"
+          style={{
+            padding: '0.5rem',
+            border: '1px solid #ccc',
+            borderRadius: '4px',
+          }}
+        />
+        <input
+          type="email"
+          placeholder="이메일"
+          style={{
+            padding: '0.5rem',
+            border: '1px solid #ccc',
+            borderRadius: '4px',
+          }}
+        />
+        <button
+          type="submit"
+          style={{
+            padding: '0.75rem',
+            backgroundColor: '#1E88E5',
+            color: 'white',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer',
+          }}
+        >
           제출
         </button>
       </form>
@@ -312,15 +409,15 @@ const FormSubmissionComponent = () => {
         onClose={() => setOpen(false)}
       />
     </div>
-  )
-}
+  );
+};
 
 export const FormSubmission: Story = {
-  render: () => <FormSubmissionComponent/>
-}
+  render: () => <FormSubmissionComponent />,
+};
 
 const LongMessageComponent = () => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   return (
     <div>
@@ -336,12 +433,12 @@ const LongMessageComponent = () => {
         autoHideDuration={null}
       />
     </div>
-  )
-}
+  );
+};
 
 export const LongMessage: Story = {
-  render: () => <LongMessageComponent/>
-}
+  render: () => <LongMessageComponent />,
+};
 
 export const Playground: Story = {
   args: {
@@ -351,4 +448,4 @@ export const Playground: Story = {
     position: 'bottom-center',
     autoHideDuration: 6000,
   },
-}
+};

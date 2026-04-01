@@ -100,7 +100,9 @@ describe('Icon', () => {
     });
 
     it('CSS 변수 색상을 적용해야 한다', () => {
-      const { container } = render(<Icon name="close" color="var(--primary-600)" />);
+      const { container } = render(
+        <Icon name="close" color="var(--primary-600)" />
+      );
       const svg = container.querySelector('svg');
       expect(svg).toHaveStyle({ color: 'var(--primary-600)' });
     });
@@ -136,13 +138,17 @@ describe('Icon', () => {
 
   describe('추가 속성', () => {
     it('className을 추가해야 한다', () => {
-      const { container } = render(<Icon name="close" className="custom-icon" />);
+      const { container } = render(
+        <Icon name="close" className="custom-icon" />
+      );
       const svg = container.querySelector('svg');
       expect(svg).toHaveClass('custom-icon');
     });
 
     it('data 속성을 추가해야 한다', () => {
-      const { container } = render(<Icon name="close" data-testid="test-icon" />);
+      const { container } = render(
+        <Icon name="close" data-testid="test-icon" />
+      );
       const svg = container.querySelector('svg');
       expect(svg).toHaveAttribute('data-testid', 'test-icon');
     });
@@ -176,7 +182,9 @@ describe('Icon', () => {
 
   describe('에러 처리', () => {
     it('존재하지 않는 아이콘 이름에 대해 경고해야 한다', () => {
-      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      const consoleSpy = vi
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
 
       // @ts-expect-error - 의도적으로 유효하지 않은 아이콘 이름 테스트
       render(<Icon name="invalid-icon" />);

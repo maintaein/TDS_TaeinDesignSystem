@@ -1,5 +1,5 @@
-import { createVar, style, styleVariants } from '@vanilla-extract/css'
-import { themeContract } from '../../tokens/theme.css'
+import { createVar, style, styleVariants } from '@vanilla-extract/css';
+import { themeContract } from '../../tokens/theme.css';
 
 const borderW = createVar();
 const borderS = createVar();
@@ -10,30 +10,30 @@ export const border = style({
   borderStyle: 'none',
   vars: {
     [borderW]: '1px',
-    [borderS]: 'solid'
-  }
-})
+    [borderS]: 'solid',
+  },
+});
 
 export const sidesStyles = styleVariants({
-  all: { 
-    borderWidth: borderW, 
-    borderStyle: borderS 
+  all: {
+    borderWidth: borderW,
+    borderStyle: borderS,
   },
-  top: { 
-    borderTopWidth: borderW, 
-    borderTopStyle: borderS 
+  top: {
+    borderTopWidth: borderW,
+    borderTopStyle: borderS,
   },
-  right: { 
-    borderRightWidth: borderW, 
-    borderRightStyle: borderS 
+  right: {
+    borderRightWidth: borderW,
+    borderRightStyle: borderS,
   },
-  bottom: { 
-    borderBottomWidth: borderW, 
-    borderBottomStyle: borderS 
+  bottom: {
+    borderBottomWidth: borderW,
+    borderBottomStyle: borderS,
   },
-  left: { 
-    borderLeftWidth: borderW, 
-    borderLeftStyle: borderS 
+  left: {
+    borderLeftWidth: borderW,
+    borderLeftStyle: borderS,
   },
   horizontal: {
     borderTopWidth: borderW,
@@ -47,19 +47,19 @@ export const sidesStyles = styleVariants({
     borderRightWidth: borderW,
     borderRightStyle: borderS,
   },
-})
+});
 
 export const widthStyles = styleVariants({
   thin: { vars: { [borderW]: '1px' } },
   medium: { vars: { [borderW]: '2px' } },
   thick: { vars: { [borderW]: '4px' } },
-})
+});
 
 export const variantStyles = styleVariants({
   solid: { vars: { [borderS]: 'solid' } },
   dashed: { vars: { [borderS]: 'dashed' } },
   dotted: { vars: { [borderS]: 'dotted' } },
-})
+});
 
 export const colorStyles = styleVariants({
   default: {
@@ -77,7 +77,7 @@ export const colorStyles = styleVariants({
   warning: {
     borderColor: themeContract.color.warning.main,
   },
-})
+});
 
 export const roundedStyles = styleVariants({
   none: {
@@ -95,7 +95,7 @@ export const roundedStyles = styleVariants({
   full: {
     borderRadius: themeContract.borderRadius.xl,
   },
-})
+});
 
 export const paddingStyles = styleVariants({
   none: {
@@ -110,4 +110,4 @@ export const paddingStyles = styleVariants({
   lg: {
     padding: themeContract.spacing[6],
   },
-})
+});

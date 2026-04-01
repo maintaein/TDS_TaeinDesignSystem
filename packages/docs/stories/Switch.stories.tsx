@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Switch } from '@designsystem/core';
+import { Switch } from '@taein-designsystem/core';
 import { useState } from 'react';
 
 const meta = {
@@ -134,29 +134,6 @@ export const Disabled: Story = {
   },
 };
 
-// Controlled Component
-const ControlledExample = () => {
-  const [checked, setChecked] = useState(false);
-
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-      <Switch
-        label="다크모드"
-        checked={checked}
-        onChange={(e) => setChecked(e.target.checked)}
-      />
-      <p style={{ fontSize: '0.875rem', color: '#666' }}>
-        상태: {checked ? 'On 🌙' : 'Off ☀️'}
-      </p>
-    </div>
-  );
-};
-
-export const Controlled: Story = {
-  args: { label: '' },
-  parameters: { controls: { disable: true } },
-  render: () => <ControlledExample />,
-};
 
 // Settings Example
 const SettingsExampleComponent = () => {
@@ -204,15 +181,6 @@ const SettingsExampleComponent = () => {
             setSettings({ ...settings, emailAlerts: e.target.checked })
           }
           helperText="중요한 업데이트를 이메일로 받습니다"
-        />
-
-        <Switch
-          label="다크모드"
-          checked={settings.darkMode}
-          onChange={(e) =>
-            setSettings({ ...settings, darkMode: e.target.checked })
-          }
-          helperText="어두운 테마로 전환합니다"
         />
 
         <Switch

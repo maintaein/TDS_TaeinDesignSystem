@@ -1,0 +1,1094 @@
+# TDS (Taein Design System) — Full API Reference
+
+> A lightweight (~23KB gzip), beginner-friendly, AI-ready React + TypeScript design system built with Vanilla Extract CSS (zero-runtime). Only 2 runtime dependencies.
+
+## Installation
+
+```bash
+npm install @taein-designsystem/core
+# or
+pnpm add @taein-designsystem/core
+```
+
+## Setup
+
+```tsx
+// main.tsx
+import '@taein-designsystem/core/styles.css';
+import { ThemeProvider } from '@taein-designsystem/core';
+
+function App() {
+  return (
+    <ThemeProvider>
+      <YourApp />
+    </ThemeProvider>
+  );
+}
+```
+
+## API Patterns
+
+All components follow consistent patterns:
+- `variant` — Visual style (e.g., 'primary' | 'dark' | 'light')
+- `size` — Component size ('sm' | 'md' | 'lg')
+- `disabled` — Disabled state (boolean)
+- `className` — Additional CSS class (string)
+- `ref` — All components support forwardRef
+- Form components require `label` prop for accessibility
+
+---
+
+## TextField
+
+Text input with label, validation, and helper text.
+
+```tsx
+import { TextField } from '@taein-designsystem/core';
+
+<TextField
+  label="이메일"
+  type="email"
+  placeholder="example@email.com"
+  value={value}
+  onChange={(e) => setValue(e.target.value)}
+  error={!isValid}
+  errorMessage="올바른 이메일을 입력하세요"
+  helperText="회사 이메일을 입력해주세요"
+  size="md"
+  fullWidth
+  required
+/>
+```
+
+### Props (extends InputHTMLAttributes<HTMLInputElement>)
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| label | string | (required) | Label text |
+| type | 'text' \| 'email' \| 'password' \| 'number' \| 'tel' \| 'url' | 'text' | Input type |
+| size | 'sm' \| 'md' \| 'lg' | 'md' | Input size |
+| error | boolean | false | Error state |
+| errorMessage | string | — | Error message |
+| helperText | string | — | Helper text |
+| fullWidth | boolean | false | Full width |
+| required | boolean | — | Required attribute |
+| disabled | boolean | — | Disabled attribute |
+| className | string | — | Additional CSS class |
+
+### Accessibility
+- `aria-invalid` set automatically when `error` is true
+- `aria-describedby` linked to helper/error text
+- Label always connected via `htmlFor`/`id`
+
+---
+
+## TextArea
+
+Multiline text input with optional auto-resize.
+
+```tsx
+import { TextArea } from '@taein-designsystem/core';
+
+<TextArea
+  label="설명"
+  placeholder="내용을 입력하세요"
+  value={value}
+  onChange={(e) => setValue(e.target.value)}
+  autoResize
+  height={150}
+  size="md"
+/>
+```
+
+### Props (extends TextareaHTMLAttributes<HTMLTextAreaElement>)
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| label | string | (required) | Label text |
+| size | 'sm' \| 'md' \| 'lg' | 'md' | TextArea size |
+| autoResize | boolean | false | Auto-adjust height to content |
+| height | string \| number | 120 | Minimum height |
+| error | boolean | false | Error state |
+| errorMessage | string | — | Error message |
+| helperText | string | — | Helper text |
+| fullWidth | boolean | false | Full width |
+| required | boolean | — | Required attribute |
+| disabled | boolean | — | Disabled attribute |
+| className | string | — | Additional CSS class |
+
+---
+
+## Checkbox
+
+Checkbox with label and indeterminate state support.
+
+```tsx
+import { Checkbox } from '@taein-designsystem/core';
+
+<Checkbox
+  label="약관에 동의합니다"
+  checked={checked}
+  onChange={(e) => setChecked(e.target.checked)}
+  size="md"
+/>
+
+// Indeterminate
+<Checkbox label="전체 선택" indeterminate={isPartial} />
+```
+
+### Props (extends InputHTMLAttributes<HTMLInputElement>)
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| label | string | (required) | Label text |
+| size | 'sm' \| 'md' \| 'lg' | 'md' | Checkbox size |
+| error | boolean | false | Error state |
+| errorMessage | string | — | Error message |
+| helperText | string | — | Helper text |
+| indeterminate | boolean | false | Indeterminate state |
+| required | boolean | — | Required attribute |
+| disabled | boolean | — | Disabled attribute |
+| className | string | — | Additional CSS class |
+
+---
+
+## Switch
+
+Toggle switch with label.
+
+```tsx
+import { Switch } from '@taein-designsystem/core';
+
+<Switch
+  label="알림 받기"
+  checked={enabled}
+  onChange={(e) => setEnabled(e.target.checked)}
+  size="md"
+/>
+```
+
+### Props (extends InputHTMLAttributes<HTMLInputElement>)
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| label | string | (required) | Label text |
+| size | 'sm' \| 'md' \| 'lg' | 'md' | Switch size |
+| error | boolean | false | Error state |
+| errorMessage | string | — | Error message |
+| helperText | string | — | Helper text |
+| required | boolean | — | Required attribute |
+| disabled | boolean | — | Disabled attribute |
+| className | string | — | Additional CSS class |
+
+---
+
+## Slider
+
+Range slider with marks and value display.
+
+```tsx
+import { Slider } from '@taein-designsystem/core';
+
+<Slider
+  label="볼륨"
+  min={0}
+  max={100}
+  step={5}
+  value={volume}
+  onChange={(e) => setVolume(Number(e.target.value))}
+  showValue
+  marks={[{ value: 0, label: '0' }, { value: 100, label: '100' }]}
+/>
+```
+
+### Props (extends InputHTMLAttributes<HTMLInputElement>)
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| label | string | (required) | Label text |
+| size | 'sm' \| 'md' \| 'lg' | 'md' | Slider size |
+| min | number | 0 | Minimum value |
+| max | number | 100 | Maximum value |
+| step | number | 1 | Step increment |
+| showValue | boolean | false | Display current value |
+| helperText | string | — | Helper text |
+| marks | { value: number; label: string }[] | — | Marks on track |
+| trackColor | string | — | Fill track color |
+| value | number | — | Controlled value |
+| defaultValue | number | 0 | Initial value (uncontrolled) |
+| disabled | boolean | — | Disabled attribute |
+| className | string | — | Additional CSS class |
+
+---
+
+## NumericSpinner
+
+Number input with increment/decrement buttons.
+
+```tsx
+import { NumericSpinner } from '@taein-designsystem/core';
+
+<NumericSpinner
+  label="수량"
+  value={qty}
+  onChange={(e) => setQty(Number(e.target.value))}
+  min={1}
+  max={99}
+  step={1}
+  size="md"
+/>
+```
+
+### Props (extends InputHTMLAttributes<HTMLInputElement>)
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| label | string | (required) | Label text |
+| value | number | — | Controlled value |
+| defaultValue | number | — | Initial value (uncontrolled) |
+| size | 'sm' \| 'md' \| 'lg' | 'md' | Input size |
+| inputWidth | string | — | Custom input width |
+| min | number | — | Minimum value |
+| max | number | — | Maximum value |
+| step | number | 1 | Increment step |
+| error | boolean | false | Error state |
+| errorMessage | string | — | Error message |
+| helperText | string | — | Helper text |
+| fullWidth | boolean | false | Full width |
+| required | boolean | — | Required attribute |
+| disabled | boolean | — | Disabled attribute |
+| className | string | — | Additional CSS class |
+
+---
+
+## Button
+
+Primary action button with variants, loading, and icons.
+
+```tsx
+import { Button } from '@taein-designsystem/core';
+
+<Button variant="primary" size="md" onClick={handleClick}>
+  저장하기
+</Button>
+
+<Button variant="dark" buttonStyle="weak" leftIcon={<Icon name="plus" />}>
+  추가
+</Button>
+
+<Button loading disabled>처리 중...</Button>
+```
+
+### Props (extends ButtonHTMLAttributes<HTMLButtonElement>)
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| variant | 'primary' \| 'dark' \| 'danger' \| 'light' | 'primary' | Button variant |
+| buttonStyle | 'fill' \| 'weak' | 'fill' | Fill or outline style |
+| size | 'sm' \| 'md' \| 'lg' \| 'xl' | 'md' | Button size |
+| fullWidth | boolean | false | Stretch to full width |
+| loading | boolean | false | Show loading spinner |
+| disabled | boolean | false | Disable button |
+| leftIcon | ReactNode | — | Icon before text |
+| rightIcon | ReactNode | — | Icon after text |
+| customColor | { bg: string; text: string; hoverBg?: string; activeBg?: string } | — | Custom colors |
+| children | ReactNode | — | Button text |
+| className | string | — | Additional CSS class |
+
+### Accessibility
+- `aria-disabled` set when disabled or loading
+- `aria-busy` set when loading
+- `aria-hidden="true"` on decorative icons
+
+---
+
+## IconButton
+
+Icon-only button. Requires `aria-label` for accessibility.
+
+```tsx
+import { IconButton, Icon } from '@taein-designsystem/core';
+
+<IconButton variant="primary" aria-label="닫기" onClick={handleClose}>
+  <Icon name="close" />
+</IconButton>
+
+<IconButton ghost aria-label="메뉴">
+  <Icon name="plus" />
+</IconButton>
+```
+
+### Props (extends ButtonHTMLAttributes<HTMLButtonElement>)
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| variant | 'primary' \| 'dark' \| 'danger' \| 'light' | 'primary' | Button variant |
+| buttonStyle | 'fill' \| 'weak' | 'fill' | Fill or outline style |
+| size | 'sm' \| 'md' \| 'lg' \| 'xl' | 'md' | Button size |
+| ghost | boolean | false | Ghost style (no background) |
+| loading | boolean | false | Loading state |
+| disabled | boolean | false | Disabled state |
+| children | ReactNode | — | Icon content |
+| aria-label | string | — | Required accessibility label |
+| className | string | — | Additional CSS class |
+
+---
+
+## SegmentedButtons
+
+Button group for single selection.
+
+```tsx
+import { SegmentedButtons } from '@taein-designsystem/core';
+
+<SegmentedButtons
+  options={[
+    { value: 'list', label: '목록' },
+    { value: 'grid', label: '그리드' },
+    { value: 'map', label: '지도' },
+  ]}
+  value={view}
+  onChange={setView}
+  size="md"
+  aria-label="보기 방식"
+/>
+```
+
+### Props
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| options | { value: string; label: string; icon?: ReactNode; iconOnly?: boolean; disabled?: boolean }[] | (required) | Button options |
+| value | string | — | Selected value (controlled) |
+| onChange | (value: string) => void | — | Change handler |
+| defaultValue | string | — | Initial value (uncontrolled) |
+| size | 'sm' \| 'md' \| 'lg' | 'md' | Button size |
+| fullWidth | boolean | false | Full width |
+| disabled | boolean | false | Disable all buttons |
+| aria-label | string | — | Group label |
+| className | string | — | Additional CSS class |
+
+---
+
+## Text
+
+Typography component with semantic HTML.
+
+```tsx
+import { Text } from '@taein-designsystem/core';
+
+<Text variant="h1">제목</Text>
+<Text variant="body1" color="secondary">본문 텍스트</Text>
+<Text variant="body2" truncate={2}>긴 텍스트는 2줄로 잘립니다...</Text>
+```
+
+### Props
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| children | ReactNode | — | Text content |
+| variant | 'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6' \| 'body1' \| 'body2' \| 'body3' | 'body1' | Text style |
+| as | ElementType | — | Custom HTML element |
+| color | 'primary' \| 'secondary' \| 'success' \| 'error' \| 'disabled' | — | Text color |
+| weight | 'regular' \| 'medium' \| 'semibold' \| 'bold' | — | Font weight |
+| align | 'left' \| 'center' \| 'right' | — | Text alignment |
+| truncate | 1 \| 2 \| 3 | — | Line clamp |
+| className | string | — | Additional CSS class |
+
+---
+
+## Badge
+
+Status or count indicator.
+
+```tsx
+import { Badge } from '@taein-designsystem/core';
+
+<Badge variant="primary">5</Badge>
+<Badge variant="error" max={99}>150</Badge>
+<Badge dot />
+```
+
+### Props (extends HTMLAttributes<HTMLSpanElement>)
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| children | ReactNode | — | Badge content |
+| variant | 'primary' \| 'secondary' \| 'success' \| 'error' \| 'warning' | 'primary' | Badge variant |
+| size | 'sm' \| 'md' \| 'lg' | 'md' | Badge size |
+| max | number | 99 | Maximum value |
+| dot | boolean | false | Dot mode |
+| showZero | boolean | true | Show when value is 0 |
+| className | string | — | Additional CSS class |
+
+---
+
+## Chip
+
+Tag or filter chip.
+
+```tsx
+import { Chip } from '@taein-designsystem/core';
+
+<Chip label="React" />
+<Chip label="삭제 가능" onDelete={() => {}} />
+<Chip label="선택됨" clickable selected onClick={() => {}} />
+```
+
+### Props
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| label | string | (required) | Chip label |
+| size | 'sm' \| 'md' \| 'lg' | 'md' | Chip size |
+| variant | 'filled' \| 'outlined' | 'filled' | Chip variant |
+| color | 'default' \| 'primary' \| 'success' \| 'error' \| 'warning' | 'default' | Color |
+| icon | ReactNode | — | Leading icon |
+| avatar | ReactNode | — | Avatar element |
+| onDelete | () => void | — | Delete callback |
+| clickable | boolean | false | Make clickable |
+| selected | boolean | false | Selected state |
+| disabled | boolean | false | Disabled state |
+| onClick | () => void | — | Click handler |
+| className | string | — | Additional CSS class |
+
+---
+
+## Avatar
+
+User avatar with image, fallback, and status indicator.
+
+```tsx
+import { Avatar, AvatarGroup } from '@taein-designsystem/core';
+
+<Avatar src="/photo.jpg" alt="사용자" size="lg" status="online" />
+<Avatar alt="홍길동">홍</Avatar>
+
+<AvatarGroup max={3} size="md">
+  <Avatar src="/a.jpg" alt="A" />
+  <Avatar src="/b.jpg" alt="B" />
+  <Avatar src="/c.jpg" alt="C" />
+  <Avatar src="/d.jpg" alt="D" />
+</AvatarGroup>
+```
+
+### AvatarProps
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| src | string | — | Image URL |
+| alt | string | (required) | Alt text |
+| size | 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' | 'md' | Avatar size |
+| variant | 'circular' \| 'rounded' \| 'square' | 'circular' | Border style |
+| status | 'online' \| 'offline' \| 'busy' \| 'away' | — | Status indicator |
+| children | ReactNode | — | Fallback content |
+| onClick | () => void | — | Click handler |
+| href | string | — | Link URL |
+| onError | () => void | — | Image error callback |
+| className | string | — | Additional CSS class |
+
+### AvatarGroupProps
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| children | ReactNode | (required) | Avatar components |
+| max | number | — | Max visible avatars |
+| size | 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' | — | Avatar size |
+| spacing | 'sm' \| 'md' \| 'lg' | 'md' | Overlap spacing |
+| className | string | — | Additional CSS class |
+
+---
+
+## Icon
+
+SVG icon component.
+
+```tsx
+import { Icon } from '@taein-designsystem/core';
+
+<Icon name="close" size="md" />
+<Icon name="plus" color="#2563eb" aria-label="추가" />
+```
+
+### Props (extends SVGAttributes<SVGSVGElement>)
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| name | 'close' \| 'plus' \| 'minus' \| 'chevron-down' \| 'chevron-up' | (required) | Icon name |
+| size | 'sm' \| 'md' \| 'lg' \| 'xl' | 'md' | Icon size |
+| color | string | 'currentColor' | Icon color |
+| aria-label | string | — | Accessibility label |
+| className | string | — | Additional CSS class |
+
+---
+
+## Loader
+
+Loading indicator with spinner, dots, or bar variants.
+
+```tsx
+import { Loader } from '@taein-designsystem/core';
+
+<Loader type="spinner" size="md" />
+<Loader type="dots" label="로딩 중..." />
+<Loader fullScreen overlay />
+```
+
+### Props (extends HTMLAttributes<HTMLDivElement>)
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| type | 'spinner' \| 'dots' \| 'bar' | 'spinner' | Loader type |
+| size | 'sm' \| 'md' \| 'lg' \| 'xl' | 'md' | Loader size |
+| color | 'primary' \| 'secondary' \| 'white' | 'primary' | Color preset |
+| label | string | — | Text label |
+| fullScreen | boolean | false | Full screen overlay |
+| overlay | boolean | false | Semi-transparent overlay |
+| aria-label | string | — | Accessibility label |
+| className | string | — | Additional CSS class |
+
+---
+
+## LoadingSpinner
+
+Simple spinner or dots indicator.
+
+```tsx
+import { LoadingSpinner } from '@taein-designsystem/core';
+
+<LoadingSpinner type="spinner" size="md" />
+<LoadingSpinner type="dots" />
+```
+
+### Props (extends HTMLAttributes<HTMLDivElement>)
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| type | 'spinner' \| 'dots' | 'spinner' | Spinner type |
+| size | 'sm' \| 'md' \| 'lg' \| 'xl' | 'md' | Spinner size |
+| color | string | primary[600] | Color value |
+| aria-label | string | '로딩 중' | Accessibility label |
+| className | string | — | Additional CSS class |
+
+---
+
+## Skeleton
+
+Content placeholder with animation.
+
+```tsx
+import { Skeleton } from '@taein-designsystem/core';
+
+<Skeleton variant="text" width="80%" />
+<Skeleton variant="rect" width={200} height={150} />
+<Skeleton variant="circle" width={48} height={48} />
+```
+
+### Props (extends HTMLAttributes<HTMLSpanElement>)
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| variant | 'text' \| 'rect' \| 'circle' \| 'rounded' | 'text' | Shape variant |
+| animation | 'wave' \| 'pulse' \| false | 'wave' | Animation type |
+| width | number \| string | — | Width |
+| height | number \| string | — | Height |
+| aria-label | string | — | Accessibility label |
+| className | string | — | Additional CSS class |
+
+---
+
+## Snackbar
+
+Toast notification with auto-hide.
+
+```tsx
+import { Snackbar, Button } from '@taein-designsystem/core';
+
+<Snackbar
+  open={open}
+  message="저장되었습니다"
+  severity="success"
+  position="bottom-center"
+  autoHideDuration={3000}
+  onClose={() => setOpen(false)}
+  action={<Button size="sm" variant="light">취소</Button>}
+/>
+```
+
+### Props (extends HTMLAttributes<HTMLDivElement>)
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| open | boolean | (required) | Visibility state |
+| message | ReactNode | (required) | Message content |
+| severity | 'success' \| 'error' \| 'warning' \| 'info' | 'info' | Message type |
+| position | 'top-left' \| 'top-center' \| 'top-right' \| 'bottom-left' \| 'bottom-center' \| 'bottom-right' | 'bottom-center' | Position |
+| autoHideDuration | number \| null | 6000 | Auto-close duration (ms) |
+| onClose | () => void | — | Close callback |
+| action | ReactNode | — | Action content |
+| className | string | — | Additional CSS class |
+
+---
+
+## Tooltip
+
+Hover tooltip with arrow.
+
+```tsx
+import { Tooltip, Button } from '@taein-designsystem/core';
+
+<Tooltip content="도움말 텍스트" position="top">
+  <Button>호버하세요</Button>
+</Tooltip>
+```
+
+### Props (extends HTMLAttributes<HTMLDivElement>)
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| children | ReactNode | (required) | Trigger element |
+| content | ReactNode | (required) | Tooltip content |
+| open | boolean | — | Controlled visibility |
+| onOpenChange | (open: boolean) => void | — | State change callback |
+| position | 'top' \| 'bottom' \| 'left' \| 'right' | 'top' | Position |
+| delay | number | 200 | Show delay (ms) |
+| disabled | boolean | false | Disable tooltip |
+| arrow | boolean | true | Show arrow |
+| className | string | — | Additional CSS class |
+
+---
+
+## Modal
+
+Dialog modal with compound components.
+
+```tsx
+import { Modal, Button } from '@taein-designsystem/core';
+
+// Compound API
+<Modal open={open} onClose={() => setOpen(false)} size="md">
+  <Modal.Header showClose>
+    <Modal.Title>제목</Modal.Title>
+  </Modal.Header>
+  <Modal.Content>
+    <p>모달 내용입니다.</p>
+  </Modal.Content>
+  <Modal.Footer align="right">
+    <Button variant="light" onClick={() => setOpen(false)}>취소</Button>
+    <Button variant="primary" onClick={handleSave}>저장</Button>
+  </Modal.Footer>
+</Modal>
+
+// Flat API
+<Modal open={open} onClose={() => setOpen(false)} title="제목" showClose footer={<Button>확인</Button>}>
+  <p>내용</p>
+</Modal>
+```
+
+### ModalProps (extends HTMLAttributes<HTMLDivElement>)
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| open | boolean | (required) | Visibility state |
+| onClose | () => void | (required) | Close handler |
+| children | ReactNode | (required) | Modal content |
+| size | 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full' | 'md' | Modal size |
+| closeOnBackdropClick | boolean | true | Close on backdrop click |
+| closeOnEscape | boolean | true | Close on ESC key |
+| title | string | — | Title (Flat mode) |
+| showClose | boolean | false | Show close button (Flat mode) |
+| footer | ReactNode | — | Footer (Flat mode) |
+| footerAlign | 'left' \| 'center' \| 'right' | 'left' | Footer alignment |
+| aria-label | string | — | Accessibility label |
+| className | string | — | Additional CSS class |
+
+### Compound Components
+- `Modal.Header` — Header container. Props: showClose
+- `Modal.Title` — Heading. Props: as ('h1'-'h6', default 'h2')
+- `Modal.Content` — Scrollable content area
+- `Modal.Footer` — Footer. Props: align ('left' | 'center' | 'right')
+
+### Accessibility
+- `role="dialog"`, `aria-modal="true"`
+- Focus trap (Tab cycles within modal)
+- ESC key closes modal
+- Focus restoration on close
+
+---
+
+## BottomSheet
+
+Mobile bottom drawer with drag-to-close.
+
+```tsx
+import { BottomSheet } from '@taein-designsystem/core';
+
+<BottomSheet open={open} onClose={() => setOpen(false)} height="md" enableDrag>
+  <BottomSheet.Header>
+    <BottomSheet.Title>제목</BottomSheet.Title>
+  </BottomSheet.Header>
+  <BottomSheet.Content>
+    <p>바텀시트 내용</p>
+  </BottomSheet.Content>
+</BottomSheet>
+```
+
+### Props (extends HTMLAttributes<HTMLDivElement>)
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| open | boolean | (required) | Visibility state |
+| onClose | () => void | (required) | Close handler |
+| title | ReactNode | — | Sheet title |
+| children | ReactNode | (required) | Content |
+| height | 'auto' \| 'sm' \| 'md' \| 'lg' \| 'full' | 'auto' | Sheet height |
+| closeOnBackdropClick | boolean | true | Close on backdrop click |
+| closeOnEscape | boolean | true | Close on ESC key |
+| showHandle | boolean | true | Show drag handle |
+| showClose | boolean | false | Show close button |
+| enableDrag | boolean | true | Enable drag to close |
+| className | string | — | Additional CSS class |
+
+### Compound Components
+- `BottomSheet.Header` — Header. Props: showClose
+- `BottomSheet.Title` — Title heading
+- `BottomSheet.Content` — Scrollable content
+
+---
+
+## SideSheet
+
+Side panel drawer.
+
+```tsx
+import { SideSheet } from '@taein-designsystem/core';
+
+<SideSheet open={open} onClose={() => setOpen(false)} width="md" position="right">
+  <SideSheet.Header showClose>
+    <SideSheet.Title>설정</SideSheet.Title>
+  </SideSheet.Header>
+  <SideSheet.Content>
+    <p>사이드시트 내용</p>
+  </SideSheet.Content>
+</SideSheet>
+```
+
+### Props (extends HTMLAttributes<HTMLDivElement>)
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| open | boolean | (required) | Visibility state |
+| onClose | () => void | (required) | Close handler |
+| title | ReactNode | — | Sheet title |
+| children | ReactNode | (required) | Content |
+| width | 'sm' \| 'md' \| 'lg' \| 'full' | 'md' | Sheet width |
+| position | 'left' \| 'right' | 'right' | Position |
+| closeOnBackdropClick | boolean | true | Close on backdrop |
+| closeOnEscape | boolean | true | Close on ESC |
+| showClose | boolean | false | Show close button |
+| className | string | — | Additional CSS class |
+
+### Compound Components
+- `SideSheet.Header` — Header. Props: showClose
+- `SideSheet.Title` — Title heading
+- `SideSheet.Content` — Scrollable content
+
+---
+
+## Popover
+
+Popover panel triggered by child element.
+
+```tsx
+import { Popover, Button } from '@taein-designsystem/core';
+
+<Popover
+  content={<div style={{ padding: '1rem' }}>팝오버 내용</div>}
+  position="bottom"
+  arrow
+>
+  <Button>열기</Button>
+</Popover>
+```
+
+### Props (extends HTMLAttributes<HTMLDivElement>)
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| children | ReactNode | (required) | Trigger element |
+| content | ReactNode | (required) | Popover content |
+| open | boolean | — | Controlled visibility |
+| onOpenChange | (open: boolean) => void | — | State change callback |
+| position | 'top' \| 'bottom' \| 'left' \| 'right' | 'bottom' | Position |
+| closeOnOutsideClick | boolean | true | Close on outside click |
+| closeOnEscape | boolean | true | Close on ESC |
+| arrow | boolean | false | Show arrow |
+| maxWidth | string | — | Maximum width |
+| disabled | boolean | false | Disable popover |
+| className | string | — | Additional CSS class |
+
+---
+
+## Card
+
+Content container with compound components.
+
+```tsx
+import { Card } from '@taein-designsystem/core';
+
+// Compound API
+<Card variant="elevated">
+  <Card.Image src="/photo.jpg" alt="설명" />
+  <Card.Header>
+    <Card.Title>카드 제목</Card.Title>
+  </Card.Header>
+  <Card.Body>
+    <p>카드 내용입니다.</p>
+  </Card.Body>
+  <Card.Footer>
+    <Button size="sm">자세히</Button>
+  </Card.Footer>
+</Card>
+
+// Interactive Card
+<Card variant="interactive" accentColor="#2563eb" onClick={handleClick}>
+  <Card.Body padding="lg">클릭 가능한 카드</Card.Body>
+</Card>
+```
+
+### CardProps (extends HTMLAttributes<HTMLElement>)
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| children | ReactNode | (required) | Content |
+| variant | 'outlined' \| 'elevated' \| 'filled' \| 'interactive' | 'elevated' | Card variant |
+| onClick | () => void | — | Click handler |
+| disabled | boolean | false | Disable interactivity |
+| accentColor | string | — | Accent color |
+| title | string | — | Title (Flat mode) |
+| image | string | — | Image URL (Flat mode) |
+| imageAlt | string | '' | Image alt text (Flat mode) |
+| padding | 'none' \| 'sm' \| 'md' \| 'lg' | 'md' | Body padding (Flat mode) |
+| className | string | — | Additional CSS class |
+
+### Compound Components
+- `Card.Image` — Image container. Props: src, alt, children (overlay)
+- `Card.Header` — Header area
+- `Card.Title` — Heading. Props: as ('h1'-'h6', default 'h3')
+- `Card.Body` — Body area. Props: padding
+- `Card.Footer` — Footer area
+
+---
+
+## List
+
+List with spacing and dividers.
+
+```tsx
+import { List, ListItem } from '@taein-designsystem/core';
+
+<List spacing="md" divider>
+  <ListItem label="이름" value="홍길동" />
+  <ListItem label="이메일" value="hong@example.com" />
+</List>
+```
+
+### ListProps (extends HTMLAttributes<HTMLUListElement>)
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| children | ReactNode | (required) | List items |
+| spacing | 'none' \| 'sm' \| 'md' \| 'lg' | 'md' | Item spacing |
+| divider | boolean | false | Show dividers |
+| className | string | — | Additional CSS class |
+
+### ListItemProps (extends HTMLAttributes<HTMLLIElement>)
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| label | ReactNode | — | Label (left) |
+| value | ReactNode | — | Value (right) |
+| children | ReactNode | — | Custom content |
+| layout | 'horizontal' \| 'vertical' \| 'custom' | 'horizontal' | Layout |
+| align | 'start' \| 'center' \| 'end' \| 'baseline' | 'center' | Alignment |
+| labelWidth | string | — | Custom label width |
+| className | string | — | Additional CSS class |
+
+---
+
+## BoardRow
+
+Expandable row / accordion.
+
+```tsx
+import { BoardRow } from '@taein-designsystem/core';
+
+// Uncontrolled
+<BoardRow title="FAQ 제목" defaultExpanded={false}>
+  <p>답변 내용입니다.</p>
+</BoardRow>
+
+// Controlled
+<BoardRow title="제목" expanded={open} onChange={setOpen}>
+  <p>내용</p>
+</BoardRow>
+```
+
+### Props (extends HTMLAttributes<HTMLDivElement>)
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| title | ReactNode | (required) | Header title |
+| children | ReactNode | (required) | Content |
+| variant | 'default' \| 'outlined' \| 'filled' | 'default' | Row variant |
+| defaultExpanded | boolean | false | Initial state (uncontrolled) |
+| expanded | boolean | — | Expanded state (controlled) |
+| onChange | (expanded: boolean) => void | — | State change callback |
+| disabled | boolean | false | Disable expansion |
+| className | string | — | Additional CSS class |
+
+---
+
+## Divider
+
+Content separator with optional text.
+
+```tsx
+import { Divider } from '@taein-designsystem/core';
+
+<Divider />
+<Divider variant="dashed" spacing="lg" />
+<Divider textAlign="center">또는</Divider>
+<Divider orientation="vertical" />
+```
+
+### Props (extends HTMLAttributes<HTMLDivElement>)
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| children | ReactNode | — | Divider text |
+| orientation | 'horizontal' \| 'vertical' | 'horizontal' | Orientation |
+| variant | 'solid' \| 'dashed' \| 'dotted' | 'solid' | Line style |
+| spacing | 'sm' \| 'md' \| 'lg' | 'md' | Spacing |
+| textAlign | 'left' \| 'center' \| 'right' | 'center' | Text alignment |
+| className | string | — | Additional CSS class |
+
+---
+
+## Border
+
+Border wrapper component.
+
+```tsx
+import { Border } from '@taein-designsystem/core';
+
+<Border sides="all" variant="solid" color="primary" rounded="md" padding="md">
+  <p>테두리 안의 내용</p>
+</Border>
+```
+
+### Props (extends HTMLAttributes<HTMLDivElement>)
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| children | ReactNode | (required) | Content |
+| sides | 'all' \| 'top' \| 'right' \| 'bottom' \| 'left' \| 'horizontal' \| 'vertical' | 'all' | Border sides |
+| variant | 'solid' \| 'dashed' \| 'dotted' | 'solid' | Border style |
+| width | 'thin' \| 'medium' \| 'thick' | 'thin' | Border width |
+| color | 'default' \| 'primary' \| 'success' \| 'error' \| 'warning' | 'default' | Border color |
+| rounded | 'none' \| 'sm' \| 'md' \| 'lg' \| 'full' | 'none' | Border radius |
+| padding | 'none' \| 'sm' \| 'md' \| 'lg' | 'none' | Inner padding |
+| className | string | — | Additional CSS class |
+
+---
+
+## HeaderBar
+
+Application header bar.
+
+```tsx
+import { HeaderBar, IconButton, Icon } from '@taein-designsystem/core';
+
+<HeaderBar
+  logo={<img src="/logo.svg" alt="Logo" />}
+  title="My App"
+  actions={
+    <IconButton ghost aria-label="설정">
+      <Icon name="plus" />
+    </IconButton>
+  }
+  sticky
+  variant="default"
+/>
+```
+
+### Props (extends HTMLAttributes<HTMLElement>)
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| logo | ReactNode | — | Logo element |
+| title | ReactNode | — | Title/heading |
+| children | ReactNode | — | Center content |
+| actions | ReactNode | — | Right side actions |
+| sticky | boolean | false | Sticky positioning |
+| variant | 'default' \| 'dark' \| 'transparent' | 'default' | Header variant |
+| elevation | boolean | false | Show shadow |
+| border | boolean | true | Show border |
+| aria-label | string | — | Accessibility label |
+| className | string | — | Additional CSS class |
+
+---
+
+## FormField
+
+Form field wrapper using render props pattern.
+
+```tsx
+import { FormField } from '@taein-designsystem/core';
+
+<FormField label="이름" required error errorMessage="이름을 입력하세요">
+  {({ inputId, helperId, hasHelper, isError }) => (
+    <input
+      id={inputId}
+      aria-describedby={hasHelper ? helperId : undefined}
+      aria-invalid={isError}
+    />
+  )}
+</FormField>
+```
+
+### Props
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| label | string | (required) | Label text |
+| helperText | string | — | Helper text |
+| error | boolean | false | Error state |
+| errorMessage | string | — | Error message |
+| required | boolean | false | Required indicator |
+| fullWidth | boolean | false | Full width |
+| className | string | — | Additional CSS class |
+| children | (props: { inputId, helperId, hasHelper, isError }) => ReactNode | (required) | Render function |
+
+---
+
+## Design Tokens
+
+TDS uses `themeContract` for type-safe, theme-aware styling.
+
+### Color Tokens
+- `themeContract.color.primary.main` — Primary brand color
+- `themeContract.color.primary.light` — Light primary
+- `themeContract.color.primary.dark` — Dark primary
+- `themeContract.color.text.primary` — Primary text
+- `themeContract.color.text.secondary` — Secondary text
+- `themeContract.color.text.disabled` — Disabled text
+- `themeContract.color.background.default` — Page background
+- `themeContract.color.background.paper` — Surface background
+- `themeContract.color.surface.default` — Surface color
+- `themeContract.color.border.default` — Default border
+- `themeContract.color.border.strong` — Strong border
+- `themeContract.color.semantic.success` — Success color
+- `themeContract.color.semantic.error` — Error color
+- `themeContract.color.semantic.warning` — Warning color
+- `themeContract.color.semantic.info` — Info color
+
+### Spacing (8pt grid)
+- Values: 1 (4px), 2 (8px), 3 (12px), 4 (16px), 5 (20px), 6 (24px), 8 (32px), 10 (40px), 12 (48px), 16 (64px), 20 (80px)
+
+### Typography
+- Font family: Pretendard Variable (system fallback)
+- Sizes: xs (0.75rem), sm (0.875rem), base (1rem), lg (1.125rem), xl (1.25rem), 2xl (1.5rem), 3xl (1.875rem), 4xl (2.25rem)
+- Weights: regular (400), medium (500), semibold (600), bold (700)
+
+### Border Radius
+- none (0), sm (4px), base (6px), md (8px), lg (12px), xl (16px), full (9999px)
+
+### Shadow
+- sm, base, md, lg, xl — Increasing elevation levels
+
+### Animation
+- Durations: fast (150ms), normal (300ms), slow (500ms)
+- Easings: default, easeIn, easeOut, easeInOut
+
+---
+
+## Accessibility (WCAG 2.2 AA)
+
+All components follow WCAG 2.2 AA standards:
+- Semantic HTML elements (button, input, dialog, etc.)
+- ARIA attributes (aria-label, aria-describedby, aria-invalid, aria-busy, aria-modal, aria-expanded)
+- Keyboard navigation (Tab, Shift+Tab, Enter, Space, Escape, Arrow keys)
+- Focus indicators (3px outline, 3:1 contrast ratio)
+- Focus traps in overlays (Modal, BottomSheet, SideSheet)
+- Color contrast: 4.5:1 for text, 3:1 for UI elements
+- Touch targets: minimum 44x44px
+- Screen reader announcements via aria-live regions

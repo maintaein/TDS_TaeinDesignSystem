@@ -1,8 +1,8 @@
-import { style, styleVariants } from '@vanilla-extract/css'
-import { themeContract } from '../../tokens/theme.css'
+import { style, styleVariants } from '@vanilla-extract/css';
+import { themeContract } from '../../tokens/theme.css';
 
-// Card 기본 스타일
-export const card = style({
+export const cardRoot = style({
+  position: 'relative',
   display: 'flex',
   flexDirection: 'column',
   backgroundColor: themeContract.color.background.paper,
@@ -12,9 +12,8 @@ export const card = style({
   border: 'none',
   textAlign: 'left',
   width: '100%',
-})
+});
 
-// Variant 스타일
 export const variantStyles = styleVariants({
   outlined: {
     border: `1px solid ${themeContract.color.border.default}`,
@@ -29,9 +28,20 @@ export const variantStyles = styleVariants({
     border: 'none',
     boxShadow: 'none',
   },
-})
+  interactive: {
+    border: `2px solid ${themeContract.color.border.default}`,
+    boxShadow: 'none',
+    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
 
-// 클릭 가능한 Card
+    selectors: {
+      '&:hover': {
+        transform: 'translateY(-8px)',
+        boxShadow: '0 20px 40px rgba(0, 0, 0, 0.12)',
+      },
+    },
+  },
+});
+
 export const clickable = style({
   cursor: 'pointer',
 
@@ -49,9 +59,8 @@ export const clickable = style({
     outline: `3px solid ${themeContract.color.border.focus}`,
     outlineOffset: '2px',
   },
-})
+});
 
-// 비활성화 상태
 export const disabled = style({
   opacity: 0.5,
   cursor: 'not-allowed',
@@ -61,35 +70,56 @@ export const disabled = style({
     transform: 'none',
     boxShadow: 'none',
   },
-})
+});
 
-// 이미지 컨테이너
-export const imageContainer = style({
+export const cardImageWrapper = style({
+  position: 'relative',
   width: '100%',
   overflow: 'hidden',
   flexShrink: 0,
-})
+});
 
-// 이미지 스타일
-export const image = style({
+export const cardImage = style({
   width: '100%',
   height: 'auto',
   display: 'block',
   objectFit: 'cover',
-})
+});
 
-// Header 스타일
-export const header = style({
+export const cardImageOverlay = style({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  backgroundColor: 'rgba(0, 0, 0, 0.4)',
+  color: '#fff',
+});
+
+export const cardHeader = style({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
   padding: themeContract.spacing[4],
   borderBottom: `1px solid ${themeContract.color.border.default}`,
-})
+  gap: themeContract.spacing[2],
+});
 
-// Content 스타일 (padding 포함)
-export const content = style({
+export const cardTitle = style({
+  margin: 0,
+  fontSize: themeContract.font.size.lg,
+  fontWeight: themeContract.font.weight.semibold,
+  color: themeContract.color.text.primary,
+  lineHeight: themeContract.font.lineHeight.tight,
+});
+
+export const cardBody = style({
   flex: 1,
-})
+});
 
-// Padding 스타일
 export const paddingStyles = styleVariants({
   none: {
     padding: 0,
@@ -103,10 +133,13 @@ export const paddingStyles = styleVariants({
   lg: {
     padding: themeContract.spacing[6],
   },
-})
+});
 
-// Footer 스타일
-export const footer = style({
+export const cardFooter = style({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
   padding: themeContract.spacing[4],
   borderTop: `1px solid ${themeContract.color.border.default}`,
-})
+  gap: themeContract.spacing[2],
+});

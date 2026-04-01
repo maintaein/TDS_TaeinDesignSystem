@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { Badge } from '@designsystem/core'
+import type { Meta, StoryObj } from '@storybook/react';
+import { Badge } from '@taein-designsystem/core';
 
 const meta = {
   title: 'Components/Badge',
@@ -36,20 +36,27 @@ const meta = {
       description: 'Whether to show zero value',
     },
   },
-} satisfies Meta<typeof Badge>
+} satisfies Meta<typeof Badge>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
     children: 5,
   },
-}
+};
 
 export const Variants: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
+    <div
+      style={{
+        display: 'flex',
+        gap: '1rem',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+      }}
+    >
       <Badge variant="primary">5</Badge>
       <Badge variant="secondary">10</Badge>
       <Badge variant="success">99</Badge>
@@ -57,7 +64,7 @@ export const Variants: Story = {
       <Badge variant="warning">NEW</Badge>
     </div>
   ),
-}
+};
 
 export const Sizes: Story = {
   render: () => (
@@ -67,11 +74,18 @@ export const Sizes: Story = {
       <Badge size="lg">99</Badge>
     </div>
   ),
-}
+};
 
 export const MaxValue: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
+    <div
+      style={{
+        display: 'flex',
+        gap: '1rem',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+      }}
+    >
       <Badge max={99}>50</Badge>
       <Badge max={99}>99</Badge>
       <Badge max={99}>100</Badge>
@@ -79,22 +93,36 @@ export const MaxValue: Story = {
       <Badge max={9}>15</Badge>
     </div>
   ),
-}
+};
 
 export const TextBadge: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
+    <div
+      style={{
+        display: 'flex',
+        gap: '1rem',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+      }}
+    >
       <Badge variant="error">NEW</Badge>
       <Badge variant="warning">HOT</Badge>
       <Badge variant="success">SALE</Badge>
       <Badge variant="primary">BETA</Badge>
     </div>
   ),
-}
+};
 
 export const DotMode: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
+    <div
+      style={{
+        display: 'flex',
+        gap: '1.5rem',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+      }}
+    >
       <Badge dot variant="primary" />
       <Badge dot variant="secondary" />
       <Badge dot variant="success" />
@@ -102,7 +130,7 @@ export const DotMode: Story = {
       <Badge dot variant="warning" />
     </div>
   ),
-}
+};
 
 export const WithZero: Story = {
   render: () => (
@@ -112,11 +140,18 @@ export const WithZero: Story = {
       <span>← showZero=false는 렌더링되지 않음</span>
     </div>
   ),
-}
+};
 
 export const NotificationBadge: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: '2rem', alignItems: 'center', flexWrap: 'wrap' }}>
+    <div
+      style={{
+        display: 'flex',
+        gap: '2rem',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+      }}
+    >
       <div style={{ position: 'relative', display: 'inline-block' }}>
         <button
           style={{
@@ -172,7 +207,7 @@ export const NotificationBadge: Story = {
       </div>
     </div>
   ),
-}
+};
 
 export const AvatarWithBadge: Story = {
   render: () => (
@@ -215,51 +250,89 @@ export const AvatarWithBadge: Story = {
           B
         </div>
         <div style={{ position: 'absolute', bottom: 0, right: 0 }}>
-          <Badge variant="error" size="sm">3</Badge>
+          <Badge variant="error" size="sm">
+            3
+          </Badge>
         </div>
       </div>
     </div>
   ),
-}
+};
 
 export const AllSizesAndVariants: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
       <div>
-        <h3 style={{ marginBottom: '1rem', fontSize: '1rem', fontWeight: 600 }}>Small</h3>
+        <h3 style={{ marginBottom: '1rem', fontSize: '1rem', fontWeight: 600 }}>
+          Small
+        </h3>
         <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-          <Badge size="sm" variant="primary">5</Badge>
-          <Badge size="sm" variant="secondary">10</Badge>
-          <Badge size="sm" variant="success">99</Badge>
-          <Badge size="sm" variant="error">3</Badge>
-          <Badge size="sm" variant="warning">NEW</Badge>
+          <Badge size="sm" variant="primary">
+            5
+          </Badge>
+          <Badge size="sm" variant="secondary">
+            10
+          </Badge>
+          <Badge size="sm" variant="success">
+            99
+          </Badge>
+          <Badge size="sm" variant="error">
+            3
+          </Badge>
+          <Badge size="sm" variant="warning">
+            NEW
+          </Badge>
         </div>
       </div>
 
       <div>
-        <h3 style={{ marginBottom: '1rem', fontSize: '1rem', fontWeight: 600 }}>Medium</h3>
+        <h3 style={{ marginBottom: '1rem', fontSize: '1rem', fontWeight: 600 }}>
+          Medium
+        </h3>
         <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-          <Badge size="md" variant="primary">5</Badge>
-          <Badge size="md" variant="secondary">10</Badge>
-          <Badge size="md" variant="success">99</Badge>
-          <Badge size="md" variant="error">3</Badge>
-          <Badge size="md" variant="warning">NEW</Badge>
+          <Badge size="md" variant="primary">
+            5
+          </Badge>
+          <Badge size="md" variant="secondary">
+            10
+          </Badge>
+          <Badge size="md" variant="success">
+            99
+          </Badge>
+          <Badge size="md" variant="error">
+            3
+          </Badge>
+          <Badge size="md" variant="warning">
+            NEW
+          </Badge>
         </div>
       </div>
 
       <div>
-        <h3 style={{ marginBottom: '1rem', fontSize: '1rem', fontWeight: 600 }}>Large</h3>
+        <h3 style={{ marginBottom: '1rem', fontSize: '1rem', fontWeight: 600 }}>
+          Large
+        </h3>
         <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-          <Badge size="lg" variant="primary">5</Badge>
-          <Badge size="lg" variant="secondary">10</Badge>
-          <Badge size="lg" variant="success">99</Badge>
-          <Badge size="lg" variant="error">3</Badge>
-          <Badge size="lg" variant="warning">NEW</Badge>
+          <Badge size="lg" variant="primary">
+            5
+          </Badge>
+          <Badge size="lg" variant="secondary">
+            10
+          </Badge>
+          <Badge size="lg" variant="success">
+            99
+          </Badge>
+          <Badge size="lg" variant="error">
+            3
+          </Badge>
+          <Badge size="lg" variant="warning">
+            NEW
+          </Badge>
         </div>
       </div>
     </div>
   ),
-}
+};
 
 export const Playground: Story = {
   args: {
@@ -270,4 +343,4 @@ export const Playground: Story = {
     dot: false,
     showZero: true,
   },
-}
+};

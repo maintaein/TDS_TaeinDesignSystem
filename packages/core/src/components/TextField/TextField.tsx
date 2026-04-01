@@ -4,6 +4,7 @@ import { clsx } from 'clsx';
 import { FormField } from '../FormField';
 import * as styles from './TextField.css';
 
+/** 한 줄 텍스트 입력 컴포넌트. 레이블, 에러, 도움말 텍스트 내장 */
 export interface TextFieldProps extends Omit<
   InputHTMLAttributes<HTMLInputElement>,
   'size'

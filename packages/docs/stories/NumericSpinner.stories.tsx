@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { NumericSpinner } from '@designsystem/core';
+import { NumericSpinner } from '@taein-designsystem/core';
 import { ComponentProps, useState } from 'react';
 
 const meta = {

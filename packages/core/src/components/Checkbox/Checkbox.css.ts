@@ -1,13 +1,12 @@
 import { style, styleVariants } from '@vanilla-extract/css';
+import { themeContract } from '../../tokens/theme.css';
 
-// 전체 wrapper 스타일
 export const wrapper = style({
   display: 'inline-flex',
   flexDirection: 'column',
   gap: '0.25rem',
 });
 
-// label 스타일 (checkbox + 텍스트 포함)
 export const checkboxLabel = style({
   display: 'inline-flex',
   alignItems: 'center',
@@ -23,7 +22,6 @@ export const checkboxLabel = style({
   },
 });
 
-// checkbox container 스타일
 export const checkboxContainer = style({
   position: 'relative',
   display: 'inline-flex',
@@ -32,7 +30,6 @@ export const checkboxContainer = style({
   flexShrink: 0,
 });
 
-// size variants
 export const size = styleVariants({
   sm: {
     width: '16px',
@@ -48,7 +45,6 @@ export const size = styleVariants({
   },
 });
 
-// checkbox 기본 스타일 (숨김)
 export const checkbox = style({
   position: 'absolute',
   width: 0,
@@ -63,13 +59,12 @@ export const checkbox = style({
   },
 });
 
-// checkmark 스타일 (커스텀 checkbox)
 export const checkmark = style({
   width: '100%',
   height: '100%',
-  border: '2px solid #DDDDDD',
+  border: `2px solid ${themeContract.color.border.default}`,
   borderRadius: '4px',
-  backgroundColor: '#FFFFFF',
+  backgroundColor: themeContract.color.background.paper,
   transition: 'all 150ms ease-in-out',
   display: 'flex',
   alignItems: 'center',
@@ -78,13 +73,12 @@ export const checkmark = style({
 
   selectors: {
     '&:hover': {
-      borderColor: '#BBBBBB',
+      borderColor: themeContract.color.text.disabled,
     },
 
-    // checked 상태
     'input:checked + &': {
-      backgroundColor: '#1E88E5',
-      borderColor: '#1E88E5',
+      backgroundColor: themeContract.color.primary.main,
+      borderColor: themeContract.color.primary.main,
     },
 
     'input:checked + &::after': {
@@ -96,14 +90,13 @@ export const checkmark = style({
       transform: 'translate(-50%, -50%) rotate(45deg)',
       width: '30%',
       height: '60%',
-      border: 'solid #FFFFFF',
+      border: `solid ${themeContract.color.primary.contrast}`,
       borderWidth: '0 2px 2px 0',
     },
 
-    // indeterminate 상태
     'input:indeterminate + &': {
-      backgroundColor: '#1E88E5',
-      borderColor: '#1E88E5',
+      backgroundColor: themeContract.color.primary.main,
+      borderColor: themeContract.color.primary.main,
     },
 
     'input:indeterminate + &::after': {
@@ -115,64 +108,53 @@ export const checkmark = style({
       transform: 'translate(-50%, -50%)',
       width: '60%',
       height: '2px',
-      backgroundColor: '#FFFFFF',
+      backgroundColor: themeContract.color.primary.contrast,
     },
 
-    // focus 상태
-    'input:focus + &': {
-      borderColor: '#1E88E5',
-      boxShadow: '0 0 0 3px rgba(30, 136, 229, 0.1)',
-    },
-
-    // disabled 상태
     'input:disabled + &': {
-      backgroundColor: '#F5F5F5',
-      borderColor: '#DDDDDD',
+      backgroundColor: themeContract.color.surface.default,
+      borderColor: themeContract.color.border.default,
       cursor: 'not-allowed',
     },
 
     'input:disabled:checked + &': {
-      backgroundColor: '#BBBBBB',
-      borderColor: '#BBBBBB',
+      backgroundColor: themeContract.color.text.disabled,
+      borderColor: themeContract.color.text.disabled,
     },
   },
 });
 
-// error 상태
 export const error = style({
-  borderColor: '#F04452 !important',
+  borderColor: `${themeContract.color.error.main} !important`,
 
   selectors: {
     'input:focus + &': {
-      borderColor: '#F04452 !important',
+      borderColor: `${themeContract.color.error.main} !important`,
       boxShadow: '0 0 0 3px rgba(240, 68, 82, 0.1)',
     },
   },
 });
 
-// label text 스타일
 export const labelText = style({
   fontSize: '0.875rem',
   fontWeight: 500,
-  color: '#333333',
+  color: themeContract.color.text.primary,
   lineHeight: 1.5,
 });
 
-// required 표시
 export const required = style({
-  color: '#F04452',
+  color: themeContract.color.error.main,
   marginLeft: '0.25rem',
 });
 
-// helperText / errorMessage 스타일
 export const helperText = style({
   fontSize: '0.75rem',
-  color: '#666666',
-  marginLeft: 'calc(16px + 0.5rem)', // checkbox 너비 + gap
+  color: themeContract.color.text.secondary,
+  marginLeft: 'calc(16px + 0.5rem)',
 });
 
 export const errorMessage = style({
   fontSize: '0.75rem',
-  color: '#F04452',
-  marginLeft: 'calc(16px + 0.5rem)', // checkbox 너비 + gap
+  color: themeContract.color.error.main,
+  marginLeft: 'calc(16px + 0.5rem)',
 });

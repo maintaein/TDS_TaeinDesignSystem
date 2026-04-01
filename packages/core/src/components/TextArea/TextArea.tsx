@@ -4,6 +4,7 @@ import { clsx } from 'clsx';
 import { FormField } from '../FormField';
 import * as styles from './TextArea.css';
 
+/** 여러 줄 텍스트 입력 컴포넌트. 자동 높이 조정 지원 */
 export interface TextAreaProps extends Omit<
   TextareaHTMLAttributes<HTMLTextAreaElement>,
   'size'

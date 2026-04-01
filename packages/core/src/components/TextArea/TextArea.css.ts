@@ -1,4 +1,5 @@
 import { style, styleVariants } from '@vanilla-extract/css';
+import { themeContract } from '../../tokens/theme.css';
 
 // textarea container 스타일
 export const textareaContainer = style({
@@ -26,10 +27,10 @@ export const size = styleVariants({
 // textarea 기본 스타일
 export const textarea = style({
   width: '100%',
-  border: '1px solid #DDDDDD',
+  border: `1px solid ${themeContract.color.border.default}`,
   borderRadius: '8px',
-  backgroundColor: '#FFFFFF',
-  color: '#000000',
+  backgroundColor: themeContract.color.background.paper,
+  color: themeContract.color.text.primary,
   fontFamily: 'inherit',
   outline: 'none',
   transition: 'all 150ms ease-in-out',
@@ -38,22 +39,18 @@ export const textarea = style({
 
   selectors: {
     '&::placeholder': {
-      color: '#999999',
+      color: themeContract.color.text.disabled,
     },
     '&:hover:not(:disabled)': {
-      borderColor: '#BBBBBB',
-    },
-    '&:focus': {
-      borderColor: '#1E88E5',
-      boxShadow: '0 0 0 3px rgba(30, 136, 229, 0.1)',
+      borderColor: themeContract.color.text.disabled,
     },
     '&:disabled': {
-      backgroundColor: '#F5F5F5',
-      color: '#999999',
+      backgroundColor: themeContract.color.surface.default,
+      color: themeContract.color.text.disabled,
       cursor: 'not-allowed',
     },
     '&:read-only': {
-      backgroundColor: '#FAFAFA',
+      backgroundColor: themeContract.color.surface.default,
       cursor: 'default',
     },
   },
@@ -61,11 +58,11 @@ export const textarea = style({
 
 // error 상태
 export const error = style({
-  borderColor: '#F04452 !important',
+  borderColor: `${themeContract.color.error.main} !important`,
 
   selectors: {
     '&:focus': {
-      borderColor: '#F04452 !important',
+      borderColor: `${themeContract.color.error.main} !important`,
       boxShadow: '0 0 0 3px rgba(240, 68, 82, 0.1)',
     },
   },

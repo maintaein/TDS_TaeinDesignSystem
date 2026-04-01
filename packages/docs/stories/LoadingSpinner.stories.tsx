@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { LoadingSpinner } from '@designsystem/core'
+import type { Meta, StoryObj } from '@storybook/react';
+import { LoadingSpinner } from '@taein-designsystem/core';
 
 /**
  * LoadingSpinner 컴포넌트
@@ -14,7 +14,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: '로딩 상태를 표시하는 스피너 컴포넌트입니다. 버튼, 모달, 전체 화면 로딩 등 다양한 상황에서 재사용할 수 있습니다.',
+        component:
+          '로딩 상태를 표시하는 스피너 컴포넌트입니다. 버튼, 모달, 전체 화면 로딩 등 다양한 상황에서 재사용할 수 있습니다.',
       },
     },
   },
@@ -55,10 +56,10 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof LoadingSpinner>
+} satisfies Meta<typeof LoadingSpinner>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 /**
  * 기본 스피너 형태입니다.
@@ -68,7 +69,7 @@ export const Default: Story = {
     type: 'spinner',
     size: 'md',
   },
-}
+};
 
 /**
  * Dots 타입 스피너입니다.
@@ -79,7 +80,7 @@ export const DotsType: Story = {
     type: 'dots',
     size: 'md',
   },
-}
+};
 
 /**
  * 다양한 크기의 스피너입니다.
@@ -89,23 +90,31 @@ export const Sizes: Story = {
     <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
       <div style={{ textAlign: 'center' }}>
         <LoadingSpinner size="sm" />
-        <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>Small (16px)</p>
+        <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>
+          Small (16px)
+        </p>
       </div>
       <div style={{ textAlign: 'center' }}>
         <LoadingSpinner size="md" />
-        <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>Medium (24px)</p>
+        <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>
+          Medium (24px)
+        </p>
       </div>
       <div style={{ textAlign: 'center' }}>
         <LoadingSpinner size="lg" />
-        <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>Large (32px)</p>
+        <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>
+          Large (32px)
+        </p>
       </div>
       <div style={{ textAlign: 'center' }}>
         <LoadingSpinner size="xl" />
-        <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>X-Large (48px)</p>
+        <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>
+          X-Large (48px)
+        </p>
       </div>
     </div>
   ),
-}
+};
 
 /**
  * Dots 타입의 다양한 크기입니다.
@@ -115,23 +124,31 @@ export const DotsSizes: Story = {
     <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
       <div style={{ textAlign: 'center' }}>
         <LoadingSpinner type="dots" size="sm" />
-        <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>Small</p>
+        <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>
+          Small
+        </p>
       </div>
       <div style={{ textAlign: 'center' }}>
         <LoadingSpinner type="dots" size="md" />
-        <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>Medium</p>
+        <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>
+          Medium
+        </p>
       </div>
       <div style={{ textAlign: 'center' }}>
         <LoadingSpinner type="dots" size="lg" />
-        <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>Large</p>
+        <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>
+          Large
+        </p>
       </div>
       <div style={{ textAlign: 'center' }}>
         <LoadingSpinner type="dots" size="xl" />
-        <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>X-Large</p>
+        <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>
+          X-Large
+        </p>
       </div>
     </div>
   ),
-}
+};
 
 /**
  * 다양한 색상의 스피너입니다.
@@ -141,27 +158,32 @@ export const Colors: Story = {
     <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
       <div style={{ textAlign: 'center' }}>
         <LoadingSpinner color="#1E88E5" />
-        <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>Primary</p>
+        <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>
+          Primary
+        </p>
       </div>
       <div style={{ textAlign: 'center' }}>
         <LoadingSpinner color="#43A047" />
-        <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>Success</p>
+        <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>
+          Success
+        </p>
       </div>
       <div style={{ textAlign: 'center' }}>
         <LoadingSpinner color="#E53935" />
-        <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>Error</p>
+        <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>
+          Error
+        </p>
       </div>
       <div style={{ textAlign: 'center' }}>
         <LoadingSpinner color="#FB8C00" />
-        <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>Warning</p>
+        <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>
+          Warning
+        </p>
       </div>
     </div>
   ),
-}
+};
 
-/**
- * 다크 배경에 흰색 스피너 예시입니다.
- */
 export const OnDarkBackground: Story = {
   render: () => (
     <div
@@ -178,7 +200,7 @@ export const OnDarkBackground: Story = {
       <LoadingSpinner type="dots" color="#FFFFFF" size="md" />
     </div>
   ),
-}
+};
 
 /**
  * 버튼 내부에서 사용되는 작은 스피너 예시입니다.
@@ -204,7 +226,7 @@ export const InButton: Story = {
       로딩 중...
     </button>
   ),
-}
+};
 
 /**
  * 접근성 레이블 커스터마이징 예시입니다.
@@ -213,4 +235,4 @@ export const WithCustomAriaLabel: Story = {
   args: {
     'aria-label': '데이터 불러오는 중',
   },
-}
+};

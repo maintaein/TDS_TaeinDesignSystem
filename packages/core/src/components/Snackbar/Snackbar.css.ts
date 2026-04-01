@@ -1,6 +1,5 @@
-import { style, styleVariants, keyframes } from '@vanilla-extract/css'
-import { themeContract } from '../../tokens/theme.css'
-import { success, error, warning, primary, gray } from '../../tokens/colors.css'
+import { style, styleVariants, keyframes } from '@vanilla-extract/css';
+import { themeContract } from '../../tokens/theme.css';
 
 // 애니메이션 정의
 const slideInFromTop = keyframes({
@@ -12,7 +11,7 @@ const slideInFromTop = keyframes({
     transform: 'translateY(0)',
     opacity: 1,
   },
-})
+});
 
 const slideInFromBottom = keyframes({
   '0%': {
@@ -23,7 +22,7 @@ const slideInFromBottom = keyframes({
     transform: 'translateY(0)',
     opacity: 1,
   },
-})
+});
 
 // center 위치용 애니메이션 (translateX(-50%) 포함)
 const slideInFromTopCenter = keyframes({
@@ -35,7 +34,7 @@ const slideInFromTopCenter = keyframes({
     transform: 'translateX(-50%) translateY(0)',
     opacity: 1,
   },
-})
+});
 
 const slideInFromBottomCenter = keyframes({
   '0%': {
@@ -46,7 +45,7 @@ const slideInFromBottomCenter = keyframes({
     transform: 'translateX(-50%) translateY(0)',
     opacity: 1,
   },
-})
+});
 
 // 기본 스타일
 export const snackbar = style({
@@ -63,25 +62,25 @@ export const snackbar = style({
   fontSize: themeContract.font.size.sm,
   fontWeight: themeContract.font.weight.medium,
   lineHeight: themeContract.font.lineHeight.normal,
-  color: '#FFFFFF',
-})
+  color: themeContract.color.primary.contrast,
+});
 
 // Severity 스타일
 export const severityStyles = styleVariants({
   success: {
-    backgroundColor: success[500],
+    backgroundColor: themeContract.color.success.main,
   },
   error: {
-    backgroundColor: error[500],
+    backgroundColor: themeContract.color.error.main,
   },
   warning: {
-    backgroundColor: warning[500],
-    color: gray[900],
+    backgroundColor: themeContract.color.warning.main,
+    color: themeContract.color.warning.contrast,
   },
   info: {
-    backgroundColor: primary[600],
+    backgroundColor: themeContract.color.primary.main,
   },
-})
+});
 
 // Position 스타일 (각 위치에 맞는 애니메이션 적용)
 export const positionStyles = styleVariants({
@@ -117,7 +116,7 @@ export const positionStyles = styleVariants({
     right: themeContract.spacing[6],
     animation: `${slideInFromBottom} 0.3s ${themeContract.animation.easing.easeOut}`,
   },
-})
+});
 
 // Content 스타일
 export const content = style({
@@ -126,12 +125,12 @@ export const content = style({
   justifyContent: 'space-between',
   width: '100%',
   gap: themeContract.spacing[3],
-})
+});
 
 // Message 스타일
 export const message = style({
   flex: 1,
-})
+});
 
 // Actions 스타일
 export const actions = style({
@@ -139,7 +138,7 @@ export const actions = style({
   alignItems: 'center',
   gap: themeContract.spacing[2],
   marginLeft: 'auto',
-})
+});
 
 // Close button 스타일
 export const closeButton = style({
@@ -167,4 +166,4 @@ export const closeButton = style({
     outlineOffset: '2px',
     borderRadius: themeContract.borderRadius.sm,
   },
-})
+});

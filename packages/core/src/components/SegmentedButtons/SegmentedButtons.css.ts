@@ -1,12 +1,11 @@
 import { style, styleVariants } from '@vanilla-extract/css';
 import { themeContract } from '../../tokens/theme.css';
-import { primary, gray } from '../../tokens/colors.css';
 
 // Container 스타일
 export const container = style({
   display: 'inline-flex',
   alignItems: 'center',
-  backgroundColor: gray[100],
+  backgroundColor: themeContract.color.surface.default,
   borderRadius: themeContract.borderRadius.lg,
   padding: '1px',
   gap: '4px',
@@ -20,7 +19,7 @@ export const activeIndicator = style({
   left: 0,
   height: 'calc(100% - 6px)',
   borderRadius: themeContract.borderRadius.md,
-  backgroundColor: primary[500],
+  backgroundColor: themeContract.color.primary.main,
   boxShadow: '0 2px 8px rgba(0, 102, 255, 0.25)',
   transition: `
     transform 0.25s cubic-bezier(0.25, 1, 0.5, 1),
@@ -57,7 +56,7 @@ export const button = style({
   padding: '0 16px',
   border: 'none',
   backgroundColor: 'transparent',
-  color: gray[600],
+  color: themeContract.color.text.secondary,
   fontSize: themeContract.font.size.sm,
   fontWeight: themeContract.font.weight.medium,
   fontFamily: themeContract.font.family.sans,
@@ -72,12 +71,12 @@ export const button = style({
 
   selectors: {
     '&:hover:not(.disabled):not(.selected)': {
-      color: gray[900],
+      color: themeContract.color.text.primary,
     },
 
     // ✅ 중첩 대신 조합형 selector로 표현
     '&.selected': {
-      color: '#FFFFFF',
+      color: themeContract.color.primary.contrast,
       fontWeight: themeContract.font.weight.semibold,
       transform: 'scale(1)',
       transition: 'transform 0.25s ease, text-shadow 0.25s ease',
@@ -90,7 +89,7 @@ export const button = style({
     },
 
     '&.disabled': {
-      color: gray[400],
+      color: themeContract.color.text.disabled,
       cursor: 'not-allowed',
       opacity: 0.5,
       transform: 'none',

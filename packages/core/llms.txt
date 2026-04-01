@@ -1,0 +1,108 @@
+# TDS (Taein Design System)
+
+> A lightweight (~23KB gzip), beginner-friendly, AI-ready React + TypeScript design system built with Vanilla Extract CSS (zero-runtime). Only 2 runtime dependencies.
+
+## Installation
+
+```bash
+npm install @taein-designsystem/core
+# or
+pnpm add @taein-designsystem/core
+```
+
+## Setup
+
+```tsx
+// main.tsx
+import '@taein-designsystem/core/styles.css';
+import { ThemeProvider } from '@taein-designsystem/core';
+
+function App() {
+  return (
+    <ThemeProvider>
+      <YourApp />
+    </ThemeProvider>
+  );
+}
+```
+
+## API Patterns
+
+All components follow consistent patterns:
+- `variant` — Visual style (e.g., 'primary' | 'dark' | 'light')
+- `size` — Component size ('sm' | 'md' | 'lg')
+- `disabled` — Disabled state (boolean)
+- `className` — Additional CSS class (string)
+- `ref` — All components support forwardRef
+- Form components require `label` prop for accessibility
+
+## Components (30)
+
+### Form & Input
+- **TextField** — Text input with label, validation, helper text. Props: label, type, size, error, errorMessage, helperText, fullWidth
+- **TextArea** — Multiline text input with auto-resize. Props: label, size, autoResize, height, error, errorMessage, helperText
+- **Checkbox** — Checkbox with label, indeterminate state. Props: label, size, error, errorMessage, helperText, indeterminate
+- **Switch** — Toggle switch. Props: label, size, error, errorMessage, helperText
+- **Slider** — Range slider with marks and value display. Props: label, size, min, max, step, showValue, marks, trackColor
+- **NumericSpinner** — Number input with increment/decrement buttons. Props: label, size, min, max, step, inputWidth
+
+### Button & Action
+- **Button** — Primary action button. Props: variant('primary'|'dark'|'danger'|'light'), buttonStyle('fill'|'weak'), size, loading, leftIcon, rightIcon, fullWidth, customColor
+- **IconButton** — Icon-only button. Props: variant, buttonStyle, size, ghost, loading, aria-label (required)
+- **SegmentedButtons** — Button group for single selection. Props: options[{value,label,icon?}], value, onChange, size
+
+### Display & Data
+- **Text** — Typography component. Props: variant('h1'-'h6'|'body1'-'body3'), as, color, weight, align, truncate
+- **Badge** — Status/count indicator. Props: variant, size, max, dot, showZero
+- **Chip** — Tag/filter chip. Props: label, variant('filled'|'outlined'), color, icon, avatar, onDelete, clickable, selected
+- **Avatar** — User avatar with image, fallback, status. Props: src, alt, size, variant('circular'|'rounded'|'square'), status
+- **Icon** — SVG icon component. Props: name('close'|'plus'|'minus'|'chevron-down'|'chevron-up'), size, color
+
+### Feedback & Status
+- **Loader** — Loading indicator (spinner/dots/bar). Props: type, size, color, label, fullScreen, overlay
+- **LoadingSpinner** — Simple spinner/dots. Props: type, size, color
+- **Skeleton** — Content placeholder. Props: variant('text'|'rect'|'circle'|'rounded'), animation('wave'|'pulse'|false), width, height
+- **Snackbar** — Toast notification. Props: open, message, severity('success'|'error'|'warning'|'info'), position, autoHideDuration, action
+- **Tooltip** — Hover tooltip. Props: children, content, position, delay, arrow
+
+### Overlay
+- **Modal** — Dialog modal. Props: open, onClose, size('sm'-'xl'|'full'), closeOnBackdropClick, closeOnEscape. Compound: Modal.Header, Modal.Title, Modal.Content, Modal.Footer
+- **BottomSheet** — Mobile bottom drawer. Props: open, onClose, height('auto'|'sm'-'lg'|'full'), enableDrag, showHandle. Compound: BottomSheet.Header, BottomSheet.Title, BottomSheet.Content
+- **SideSheet** — Side panel drawer. Props: open, onClose, width('sm'-'lg'|'full'), position('left'|'right'). Compound: SideSheet.Header, SideSheet.Title, SideSheet.Content
+- **Popover** — Popover panel. Props: children(trigger), content, position, closeOnOutsideClick, arrow
+
+### Layout
+- **Card** — Content container. Props: variant('outlined'|'elevated'|'filled'|'interactive'), accentColor, onClick. Compound: Card.Image, Card.Header, Card.Title, Card.Body, Card.Footer
+- **List** — Ordered list with spacing. Props: spacing, divider. Child: ListItem(label, value, layout)
+- **BoardRow** — Expandable row/accordion. Props: title, variant, expanded, onChange, disabled
+- **Divider** — Content separator. Props: orientation, variant('solid'|'dashed'|'dotted'), spacing, children(text)
+- **Border** — Border wrapper. Props: sides, variant, width, color, rounded, padding
+- **HeaderBar** — App header bar. Props: logo, title, actions, sticky, variant, elevation
+- **FormField** — Form field wrapper (render props). Props: label, helperText, error, errorMessage, required, children(renderFn)
+
+## Design Tokens
+
+TDS uses a theme contract (`themeContract`) for consistent styling:
+- **Color** — primary, text (primary/secondary/disabled), background, surface, border, semantic (success/error/warning/info)
+- **Spacing** — 8pt grid system (4px to 160px)
+- **Typography** — font family, sizes (xs to 4xl), weights, line heights
+- **Border Radius** — none, sm, base, md, lg, xl, full
+- **Shadow** — sm, base, md, lg, xl
+- **Animation** — durations (fast/normal/slow), easings
+
+## Accessibility (WCAG 2.2 AA)
+
+- Semantic HTML elements (button, input, dialog)
+- ARIA attributes (aria-label, aria-describedby, aria-invalid, aria-busy, aria-modal)
+- Keyboard navigation (Tab, Enter, Space, Escape, Arrow keys)
+- Focus indicators (3px outline, 3:1 contrast)
+- Focus traps in overlays (Modal, BottomSheet, SideSheet)
+- Color contrast 4.5:1 (text), 3:1 (UI elements)
+
+## Links
+
+- [Full API Reference](/llms-full.txt)
+- [Getting Started](/getting-started)
+- [Components Overview](/components)
+- [Design Tokens — Colors](/design-tokens/colors)
+- [Accessibility Guide](/guidelines/accessibility)

@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/react';
-import { ThemeProvider, lightTheme } from '@designsystem/core';
+import { ThemeProvider, lightTheme } from '@taein-designsystem/core';
+import '@taein-designsystem/core/styles.css';
 
 // Global styles 적용
 import '../stories/global.css';

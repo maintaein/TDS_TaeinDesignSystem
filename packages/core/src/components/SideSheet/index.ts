@@ -1,2 +1,13 @@
-export { SideSheet } from './SideSheet'
-export type { SideSheetProps } from './SideSheet'
+export {
+  SideSheet,
+  SideSheetHeader,
+  SideSheetTitle,
+  SideSheetContent,
+} from './SideSheet';
+
+export type {
+  SideSheetProps,
+  SideSheetHeaderProps,
+  SideSheetTitleProps,
+  SideSheetContentProps,
+} from './SideSheet';

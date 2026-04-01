@@ -1,4 +1,4 @@
-import { forwardRef, useId, type InputHTMLAttributes } from 'react';
+import { forwardRef, useId, useState, useCallback, type InputHTMLAttributes, type ChangeEvent } from 'react';
 import clsx from 'clsx';
 import {
   container,
@@ -8,6 +8,7 @@ import {
   valueDisplay,
   sliderWrapper,
   sliderTrack,
+  sliderFillTrack,
   slider as sliderClass,
   sizeVariants,
   helperText as helperTextClass,
@@ -16,11 +17,15 @@ import {
   markLabel,
 } from './Slider.css';
 
+/** 슬라이더 트랙 위에 표시되는 마크 */
 export interface SliderMark {
+  /** 마크 위치 (min~max 범위 내 값) */
   value: number;
+  /** 마크 레이블 텍스트 */
   label: string;
 }
 
+/** 범위 내 값을 선택하는 슬라이더 컴포넌트 */
 export interface SliderProps extends Omit<
   InputHTMLAttributes<HTMLInputElement>,
   'size' | 'type'
@@ -43,6 +48,8 @@ export interface SliderProps extends Omit<
   required?: boolean;
   /** 마크 표시 */
   marks?: SliderMark[];
+  /** 트랙 채움 색상 */
+  trackColor?: string;
   /** 추가 클래스명 */
   className?: string;
 }
@@ -59,17 +66,36 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
       helperText,
       required = false,
       marks,
+      trackColor,
       disabled = false,
       value,
       defaultValue = 0,
+      onChange,
       className,
       ...props
     },
     ref
   ) => {
     const helperId = useId();
-    const currentValue =
-      value !== undefined ? Number(value) : Number(defaultValue);
+    const isControlled = value !== undefined;
+
+    // 비제어 모드에서 fill 트랙을 위한 내부 상태
+    const [internalValue, setInternalValue] = useState(Number(defaultValue));
+
+    const currentValue = isControlled ? Number(value) : internalValue;
+    const fillPercent = max !== min
+      ? ((currentValue - min) / (max - min)) * 100
+      : 0;
+
+    const handleChange = useCallback(
+      (e: ChangeEvent<HTMLInputElement>) => {
+        if (!isControlled) {
+          setInternalValue(Number(e.target.value));
+        }
+        onChange?.(e);
+      },
+      [isControlled, onChange]
+    );
 
     return (
       <div className={clsx(container, className)}>
@@ -83,6 +109,13 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
 
         <div className={clsx(sliderWrapper, sizeVariants[size])}>
           <div className={sliderTrack} />
+          <div
+            className={sliderFillTrack}
+            style={{
+              width: `${fillPercent}%`,
+              ...(trackColor ? { backgroundColor: trackColor } : {}),
+            }}
+          />
           <input
             ref={ref}
             type="range"
@@ -90,9 +123,10 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
             min={min}
             max={max}
             step={step}
-            {...(value !== undefined ? { value } : { defaultValue })}
+            {...(isControlled ? { value } : { defaultValue })}
             disabled={disabled}
             required={required}
+            onChange={handleChange}
             aria-label={label}
             aria-valuemin={min}
             aria-valuemax={max}

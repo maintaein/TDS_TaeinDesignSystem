@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { Divider } from '@designsystem/core'
+import type { Meta, StoryObj } from '@storybook/react';
+import { Divider } from '@taein-designsystem/core';
 
 const meta = {
   title: 'Layout/Divider',
@@ -27,10 +27,10 @@ const meta = {
       options: ['left', 'center', 'right'],
     },
   },
-} satisfies Meta<typeof Divider>
+} satisfies Meta<typeof Divider>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 // 기본 예시
 export const Default: Story = {
@@ -45,7 +45,7 @@ export const Default: Story = {
       <p>콘텐츠 아래</p>
     </div>
   ),
-}
+};
 
 // 텍스트 포함
 export const WithText: Story = {
@@ -56,7 +56,7 @@ export const WithText: Story = {
       <p>섹션 2</p>
     </div>
   ),
-}
+};
 
 // 텍스트 정렬
 export const TextAlignment: Story = {
@@ -79,7 +79,7 @@ export const TextAlignment: Story = {
       </div>
     </div>
   ),
-}
+};
 
 // Variant 예시
 export const Variants: Story = {
@@ -99,7 +99,7 @@ export const Variants: Story = {
       </div>
     </div>
   ),
-}
+};
 
 // Spacing 예시
 export const Spacing: Story = {
@@ -121,12 +121,19 @@ export const Spacing: Story = {
       <p>콘텐츠 아래</p>
     </div>
   ),
-}
+};
 
 // 수직 구분선
 export const Vertical: Story = {
   render: () => (
-    <div style={{ display: 'flex', alignItems: 'center', height: '200px', gap: '1rem' }}>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        height: '200px',
+        gap: '1rem',
+      }}
+    >
       <div style={{ padding: '1rem' }}>메뉴 1</div>
       <Divider orientation="vertical" />
       <div style={{ padding: '1rem' }}>메뉴 2</div>
@@ -134,12 +141,19 @@ export const Vertical: Story = {
       <div style={{ padding: '1rem' }}>메뉴 3</div>
     </div>
   ),
-}
+};
 
 // 수직 구분선 + 텍스트
 export const VerticalWithText: Story = {
   render: () => (
-    <div style={{ display: 'flex', alignItems: 'center', height: '300px', gap: '2rem' }}>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        height: '300px',
+        gap: '2rem',
+      }}
+    >
       <div style={{ padding: '1rem' }}>
         <h3>섹션 A</h3>
         <p>콘텐츠 A</p>
@@ -151,12 +165,19 @@ export const VerticalWithText: Story = {
       </div>
     </div>
   ),
-}
+};
 
 // 수직 구분선 Variant
 export const VerticalVariants: Story = {
   render: () => (
-    <div style={{ display: 'flex', alignItems: 'center', height: '200px', gap: '2rem' }}>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        height: '200px',
+        gap: '2rem',
+      }}
+    >
       <div>Solid</div>
       <Divider orientation="vertical" variant="solid" />
       <div>Dashed</div>
@@ -166,7 +187,7 @@ export const VerticalVariants: Story = {
       <div>끝</div>
     </div>
   ),
-}
+};
 
 // 리스트 구분
 export const ListSeparator: Story = {
@@ -190,7 +211,7 @@ export const ListSeparator: Story = {
       </div>
     </div>
   ),
-}
+};
 
 // 섹션 구분 (텍스트 포함)
 export const SectionDivider: Story = {
@@ -219,33 +240,70 @@ export const SectionDivider: Story = {
       </div>
     </div>
   ),
-}
+};
 
 // 폼 구분
 export const FormDivider: Story = {
   render: () => (
-    <div style={{ maxWidth: '600px', margin: '0 auto', padding: '2rem', border: '1px solid #e0e0e0', borderRadius: '8px' }}>
+    <div
+      style={{
+        maxWidth: '600px',
+        margin: '0 auto',
+        padding: '2rem',
+        border: '1px solid #e0e0e0',
+        borderRadius: '8px',
+      }}
+    >
       <h2>회원가입</h2>
       <Divider spacing="lg" />
 
       <div style={{ marginBottom: '1rem' }}>
         <label style={{ display: 'block', marginBottom: '0.5rem' }}>이름</label>
-        <input type="text" style={{ width: '100%', padding: '0.5rem', border: '1px solid #ccc', borderRadius: '4px' }} />
+        <input
+          type="text"
+          style={{
+            width: '100%',
+            padding: '0.5rem',
+            border: '1px solid #ccc',
+            borderRadius: '4px',
+          }}
+        />
       </div>
 
       <div style={{ marginBottom: '1rem' }}>
-        <label style={{ display: 'block', marginBottom: '0.5rem' }}>이메일</label>
-        <input type="email" style={{ width: '100%', padding: '0.5rem', border: '1px solid #ccc', borderRadius: '4px' }} />
+        <label style={{ display: 'block', marginBottom: '0.5rem' }}>
+          이메일
+        </label>
+        <input
+          type="email"
+          style={{
+            width: '100%',
+            padding: '0.5rem',
+            border: '1px solid #ccc',
+            borderRadius: '4px',
+          }}
+        />
       </div>
 
       <Divider spacing="lg">또는</Divider>
 
-      <button type="button" style={{ width: '100%', padding: '0.75rem', background: '#4285f4', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+      <button
+        type="button"
+        style={{
+          width: '100%',
+          padding: '0.75rem',
+          background: '#4285f4',
+          color: 'white',
+          border: 'none',
+          borderRadius: '4px',
+          cursor: 'pointer',
+        }}
+      >
         Google로 계속하기
       </button>
     </div>
   ),
-}
+};
 
 // 인터랙티브 플레이그라운드
 export const Interactive: Story = {
@@ -257,7 +315,14 @@ export const Interactive: Story = {
     textAlign: 'center',
   },
   render: (args) => (
-    <div style={{ minHeight: args.orientation === 'vertical' ? '300px' : 'auto', display: args.orientation === 'vertical' ? 'flex' : 'block', alignItems: 'center', gap: '2rem' }}>
+    <div
+      style={{
+        minHeight: args.orientation === 'vertical' ? '300px' : 'auto',
+        display: args.orientation === 'vertical' ? 'flex' : 'block',
+        alignItems: 'center',
+        gap: '2rem',
+      }}
+    >
       {args.orientation === 'vertical' ? (
         <>
           <div style={{ padding: '1rem' }}>왼쪽 콘텐츠</div>
@@ -273,4 +338,4 @@ export const Interactive: Story = {
       )}
     </div>
   ),
-}
+};

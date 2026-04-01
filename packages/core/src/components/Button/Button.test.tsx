@@ -155,6 +155,108 @@ describe('Button', () => {
     });
   });
 
+  describe('커스텀 색상 (color prop)', () => {
+    it('color prop이 주어지면 customVariant 클래스가 적용된다', () => {
+      render(
+        <Button customColor={{ bg: '#8b5cf6', text: '#fff' }}>커스텀</Button>
+      );
+      const button = screen.getByRole('button');
+      expect(button).toHaveClass(styles.customVariant);
+      expect(button).not.toHaveClass(styles.fillVariants.primary);
+    });
+
+    it('color prop이 주어지면 CSS 변수가 style에 설정된다', () => {
+      render(
+        <Button customColor={{ bg: '#8b5cf6', text: '#fff' }}>커스텀</Button>
+      );
+      const button = screen.getByRole('button');
+      expect(button.style.getPropertyValue('--btn-bg')).toBe('#8b5cf6');
+      expect(button.style.getPropertyValue('--btn-color')).toBe('#fff');
+    });
+
+    it('hoverBg/activeBg 미지정 시 filter 기본값이 설정된다', () => {
+      render(
+        <Button customColor={{ bg: '#059669', text: '#fff' }}>커스텀</Button>
+      );
+      const button = screen.getByRole('button');
+      expect(button.style.getPropertyValue('--btn-hover-filter')).toBe(
+        'brightness(0.9)'
+      );
+      expect(button.style.getPropertyValue('--btn-active-filter')).toBe(
+        'brightness(0.8)'
+      );
+    });
+
+    it('hoverBg/activeBg 지정 시 해당 CSS 변수가 설정된다', () => {
+      render(
+        <Button
+          customColor={{
+            bg: '#059669',
+            text: '#fff',
+            hoverBg: '#047857',
+            activeBg: '#065f46',
+          }}
+        >
+          커스텀
+        </Button>
+      );
+      const button = screen.getByRole('button');
+      expect(button.style.getPropertyValue('--btn-hover-bg')).toBe('#047857');
+      expect(button.style.getPropertyValue('--btn-active-bg')).toBe('#065f46');
+      expect(button.style.getPropertyValue('--btn-hover-filter')).toBe('');
+    });
+
+    it('color prop과 함께 기존 style prop이 병합된다', () => {
+      render(
+        <Button
+          customColor={{ bg: '#8b5cf6', text: '#fff' }}
+          style={{ marginTop: '10px' }}
+        >
+          커스텀
+        </Button>
+      );
+      const button = screen.getByRole('button');
+      expect(button.style.getPropertyValue('--btn-bg')).toBe('#8b5cf6');
+      expect(button.style.marginTop).toBe('10px');
+    });
+
+    it('variant="light" + customColor이면 customOutlineVariant 클래스가 적용된다', () => {
+      render(
+        <Button variant="light" customColor={{ bg: '#e11d48', text: '' }}>
+          아웃라인
+        </Button>
+      );
+      const button = screen.getByRole('button');
+      expect(button).toHaveClass(styles.customOutlineVariant);
+      expect(button).not.toHaveClass(styles.customVariant);
+    });
+
+    it('variant="light" + customColor이면 --btn-color에 bg 값이 설정된다', () => {
+      render(
+        <Button variant="light" customColor={{ bg: '#e11d48', text: '' }}>
+          아웃라인
+        </Button>
+      );
+      const button = screen.getByRole('button');
+      expect(button.style.getPropertyValue('--btn-color')).toBe('#e11d48');
+      expect(button.style.getPropertyValue('--btn-bg')).toBe('');
+    });
+
+    it('variant="light" + customColor + hoverBg/activeBg가 설정된다', () => {
+      render(
+        <Button
+          variant="light"
+          customColor={{ bg: '#e11d48', text: '', hoverBg: '#fce7f3', activeBg: '#fbcfe8' }}
+        >
+          아웃라인
+        </Button>
+      );
+      const button = screen.getByRole('button');
+      expect(button.style.getPropertyValue('--btn-hover-bg')).toBe('#fce7f3');
+      expect(button.style.getPropertyValue('--btn-active-bg')).toBe('#fbcfe8');
+    });
+  });
+
   describe('엣지 케이스 및 접근성', () => {
     it('custom className이 주어지면 기본 클래스와 함께 적용된다', () => {
       render(<Button className="custom-class">커스텀</Button>);

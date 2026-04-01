@@ -25,5 +25,6 @@ export * from './Border';
 export * from './List';
 export * from './BoardRow';
 export * from './Avatar';
+export * from './Popover';
 export * from './Chip';
 export * from './Card';

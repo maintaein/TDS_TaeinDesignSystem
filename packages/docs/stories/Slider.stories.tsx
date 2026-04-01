@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Slider } from '@designsystem/core';
+import { Slider } from '@taein-designsystem/core';
 import { useState } from 'react';
 
 const meta = {

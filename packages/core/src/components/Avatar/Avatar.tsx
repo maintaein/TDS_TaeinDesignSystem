@@ -1,5 +1,6 @@
 import {
   useState,
+  useMemo,
   Children,
   cloneElement,
   isValidElement,
@@ -7,14 +8,15 @@ import {
   type ReactNode,
   type ReactElement,
   type HTMLAttributes,
-} from 'react'
-import clsx from 'clsx'
+} from 'react';
+import clsx from 'clsx';
 import {
   avatar,
   sizeStyles,
   variantStyles,
   image,
   fallbackText,
+  clickable,
   statusBadge,
   statusOnline,
   statusOffline,
@@ -24,35 +26,50 @@ import {
   spacingStyles,
   groupAvatar,
   excessAvatar,
-} from './Avatar.css'
+} from './Avatar.css';
 
-export interface AvatarProps extends Omit<ImgHTMLAttributes<HTMLImageElement>, 'src'> {
-  src?: string
-  alt: string
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-  variant?: 'circular' | 'rounded' | 'square'
-  status?: 'online' | 'offline' | 'busy' | 'away'
-  children?: ReactNode
-  className?: string
-  onError?: () => void
+/** 사용자 프로필 이미지 또는 이니셜을 표시하는 아바타 컴포넌트 */
+export interface AvatarProps extends Omit<
+  ImgHTMLAttributes<HTMLImageElement>,
+  'src' | 'onClick'
+> {
+  /** 이미지 URL. 없거나 로드 실패 시 이니셜 fallback 표시 */
+  src?: string;
+  /** 대체 텍스트. 이미지 없을 때 이니셜 생성에도 사용됨 */
+  alt: string;
+  /** 아바타 크기 @default 'md' */
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  /** 아바타 모양 @default 'circular' */
+  variant?: 'circular' | 'rounded' | 'square';
+  /** 온라인 상태 표시 배지 */
+  status?: 'online' | 'offline' | 'busy' | 'away';
+  /** 커스텀 fallback 콘텐츠. 이미지 없을 때 이니셜 대신 표시 */
+  children?: ReactNode;
+  /** 추가 CSS 클래스 */
+  className?: string;
+  /** 이미지 로드 실패 시 호출되는 콜백 */
+  onError?: () => void;
+  /** 클릭 핸들러. 설정 시 버튼처럼 동작 */
+  onClick?: () => void;
+  /** 링크 URL. 설정 시 앵커 태그로 렌더링 */
+  href?: string;
+  /** 링크 타겟 (href와 함께 사용) */
+  target?: string;
 }
 
 // fallback 텍스트 생성 함수
 const getInitials = (name: string): string => {
-  if (!name || name.trim() === '') return '?'
+  if (!name || name.trim() === '') return '?';
 
-  const trimmedName = name.trim()
-  // 공백을 기준으로 단어 분리 (공백 자체는 제거)
-  const words = trimmedName.split(/\s+/).filter((word) => word.length > 0)
+  const trimmedName = name.trim();
+  const words = trimmedName.split(/\s+/).filter((word) => word.length > 0);
 
   if (words.length >= 2) {
-    // 두 단어 이상: 첫 두 단어의 첫 글자
-    return (words[0][0] + words[1][0]).toUpperCase()
+    return (words[0][0] + words[1][0]).toUpperCase();
   } else {
-    // 한 단어: 첫 글자
-    return words[0][0].toUpperCase()
+    return words[0][0].toUpperCase();
   }
-}
+};
 
 export const Avatar = ({
   src,
@@ -63,16 +80,19 @@ export const Avatar = ({
   children,
   className,
   onError,
+  onClick,
+  href,
+  target,
   ...props
 }: AvatarProps) => {
-  const [imageError, setImageError] = useState(false)
+  const [imageError, setImageError] = useState(false);
 
   const handleImageError = () => {
-    setImageError(true)
-    onError?.()
-  }
+    setImageError(true);
+    onError?.();
+  };
 
-  const showImage = src && !imageError
+  const showImage = src && !imageError;
 
   // 상태 뱃지 스타일 매핑
   const statusBadgeClass = status
@@ -82,10 +102,27 @@ export const Avatar = ({
         busy: statusBusy,
         away: statusAway,
       }[status]
-    : null
+    : null;
+
+  const isClickable = !!onClick || !!href;
+  const RootTag = href ? 'a' : onClick ? 'button' : 'div';
+  const rootProps = href
+    ? { href, target, 'aria-label': alt }
+    : onClick
+    ? { type: 'button' as const, onClick, 'aria-label': alt }
+    : {};
 
   return (
-    <div className={clsx(avatar, sizeStyles[size], variantStyles[variant], className)}>
+    <RootTag
+      className={clsx(
+        avatar,
+        sizeStyles[size],
+        variantStyles[variant],
+        isClickable && clickable,
+        className
+      )}
+      {...rootProps}
+    >
       {showImage ? (
         <img
           src={src}
@@ -101,20 +138,29 @@ export const Avatar = ({
       )}
 
       {status && (
-        <span className={clsx(statusBadge, statusBadgeClass)} aria-hidden="true" />
+        <span
+          className={clsx(statusBadge, statusBadgeClass)}
+          aria-hidden="true"
+        />
       )}
-    </div>
-  )
-}
+    </RootTag>
+  );
+};
 
-Avatar.displayName = 'Avatar'
+Avatar.displayName = 'Avatar';
 
+/** 여러 Avatar를 겹쳐서 그룹으로 표시하는 컴포넌트 */
 export interface AvatarGroupProps extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode
-  max?: number
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-  spacing?: 'sm' | 'md' | 'lg'
-  className?: string
+  /** Avatar 컴포넌트들 */
+  children: ReactNode;
+  /** 최대 표시 개수. 초과분은 "+N" 으로 표시 */
+  max?: number;
+  /** 그룹 내 아바타 크기 (개별 Avatar의 size를 오버라이드) @default 'md' */
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  /** 아바타 간 겹침 간격 @default 'md' */
+  spacing?: 'sm' | 'md' | 'lg';
+  /** 추가 CSS 클래스 */
+  className?: string;
 }
 
 export const AvatarGroup = ({
@@ -125,21 +171,31 @@ export const AvatarGroup = ({
   className,
   ...props
 }: AvatarGroupProps) => {
-  const childrenArray = Children.toArray(children)
-  const totalCount = childrenArray.length
-  const displayCount = max ? Math.min(max, totalCount) : totalCount
-  const excessCount = max && totalCount > max ? totalCount - max : 0
+  const { displayedChildren, excessCount } = useMemo(() => {
+    const childrenArray = Children.toArray(children);
+    const totalCount = childrenArray.length;
+    const displayCount = max ? Math.min(max, totalCount) : totalCount;
+    const excess = max && totalCount > max ? totalCount - max : 0;
 
-  const displayedChildren = childrenArray.slice(0, displayCount).map((child, index) => {
-    if (isValidElement(child)) {
-      return cloneElement(child as ReactElement<AvatarProps>, {
-        key: index,
-        size: size || (child.props as AvatarProps).size,
-        className: clsx((child.props as AvatarProps).className, groupAvatar, spacingStyles[spacing]),
-      })
-    }
-    return child
-  })
+    const displayed = childrenArray
+      .slice(0, displayCount)
+      .map((child, index) => {
+        if (isValidElement(child)) {
+          return cloneElement(child as ReactElement<AvatarProps>, {
+            key: index,
+            size: size || (child.props as AvatarProps).size,
+            className: clsx(
+              (child.props as AvatarProps).className,
+              groupAvatar,
+              spacingStyles[spacing]
+            ),
+          });
+        }
+        return child;
+      });
+
+    return { displayedChildren: displayed, excessCount: excess };
+  }, [children, max, size, spacing]);
 
   return (
     <div className={clsx(avatarGroup, className)} {...props}>
@@ -148,13 +204,20 @@ export const AvatarGroup = ({
         <div
           role="img"
           aria-label={`${excessCount}명 더 보기`}
-          className={clsx(avatar, sizeStyles[size || 'md'], variantStyles.circular, excessAvatar, groupAvatar, spacingStyles[spacing])}
+          className={clsx(
+            avatar,
+            sizeStyles[size || 'md'],
+            variantStyles.circular,
+            excessAvatar,
+            groupAvatar,
+            spacingStyles[spacing]
+          )}
         >
           <span className={fallbackText}>+{excessCount}</span>
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-AvatarGroup.displayName = 'AvatarGroup'
+AvatarGroup.displayName = 'AvatarGroup';

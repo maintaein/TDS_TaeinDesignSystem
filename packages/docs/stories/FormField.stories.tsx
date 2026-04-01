@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { FormField } from '@designsystem/core';
+import { FormField } from '@taein-designsystem/core';
 import { useState } from 'react';
 
 const meta = {
@@ -9,12 +9,12 @@ const meta = {
     layout: 'centered',
   },
   args: {
-    label: "",
+    label: '',
     children: (props) => (
-      <input 
-        {...props} 
-        placeholder="내용을 입력하세요" 
-        style={{ border: props.isError ? '1px solid red' : '1px solid gray' }} 
+      <input
+        {...props}
+        placeholder="내용을 입력하세요"
+        style={{ border: props.isError ? '1px solid red' : '1px solid gray' }}
       />
     ),
   },
@@ -305,10 +305,7 @@ export const HelperText: Story = {
         )}
       </FormField>
 
-      <FormField
-        label="전화번호"
-        helperText="'-' 없이 숫자만 입력하세요"
-      >
+      <FormField label="전화번호" helperText="'-' 없이 숫자만 입력하세요">
         {({ inputId, helperId, hasHelper }) => (
           <input
             type="tel"
@@ -429,7 +426,9 @@ const ControlledFormExample = () => {
           required
           error={touched.name && errors.name}
           errorMessage={
-            touched.name && errors.name ? '이름은 2자 이상이어야 합니다' : undefined
+            touched.name && errors.name
+              ? '이름은 2자 이상이어야 합니다'
+              : undefined
           }
           helperText={!errors.name ? '실명을 입력하세요' : undefined}
         >
@@ -486,9 +485,7 @@ const ControlledFormExample = () => {
               ? '메시지는 최소 10자 이상이어야 합니다'
               : undefined
           }
-          helperText={
-            !errors.message ? '구체적으로 작성해주세요' : undefined
-          }
+          helperText={!errors.message ? '구체적으로 작성해주세요' : undefined}
         >
           {({ inputId, helperId, hasHelper, isError }) => (
             <textarea
@@ -678,19 +675,41 @@ export const RenderPropPattern: Story = {
   render: () => (
     <div style={{ width: '500px' }}>
       <div style={{ marginBottom: '2rem' }}>
-        <h2 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '0.5rem' }}>
+        <h2
+          style={{
+            fontSize: '1.25rem',
+            fontWeight: 700,
+            marginBottom: '0.5rem',
+          }}
+        >
           FormField Render Prop 패턴
         </h2>
         <p style={{ fontSize: '0.875rem', color: '#666', lineHeight: 1.6 }}>
-          FormField는 render prop 패턴을 사용하여 다양한 폼 요소를 감쌀 수 있습니다.
+          FormField는 render prop 패턴을 사용하여 다양한 폼 요소를 감쌀 수
+          있습니다.
           <br />
           children 함수는 다음 props를 제공합니다:
         </p>
-        <ul style={{ fontSize: '0.875rem', color: '#666', marginTop: '0.5rem', paddingLeft: '1.5rem' }}>
-          <li><strong>inputId</strong>: input 요소의 고유 ID</li>
-          <li><strong>helperId</strong>: helper/error 메시지의 ID</li>
-          <li><strong>hasHelper</strong>: helper/error 메시지 존재 여부</li>
-          <li><strong>isError</strong>: 에러 상태 여부</li>
+        <ul
+          style={{
+            fontSize: '0.875rem',
+            color: '#666',
+            marginTop: '0.5rem',
+            paddingLeft: '1.5rem',
+          }}
+        >
+          <li>
+            <strong>inputId</strong>: input 요소의 고유 ID
+          </li>
+          <li>
+            <strong>helperId</strong>: helper/error 메시지의 ID
+          </li>
+          <li>
+            <strong>hasHelper</strong>: helper/error 메시지 존재 여부
+          </li>
+          <li>
+            <strong>isError</strong>: 에러 상태 여부
+          </li>
         </ul>
       </div>
 
@@ -714,9 +733,23 @@ export const RenderPropPattern: Story = {
         )}
       </FormField>
 
-      <div style={{ marginTop: '2rem', padding: '1rem', backgroundColor: '#F5F5F5', borderRadius: '8px' }}>
-        <pre style={{ fontSize: '0.75rem', lineHeight: 1.5, margin: 0, overflow: 'auto' }}>
-{`<FormField label="예제" helperText="도움말">
+      <div
+        style={{
+          marginTop: '2rem',
+          padding: '1rem',
+          backgroundColor: '#F5F5F5',
+          borderRadius: '8px',
+        }}
+      >
+        <pre
+          style={{
+            fontSize: '0.75rem',
+            lineHeight: 1.5,
+            margin: 0,
+            overflow: 'auto',
+          }}
+        >
+          {`<FormField label="예제" helperText="도움말">
   {({ inputId, helperId, hasHelper }) => (
     <input
       id={inputId}

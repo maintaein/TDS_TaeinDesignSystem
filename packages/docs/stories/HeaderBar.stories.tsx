@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { HeaderBar } from '@designsystem/core'
+import type { Meta, StoryObj } from '@storybook/react';
+import { HeaderBar } from '@taein-designsystem/core';
 
 const meta = {
   title: 'Layout/HeaderBar',
@@ -21,10 +21,10 @@ const meta = {
     elevation: { control: 'boolean' },
     border: { control: 'boolean' },
   },
-} satisfies Meta<typeof HeaderBar>
+} satisfies Meta<typeof HeaderBar>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 // 기본 예시
 export const Default: Story = {
@@ -56,7 +56,7 @@ export const Default: Story = {
       </div>
     </div>
   ),
-}
+};
 
 // Logo와 Title
 export const WithLogo: Story = {
@@ -79,7 +79,7 @@ export const WithLogo: Story = {
       </nav>
     </HeaderBar>
   ),
-}
+};
 
 // Actions 영역
 export const WithActions: Story = {
@@ -94,16 +94,35 @@ export const WithActions: Story = {
         </a>
       </nav>
       <div style={{ display: 'flex', gap: '0.75rem' }}>
-        <button type="button" style={{ padding: '0.5rem 1rem', border: '1px solid #ddd', borderRadius: '4px', background: 'white', cursor: 'pointer' }}>
+        <button
+          type="button"
+          style={{
+            padding: '0.5rem 1rem',
+            border: '1px solid #ddd',
+            borderRadius: '4px',
+            background: 'white',
+            cursor: 'pointer',
+          }}
+        >
           Settings
         </button>
-        <button type="button" style={{ padding: '0.5rem 1rem', border: 'none', borderRadius: '4px', background: '#0066ff', color: 'white', cursor: 'pointer' }}>
+        <button
+          type="button"
+          style={{
+            padding: '0.5rem 1rem',
+            border: 'none',
+            borderRadius: '4px',
+            background: '#0066ff',
+            color: 'white',
+            cursor: 'pointer',
+          }}
+        >
           Sign In
         </button>
       </div>
     </HeaderBar>
   ),
-}
+};
 
 // Sticky 헤더
 export const Sticky: Story = {
@@ -125,13 +144,21 @@ export const Sticky: Story = {
       <div style={{ padding: '2rem' }}>
         <h1>스크롤 테스트</h1>
         <p>헤더가 스크롤 다운을 해도 따라와야 함</p>
-        <div style={{ height: '150vh', background: 'white', marginTop: '2rem', padding: '2rem', borderRadius: '8px' }}>
+        <div
+          style={{
+            height: '150vh',
+            background: 'white',
+            marginTop: '2rem',
+            padding: '2rem',
+            borderRadius: '8px',
+          }}
+        >
           <p>긴 분량의 콘텐츠</p>
         </div>
       </div>
     </div>
   ),
-}
+};
 
 // Dark Variant
 export const DarkVariant: Story = {
@@ -153,24 +180,36 @@ export const DarkVariant: Story = {
           Collections
         </a>
       </nav>
-      <button type="button" style={{ padding: '0.5rem 1rem', border: '1px solid white', borderRadius: '4px', background: 'transparent', color: 'white', cursor: 'pointer' }}>
+      <button
+        type="button"
+        style={{
+          padding: '0.5rem 1rem',
+          border: '1px solid white',
+          borderRadius: '4px',
+          background: 'transparent',
+          color: 'white',
+          cursor: 'pointer',
+        }}
+      >
         Get Started
       </button>
     </HeaderBar>
   ),
-}
+};
 
 // Transparent Variant
 export const TransparentVariant: Story = {
   args: {
-    border: false
+    border: false,
   },
   render: () => (
-    <div style={{
-      minHeight: '100vh',
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      color: 'white',
-    }}>
+    <div
+      style={{
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        color: 'white',
+      }}
+    >
       <HeaderBar variant="transparent" title="Transparent Header">
         <nav style={{ display: 'flex', gap: '1.5rem' }}>
           <a href="#" style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -183,11 +222,13 @@ export const TransparentVariant: Story = {
       </HeaderBar>
       <div style={{ padding: '4rem 2rem', textAlign: 'center' }}>
         <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>Welcome</h1>
-        <p style={{ fontSize: '1.25rem' }}>Transparent header blends with the background</p>
+        <p style={{ fontSize: '1.25rem' }}>
+          Transparent header blends with the background
+        </p>
       </div>
     </div>
   ),
-}
+};
 
 // Elevation (그림자)
 export const WithElevation: Story = {
@@ -203,7 +244,7 @@ export const WithElevation: Story = {
       </nav>
     </HeaderBar>
   ),
-}
+};
 
 // Border 없음
 export const NoBorder: Story = {
@@ -219,7 +260,7 @@ export const NoBorder: Story = {
       </nav>
     </HeaderBar>
   ),
-}
+};
 
 // 완전한 예시 (Logo + Navigation + Actions)
 export const CompleteExample: Story = {
@@ -237,31 +278,88 @@ export const CompleteExample: Story = {
         elevation
       >
         <nav style={{ display: 'flex', gap: '2rem' }}>
-          <a href="#" style={{ textDecoration: 'none', color: 'inherit', fontWeight: 500 }}>
+          <a
+            href="#"
+            style={{
+              textDecoration: 'none',
+              color: 'inherit',
+              fontWeight: 500,
+            }}
+          >
             문서
           </a>
-          <a href="#" style={{ textDecoration: 'none', color: 'inherit', fontWeight: 500 }}>
+          <a
+            href="#"
+            style={{
+              textDecoration: 'none',
+              color: 'inherit',
+              fontWeight: 500,
+            }}
+          >
             컴포넌트
           </a>
-          <a href="#" style={{ textDecoration: 'none', color: 'inherit', fontWeight: 500 }}>
+          <a
+            href="#"
+            style={{
+              textDecoration: 'none',
+              color: 'inherit',
+              fontWeight: 500,
+            }}
+          >
             가이드
           </a>
         </nav>
         <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-          <button type="button" style={{ padding: '0.5rem 1rem', border: '1px solid #ddd', borderRadius: '6px', background: 'white', cursor: 'pointer', fontWeight: 500 }}>
+          <button
+            type="button"
+            style={{
+              padding: '0.5rem 1rem',
+              border: '1px solid #ddd',
+              borderRadius: '6px',
+              background: 'white',
+              cursor: 'pointer',
+              fontWeight: 500,
+            }}
+          >
             회원가입
           </button>
-          <button type="button" style={{ padding: '0.5rem 1.25rem', border: 'none', borderRadius: '6px', background: '#0066ff', color: 'white', cursor: 'pointer', fontWeight: 500 }}>
+          <button
+            type="button"
+            style={{
+              padding: '0.5rem 1.25rem',
+              border: 'none',
+              borderRadius: '6px',
+              background: '#0066ff',
+              color: 'white',
+              cursor: 'pointer',
+              fontWeight: 500,
+            }}
+          >
             시작하기
           </button>
         </div>
       </HeaderBar>
-      <div style={{ padding: '3rem 2rem', maxWidth: '1200px', margin: '0 auto' }}>
-        <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Complete Header Example</h1>
-        <p style={{ fontSize: '1.125rem', color: '#666', marginBottom: '2rem' }}>
-        이 예시는 로고, 제목, 탐색 메뉴 및 액션 버튼을 포함한 모든 기능을 갖춘 헤더를 보여줍니다.<br></br>
-        아래로 스크롤하여 고정 기능이 작동하는 모습을 확인하세요.</p>
-        <div style={{ background: 'white', padding: '2rem', borderRadius: '8px', marginBottom: '2rem' }}>
+      <div
+        style={{ padding: '3rem 2rem', maxWidth: '1200px', margin: '0 auto' }}
+      >
+        <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>
+          Complete Header Example
+        </h1>
+        <p
+          style={{ fontSize: '1.125rem', color: '#666', marginBottom: '2rem' }}
+        >
+          이 예시는 로고, 제목, 탐색 메뉴 및 액션 버튼을 포함한 모든 기능을 갖춘
+          헤더를 보여줍니다.<br></br>
+          아래로 스크롤하여 고정 기능이 작동하는 모습을 확인하세요.
+        </p>
+        <div
+          style={{
+            background: 'white',
+            padding: '2rem',
+            borderRadius: '8px',
+            marginBottom: '2rem',
+          }}
+        >
           <h2>Feature Highlights</h2>
           <ul style={{ lineHeight: 1.8 }}>
             <li>스크롤 시에도 상단에 고정</li>
@@ -272,13 +370,20 @@ export const CompleteExample: Story = {
             <li>반응형 디자인 (크기 조정을 시도해 보세요)</li>
           </ul>
         </div>
-        <div style={{ height: '100vh', background: 'white', padding: '2rem', borderRadius: '8px' }}>
+        <div
+          style={{
+            height: '100vh',
+            background: 'white',
+            padding: '2rem',
+            borderRadius: '8px',
+          }}
+        >
           <p>테스트를 위해 스크롤 해보세요</p>
         </div>
       </div>
     </div>
   ),
-}
+};
 
 // Interactive 플레이그라운드
 export const Interactive: Story = {
@@ -310,4 +415,4 @@ export const Interactive: Story = {
       </div>
     </div>
   ),
-}
+};

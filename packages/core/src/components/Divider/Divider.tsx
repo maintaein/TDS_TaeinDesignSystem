@@ -1,5 +1,5 @@
-import type { HTMLAttributes, ReactNode } from 'react'
-import clsx from 'clsx'
+import type { HTMLAttributes, ReactNode } from 'react';
+import clsx from 'clsx';
 import {
   divider,
   orientationStyles,
@@ -11,15 +11,22 @@ import {
   lineVertical,
   textContent,
   textContentVertical,
-} from './Divider.css'
+} from './Divider.css';
 
+/** 콘텐츠를 시각적으로 구분하는 구분선 컴포넌트. 텍스트 포함 가능 */
 export interface DividerProps extends HTMLAttributes<HTMLDivElement> {
-  children?: ReactNode
-  orientation?: 'horizontal' | 'vertical'
-  variant?: 'solid' | 'dashed' | 'dotted'
-  spacing?: 'sm' | 'md' | 'lg'
-  textAlign?: 'left' | 'center' | 'right'
-  className?: string
+  /** 구분선 안에 표시할 텍스트. 설정 시 텍스트가 포함된 구분선 */
+  children?: ReactNode;
+  /** 구분선 방향 @default 'horizontal' */
+  orientation?: 'horizontal' | 'vertical';
+  /** 구분선 스타일 @default 'solid' */
+  variant?: 'solid' | 'dashed' | 'dotted';
+  /** 구분선 상하 간격 @default 'md' */
+  spacing?: 'sm' | 'md' | 'lg';
+  /** 텍스트 정렬 (children이 있을 때) @default 'center' */
+  textAlign?: 'left' | 'center' | 'right';
+  /** 추가 CSS 클래스 */
+  className?: string;
 }
 
 export const Divider = ({
@@ -31,7 +38,7 @@ export const Divider = ({
   className,
   ...props
 }: DividerProps) => {
-  const isVertical = orientation === 'vertical'
+  const isVertical = orientation === 'vertical';
 
   if (!children) {
     return (
@@ -47,7 +54,7 @@ export const Divider = ({
         )}
         {...props}
       />
-    )
+    );
   }
 
   return (
@@ -67,13 +74,15 @@ export const Divider = ({
     >
       {(textAlign === 'center' || textAlign === 'right') && (
         <div className={isVertical ? lineVertical : line} />
-      )}      
-      <div className={isVertical ? textContentVertical : textContent}>{children}</div>
+      )}
+      <div className={isVertical ? textContentVertical : textContent}>
+        {children}
+      </div>
       {(textAlign === 'center' || textAlign === 'left') && (
         <div className={isVertical ? lineVertical : line} />
       )}
     </div>
-  )
-}
+  );
+};
 
-Divider.displayName = 'Divider'
+Divider.displayName = 'Divider';

@@ -178,6 +178,56 @@ describe('IconButton', () => {
     });
   });
 
+  describe('아이콘 크기 테스트', () => {
+    it('contained 모드에서 아이콘 래퍼에 size별 클래스가 적용된다', () => {
+      const sizes = ['sm', 'md', 'lg', 'xl'] as const;
+
+      sizes.forEach((size) => {
+        const { unmount } = render(
+          <IconButton size={size} aria-label={`icon-${size}`}>
+            <TestIcon />
+          </IconButton>
+        );
+
+        const button = screen.getByRole('button');
+        const iconWrapper = button.querySelector('[aria-hidden="true"]');
+        expect(iconWrapper).toBeInTheDocument();
+        expect(iconWrapper?.className).toContain(size);
+        unmount();
+      });
+    });
+
+    it('ghost 모드에서 아이콘 래퍼에 size별 클래스가 적용된다', () => {
+      const sizes = ['sm', 'md', 'lg', 'xl'] as const;
+
+      sizes.forEach((size) => {
+        const { unmount } = render(
+          <IconButton ghost size={size} aria-label={`ghost-${size}`}>
+            <TestIcon />
+          </IconButton>
+        );
+
+        const button = screen.getByRole('button');
+        const iconWrapper = button.querySelector('[aria-hidden="true"]');
+        expect(iconWrapper).toBeInTheDocument();
+        expect(iconWrapper?.className).toContain(size);
+        unmount();
+      });
+    });
+
+    it('ghost 모드에서 size에 따라 ghost 크기 클래스가 버튼에 적용된다', () => {
+      const { unmount } = render(
+        <IconButton ghost size="lg" aria-label="ghost-lg">
+          <TestIcon />
+        </IconButton>
+      );
+
+      const button = screen.getByRole('button');
+      expect(button.className).toContain('lg');
+      unmount();
+    });
+  });
+
   describe('상태 prop 테스트', () => {
     it('disabled 상태를 적용한다', () => {
       render(
@@ -492,6 +542,119 @@ describe('IconButton', () => {
 
       const button = screen.getByTestId('custom-button');
       expect(button).toBeInTheDocument();
+    });
+  });
+
+  describe('ghost prop 테스트', () => {
+    it('ghost 모드에서 렌더링된다', () => {
+      render(
+        <IconButton ghost aria-label="닫기">
+          <TestIcon />
+        </IconButton>
+      );
+
+      const button = screen.getByRole('button', { name: '닫기' });
+      expect(button).toBeInTheDocument();
+      expect(screen.getByTestId('test-icon')).toBeInTheDocument();
+    });
+
+    it('ghost 모드에서 ghost 스타일 클래스가 적용된다', () => {
+      render(
+        <IconButton ghost aria-label="닫기">
+          <TestIcon />
+        </IconButton>
+      );
+
+      const button = screen.getByRole('button');
+      expect(button.className).toContain('ghost');
+    });
+
+    it('ghost 모드에서 variant/buttonStyle 클래스가 적용되지 않는다', () => {
+      render(
+        <IconButton ghost variant="primary" buttonStyle="fill" aria-label="닫기">
+          <TestIcon />
+        </IconButton>
+      );
+
+      const button = screen.getByRole('button');
+      // fill/weak variant 클래스가 아닌 ghost 클래스만 있어야 함
+      expect(button.className).toContain('ghost');
+      // fillVariants/weakVariants의 primary 클래스는 적용되지 않아야 함
+      expect(button.className).not.toContain('fill');
+    });
+
+    it('ghost 모드에서 sizeVariants가 적용되지 않는다', () => {
+      render(
+        <IconButton ghost size="lg" aria-label="닫기">
+          <TestIcon />
+        </IconButton>
+      );
+
+      const button = screen.getByRole('button');
+      // ghost 모드에서는 정사각형 size 클래스 대신 ghost 클래스 사용
+      expect(button.className).toContain('ghost');
+    });
+
+    it('ghost 모드에서 클릭 이벤트가 동작한다', async () => {
+      const user = userEvent.setup();
+      const handleClick = vi.fn();
+
+      render(
+        <IconButton ghost onClick={handleClick} aria-label="닫기">
+          <TestIcon />
+        </IconButton>
+      );
+
+      await user.click(screen.getByRole('button'));
+      expect(handleClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('ghost 모드에서 disabled 상태가 동작한다', () => {
+      render(
+        <IconButton ghost disabled aria-label="닫기">
+          <TestIcon />
+        </IconButton>
+      );
+
+      const button = screen.getByRole('button');
+      expect(button).toBeDisabled();
+      expect(button).toHaveAttribute('aria-disabled', 'true');
+    });
+
+    it('ghost 모드에서 loading 상태가 동작한다', () => {
+      render(
+        <IconButton ghost loading aria-label="닫기">
+          <TestIcon />
+        </IconButton>
+      );
+
+      const button = screen.getByRole('button');
+      expect(button).toBeDisabled();
+      expect(button).toHaveAttribute('aria-busy', 'true');
+      expect(screen.queryByTestId('test-icon')).not.toBeInTheDocument();
+    });
+
+    it('ghost 모드에서 아이콘은 aria-hidden으로 감싸진다', () => {
+      render(
+        <IconButton ghost aria-label="닫기">
+          <TestIcon />
+        </IconButton>
+      );
+
+      const button = screen.getByRole('button');
+      const iconWrapper = button.querySelector('[aria-hidden="true"]');
+      expect(iconWrapper).toBeInTheDocument();
+    });
+
+    it('ghost={false}일 때 기존 동작과 동일하다 (기본값)', () => {
+      render(
+        <IconButton ghost={false} aria-label="닫기">
+          <TestIcon />
+        </IconButton>
+      );
+
+      const button = screen.getByRole('button');
+      expect(button.className).not.toContain('ghost');
     });
   });
 

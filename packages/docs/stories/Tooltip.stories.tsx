@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { Tooltip } from '@designsystem/core'
+import type { Meta, StoryObj } from '@storybook/react';
+import { Tooltip } from '@taein-designsystem/core';
 
 const meta = {
   title: 'Components/Tooltip',
@@ -35,21 +35,29 @@ const meta = {
       description: 'Show arrow',
     },
   },
-} satisfies Meta<typeof Tooltip>
+} satisfies Meta<typeof Tooltip>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
     content: '이것은 툴팁입니다',
     children: <button>호버하세요</button>,
   },
-}
+};
 
 export const Positions: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '4rem', alignItems: 'center', padding: '4rem' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '4rem',
+        alignItems: 'center',
+        padding: '4rem',
+      }}
+    >
       <div style={{ display: 'flex', gap: '2rem' }}>
         <Tooltip content="Top 위치 툴팁" position="top">
           <button style={{ padding: '0.75rem 1.5rem' }}>Top</button>
@@ -68,7 +76,7 @@ export const Positions: Story = {
       </div>
     </div>
   ),
-}
+};
 
 export const Delays: Story = {
   render: () => (
@@ -84,7 +92,7 @@ export const Delays: Story = {
       </Tooltip>
     </div>
   ),
-}
+};
 
 export const WithoutArrow: Story = {
   render: () => (
@@ -97,7 +105,7 @@ export const WithoutArrow: Story = {
       </Tooltip>
     </div>
   ),
-}
+};
 
 export const Disabled: Story = {
   render: () => (
@@ -110,7 +118,7 @@ export const Disabled: Story = {
       </Tooltip>
     </div>
   ),
-}
+};
 
 export const LongContent: Story = {
   render: () => (
@@ -118,7 +126,7 @@ export const LongContent: Story = {
       <button style={{ padding: '0.75rem 1.5rem' }}>긴 내용 툴팁</button>
     </Tooltip>
   ),
-}
+};
 
 export const OnIcons: Story = {
   render: () => (
@@ -176,29 +184,54 @@ export const OnIcons: Story = {
       </Tooltip>
     </div>
   ),
-}
+};
 
 export const OnText: Story = {
   render: () => (
     <p style={{ fontSize: '1rem', lineHeight: 1.6 }}>
       이 문장에는{' '}
       <Tooltip content="이것은 약어입니다: HyperText Markup Language">
-        <span style={{ textDecoration: 'underline', cursor: 'help', color: '#1E88E5' }}>HTML</span>
+        <span
+          style={{
+            textDecoration: 'underline',
+            cursor: 'help',
+            color: '#1E88E5',
+          }}
+        >
+          HTML
+        </span>
       </Tooltip>
       과{' '}
       <Tooltip content="이것은 약어입니다: Cascading Style Sheets">
-        <span style={{ textDecoration: 'underline', cursor: 'help', color: '#1E88E5' }}>CSS</span>
+        <span
+          style={{
+            textDecoration: 'underline',
+            cursor: 'help',
+            color: '#1E88E5',
+          }}
+        >
+          CSS
+        </span>
       </Tooltip>
       에 대한 설명이 툴팁으로 제공됩니다.
     </p>
   ),
-}
+};
 
 export const FormHelp: Story = {
   render: () => (
     <div style={{ width: '400px' }}>
       <div style={{ marginBottom: '1rem' }}>
-        <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: 600 }}>
+        <label
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            marginBottom: '0.5rem',
+            fontSize: '0.875rem',
+            fontWeight: 600,
+          }}
+        >
           이메일
           <Tooltip content="유효한 이메일 주소를 입력하세요 (예: user@example.com)">
             <span
@@ -218,11 +251,29 @@ export const FormHelp: Story = {
             </span>
           </Tooltip>
         </label>
-        <input type="email" placeholder="이메일 주소" style={{ width: '100%', padding: '0.5rem', border: '1px solid #ccc', borderRadius: '4px' }} />
+        <input
+          type="email"
+          placeholder="이메일 주소"
+          style={{
+            width: '100%',
+            padding: '0.5rem',
+            border: '1px solid #ccc',
+            borderRadius: '4px',
+          }}
+        />
       </div>
 
       <div style={{ marginBottom: '1rem' }}>
-        <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: 600 }}>
+        <label
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            marginBottom: '0.5rem',
+            fontSize: '0.875rem',
+            fontWeight: 600,
+          }}
+        >
           비밀번호
           <Tooltip content="8자 이상, 대문자, 소문자, 숫자, 특수문자를 포함해야 합니다">
             <span
@@ -242,11 +293,20 @@ export const FormHelp: Story = {
             </span>
           </Tooltip>
         </label>
-        <input type="password" placeholder="비밀번호" style={{ width: '100%', padding: '0.5rem', border: '1px solid #ccc', borderRadius: '4px' }} />
+        <input
+          type="password"
+          placeholder="비밀번호"
+          style={{
+            width: '100%',
+            padding: '0.5rem',
+            border: '1px solid #ccc',
+            borderRadius: '4px',
+          }}
+        />
       </div>
     </div>
   ),
-}
+};
 
 export const Interactive: Story = {
   args: {
@@ -255,6 +315,8 @@ export const Interactive: Story = {
     delay: 200,
     disabled: false,
     arrow: true,
-    children: <button style={{ padding: '0.75rem 1.5rem' }}>인터랙티브 툴팁</button>,
+    children: (
+      <button style={{ padding: '0.75rem 1.5rem' }}>인터랙티브 툴팁</button>
+    ),
   },
-}
+};

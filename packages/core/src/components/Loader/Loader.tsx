@@ -1,5 +1,5 @@
-import type { HTMLAttributes } from 'react'
-import clsx from 'clsx'
+import type { HTMLAttributes } from 'react';
+import clsx from 'clsx';
 import {
   loaderContainer,
   fullScreenStyles,
@@ -9,19 +9,31 @@ import {
   barFill,
   barSizeStyles,
   colorStyles,
-} from './Loader.css'
-import { LoadingSpinner } from '../LoadingSpinner'
-import { primary, gray } from '../../tokens/colors.css'
+} from './Loader.css';
+import { LoadingSpinner } from '../LoadingSpinner';
+import { primary, gray } from '../../tokens/colors.css';
 
-export interface LoaderProps extends Omit<HTMLAttributes<HTMLDivElement>, 'color'> {
-  type?: 'spinner' | 'dots' | 'bar'
-  size?: 'sm' | 'md' | 'lg' | 'xl'
-  color?: 'primary' | 'secondary' | 'white'
-  label?: string
-  fullScreen?: boolean
-  overlay?: boolean
-  'aria-label'?: string
-  className?: string
+/** 로딩 상태를 표시하는 컴포넌트. 스피너, 점, 바 타입 지원 */
+export interface LoaderProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  'color'
+> {
+  /** 로딩 애니메이션 타입 @default 'spinner' */
+  type?: 'spinner' | 'dots' | 'bar';
+  /** 로더 크기 @default 'md' */
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  /** 로더 색상 @default 'primary' */
+  color?: 'primary' | 'secondary' | 'white';
+  /** 로더 아래 표시할 텍스트 */
+  label?: string;
+  /** 전체 화면 중앙 배치 @default false */
+  fullScreen?: boolean;
+  /** 반투명 배경 오버레이 표시 @default false */
+  overlay?: boolean;
+  /** 스크린 리더용 레이블 */
+  'aria-label'?: string;
+  /** 추가 CSS 클래스 */
+  className?: string;
 }
 
 export const Loader = ({
@@ -38,13 +50,13 @@ export const Loader = ({
   const getColorValue = (colorPreset: 'primary' | 'secondary' | 'white') => {
     switch (colorPreset) {
       case 'primary':
-        return primary[600]
+        return primary[600];
       case 'secondary':
-        return gray[600]
+        return gray[600];
       case 'white':
-        return '#FFFFFF'
+        return '#FFFFFF';
     }
-  }
+  };
 
   const renderLoader = () => {
     const colorClass = colorStyles[color];
@@ -65,7 +77,7 @@ export const Loader = ({
             <div className={clsx(barFill, colorClass)} />
           </div>
         </div>
-      )
+      );
     }
 
     // spinner와 dots는 LoadingSpinner 사용
@@ -76,13 +88,13 @@ export const Loader = ({
         color={getColorValue(color)}
         aria-label={ariaLabel || label || '로딩 중'}
       />
-    )
-  }
+    );
+  };
 
-  const loaderElement = renderLoader()
+  const loaderElement = renderLoader();
 
   if (!label && !fullScreen && !overlay) {
-    return <div className={className}>{loaderElement}</div>
+    return <div className={className}>{loaderElement}</div>;
   }
 
   return (
@@ -97,7 +109,7 @@ export const Loader = ({
       {loaderElement}
       {label && <p className={labelClass}>{label}</p>}
     </div>
-  )
-}
+  );
+};
 
-Loader.displayName = 'Loader'
+Loader.displayName = 'Loader';

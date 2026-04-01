@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { Chip } from '@designsystem/core'
-import { useState } from 'react'
+import type { Meta, StoryObj } from '@storybook/react';
+import { Chip } from '@taein-designsystem/core';
+import { useState } from 'react';
 
 const meta = {
   title: 'Data Display/Chip',
@@ -10,7 +10,7 @@ const meta = {
   },
   tags: ['autodocs'],
   args: {
-    label: "",
+    label: '',
   },
   argTypes: {
     size: {
@@ -41,17 +41,17 @@ const meta = {
       description: '비활성화 상태',
     },
   },
-} satisfies Meta<typeof Chip>
+} satisfies Meta<typeof Chip>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 // 기본 예시
 export const Default: Story = {
   args: {
     label: '기본 칩',
   },
-}
+};
 
 // 크기 옵션
 export const Sizes: Story = {
@@ -62,7 +62,7 @@ export const Sizes: Story = {
       <Chip label="Large" size="lg" />
     </div>
   ),
-}
+};
 
 // Variant 옵션
 export const Variants: Story = {
@@ -72,12 +72,19 @@ export const Variants: Story = {
       <Chip label="Outlined" variant="outlined" color="primary" />
     </div>
   ),
-}
+};
 
 // 색상 옵션 - Filled
 export const ColorsFilled: Story = {
   render: () => (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        flexWrap: 'wrap',
+      }}
+    >
       <Chip label="Default" variant="filled" color="default" />
       <Chip label="Primary" variant="filled" color="primary" />
       <Chip label="Success" variant="filled" color="success" />
@@ -85,12 +92,19 @@ export const ColorsFilled: Story = {
       <Chip label="Warning" variant="filled" color="warning" />
     </div>
   ),
-}
+};
 
 // 색상 옵션 - Outlined
 export const ColorsOutlined: Story = {
   render: () => (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        flexWrap: 'wrap',
+      }}
+    >
       <Chip label="Default" variant="outlined" color="default" />
       <Chip label="Primary" variant="outlined" color="primary" />
       <Chip label="Success" variant="outlined" color="success" />
@@ -98,12 +112,19 @@ export const ColorsOutlined: Story = {
       <Chip label="Warning" variant="outlined" color="warning" />
     </div>
   ),
-}
+};
 
 // 아이콘이 있는 칩
 export const WithIcon: Story = {
   render: () => (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        flexWrap: 'wrap',
+      }}
+    >
       <Chip
         label="Home"
         icon={
@@ -133,7 +154,7 @@ export const WithIcon: Story = {
       />
     </div>
   ),
-}
+};
 
 // 아바타가 있는 칩
 export const WithAvatar: Story = {
@@ -174,7 +195,7 @@ export const WithAvatar: Story = {
       />
     </div>
   ),
-}
+};
 
 const DeletableComponent = () => {
   const [chips, setChips] = useState([
@@ -182,14 +203,21 @@ const DeletableComponent = () => {
     { id: 2, label: 'TypeScript' },
     { id: 3, label: 'Vite' },
     { id: 4, label: 'Vitest' },
-  ])
+  ]);
 
   const handleDelete = (id: number) => {
-    setChips(chips.filter((chip) => chip.id !== id))
-  }
+    setChips(chips.filter((chip) => chip.id !== id));
+  };
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px',
+        flexWrap: 'wrap',
+      }}
+    >
       {chips.map((chip) => (
         <Chip
           key={chip.id}
@@ -199,16 +227,16 @@ const DeletableComponent = () => {
         />
       ))}
     </div>
-  )
-}
+  );
+};
 
 // 삭제 가능한 칩
 export const Deletable: Story = {
-  render: () => <DeletableComponent/>
-}
+  render: () => <DeletableComponent />,
+};
 
 const ClickableComponent = () => {
-  const [selected, setSelected] = useState<number | null>(null)
+  const [selected, setSelected] = useState<number | null>(null);
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -223,58 +251,74 @@ const ClickableComponent = () => {
         />
       ))}
     </div>
-  )
-}
+  );
+};
 
 // 클릭 가능한 칩
 export const Clickable: Story = {
-  render: () => <ClickableComponent/>
-}
+  render: () => <ClickableComponent />,
+};
 
 const MultiSelectComponent = () => {
-  const [selected, setSelected] = useState<number[]>([])
+  const [selected, setSelected] = useState<number[]>([]);
 
   const toggleSelection = (index: number) => {
     if (selected.includes(index)) {
-      setSelected(selected.filter((i) => i !== index))
+      setSelected(selected.filter((i) => i !== index));
     } else {
-      setSelected([...selected, index])
+      setSelected([...selected, index]);
     }
-  }
+  };
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-      {['JavaScript', 'TypeScript', 'Python', 'Java', 'C++', 'Go'].map((label, index) => (
-        <Chip
-          key={index}
-          label={label}
-          clickable
-          selected={selected.includes(index)}
-          onClick={() => toggleSelection(index)}
-          color="success"
-          variant="outlined"
-        />
-      ))}
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px',
+        flexWrap: 'wrap',
+      }}
+    >
+      {['JavaScript', 'TypeScript', 'Python', 'Java', 'C++', 'Go'].map(
+        (label, index) => (
+          <Chip
+            key={index}
+            label={label}
+            clickable
+            selected={selected.includes(index)}
+            onClick={() => toggleSelection(index)}
+            color="success"
+            variant="outlined"
+          />
+        )
+      )}
     </div>
-  )
-}
+  );
+};
 
 // 다중 선택 가능한 칩
 export const MultiSelect: Story = {
-  render: () => <MultiSelectComponent/>
-}
+  render: () => <MultiSelectComponent />,
+};
 
 // 비활성화된 칩
 export const Disabled: Story = {
   render: () => (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        flexWrap: 'wrap',
+      }}
+    >
       <Chip label="Disabled" disabled />
       <Chip label="Disabled Primary" color="primary" disabled />
       <Chip label="Disabled Clickable" clickable onClick={() => {}} disabled />
       <Chip label="Disabled Deletable" onDelete={() => {}} disabled />
     </div>
   ),
-}
+};
 
 const TagSystemComponent = () => {
   const [tags, setTags] = useState([
@@ -282,14 +326,20 @@ const TagSystemComponent = () => {
     { id: 2, label: 'Backend', color: 'success' as const },
     { id: 3, label: 'DevOps', color: 'warning' as const },
     { id: 4, label: 'Design', color: 'error' as const },
-  ])
+  ]);
 
   const handleDelete = (id: number) => {
-    setTags(tags.filter((tag) => tag.id !== id))
-  }
+    setTags(tags.filter((tag) => tag.id !== id));
+  };
 
   return (
-    <div style={{ padding: '24px', backgroundColor: '#f5f5f5', borderRadius: '8px' }}>
+    <div
+      style={{
+        padding: '24px',
+        backgroundColor: '#f5f5f5',
+        borderRadius: '8px',
+      }}
+    >
       <h3 style={{ marginTop: 0, marginBottom: '16px' }}>프로젝트 태그</h3>
       <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
         {tags.map((tag) => (
@@ -302,24 +352,24 @@ const TagSystemComponent = () => {
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
 // 사용 예시: 태그 시스템
 export const TagSystem: Story = {
-  render: () => <TagSystemComponent/>
-}
+  render: () => <TagSystemComponent />,
+};
 
 const FilterChipsComponent = () => {
-  const [filters, setFilters] = useState<string[]>([])
+  const [filters, setFilters] = useState<string[]>([]);
 
   const toggleFilter = (filter: string) => {
     if (filters.includes(filter)) {
-      setFilters(filters.filter((f) => f !== filter))
+      setFilters(filters.filter((f) => f !== filter));
     } else {
-      setFilters([...filters, filter])
+      setFilters([...filters, filter]);
     }
-  }
+  };
 
   const filterOptions = [
     { label: '최신순', value: 'latest' },
@@ -327,10 +377,16 @@ const FilterChipsComponent = () => {
     { label: '낮은 가격', value: 'price-low' },
     { label: '높은 가격', value: 'price-high' },
     { label: '할인 상품', value: 'sale' },
-  ]
+  ];
 
   return (
-    <div style={{ padding: '24px', backgroundColor: '#f5f5f5', borderRadius: '8px' }}>
+    <div
+      style={{
+        padding: '24px',
+        backgroundColor: '#f5f5f5',
+        borderRadius: '8px',
+      }}
+    >
       <h3 style={{ marginTop: 0, marginBottom: '16px' }}>필터</h3>
       <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
         {filterOptions.map((option) => (
@@ -351,13 +407,13 @@ const FilterChipsComponent = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
 // 사용 예시: 필터
 export const FilterChips: Story = {
-  render: () => <FilterChipsComponent/>
-}
+  render: () => <FilterChipsComponent />,
+};
 
 // 사용 예시: 연락처 칩
 export const ContactChips: Story = {
@@ -368,10 +424,16 @@ export const ContactChips: Story = {
       { id: 3, name: '이영희', avatar: 'https://i.pravatar.cc/40?img=3' },
       { id: 4, name: '박민수', avatar: 'https://i.pravatar.cc/40?img=4' },
       { id: 5, name: '정수진', avatar: 'https://i.pravatar.cc/40?img=5' },
-    ]
+    ];
 
     return (
-      <div style={{ padding: '24px', backgroundColor: '#f5f5f5', borderRadius: '8px' }}>
+      <div
+        style={{
+          padding: '24px',
+          backgroundColor: '#f5f5f5',
+          borderRadius: '8px',
+        }}
+      >
         <h3 style={{ marginTop: 0, marginBottom: '16px' }}>참여자</h3>
         <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
           {contacts.map((contact) => (
@@ -391,9 +453,9 @@ export const ContactChips: Story = {
           ))}
         </div>
       </div>
-    )
+    );
   },
-}
+};
 
 // Interactive Playground
 export const Interactive: Story = {
@@ -406,4 +468,4 @@ export const Interactive: Story = {
     selected: false,
     disabled: false,
   },
-}
+};

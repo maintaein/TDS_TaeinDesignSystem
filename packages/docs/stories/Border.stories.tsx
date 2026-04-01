@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { Border } from '@designsystem/core'
+import type { Meta, StoryObj } from '@storybook/react';
+import { Border } from '@taein-designsystem/core';
 
 const meta = {
   title: 'Layout/Border',
@@ -9,13 +9,21 @@ const meta = {
   },
   tags: ['autodocs'],
   args: {
-    children: "",
+    children: '',
   },
   argTypes: {
     children: { control: 'text' },
     sides: {
       control: 'select',
-      options: ['all', 'top', 'right', 'bottom', 'left', 'horizontal', 'vertical'],
+      options: [
+        'all',
+        'top',
+        'right',
+        'bottom',
+        'left',
+        'horizontal',
+        'vertical',
+      ],
     },
     variant: {
       control: 'select',
@@ -38,10 +46,10 @@ const meta = {
       options: ['none', 'sm', 'md', 'lg'],
     },
   },
-} satisfies Meta<typeof Border>
+} satisfies Meta<typeof Border>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 // 기본 예시
 export const Default: Story = {
@@ -54,12 +62,18 @@ export const Default: Story = {
     rounded: 'none',
     padding: 'md',
   },
-}
+};
 
 // 4방향 개별 테두리
 export const Sides: Story = {
   render: () => (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2rem' }}>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(2, 1fr)',
+        gap: '2rem',
+      }}
+    >
       <Border sides="all" padding="md">
         <strong>All</strong> - 모든 방향
       </Border>
@@ -83,7 +97,7 @@ export const Sides: Story = {
       </Border>
     </div>
   ),
-}
+};
 
 // Variant 예시
 export const Variants: Story = {
@@ -100,7 +114,7 @@ export const Variants: Story = {
       </Border>
     </div>
   ),
-}
+};
 
 // Width 예시
 export const Widths: Story = {
@@ -117,7 +131,7 @@ export const Widths: Story = {
       </Border>
     </div>
   ),
-}
+};
 
 // Color 예시
 export const Colors: Story = {
@@ -140,7 +154,7 @@ export const Colors: Story = {
       </Border>
     </div>
   ),
-}
+};
 
 // Rounded 예시
 export const Rounded: Story = {
@@ -163,7 +177,7 @@ export const Rounded: Story = {
       </Border>
     </div>
   ),
-}
+};
 
 // Padding 예시
 export const Paddings: Story = {
@@ -183,51 +197,97 @@ export const Paddings: Story = {
       </Border>
     </div>
   ),
-}
+};
 
 // 카드 스타일
 export const CardStyle: Story = {
   render: () => (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem' }}>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        gap: '2rem',
+      }}
+    >
       <Border rounded="md" padding="lg" color="default">
         <h3 style={{ margin: '0 0 0.5rem 0' }}>기본 카드</h3>
-        <p style={{ margin: 0, color: '#666' }}>테두리와 패딩이 적용된 기본 카드입니다.</p>
+        <p style={{ margin: 0, color: '#666' }}>
+          테두리와 패딩이 적용된 기본 카드입니다.
+        </p>
       </Border>
       <Border rounded="md" padding="lg" color="primary" width="medium">
         <h3 style={{ margin: '0 0 0.5rem 0' }}>강조 카드</h3>
-        <p style={{ margin: 0, color: '#666' }}>Primary 색상의 테두리로 강조된 카드입니다.</p>
+        <p style={{ margin: 0, color: '#666' }}>
+          Primary 색상의 테두리로 강조된 카드입니다.
+        </p>
       </Border>
       <Border rounded="lg" padding="lg" color="success" variant="dashed">
         <h3 style={{ margin: '0 0 0.5rem 0' }}>점선 카드</h3>
-        <p style={{ margin: 0, color: '#666' }}>Success 색상의 대시 테두리 카드입니다.</p>
+        <p style={{ margin: 0, color: '#666' }}>
+          Success 색상의 대시 테두리 카드입니다.
+        </p>
       </Border>
     </div>
   ),
-}
+};
 
 // 알림 박스
 export const AlertBoxes: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-      <Border sides="left" width="thick" color="primary" padding="md" rounded="sm">
-        <strong style={{ display: 'block', marginBottom: '0.5rem' }}>정보 알림</strong>
+      <Border
+        sides="left"
+        width="thick"
+        color="primary"
+        padding="md"
+        rounded="sm"
+      >
+        <strong style={{ display: 'block', marginBottom: '0.5rem' }}>
+          정보 알림
+        </strong>
         <p style={{ margin: 0, color: '#666' }}>이것은 정보성 메시지입니다.</p>
       </Border>
-      <Border sides="left" width="thick" color="success" padding="md" rounded="sm">
-        <strong style={{ display: 'block', marginBottom: '0.5rem' }}>성공 알림</strong>
-        <p style={{ margin: 0, color: '#666' }}>작업이 성공적으로 완료되었습니다.</p>
+      <Border
+        sides="left"
+        width="thick"
+        color="success"
+        padding="md"
+        rounded="sm"
+      >
+        <strong style={{ display: 'block', marginBottom: '0.5rem' }}>
+          성공 알림
+        </strong>
+        <p style={{ margin: 0, color: '#666' }}>
+          작업이 성공적으로 완료되었습니다.
+        </p>
       </Border>
-      <Border sides="left" width="thick" color="warning" padding="md" rounded="sm">
-        <strong style={{ display: 'block', marginBottom: '0.5rem' }}>경고 알림</strong>
+      <Border
+        sides="left"
+        width="thick"
+        color="warning"
+        padding="md"
+        rounded="sm"
+      >
+        <strong style={{ display: 'block', marginBottom: '0.5rem' }}>
+          경고 알림
+        </strong>
         <p style={{ margin: 0, color: '#666' }}>주의가 필요한 상황입니다.</p>
       </Border>
-      <Border sides="left" width="thick" color="error" padding="md" rounded="sm">
-        <strong style={{ display: 'block', marginBottom: '0.5rem' }}>오류 알림</strong>
+      <Border
+        sides="left"
+        width="thick"
+        color="error"
+        padding="md"
+        rounded="sm"
+      >
+        <strong style={{ display: 'block', marginBottom: '0.5rem' }}>
+          오류 알림
+        </strong>
         <p style={{ margin: 0, color: '#666' }}>오류가 발생했습니다.</p>
       </Border>
     </div>
   ),
-}
+};
 
 // 리스트 아이템
 export const ListItems: Story = {
@@ -247,7 +307,7 @@ export const ListItems: Story = {
       </Border>
     </div>
   ),
-}
+};
 
 // 복잡한 레이아웃
 export const ComplexLayout: Story = {
@@ -256,13 +316,25 @@ export const ComplexLayout: Story = {
       <Border rounded="lg" padding="none">
         <Border sides="bottom" padding="lg">
           <h2 style={{ margin: 0 }}>제목 영역</h2>
-          <p style={{ margin: '0.5rem 0 0 0', color: '#666' }}>부제목 또는 설명</p>
+          <p style={{ margin: '0.5rem 0 0 0', color: '#666' }}>
+            부제목 또는 설명
+          </p>
         </Border>
         <div style={{ padding: '1.5rem' }}>
-          <Border rounded="md" padding="md" color="default" style={{ marginBottom: '1rem' }}>
+          <Border
+            rounded="md"
+            padding="md"
+            color="default"
+            style={{ marginBottom: '1rem' }}
+          >
             <p style={{ margin: 0 }}>첫 번째 콘텐츠 블록</p>
           </Border>
-          <Border rounded="md" padding="md" color="default" style={{ marginBottom: '1rem' }}>
+          <Border
+            rounded="md"
+            padding="md"
+            color="default"
+            style={{ marginBottom: '1rem' }}
+          >
             <p style={{ margin: 0 }}>두 번째 콘텐츠 블록</p>
           </Border>
           <Border rounded="md" padding="md" color="default">
@@ -270,15 +342,44 @@ export const ComplexLayout: Story = {
           </Border>
         </div>
         <Border sides="top" padding="md">
-          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
-            <button type="button" style={{ padding: '0.5rem 1rem', border: '1px solid #ddd', borderRadius: '4px', background: 'white', cursor: 'pointer' }}>취소</button>
-            <button type="button" style={{ padding: '0.5rem 1rem', border: 'none', borderRadius: '4px', background: '#0066ff', color: 'white', cursor: 'pointer' }}>확인</button>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              gap: '0.5rem',
+            }}
+          >
+            <button
+              type="button"
+              style={{
+                padding: '0.5rem 1rem',
+                border: '1px solid #ddd',
+                borderRadius: '4px',
+                background: 'white',
+                cursor: 'pointer',
+              }}
+            >
+              취소
+            </button>
+            <button
+              type="button"
+              style={{
+                padding: '0.5rem 1rem',
+                border: 'none',
+                borderRadius: '4px',
+                background: '#0066ff',
+                color: 'white',
+                cursor: 'pointer',
+              }}
+            >
+              확인
+            </button>
           </div>
         </Border>
       </Border>
     </div>
   ),
-}
+};
 
 // 인터랙티브 플레이그라운드
 export const Interactive: Story = {
@@ -291,4 +392,4 @@ export const Interactive: Story = {
     rounded: 'md',
     padding: 'md',
   },
-}
+};

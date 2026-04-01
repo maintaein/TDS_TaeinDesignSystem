@@ -1,5 +1,5 @@
-import type { HTMLAttributes, ReactNode } from 'react'
-import clsx from 'clsx'
+import type { HTMLAttributes, ReactNode } from 'react';
+import clsx from 'clsx';
 import {
   border,
   sidesStyles,
@@ -8,17 +8,33 @@ import {
   colorStyles,
   roundedStyles,
   paddingStyles,
-} from './Border.css'
+} from './Border.css';
 
+/** 자식 요소에 테두리를 추가하는 래퍼 컴포넌트 */
 export interface BorderProps extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode
-  sides?: 'all' | 'top' | 'right' | 'bottom' | 'left' | 'horizontal' | 'vertical'
-  variant?: 'solid' | 'dashed' | 'dotted'
-  width?: 'thin' | 'medium' | 'thick'
-  color?: 'default' | 'primary' | 'success' | 'error' | 'warning'
-  rounded?: 'none' | 'sm' | 'md' | 'lg' | 'full'
-  padding?: 'none' | 'sm' | 'md' | 'lg'
-  className?: string
+  /** 테두리로 감쌀 콘텐츠 */
+  children: ReactNode;
+  /** 테두리를 적용할 방향 @default 'all' */
+  sides?:
+    | 'all'
+    | 'top'
+    | 'right'
+    | 'bottom'
+    | 'left'
+    | 'horizontal'
+    | 'vertical';
+  /** 테두리 선 스타일 @default 'solid' */
+  variant?: 'solid' | 'dashed' | 'dotted';
+  /** 테두리 두께 @default 'thin' */
+  width?: 'thin' | 'medium' | 'thick';
+  /** 테두리 색상 @default 'default' */
+  color?: 'default' | 'primary' | 'success' | 'error' | 'warning';
+  /** 모서리 둥글기 @default 'none' */
+  rounded?: 'none' | 'sm' | 'md' | 'lg' | 'full';
+  /** 내부 여백 @default 'none' */
+  padding?: 'none' | 'sm' | 'md' | 'lg';
+  /** 추가 CSS 클래스 */
+  className?: string;
 }
 
 export const Border = ({
@@ -48,7 +64,7 @@ export const Border = ({
     >
       {children}
     </div>
-  )
-}
+  );
+};
 
-Border.displayName = 'Border'
+Border.displayName = 'Border';
