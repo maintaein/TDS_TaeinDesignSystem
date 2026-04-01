@@ -15,7 +15,7 @@
 - **TypeScript** — 엄격 모드, `any` 미사용, 완전한 타입 지원
 - **접근성** — 시맨틱 HTML, ARIA, 키보드 네비게이션, 포커스 관리
 - **Light/Dark 테마** — ThemeProvider 기반 테마 전환
-- **AI 친화** — llms.txt 제공, 일관된 API 패턴, CLAUDE.md 3계층 구조
+- **AI 친화** — llms.txt 제공, 일관된 API 패턴
 
 ## 설치
 
@@ -29,8 +29,8 @@ yarn add @taein-designsystem/core
 
 ### 요구 사항
 
-- `react` ^18.2.0 또는 ^19.0.0
-- `react-dom` ^18.2.0 또는 ^19.0.0 (react와 같은 메이저 버전)
+- `react` ^19.0.0 이상
+- `react-dom` ^19.0.0 이상 (react와 같은 메이저 버전)
 
 ## 사용법
 
@@ -159,7 +159,6 @@ TDS는 AI 도구와의 협업을 위해 다음을 제공합니다:
 
 - **llms.txt** — 컴포넌트 요약 정보 (NPM 패키지에 포함)
 - **llms-full.txt** — 전체 Props 인터페이스 및 예제 코드
-- **CLAUDE.md 3계층** — 루트, core, demo 각각의 개발 컨텍스트
 
 ## 라이선스
 
