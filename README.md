@@ -1,6 +1,6 @@
 # TDS — Taein Design System
 
-일관된 UI와 효율적인 개발을 위해 만든 경량 React 디자인 시스템입니다.
+일관된 UI와 효율적인 개발을 위해 만든 React 디자인 시스템입니다.
 가볍고, 배우기 쉽고, AI 친화적인 컴포넌트 라이브러리를 지향합니다.
 
 [![npm version](https://img.shields.io/npm/v/@taein-designsystem/core)](https://www.npmjs.com/package/@taein-designsystem/core)
@@ -8,7 +8,7 @@
 
 ## 특징
 
-- **31개 컴포넌트** — Button, Modal, Card 등 실무에 필요한 UI 컴포넌트
+- **30개 컴포넌트** — Button, Modal, Card 등 실무에 필요한 UI 컴포넌트
 - **~165KB 패키지** — 런타임 의존성 2개(vanilla-extract, clsx)만 사용
 - **Zero-runtime CSS** — Vanilla Extract 기반, 빌드 타임에 CSS 생성
 - **Tree-shakable** — 사용하는 컴포넌트만 번들에 포함
