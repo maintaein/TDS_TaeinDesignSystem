@@ -9,7 +9,7 @@
 ## 특징
 
 - **30개 컴포넌트** — Button, Modal, Card 등 실무에 필요한 UI 컴포넌트
-- **~165KB 패키지** — 런타임 의존성 2개(vanilla-extract, clsx)만 사용
+- **~23KB 번들** — 런타임 의존성 2개(vanilla-extract, clsx)만 사용
 - **Zero-runtime CSS** — Vanilla Extract 기반, 빌드 타임에 CSS 생성
 - **Tree-shakable** — 사용하는 컴포넌트만 번들에 포함
 - **TypeScript** — 엄격 모드, `any` 미사용, 완전한 타입 지원
