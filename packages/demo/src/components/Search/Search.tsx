@@ -1,4 +1,10 @@
-import { useState, useRef, useEffect, type ChangeEvent, type KeyboardEvent } from 'react';
+import {
+  useState,
+  useRef,
+  useEffect,
+  type ChangeEvent,
+  type KeyboardEvent,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as styles from './Search.css';
 
@@ -117,6 +123,7 @@ export function Search({
           onFocus={() => setIsOpen(true)}
           placeholder={placeholder}
           className={styles.input}
+          role="combobox"
           aria-label="컴포넌트 검색"
           aria-autocomplete="list"
           aria-expanded={isOpen && filteredItems.length > 0}
@@ -125,13 +132,13 @@ export function Search({
       </div>
 
       {isOpen && filteredItems.length > 0 && (
-        <ul
-          id="search-results"
-          className={styles.resultsList}
-          role="listbox"
-        >
+        <ul id="search-results" className={styles.resultsList} role="listbox">
           {filteredItems.map((item, index) => (
-            <li key={item.id} role="option" aria-selected={index === selectedIndex}>
+            <li
+              key={item.id}
+              role="option"
+              aria-selected={index === selectedIndex}
+            >
               <button
                 className={`${styles.resultItem} ${
                   index === selectedIndex ? styles.resultItemSelected : ''

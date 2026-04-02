@@ -436,7 +436,13 @@ describe('Slider', () => {
 
     it('value가 min일 때 fill 너비가 0%이다', () => {
       const { container } = render(
-        <Slider label="슬라이더" value={0} min={0} max={100} onChange={() => {}} />
+        <Slider
+          label="슬라이더"
+          value={0}
+          min={0}
+          max={100}
+          onChange={() => {}}
+        />
       );
 
       const fillTrack = container.querySelector('[class*="sliderFillTrack"]');
@@ -445,7 +451,13 @@ describe('Slider', () => {
 
     it('value가 max일 때 fill 너비가 100%이다', () => {
       const { container } = render(
-        <Slider label="슬라이더" value={100} min={0} max={100} onChange={() => {}} />
+        <Slider
+          label="슬라이더"
+          value={100}
+          min={0}
+          max={100}
+          onChange={() => {}}
+        />
       );
 
       const fillTrack = container.querySelector('[class*="sliderFillTrack"]');
@@ -464,7 +476,7 @@ describe('Slider', () => {
       render(<Slider label="필수 슬라이더" required />);
 
       const slider = screen.getByRole('slider');
-      expect(slider).toBeRequired();
+      expect(slider).toHaveAttribute('required');
     });
   });
 

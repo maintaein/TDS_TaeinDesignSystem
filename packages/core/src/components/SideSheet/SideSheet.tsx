@@ -42,7 +42,9 @@ const useSideSheetContext = () => {
   const context = useContext(SideSheetContext);
   if (process.env.NODE_ENV === 'development') {
     if (!context) {
-      console.error('SideSheet 서브 컴포넌트는 SideSheet 내부에서 사용되어야 합니다');
+      console.error(
+        'SideSheet 서브 컴포넌트는 SideSheet 내부에서 사용되어야 합니다'
+      );
     }
   }
   return context;
@@ -185,10 +187,12 @@ const SideSheetRoot = ({
     <SideSheetContext.Provider value={contextValue}>
       <div className={sideSheetContainer}>
         <div
+          role="presentation"
           className={clsx(backdrop, !open ? backdropExit : backdropEnter)}
           onClick={handleBackdropClick}
           aria-hidden="true"
         />
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
         <div
           ref={sheetRef}
           role="dialog"
@@ -284,15 +288,16 @@ export interface SideSheetTitleProps extends HTMLAttributes<HTMLHeadingElement> 
   className?: string;
 }
 
-export const SideSheetTitle = forwardRef<HTMLHeadingElement, SideSheetTitleProps>(
-  ({ children, className, ...props }, ref) => {
-    return (
-      <h2 ref={ref} className={clsx(titleStyle, className)} {...props}>
-        {children}
-      </h2>
-    );
-  }
-);
+export const SideSheetTitle = forwardRef<
+  HTMLHeadingElement,
+  SideSheetTitleProps
+>(({ children, className, ...props }, ref) => {
+  return (
+    <h2 ref={ref} className={clsx(titleStyle, className)} {...props}>
+      {children}
+    </h2>
+  );
+});
 
 SideSheetTitle.displayName = 'SideSheetTitle';
 
@@ -304,18 +309,18 @@ export interface SideSheetContentProps extends HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
-export const SideSheetContent = forwardRef<HTMLDivElement, SideSheetContentProps>(
-  ({ children, className, ...props }, ref) => {
-    return (
-      <div ref={ref} className={clsx(content, className)} {...props}>
-        {children}
-      </div>
-    );
-  }
-);
+export const SideSheetContent = forwardRef<
+  HTMLDivElement,
+  SideSheetContentProps
+>(({ children, className, ...props }, ref) => {
+  return (
+    <div ref={ref} className={clsx(content, className)} {...props}>
+      {children}
+    </div>
+  );
+});
 
 SideSheetContent.displayName = 'SideSheetContent';
-
 
 // ─── SideSheet = SideSheetRoot + Compound 서브 컴포넌트 ────────────────────────
 

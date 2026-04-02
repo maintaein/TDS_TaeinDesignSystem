@@ -68,12 +68,15 @@ export const Popover = ({
   const isControlled = controlledOpen !== undefined;
   const isOpen = isControlled ? controlledOpen : uncontrolledOpen;
 
-  const setOpen = useCallback((newOpen: boolean) => {
-    if (!isControlled) {
-      setUncontrolledOpen(newOpen);
-    }
-    onOpenChange?.(newOpen);
-  }, [isControlled, onOpenChange]);
+  const setOpen = useCallback(
+    (newOpen: boolean) => {
+      if (!isControlled) {
+        setUncontrolledOpen(newOpen);
+      }
+      onOpenChange?.(newOpen);
+    },
+    [isControlled, onOpenChange]
+  );
 
   const handleTriggerClick = () => {
     if (disabled) return;
@@ -144,6 +147,7 @@ export const Popover = ({
       className={clsx(popoverContainer, className)}
       {...props}
     >
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
       <div
         ref={triggerRef}
         onClick={handleTriggerClick}

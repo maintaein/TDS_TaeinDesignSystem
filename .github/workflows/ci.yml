@@ -7,10 +7,9 @@ on:
     branches: [main, develop]
 
 jobs:
-  test:
-    name: Test & Build
+  lint:
+    name: Lint & Type Check
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout 코드
         uses: actions/checkout@v4
@@ -32,16 +31,44 @@ jobs:
       - name: 린트 검사
         run: pnpm lint
 
-      - name: 빌드
-        run: pnpm build:all
+      - name: Core 빌드 (타입 선언 생성)
+        run: pnpm build
 
       - name: 타입 체크
         run: pnpm typecheck
 
+  test:
+    name: Test (Node ${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ['20', '22']
+    steps:
+      - name: Checkout 코드
+        uses: actions/checkout@v4
+
+      - name: pnpm 설치
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10
+
+      - name: Node.js ${{ matrix.node-version }} 설정
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: 의존성 설치
+        run: pnpm install --frozen-lockfile
+
+      - name: Core 빌드
+        run: pnpm build
+
       - name: 단위/통합 테스트
-        run: pnpm test:coverage || echo "No test files found, skipping tests"
+        run: pnpm test:coverage
 
       - name: 커버리지 리포트 업로드
+        if: matrix.node-version == '20'
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -50,16 +77,88 @@ jobs:
           name: codecov-umbrella
           fail_ci_if_error: false
 
+  build:
+    name: Build All Packages
+    runs-on: ubuntu-latest
+    needs: [lint]
+    steps:
+      - name: Checkout 코드
+        uses: actions/checkout@v4
+
+      - name: pnpm 설치
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10
+
+      - name: Node.js 설정
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: 의존성 설치
+        run: pnpm install --frozen-lockfile
+
+      - name: 전체 빌드 (Core → Demo, Docs)
+        run: pnpm build:all
+
       - name: 번들 크기 체크
         run: |
-          if [ -f "packages/core/dist/index.esm.js" ]; then
-            BUNDLE_SIZE=$(gzip -c packages/core/dist/index.esm.js | wc -c)
-            echo "Bundle size: $BUNDLE_SIZE bytes"
+          if [ -f "packages/core/dist/index.mjs" ]; then
+            BUNDLE_SIZE=$(gzip -c packages/core/dist/index.mjs | wc -c)
+            echo "Bundle size (gzipped): $BUNDLE_SIZE bytes"
             if [ $BUNDLE_SIZE -gt 102400 ]; then
-              echo "❌ Bundle size exceeds 100KB limit"
+              echo "::error::Bundle size ($BUNDLE_SIZE bytes) exceeds 100KB gzipped limit"
               exit 1
             fi
-            echo "✅ Bundle size is within limit"
+            echo "✅ Bundle size is within 100KB limit"
+          elif [ -f "packages/core/dist/index.esm.js" ]; then
+            BUNDLE_SIZE=$(gzip -c packages/core/dist/index.esm.js | wc -c)
+            echo "Bundle size (gzipped): $BUNDLE_SIZE bytes"
+            if [ $BUNDLE_SIZE -gt 102400 ]; then
+              echo "::error::Bundle size ($BUNDLE_SIZE bytes) exceeds 100KB gzipped limit"
+              exit 1
+            fi
+            echo "✅ Bundle size is within 100KB limit"
           else
-            echo "⚠️ Bundle file not found, skipping size check"
+            echo "::warning::Bundle file not found, skipping size check"
           fi
+
+  e2e:
+    name: E2E Tests
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Checkout 코드
+        uses: actions/checkout@v4
+
+      - name: pnpm 설치
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10
+
+      - name: Node.js 설정
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: 의존성 설치
+        run: pnpm install --frozen-lockfile
+
+      - name: Playwright 브라우저 설치
+        run: pnpm --filter @taein-designsystem/demo exec playwright install chromium --with-deps
+
+      - name: 전체 빌드
+        run: pnpm build:all
+
+      - name: E2E 테스트
+        run: pnpm --filter @taein-designsystem/demo test:e2e
+
+      - name: E2E 리포트 업로드
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: packages/demo/playwright-report/
+          retention-days: 7

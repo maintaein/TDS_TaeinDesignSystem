@@ -1,5 +1,10 @@
 {
   "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "strict": false,
+    "strictNullChecks": true
+  },
   "include": [".storybook/**/*", "stories/**/*.tsx", "stories/**/*.ts"],
   "exclude": ["node_modules", "dist", "storybook-static"]
 }

@@ -7,14 +7,18 @@ export function GettingStartedPage() {
   const navigate = useNavigate();
   return (
     <div className={styles.container}>
-      <Text variant="h1" className={styles.title}>시작하기</Text>
+      <Text variant="h1" className={styles.title}>
+        시작하기
+      </Text>
       <p className={styles.description}>
         TDS를 프로젝트에 설치하고 사용하는 방법을 알아보세요.
       </p>
 
       {/* Installation Section */}
       <section className={styles.section}>
-        <Text variant="h2" className={styles.sectionTitle}>1. 설치</Text>
+        <Text variant="h2" className={styles.sectionTitle}>
+          1. 설치
+        </Text>
         <p className={styles.sectionDescription}>
           원하는 패키지 매니저를 사용하여 TDS를 설치하세요.
         </p>
@@ -51,7 +55,9 @@ export function GettingStartedPage() {
 
       {/* Basic Usage Section */}
       <section className={styles.section}>
-        <Text variant="h2" className={styles.sectionTitle}>2. 기본 사용법</Text>
+        <Text variant="h2" className={styles.sectionTitle}>
+          2. 기본 사용법
+        </Text>
         <p className={styles.sectionDescription}>
           TDS 컴포넌트를 사용하려면 먼저 CSS를 import하고 컴포넌트를 가져옵니다.
         </p>
@@ -72,9 +78,9 @@ import '@taein-designsystem/core/styles.css';`}
         <div className={styles.codeExample}>
           <h3 className={styles.exampleTitle}>폰트 설정 (권장)</h3>
           <p className={styles.exampleDescription}>
-            TDS는 기본 폰트로 Pretendard를 사용합니다.
-            폰트가 로드되지 않은 환경에서는 시스템 폰트로 자동 대체되지만,
-            최적의 경험을 위해 Pretendard를 로드하는 것을 권장합니다.
+            TDS는 기본 폰트로 Pretendard를 사용합니다. 폰트가 로드되지 않은
+            환경에서는 시스템 폰트로 자동 대체되지만, 최적의 경험을 위해
+            Pretendard를 로드하는 것을 권장합니다.
           </p>
           <CodeBlock
             code={`<!-- index.html의 <head>에 추가 -->
@@ -113,10 +119,12 @@ function App() {
 
       {/* TypeScript Section */}
       <section className={styles.section}>
-        <Text variant="h2" className={styles.sectionTitle}>3. TypeScript 설정</Text>
+        <Text variant="h2" className={styles.sectionTitle}>
+          3. TypeScript 설정
+        </Text>
         <p className={styles.sectionDescription}>
-          TDS는 TypeScript로 작성되었으며 모든 컴포넌트에 타입 정의가 포함되어 있습니다.
-          별도의 @types 패키지가 필요하지 않습니다.
+          TDS는 TypeScript로 작성되었으며 모든 컴포넌트에 타입 정의가 포함되어
+          있습니다. 별도의 @types 패키지가 필요하지 않습니다.
         </p>
 
         <div className={styles.codeExample}>
@@ -152,14 +160,17 @@ function Example() {
         <div className={styles.infoBox}>
           <h4 className={styles.infoTitle}>💡 Tip</h4>
           <p className={styles.infoText}>
-            VS Code를 사용하는 경우, Ctrl+Space(또는 Cmd+Space)를 눌러 사용 가능한 props와 값을 확인할 수 있습니다.
+            VS Code를 사용하는 경우, Ctrl+Space(또는 Cmd+Space)를 눌러 사용
+            가능한 props와 값을 확인할 수 있습니다.
           </p>
         </div>
       </section>
 
       {/* Next Steps Section */}
       <section className={styles.section}>
-        <Text variant="h2" className={styles.sectionTitle}>4. 다음 단계</Text>
+        <Text variant="h2" className={styles.sectionTitle}>
+          4. 다음 단계
+        </Text>
         <p className={styles.sectionDescription}>
           TDS를 설치했다면 이제 컴포넌트를 탐색하고 프로젝트에 적용해보세요.
         </p>
@@ -173,14 +184,27 @@ function Example() {
           >
             <Card.Body padding="lg">
               <div className={styles.nextStepIcon}>
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-                  <circle cx="16" cy="16" r="8" stroke="#2563eb" strokeWidth="2.5" />
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 32 32"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <circle
+                    cx="16"
+                    cy="16"
+                    r="8"
+                    stroke="#2563eb"
+                    strokeWidth="2.5"
+                  />
                   <circle cx="16" cy="16" r="3" fill="#2563eb" />
                 </svg>
               </div>
               <h3 className={styles.nextStepTitle}>디자인 토큰</h3>
               <p className={styles.nextStepDescription}>
-                색상, 타이포그래피, 간격 등 디자인 시스템의 기본 요소를 살펴보세요.
+                색상, 타이포그래피, 간격 등 디자인 시스템의 기본 요소를
+                살펴보세요.
               </p>
               <div className={styles.nextStepArrow}>&rarr;</div>
             </Card.Body>
@@ -194,11 +218,49 @@ function Example() {
           >
             <Card.Body padding="lg">
               <div className={styles.nextStepIcon}>
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-                  <rect x="6" y="6" width="8" height="8" rx="2" stroke="#8b5cf6" strokeWidth="2" />
-                  <rect x="18" y="6" width="8" height="8" rx="2" stroke="#8b5cf6" strokeWidth="2" />
-                  <rect x="6" y="18" width="8" height="8" rx="2" stroke="#8b5cf6" strokeWidth="2" />
-                  <rect x="18" y="18" width="8" height="8" rx="2" stroke="#8b5cf6" strokeWidth="2" />
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 32 32"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <rect
+                    x="6"
+                    y="6"
+                    width="8"
+                    height="8"
+                    rx="2"
+                    stroke="#8b5cf6"
+                    strokeWidth="2"
+                  />
+                  <rect
+                    x="18"
+                    y="6"
+                    width="8"
+                    height="8"
+                    rx="2"
+                    stroke="#8b5cf6"
+                    strokeWidth="2"
+                  />
+                  <rect
+                    x="6"
+                    y="18"
+                    width="8"
+                    height="8"
+                    rx="2"
+                    stroke="#8b5cf6"
+                    strokeWidth="2"
+                  />
+                  <rect
+                    x="18"
+                    y="18"
+                    width="8"
+                    height="8"
+                    rx="2"
+                    stroke="#8b5cf6"
+                    strokeWidth="2"
+                  />
                 </svg>
               </div>
               <h3 className={styles.nextStepTitle}>컴포넌트</h3>
@@ -217,9 +279,25 @@ function Example() {
           >
             <Card.Body padding="lg">
               <div className={styles.nextStepIcon}>
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-                  <path d="M8 8h16v16H8z" stroke="#f59e0b" strokeWidth="2" rx="2" />
-                  <path d="M12 16h8M12 12h5M12 20h6" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" />
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 32 32"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M8 8h16v16H8z"
+                    stroke="#f59e0b"
+                    strokeWidth="2"
+                    rx="2"
+                  />
+                  <path
+                    d="M12 16h8M12 12h5M12 20h6"
+                    stroke="#f59e0b"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
                 </svg>
               </div>
               <h3 className={styles.nextStepTitle}>가이드라인</h3>
@@ -241,16 +319,13 @@ function Example() {
           </p>
           <div className={styles.helpActions}>
             <a
-              href="https://github.com/your-repo/issues"
+              href="https://github.com/maintaein/TDS_TaeinDesignSystem/issues"
               target="_blank"
               rel="noopener noreferrer"
               style={{ textDecoration: 'none' }}
             >
               <Button variant="primary">GitHub Issues</Button>
             </a>
-            <Button variant="light" onClick={() => navigate('/component-test')}>
-              컴포넌트 테스트
-            </Button>
           </div>
         </div>
       </section>
