@@ -3,6 +3,8 @@
 일관된 UI와 효율적인 개발을 위해 만든 React 디자인 시스템입니다.
 가볍고, 배우기 쉽고, AI 친화적인 컴포넌트 라이브러리를 지향합니다.
 
+https://tds-taein-design-system.vercel.app/
+
 [![npm version](https://img.shields.io/npm/v/@taein-designsystem/core)](https://www.npmjs.com/package/@taein-designsystem/core)
 [![license](https://img.shields.io/npm/l/@taein-designsystem/core)](./LICENSE)
 
