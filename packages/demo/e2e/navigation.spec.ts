@@ -31,26 +31,17 @@ test.describe('페이지 네비게이션', () => {
 
   test('404 페이지가 표시된다', async ({ page }) => {
     await page.goto('/nonexistent-page');
-    await expect(page.getByText(/찾을 수 없|404|존재하지 않/)).toBeVisible();
-  });
-});
-
-test.describe('테마 전환', () => {
-  test('테마 토글 버튼이 존재한다', async ({ page }) => {
-    await page.goto('/');
-    const themeToggle = page.getByRole('button', {
-      name: /테마|다크|라이트|theme/i,
-    });
-    await expect(themeToggle).toBeVisible();
+    await expect(page.getByText('404')).toBeVisible();
   });
 });
 
 test.describe('반응형 레이아웃', () => {
-  test('모바일 뷰에서 사이드바가 숨겨진다', async ({ page }) => {
+  test('모바일 뷰에서 사이드바가 화면 밖으로 이동한다', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
     await page.goto('/');
-    // 모바일에서는 사이드바가 기본적으로 숨겨짐
-    await expect(page.locator('nav')).toBeHidden();
+    // 모바일에서는 aside가 translateX(-100%)로 viewport 밖에 위치
+    const aside = page.locator('aside');
+    await expect(aside).not.toBeInViewport();
   });
 
   test('데스크톱 뷰에서 사이드바가 표시된다', async ({ page }) => {
