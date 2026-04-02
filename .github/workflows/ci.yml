@@ -147,7 +147,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Playwright 브라우저 설치
-        run: npx playwright install chromium --with-deps
+        run: pnpm --filter @taein-designsystem/demo exec playwright install chromium --with-deps
 
       - name: 전체 빌드
         run: pnpm build:all
