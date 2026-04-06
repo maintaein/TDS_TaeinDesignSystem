@@ -19,6 +19,13 @@ export const leftSection = style({
   gap: '1rem',
 });
 
+export const logoImage = style({
+  width: '2rem',
+  height: '2rem',
+  objectFit: 'contain',
+  flexShrink: 0,
+});
+
 export const logo = style({
   fontSize: '1.25rem',
   fontWeight: 'bold',
