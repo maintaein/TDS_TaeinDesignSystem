@@ -1,5 +1,9 @@
 import { lazy, Suspense, type ReactNode } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from 'react-router-dom';
 import { RootLayout } from '../layouts/RootLayout';
 import { IntroductionPage } from '../pages/Introduction/IntroductionPage';
 import { ErrorPage } from '../pages/Error';
@@ -8,47 +12,71 @@ import { ErrorPage } from '../pages/Error';
 
 // Getting Started
 const GettingStartedPage = lazy(() =>
-  import('../pages/GettingStarted/GettingStartedPage').then((m) => ({ default: m.GettingStartedPage }))
+  import('../pages/GettingStarted/GettingStartedPage').then((m) => ({
+    default: m.GettingStartedPage,
+  }))
 );
 
 // Design Tokens
 const ColorsPage = lazy(() =>
-  import('../pages/DesignTokens/ColorsPage').then((m) => ({ default: m.ColorsPage }))
+  import('../pages/DesignTokens/ColorsPage').then((m) => ({
+    default: m.ColorsPage,
+  }))
 );
 const TypographyPage = lazy(() =>
-  import('../pages/DesignTokens/TypographyPage').then((m) => ({ default: m.TypographyPage }))
+  import('../pages/DesignTokens/TypographyPage').then((m) => ({
+    default: m.TypographyPage,
+  }))
 );
 const SpacingPage = lazy(() =>
-  import('../pages/DesignTokens/SpacingPage').then((m) => ({ default: m.SpacingPage }))
+  import('../pages/DesignTokens/SpacingPage').then((m) => ({
+    default: m.SpacingPage,
+  }))
 );
 const ShadowsPage = lazy(() =>
-  import('../pages/DesignTokens/ShadowsPage').then((m) => ({ default: m.ShadowsPage }))
+  import('../pages/DesignTokens/ShadowsPage').then((m) => ({
+    default: m.ShadowsPage,
+  }))
 );
 const AnimationPage = lazy(() =>
-  import('../pages/DesignTokens/AnimationPage').then((m) => ({ default: m.AnimationPage }))
+  import('../pages/DesignTokens/AnimationPage').then((m) => ({
+    default: m.AnimationPage,
+  }))
 );
 
 // Components
 const ComponentsOverviewPage = lazy(() =>
-  import('../pages/Components/ComponentsOverviewPage').then((m) => ({ default: m.ComponentsOverviewPage }))
+  import('../pages/Components/ComponentsOverviewPage').then((m) => ({
+    default: m.ComponentsOverviewPage,
+  }))
 );
 const TextFieldPage = lazy(() =>
-  import('../pages/Components/TextField').then((m) => ({ default: m.TextFieldPage }))
+  import('../pages/Components/TextField').then((m) => ({
+    default: m.TextFieldPage,
+  }))
 );
 const TextAreaPage = lazy(() =>
-  import('../pages/Components/TextArea').then((m) => ({ default: m.TextAreaPage }))
+  import('../pages/Components/TextArea').then((m) => ({
+    default: m.TextAreaPage,
+  }))
 );
 const CheckboxPage = lazy(() =>
-  import('../pages/Components/Checkbox').then((m) => ({ default: m.CheckboxPage }))
+  import('../pages/Components/Checkbox').then((m) => ({
+    default: m.CheckboxPage,
+  }))
 );
 const SwitchPage = lazy(() =>
   import('../pages/Components/Switch').then((m) => ({ default: m.SwitchPage }))
 );
 const NumericSpinnerPage = lazy(() =>
-  import('../pages/Components/NumericSpinner').then((m) => ({ default: m.NumericSpinnerPage }))
+  import('../pages/Components/NumericSpinner').then((m) => ({
+    default: m.NumericSpinnerPage,
+  }))
 );
 const SegmentedButtonsPage = lazy(() =>
-  import('../pages/Components/SegmentedButtons').then((m) => ({ default: m.SegmentedButtonsPage }))
+  import('../pages/Components/SegmentedButtons').then((m) => ({
+    default: m.SegmentedButtonsPage,
+  }))
 );
 const SliderPage = lazy(() =>
   import('../pages/Components/Slider').then((m) => ({ default: m.SliderPage }))
@@ -60,7 +88,9 @@ const IconPage = lazy(() =>
   import('../pages/Components/Icon').then((m) => ({ default: m.IconPage }))
 );
 const IconButtonPage = lazy(() =>
-  import('../pages/Components/IconButton').then((m) => ({ default: m.IconButtonPage }))
+  import('../pages/Components/IconButton').then((m) => ({
+    default: m.IconButtonPage,
+  }))
 );
 const TextPage = lazy(() =>
   import('../pages/Components/Text').then((m) => ({ default: m.TextPage }))
@@ -72,28 +102,42 @@ const LoaderPage = lazy(() =>
   import('../pages/Components/Loader').then((m) => ({ default: m.LoaderPage }))
 );
 const SkeletonPage = lazy(() =>
-  import('../pages/Components/Skeleton').then((m) => ({ default: m.SkeletonPage }))
+  import('../pages/Components/Skeleton').then((m) => ({
+    default: m.SkeletonPage,
+  }))
 );
 const SnackbarPage = lazy(() =>
-  import('../pages/Components/Snackbar').then((m) => ({ default: m.SnackbarPage }))
+  import('../pages/Components/Snackbar').then((m) => ({
+    default: m.SnackbarPage,
+  }))
 );
 const TooltipPage = lazy(() =>
-  import('../pages/Components/Tooltip').then((m) => ({ default: m.TooltipPage }))
+  import('../pages/Components/Tooltip').then((m) => ({
+    default: m.TooltipPage,
+  }))
 );
 const ModalPage = lazy(() =>
   import('../pages/Components/Modal').then((m) => ({ default: m.ModalPage }))
 );
 const BottomSheetPage = lazy(() =>
-  import('../pages/Components/BottomSheet').then((m) => ({ default: m.BottomSheetPage }))
+  import('../pages/Components/BottomSheet').then((m) => ({
+    default: m.BottomSheetPage,
+  }))
 );
 const SideSheetPage = lazy(() =>
-  import('../pages/Components/SideSheet').then((m) => ({ default: m.SideSheetPage }))
+  import('../pages/Components/SideSheet').then((m) => ({
+    default: m.SideSheetPage,
+  }))
 );
 const HeaderBarPage = lazy(() =>
-  import('../pages/Components/HeaderBar').then((m) => ({ default: m.HeaderBarPage }))
+  import('../pages/Components/HeaderBar').then((m) => ({
+    default: m.HeaderBarPage,
+  }))
 );
 const DividerPage = lazy(() =>
-  import('../pages/Components/Divider').then((m) => ({ default: m.DividerPage }))
+  import('../pages/Components/Divider').then((m) => ({
+    default: m.DividerPage,
+  }))
 );
 const BorderPage = lazy(() =>
   import('../pages/Components/Border').then((m) => ({ default: m.BorderPage }))
@@ -102,13 +146,17 @@ const ListPage = lazy(() =>
   import('../pages/Components/List').then((m) => ({ default: m.ListPage }))
 );
 const BoardRowPage = lazy(() =>
-  import('../pages/Components/BoardRow').then((m) => ({ default: m.BoardRowPage }))
+  import('../pages/Components/BoardRow').then((m) => ({
+    default: m.BoardRowPage,
+  }))
 );
 const AvatarPage = lazy(() =>
   import('../pages/Components/Avatar').then((m) => ({ default: m.AvatarPage }))
 );
 const PopoverPage = lazy(() =>
-  import('../pages/Components/Popover').then((m) => ({ default: m.PopoverPage }))
+  import('../pages/Components/Popover').then((m) => ({
+    default: m.PopoverPage,
+  }))
 );
 const ChipPage = lazy(() =>
   import('../pages/Components/Chip').then((m) => ({ default: m.ChipPage }))
@@ -117,21 +165,31 @@ const CardPage = lazy(() =>
   import('../pages/Components/Card').then((m) => ({ default: m.CardPage }))
 );
 const FormFieldPage = lazy(() =>
-  import('../pages/Components/FormField').then((m) => ({ default: m.FormFieldPage }))
+  import('../pages/Components/FormField').then((m) => ({
+    default: m.FormFieldPage,
+  }))
 );
 const LoadingSpinnerPage = lazy(() =>
-  import('../pages/Components/LoadingSpinner').then((m) => ({ default: m.LoadingSpinnerPage }))
+  import('../pages/Components/LoadingSpinner').then((m) => ({
+    default: m.LoadingSpinnerPage,
+  }))
 );
 
 // Guidelines
 const DesignPrinciplesPage = lazy(() =>
-  import('../pages/Guidelines/DesignPrinciplesPage').then((m) => ({ default: m.DesignPrinciplesPage }))
+  import('../pages/Guidelines/DesignPrinciplesPage').then((m) => ({
+    default: m.DesignPrinciplesPage,
+  }))
 );
 const AccessibilityPage = lazy(() =>
-  import('../pages/Guidelines/AccessibilityPage').then((m) => ({ default: m.AccessibilityPage }))
+  import('../pages/Guidelines/AccessibilityPage').then((m) => ({
+    default: m.AccessibilityPage,
+  }))
 );
 const PerformancePage = lazy(() =>
-  import('../pages/Guidelines/PerformancePage').then((m) => ({ default: m.PerformancePage }))
+  import('../pages/Guidelines/PerformancePage').then((m) => ({
+    default: m.PerformancePage,
+  }))
 );
 
 // ─── Suspense wrapper ──────────────────────────────────────────────
@@ -139,7 +197,12 @@ const PerformancePage = lazy(() =>
 function PageLoader() {
   return (
     <div
-      style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '200px' }}
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '200px',
+      }}
       role="status"
       aria-label="페이지 로딩 중"
     >
@@ -175,30 +238,54 @@ const router = createBrowserRouter([
       },
       {
         path: 'getting-started',
-        element: <LazyPage><GettingStartedPage /></LazyPage>,
+        element: (
+          <LazyPage>
+            <GettingStartedPage />
+          </LazyPage>
+        ),
       },
       {
         path: 'design-tokens',
         children: [
           {
             path: 'colors',
-            element: <LazyPage><ColorsPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <ColorsPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'typography',
-            element: <LazyPage><TypographyPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <TypographyPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'spacing',
-            element: <LazyPage><SpacingPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <SpacingPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'shadows',
-            element: <LazyPage><ShadowsPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <ShadowsPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'animation',
-            element: <LazyPage><AnimationPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <AnimationPage />
+              </LazyPage>
+            ),
           },
         ],
       },
@@ -206,128 +293,256 @@ const router = createBrowserRouter([
         path: 'components',
         children: [
           {
+            index: true,
+            element: <Navigate to="overview" replace />,
+          },
+          {
             path: 'overview',
-            element: <LazyPage><ComponentsOverviewPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <ComponentsOverviewPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'text-field',
-            element: <LazyPage><TextFieldPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <TextFieldPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'text-area',
-            element: <LazyPage><TextAreaPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <TextAreaPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'checkbox',
-            element: <LazyPage><CheckboxPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <CheckboxPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'switch',
-            element: <LazyPage><SwitchPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <SwitchPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'numeric-spinner',
-            element: <LazyPage><NumericSpinnerPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <NumericSpinnerPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'segmented-buttons',
-            element: <LazyPage><SegmentedButtonsPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <SegmentedButtonsPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'slider',
-            element: <LazyPage><SliderPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <SliderPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'button',
-            element: <LazyPage><ButtonPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <ButtonPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'icon',
-            element: <LazyPage><IconPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <IconPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'icon-button',
-            element: <LazyPage><IconButtonPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <IconButtonPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'text',
-            element: <LazyPage><TextPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <TextPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'badge',
-            element: <LazyPage><BadgePage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <BadgePage />
+              </LazyPage>
+            ),
           },
           {
             path: 'loader',
-            element: <LazyPage><LoaderPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <LoaderPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'skeleton',
-            element: <LazyPage><SkeletonPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <SkeletonPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'snackbar',
-            element: <LazyPage><SnackbarPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <SnackbarPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'tooltip',
-            element: <LazyPage><TooltipPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <TooltipPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'modal',
-            element: <LazyPage><ModalPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <ModalPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'bottom-sheet',
-            element: <LazyPage><BottomSheetPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <BottomSheetPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'side-sheet',
-            element: <LazyPage><SideSheetPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <SideSheetPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'header-bar',
-            element: <LazyPage><HeaderBarPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <HeaderBarPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'divider',
-            element: <LazyPage><DividerPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <DividerPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'border',
-            element: <LazyPage><BorderPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <BorderPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'list',
-            element: <LazyPage><ListPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <ListPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'board-row',
-            element: <LazyPage><BoardRowPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <BoardRowPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'avatar',
-            element: <LazyPage><AvatarPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <AvatarPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'popover',
-            element: <LazyPage><PopoverPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <PopoverPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'chip',
-            element: <LazyPage><ChipPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <ChipPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'card',
-            element: <LazyPage><CardPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <CardPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'form-field',
-            element: <LazyPage><FormFieldPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <FormFieldPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'loading-spinner',
-            element: <LazyPage><LoadingSpinnerPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <LoadingSpinnerPage />
+              </LazyPage>
+            ),
           },
         ],
       },
@@ -336,15 +551,27 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'design-principles',
-            element: <LazyPage><DesignPrinciplesPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <DesignPrinciplesPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'accessibility',
-            element: <LazyPage><AccessibilityPage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <AccessibilityPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'performance',
-            element: <LazyPage><PerformancePage /></LazyPage>,
+            element: (
+              <LazyPage>
+                <PerformancePage />
+              </LazyPage>
+            ),
           },
         ],
       },

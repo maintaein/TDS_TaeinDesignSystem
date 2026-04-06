@@ -44,7 +44,7 @@ export function IntroductionPage() {
             <Button
               variant="light"
               size="lg"
-              onClick={() => navigate('/components')}
+              onClick={() => navigate('/components/overview')}
             >
               컴포넌트 보기
             </Button>
