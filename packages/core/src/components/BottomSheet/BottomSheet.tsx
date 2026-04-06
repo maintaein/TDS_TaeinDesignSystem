@@ -270,7 +270,8 @@ const BottomSheetRoot = ({
       if (sheetRef.current) {
         sheetRef.current.style.transform = '';
       }
-      isClosingViaDragRef.current = false; // 완료 후 리셋
+      isClosingViaDragRef.current = false;
+      previousActiveElementRef.current?.focus();
     }
   };
 
