@@ -97,12 +97,25 @@ const BottomSheetRoot = ({
 
   const startYRef = useRef<number>(0);
   const isDraggingRef = useRef(false);
+  const isClosingViaDragRef = useRef(false);
 
   const [shouldRender, setShouldRender] = useState(open);
 
   if (open && !shouldRender) {
     setShouldRender(true);
   }
+
+  useEffect(() => {
+    if (open) {
+      isClosingViaDragRef.current = false;
+    } else if (!open && sheetRef.current) {
+      if (!isClosingViaDragRef.current) {
+        sheetRef.current.style.transform = '';
+        sheetRef.current.style.transition = '';
+        sheetRef.current.style.animation = '';
+      }
+    }
+  }, [open]);
 
   //접근성 및 스크롤 제어
   useEffect(() => {
@@ -125,6 +138,7 @@ const BottomSheetRoot = ({
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && closeOnEscape) {
+        e.stopPropagation();
         onClose();
       }
     };
@@ -135,7 +149,6 @@ const BottomSheetRoot = ({
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = '';
-      previousActiveElementRef.current?.focus();
     };
   }, [open, closeOnEscape, onClose]);
 
@@ -150,21 +163,22 @@ const BottomSheetRoot = ({
       isDraggingRef.current = false;
 
       if (diff > 100) {
+        isClosingViaDragRef.current = true;
+
+        // 드래그로 닫기 성공
         sheet.style.transition = 'transform 0.2s ease-out';
         sheet.style.transform = 'translateY(100%)';
 
         const handleTransitionEnd = () => {
           sheet.removeEventListener('transitionend', handleTransitionEnd);
-          sheet.style.transition = '';
-          sheet.style.transform = '';
-          sheet.style.animation = '';
-          // shouldRender를 먼저 false로 만들어 언마운트 후, 다음 프레임에서 onClose 호출
-          // 이렇게 해야 onClose → open=false로 인한 exit 애니메이션 재생을 방지
+
           setShouldRender(false);
-          requestAnimationFrame(() => onClose());
+          onClose();
         };
+
         sheet.addEventListener('transitionend', handleTransitionEnd);
       } else {
+        // 원위치로 복구
         sheet.style.transition = 'transform 0.2s ease-out';
         sheet.style.transform = 'translateY(0)';
         const handleTransitionEnd = () => {
@@ -174,8 +188,12 @@ const BottomSheetRoot = ({
         sheet.addEventListener('transitionend', handleTransitionEnd);
       }
     };
-
     const handleTouchStart = (e: TouchEvent) => {
+      const target = e.target as HTMLElement;
+      const isInteractive = target.closest(
+        'button, a, input, select, textarea'
+      );
+      if (isInteractive) return;
       startYRef.current = e.touches[0].clientY;
       isDraggingRef.current = true;
       sheet.style.transition = '';
@@ -199,6 +217,12 @@ const BottomSheetRoot = ({
 
     const handleMouseDown = (e: MouseEvent) => {
       if (e.button !== 0) return;
+      // handle 영역 또는 header 영역에서만 드래그 시작 (버튼 클릭과 구분)
+      const target = e.target as HTMLElement;
+      const isInteractive = target.closest(
+        'button, a, input, select, textarea'
+      );
+      if (isInteractive) return;
       startYRef.current = e.clientY;
       isDraggingRef.current = true;
       sheet.style.transition = '';
@@ -238,18 +262,18 @@ const BottomSheetRoot = ({
     };
   }, [enableDrag, open, onClose]);
 
-  //애니메이션 종료 처리
   const handleAnimationEnd = (e: React.AnimationEvent) => {
     if (e.target !== e.currentTarget) return;
 
     if (!open) {
       setShouldRender(false);
-      // 인라인 스타일 초기화, 다음에 열릴 때 대비!
       if (sheetRef.current) {
         sheetRef.current.style.transform = '';
       }
+      isClosingViaDragRef.current = false; // 완료 후 리셋
     }
   };
+
   const contextValue = useMemo(() => ({ onClose }), [onClose]);
 
   if (!shouldRender) return null;

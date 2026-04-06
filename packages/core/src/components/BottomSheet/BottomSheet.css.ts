@@ -152,8 +152,8 @@ export const closeButton = style({
     backgroundColor: themeContract.color.background.paper,
   },
 
-  ':focus': {
-    outline: `2px solid ${themeContract.color.primary.main}`,
+  ':focus-visible': {
+    outline: `2px solid ${themeContract.color.primary.light}`,
     outlineOffset: '2px',
   },
 });
