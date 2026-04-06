@@ -29,7 +29,7 @@ const pulse = keyframes({
 // 기본 스타일
 export const skeleton = style({
   display: 'inline-block',
-  backgroundColor: themeContract.color.surface.default,
+  backgroundColor: themeContract.color.surface.hover,
   position: 'relative',
   overflow: 'hidden',
 });
