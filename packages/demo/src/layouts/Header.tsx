@@ -124,6 +124,11 @@ export function Header({ onMenuClick, showMenuButton = false }: HeaderProps) {
             </svg>
           </IconButton>
         )}
+        <img
+          src="/images/TDSlogo.png"
+          alt="TDS 로고"
+          className={styles.logoImage}
+        />
         <div className={styles.logo}>TDS</div>
       </div>
 
