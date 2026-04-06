@@ -16,8 +16,7 @@ https://tds-taein-design-system.vercel.app/
 - **Tree-shakable** — 사용하는 컴포넌트만 번들에 포함
 - **TypeScript** — 엄격 모드, `any` 미사용, 완전한 타입 지원
 - **접근성** — 시맨틱 HTML, ARIA, 키보드 네비게이션, 포커스 관리
-- **Light/Dark 테마** — ThemeProvider 기반 테마 전환
-- **AI 친화** — llms.txt 제공, 일관된 API 패턴
+- **AI 친화** — llms.txt 제공, 일관된 API 패턴, JS doc 주석
 
 ## 설치
 
