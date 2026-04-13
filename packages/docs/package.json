@@ -19,8 +19,8 @@
     "@storybook/react": "^8.4.7",
     "@storybook/react-vite": "^8.4.7",
     "@vanilla-extract/vite-plugin": "^4.0.5",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
     "storybook": "^8.4.7",
     "typescript": "~5.9.3",
     "vite": "^7.2.4"
