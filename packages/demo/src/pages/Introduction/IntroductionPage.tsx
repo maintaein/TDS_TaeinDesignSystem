@@ -52,6 +52,15 @@ export function IntroductionPage() {
         </div>
       </section>
 
+      {/* Hero Image
+      <div className={styles.heroImageWrapper}>
+        <img
+          src="/images/TDS.png"
+          alt="TDS Taein Design System"
+          className={styles.heroImage}
+        />
+      </div> */}
+
       {/* TDS goal */}
       <section className={styles.section}>
         <Text variant="h2" className={styles.sectionTitle}>

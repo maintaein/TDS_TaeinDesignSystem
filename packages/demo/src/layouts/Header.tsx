@@ -124,11 +124,18 @@ export function Header({ onMenuClick, showMenuButton = false }: HeaderProps) {
             </svg>
           </IconButton>
         )}
-        <img
-          src="/images/TDSlogo.png"
-          alt="TDS 로고"
-          className={styles.logoImage}
-        />
+        <picture>
+          <source srcSet="/images/TDSlogo.webp" type="image/webp" />
+          <img
+            src="/images/TDSlogo.png"
+            alt="TDS 로고"
+            width={40}
+            height={26}
+            className={styles.logoImage}
+            fetchPriority="high"
+            decoding="async"
+          />
+        </picture>
         <div className={styles.logo}>TDS</div>
       </div>
 

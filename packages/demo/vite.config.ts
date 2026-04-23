@@ -12,14 +12,37 @@ export default defineConfig({
     outDir: 'dist',
     sourcemap: false,
     cssMinify: true,
+    modulePreload: {
+      resolveDependencies: (_url, deps) => {
+        // syntax-highlighter와 code-editor는 lazy import이므로 초기 preload에서 제외
+        return deps.filter((dep) => !dep.includes('syntax-highlighter'));
+      },
+    },
     rollupOptions: {
       output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom'],
-          'router': ['react-router-dom'],
-          'syntax-highlighter': ['react-syntax-highlighter'],
-          'design-system': ['@taein-designsystem/core'],
-          'prismjs': ['prismjs', 'react-simple-code-editor'],
+        manualChunks(id) {
+          if (
+            id.includes('react-syntax-highlighter') ||
+            id.includes('prismjs')
+          ) {
+            return 'syntax-highlighter';
+          }
+          if (id.includes('react-router-dom') || id.includes('@remix-run')) {
+            return 'router';
+          }
+          if (
+            id.includes('react-dom') ||
+            (id.includes('react') && !id.includes('react-'))
+          ) {
+            return 'react-vendor';
+          }
+          if (
+            id.includes('@taein-designsystem') ||
+            id.includes('packages/core') ||
+            id.includes('packages\\core')
+          ) {
+            return 'design-system';
+          }
         },
       },
     },
