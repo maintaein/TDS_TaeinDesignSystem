@@ -11,6 +11,20 @@ export const container = style({
   },
 });
 
+// export const heroImageWrapper = style({
+//   width: '100%',
+//   display: 'flex',
+//   justifyContent: 'center',
+//   padding: '2rem 0 0',
+// });
+
+// export const heroImage = style({
+//   width: '70%',
+//   maxWidth: '900px',
+//   height: 'auto',
+//   objectFit: 'contain',
+// });
+
 export const hero = style({
   textAlign: 'center',
   padding: '4rem 0 6rem',
@@ -196,7 +210,6 @@ export const goalDetailItem = style({
     },
   },
 });
-
 
 export const preview = style({
   marginTop: '2rem',

@@ -1,8 +1,11 @@
-import { useState, Component, type ReactNode } from 'react';
-import { CodeBlock } from '../CodeBlock';
+import { useState, Component, lazy, Suspense, type ReactNode } from 'react';
 import { EditableCodeBlock } from '../EditableCodeBlock';
 import { useCodeEval } from '../../hooks/useCodeEval';
 import * as styles from './LivePreview.css';
+
+const CodeBlock = lazy(() =>
+  import('../CodeBlock').then((m) => ({ default: m.CodeBlock }))
+);
 
 export interface LivePreviewProps {
   children?: ReactNode;
@@ -29,7 +32,10 @@ interface ErrorBoundaryState {
   errorMessage: string;
 }
 
-class RenderErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+class RenderErrorBoundary extends Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
   state: ErrorBoundaryState = { hasError: false, errorMessage: '' };
 
   static getDerivedStateFromError(error: Error): ErrorBoundaryState {
@@ -84,26 +90,24 @@ function EditableLivePreview({
         } ${hasError ? styles.previewEmpty : ''}`}
       >
         {!hasError && element && (
-          <RenderErrorBoundary
-            onError={setRenderError}
-            resetKey={editedCode}
-          >
+          <RenderErrorBoundary onError={setRenderError} resetKey={editedCode}>
             {element}
           </RenderErrorBoundary>
         )}
       </div>
       {hasError && (
         <div className={styles.errorBar}>
-          <svg className={styles.errorIcon} viewBox="0 0 16 16" fill="currentColor">
+          <svg
+            className={styles.errorIcon}
+            viewBox="0 0 16 16"
+            fill="currentColor"
+          >
             <path d="M8 1a7 7 0 100 14A7 7 0 008 1zm-.75 3.75a.75.75 0 011.5 0v4a.75.75 0 01-1.5 0v-4zM8 12a1 1 0 110-2 1 1 0 010 2z" />
           </svg>
           {error}
         </div>
       )}
-      <EditableCodeBlock
-        code={editedCode}
-        onCodeChange={handleCodeChange}
-      />
+      <EditableCodeBlock code={editedCode} onCodeChange={handleCodeChange} />
     </>
   );
 }
@@ -142,7 +146,9 @@ export function LivePreview({
           >
             {children}
           </div>
-          <CodeBlock code={code} language={language} />
+          <Suspense fallback={<div className={styles.codeFallback} />}>
+            <CodeBlock code={code} language={language} />
+          </Suspense>
         </>
       )}
     </div>

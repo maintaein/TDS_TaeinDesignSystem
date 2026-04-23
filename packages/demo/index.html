@@ -34,10 +34,11 @@
     <!-- Font preload: critical Pretendard font -->
     <link rel="preload" href="/fonts/PretendardVariable.woff2" as="font" type="font/woff2" crossorigin />
 
-    <!-- Google Fonts: preconnect + optimized load -->
+    <!-- Google Fonts: non-blocking load (Outfit은 ErrorPage 전용) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet" />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet" /></noscript>
   </head>
   <body>
     <div id="root"></div>

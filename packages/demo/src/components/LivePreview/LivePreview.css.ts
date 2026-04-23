@@ -80,3 +80,10 @@ export const errorIcon = style({
   width: '16px',
   height: '16px',
 });
+
+export const codeFallback = style({
+  height: '120px',
+  backgroundColor: '#f9fafb',
+  borderRadius: '0 0 0.5rem 0.5rem',
+  border: '1px solid #e5e7eb',
+});
