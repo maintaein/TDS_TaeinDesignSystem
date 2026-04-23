@@ -1,9 +1,31 @@
-import { defineConfig } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 
+function deferNonCriticalCss(patterns: string[]): Plugin {
+  return {
+    name: 'defer-non-critical-css',
+    apply: 'build',
+    transformIndexHtml(html) {
+      return html.replace(
+        /<link rel="stylesheet" crossorigin href="([^"]+)">/g,
+        (match, href) => {
+          if (patterns.some((p) => href.includes(p))) {
+            return `<link rel="preload" as="style" crossorigin href="${href}" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" crossorigin href="${href}"></noscript>`;
+          }
+          return match;
+        }
+      );
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [react(), vanillaExtractPlugin()],
+  plugins: [
+    react(),
+    vanillaExtractPlugin(),
+    deferNonCriticalCss(['design-system']),
+  ],
   server: {
     port: 3000,
     open: true,
@@ -12,12 +34,7 @@ export default defineConfig({
     outDir: 'dist',
     sourcemap: false,
     cssMinify: true,
-    modulePreload: {
-      resolveDependencies: (_url, deps) => {
-        // syntax-highlighter와 code-editor는 lazy import이므로 초기 preload에서 제외
-        return deps.filter((dep) => !dep.includes('syntax-highlighter'));
-      },
-    },
+    modulePreload: { polyfill: false },
     rollupOptions: {
       output: {
         manualChunks(id) {
@@ -25,14 +42,15 @@ export default defineConfig({
             id.includes('react-syntax-highlighter') ||
             id.includes('prismjs')
           ) {
-            return 'syntax-highlighter';
+            return 'syntax-highlight';
           }
           if (id.includes('react-router-dom') || id.includes('@remix-run')) {
             return 'router';
           }
           if (
-            id.includes('react-dom') ||
-            (id.includes('react') && !id.includes('react-'))
+            id.includes('/react@') ||
+            id.includes('/react-dom@') ||
+            id.includes('/scheduler@')
           ) {
             return 'react-vendor';
           }
