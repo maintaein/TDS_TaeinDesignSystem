@@ -21,7 +21,7 @@
     "@vanilla-extract/vite-plugin": "^4.0.5",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "storybook": "^8.4.7",
+    "storybook": "^10.3.3",
     "typescript": "~5.9.3",
     "vite": "^7.2.4"
   }
