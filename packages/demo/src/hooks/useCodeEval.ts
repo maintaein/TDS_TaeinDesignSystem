@@ -36,7 +36,10 @@ function buildComponentBody(code: string): string {
 
     if (line === '' && i > 0) {
       const prevLine = lines[i - 1].trim();
-      if (prevLine.endsWith(';') || /^(const|let|var|function)\s/.test(prevLine)) {
+      if (
+        prevLine.endsWith(';') ||
+        /^(const|let|var|function)\s/.test(prevLine)
+      ) {
         splitIndex = i;
         break;
       }
@@ -82,8 +85,36 @@ interface UseCodeEvalResult {
   error: string | null;
 }
 
+/**
+ * new Function 실행 시 위험한 전역을 undefined로 shadowing.
+ * 데모 코드가 window/document/localStorage 등에 접근하는 것을 차단한다.
+ * scopeMap에 명시된 React + Core API만 사용 가능.
+ */
+const BLOCKED_GLOBALS = [
+  'window',
+  'document',
+  'location',
+  'history',
+  'navigator',
+  'localStorage',
+  'sessionStorage',
+  'indexedDB',
+  'fetch',
+  'XMLHttpRequest',
+  'WebSocket',
+  'Worker',
+  'SharedWorker',
+  'eval',
+  'Function',
+  'setTimeout',
+  'setInterval',
+] as const;
+
 /** 코드를 트랜스파일 + 실행 (순수 계산) */
-function evaluateCode(code: string): { element: ReactElement | null; error: string | null } {
+function evaluateCode(code: string): {
+  element: ReactElement | null;
+  error: string | null;
+} {
   try {
     const body = buildComponentBody(code);
     const componentCode = `function __Preview__() { ${body} }`;
@@ -94,8 +125,14 @@ function evaluateCode(code: string): { element: ReactElement | null; error: stri
       production: true,
     });
 
-    const fn = new Function(...scopeKeys, `${transpiledCode}\nreturn createElement(__Preview__);`);
-    const element = fn(...scopeValues) as ReactElement;
+    // BLOCKED_GLOBALS를 파라미터명으로 추가해 undefined로 shadowing
+    const fn = new Function(
+      ...BLOCKED_GLOBALS,
+      ...scopeKeys,
+      `${transpiledCode}\nreturn createElement(__Preview__);`
+    );
+    const blockedValues = new Array(BLOCKED_GLOBALS.length).fill(undefined);
+    const element = fn(...blockedValues, ...scopeValues) as ReactElement;
 
     return { element, error: null };
   } catch (err: unknown) {
@@ -134,8 +171,11 @@ export function useCodeEval(code: string): UseCodeEvalResult {
   // evalResult.error가 null이면 에러가 없는 것이므로 debouncedError도 무시
   const error = evalResult.error === null ? null : debouncedError;
 
-  return useMemo(() => ({
-    element: evalResult.element,
-    error,
-  }), [evalResult.element, error]);
+  return useMemo(
+    () => ({
+      element: evalResult.element,
+      error,
+    }),
+    [evalResult.element, error]
+  );
 }

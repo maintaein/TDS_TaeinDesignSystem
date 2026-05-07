@@ -107,10 +107,15 @@ export const Avatar = ({
   const isClickable = !!onClick || !!href;
   const RootTag = href ? 'a' : onClick ? 'button' : 'div';
   const rootProps = href
-    ? { href, target, 'aria-label': alt }
+    ? {
+        href,
+        target,
+        rel: target === '_blank' ? 'noopener noreferrer' : undefined,
+        'aria-label': alt,
+      }
     : onClick
-    ? { type: 'button' as const, onClick, 'aria-label': alt }
-    : {};
+      ? { type: 'button' as const, onClick, 'aria-label': alt }
+      : {};
 
   return (
     <RootTag

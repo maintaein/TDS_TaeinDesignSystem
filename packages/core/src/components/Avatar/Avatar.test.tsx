@@ -251,9 +251,7 @@ describe('Avatar', () => {
     });
 
     it('href가 있으면 a 태그로 렌더링된다', () => {
-      const { container } = render(
-        <Avatar alt="프로필" href="/profile" />
-      );
+      const { container } = render(<Avatar alt="프로필" href="/profile" />);
 
       const link = container.querySelector('a');
       expect(link).toBeInTheDocument();
@@ -271,10 +269,26 @@ describe('Avatar', () => {
       expect(link).toHaveAttribute('target', '_blank');
     });
 
-    it('클릭 가능 Avatar에 clickable 클래스가 적용된다', () => {
+    it('target="_blank"일 때 rel="noopener noreferrer"가 자동 적용된다', () => {
       const { container } = render(
-        <Avatar alt="테스트" onClick={() => {}} />
+        <Avatar alt="외부 링크" href="https://example.com" target="_blank" />
       );
+
+      const link = container.querySelector('a');
+      expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+    });
+
+    it('target이 "_blank"가 아닌 경우 rel이 설정되지 않는다', () => {
+      const { container } = render(
+        <Avatar alt="내부 링크" href="/profile" target="_self" />
+      );
+
+      const link = container.querySelector('a');
+      expect(link).not.toHaveAttribute('rel');
+    });
+
+    it('클릭 가능 Avatar에 clickable 클래스가 적용된다', () => {
+      const { container } = render(<Avatar alt="테스트" onClick={() => {}} />);
 
       expect(container.firstChild).toHaveClass(/clickable/);
     });
