@@ -27,7 +27,7 @@ function HighlightText({ text, query }: { text: string; query: string }) {
     parts.push(
       <mark key={index} className={styles.highlight}>
         {text.slice(index, index + lowerQuery.length)}
-      </mark>,
+      </mark>
     );
     lastIndex = index + lowerQuery.length;
     index = lowerText.indexOf(lowerQuery, lastIndex);
@@ -54,7 +54,7 @@ export function SearchDropdown({
   useEffect(() => {
     if (!listRef.current) return;
     const selected = listRef.current.querySelector(
-      `[data-index="${selectedIndex}"]`,
+      `[data-index="${selectedIndex}"]`
     );
     if (selected) {
       selected.scrollIntoView({ block: 'nearest' });
@@ -64,6 +64,7 @@ export function SearchDropdown({
   if (!open) return null;
 
   let globalIndex = 0;
+  const hasResults = groupedResults.size > 0;
 
   return (
     <div className={styles.dropdown}>
@@ -73,6 +74,12 @@ export function SearchDropdown({
         className={styles.resultsList}
         role="listbox"
       >
+        {!hasResults && query.trim().length > 0 && (
+          <div className={styles.emptyState} role="status" aria-live="polite">
+            <span className={styles.emptyStateQuery}>"{query}"</span>에 대한
+            검색 결과가 없습니다
+          </div>
+        )}
         {Array.from(groupedResults.entries()).map(([category, items]) => (
           <div key={category} className={styles.categoryGroup}>
             <div className={styles.categoryLabel}>{category}</div>
@@ -109,16 +116,10 @@ export function SearchDropdown({
                       {result.matchedSections.slice(0, 3).map((section, i) => (
                         <div key={i} className={styles.sectionItem}>
                           <span className={styles.sectionTitle}>
-                            <HighlightText
-                              text={section.title}
-                              query={query}
-                            />
+                            <HighlightText text={section.title} query={query} />
                           </span>
                           {' — '}
-                          <HighlightText
-                            text={section.content}
-                            query={query}
-                          />
+                          <HighlightText text={section.content} query={query} />
                         </div>
                       ))}
                     </div>

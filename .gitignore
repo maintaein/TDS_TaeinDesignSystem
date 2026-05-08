@@ -46,6 +46,10 @@ lerna-debug.log*
 # Storybook
 storybook-static/
 
+# Playwright
+test-results/
+playwright-report/
+
 # Vite
 .vite/
 

@@ -14,7 +14,8 @@ export const dropdown = style({
   backgroundColor: '#ffffff',
   borderRadius: '10px',
   border: '1px solid #e5e7eb',
-  boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
+  boxShadow:
+    '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
   overflow: 'hidden',
   animation: `${slideDown} 0.15s ease-out`,
   zIndex: 200,
@@ -139,4 +140,16 @@ export const highlight = style({
   fontWeight: 600,
   borderRadius: '2px',
   padding: '0 1px',
+});
+
+export const emptyState = style({
+  padding: '2rem 1rem',
+  textAlign: 'center',
+  color: '#6b7280',
+  fontSize: '0.875rem',
+});
+
+export const emptyStateQuery = style({
+  fontWeight: 600,
+  color: '#374151',
 });
