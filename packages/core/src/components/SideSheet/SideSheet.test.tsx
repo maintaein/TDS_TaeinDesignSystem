@@ -72,6 +72,13 @@ describe('SideSheet', () => {
       expect(title).toHaveTextContent('Test Title');
     });
 
+    it('title을 dialog의 accessible name으로 사용한다', () => {
+      render(<SideSheet {...defaultProps} title="Test Title" />);
+      expect(
+        screen.getByRole('dialog', { name: 'Test Title' })
+      ).toBeInTheDocument();
+    });
+
     it('aria-label이 있을 때 설정된다', () => {
       render(<SideSheet {...defaultProps} aria-label="Custom Label" />);
       const sheet = screen.getByRole('dialog');
@@ -352,7 +359,9 @@ describe('SideSheet', () => {
             <SideSheet.Content>Content</SideSheet.Content>
           </SideSheet>
         );
-        expect(screen.getByRole('button', { name: /닫기/i })).toBeInTheDocument();
+        expect(
+          screen.getByRole('button', { name: /닫기/i })
+        ).toBeInTheDocument();
       });
 
       it('showClose 닫기 버튼 클릭 시 onClose가 호출된다', async () => {
@@ -419,8 +428,12 @@ describe('SideSheet', () => {
             </SideSheet.Content>
           </SideSheet>
         );
-        expect(screen.getByRole('button', { name: '버튼 1' })).toBeInTheDocument();
-        expect(screen.getByRole('button', { name: '버튼 2' })).toBeInTheDocument();
+        expect(
+          screen.getByRole('button', { name: '버튼 1' })
+        ).toBeInTheDocument();
+        expect(
+          screen.getByRole('button', { name: '버튼 2' })
+        ).toBeInTheDocument();
       });
     });
 
@@ -436,7 +449,9 @@ describe('SideSheet', () => {
         );
         expect(screen.getByText('제목')).toBeInTheDocument();
         expect(screen.getByText('내용')).toBeInTheDocument();
-        expect(screen.getByRole('button', { name: /닫기/i })).toBeInTheDocument();
+        expect(
+          screen.getByRole('button', { name: /닫기/i })
+        ).toBeInTheDocument();
       });
 
       it('position과 함께 사용할 수 있다', () => {

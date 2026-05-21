@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { createRef, useState } from 'react';
@@ -179,7 +179,9 @@ describe('Switch', () => {
     });
 
     it('aria-checked 속성을 올바르게 설정한다', () => {
-      const { rerender } = render(<Switch label="스위치" />);
+      const { rerender } = render(
+        <Switch label="스위치" checked={false} onChange={() => {}} />
+      );
       const switchElement = screen.getByRole('switch');
       expect(switchElement).toHaveAttribute('aria-checked', 'false');
 
@@ -278,7 +280,7 @@ describe('Switch', () => {
       consoleError.mockRestore();
     });
 
-    it('value와 onChange가 동시에 제공되면 제어 컴포넌트로 동작한다', async () => {
+    it('value와 onChange가 동시에 제공되면 제어 컴포넌트로 동작한다', () => {
       const ControlledSwitch = () => {
         const [checked, setChecked] = useState(false);
         return (
@@ -295,10 +297,10 @@ describe('Switch', () => {
 
       expect(switchElement).not.toBeChecked();
 
-      await userEvent.click(switchElement);
+      fireEvent.click(switchElement);
       expect(switchElement).toBeChecked();
 
-      await userEvent.click(switchElement);
+      fireEvent.click(switchElement);
       expect(switchElement).not.toBeChecked();
     });
 

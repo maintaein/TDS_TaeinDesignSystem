@@ -69,6 +69,20 @@ describe('Modal', () => {
       const dialog = screen.getByRole('dialog');
       expect(dialog).toHaveAttribute('aria-label', 'Custom Modal');
     });
+
+    it('Flat title이 있을 때 aria-labelledby가 자동으로 제목과 연결된다', () => {
+      render(
+        <Modal {...defaultProps} title="자동 제목">
+          <p>내용</p>
+        </Modal>
+      );
+      const dialog = screen.getByRole('dialog');
+      const labelledby = dialog.getAttribute('aria-labelledby');
+      expect(labelledby).toBeTruthy();
+      expect(document.getElementById(labelledby!)).toHaveTextContent(
+        '자동 제목'
+      );
+    });
   });
 
   describe('backdrop 클릭 테스트', () => {
@@ -322,7 +336,9 @@ describe('Modal Compound API', () => {
           <Modal.Header className="custom-header">헤더</Modal.Header>
         </Modal>
       );
-      expect(screen.getByText('헤더').parentElement).toHaveClass('custom-header');
+      expect(screen.getByText('헤더').parentElement).toHaveClass(
+        'custom-header'
+      );
     });
   });
 
@@ -396,7 +412,9 @@ describe('Modal Compound API', () => {
     it('align="right"일 때 스타일이 적용된다', () => {
       render(
         <Modal {...defaultProps}>
-          <Modal.Footer align="right" data-testid="footer">푸터</Modal.Footer>
+          <Modal.Footer align="right" data-testid="footer">
+            푸터
+          </Modal.Footer>
         </Modal>
       );
       const footer = screen.getByTestId('footer');
@@ -406,7 +424,9 @@ describe('Modal Compound API', () => {
     it('align="center"일 때 스타일이 적용된다', () => {
       render(
         <Modal {...defaultProps}>
-          <Modal.Footer align="center" data-testid="footer">푸터</Modal.Footer>
+          <Modal.Footer align="center" data-testid="footer">
+            푸터
+          </Modal.Footer>
         </Modal>
       );
       const footer = screen.getByTestId('footer');
@@ -460,7 +480,11 @@ describe('Modal Compound API', () => {
 
     it('접근성: aria-labelledby와 aria-describedby가 Content에 연결될 수 있다', () => {
       render(
-        <Modal {...defaultProps} aria-labelledby="modal-title" aria-describedby="modal-desc">
+        <Modal
+          {...defaultProps}
+          aria-labelledby="modal-title"
+          aria-describedby="modal-desc"
+        >
           <Modal.Header>
             <Modal.Title id="modal-title">제목</Modal.Title>
           </Modal.Header>
@@ -491,8 +515,19 @@ describe('Modal (Flat API)', () => {
           <p>모달 내용입니다.</p>
         </Modal>
       );
-      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('알림');
+      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+        '알림'
+      );
       expect(screen.getByText('모달 내용입니다.')).toBeInTheDocument();
+    });
+
+    it('title을 전달하면 dialog의 accessible name으로 사용된다', () => {
+      render(
+        <Modal {...defaultProps} title="설정">
+          <p>내용</p>
+        </Modal>
+      );
+      expect(screen.getByRole('dialog', { name: '설정' })).toBeInTheDocument();
     });
 
     it('title 없이 children만 전달하면 Compound 모드로 동작한다', () => {
@@ -533,14 +568,20 @@ describe('Modal (Flat API)', () => {
           <p>내용</p>
         </Modal>
       );
-      expect(screen.queryByRole('button', { name: /닫기/i })).not.toBeInTheDocument();
+      expect(
+        screen.queryByRole('button', { name: /닫기/i })
+      ).not.toBeInTheDocument();
     });
   });
 
   describe('footer prop', () => {
     it('footer를 전달하면 Footer 영역이 렌더링된다', () => {
       render(
-        <Modal {...defaultProps} title="알림" footer={<button>확인 버튼</button>}>
+        <Modal
+          {...defaultProps}
+          title="알림"
+          footer={<button>확인 버튼</button>}
+        >
           <p>내용</p>
         </Modal>
       );
@@ -561,7 +602,12 @@ describe('Modal (Flat API)', () => {
   describe('footerAlign prop', () => {
     it('footerAlign="right"가 적용된다', () => {
       render(
-        <Modal {...defaultProps} title="제목" footer={<button>확인</button>} footerAlign="right">
+        <Modal
+          {...defaultProps}
+          title="제목"
+          footer={<button>확인</button>}
+          footerAlign="right"
+        >
           <p>내용</p>
         </Modal>
       );
@@ -592,7 +638,9 @@ describe('Modal (Flat API)', () => {
         </Modal>
       );
 
-      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('회원 탈퇴');
+      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+        '회원 탈퇴'
+      );
       expect(screen.getByText('정말 탈퇴하시겠습니까?')).toBeInTheDocument();
       expect(screen.getByText('취소')).toBeInTheDocument();
       expect(screen.getByText('탈퇴')).toBeInTheDocument();

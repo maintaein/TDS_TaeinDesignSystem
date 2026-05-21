@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BoardRow } from './BoardRow';
 
@@ -70,8 +70,7 @@ describe('BoardRow', () => {
       expect(button).toHaveAttribute('aria-expanded', 'true');
     });
 
-    it('제목 클릭 시 펼쳐진다', async () => {
-      const user = userEvent.setup();
+    it('제목 클릭 시 펼쳐진다', () => {
       render(
         <BoardRow title="제목">
           <div>내용</div>
@@ -81,13 +80,12 @@ describe('BoardRow', () => {
       const button = screen.getByRole('button', { name: /제목/ });
       expect(button).toHaveAttribute('aria-expanded', 'false');
 
-      await user.click(button);
+      fireEvent.click(button);
 
       expect(button).toHaveAttribute('aria-expanded', 'true');
     });
 
-    it('펼쳐진 상태에서 제목 클릭 시 접힌다', async () => {
-      const user = userEvent.setup();
+    it('펼쳐진 상태에서 제목 클릭 시 접힌다', () => {
       render(
         <BoardRow title="제목" defaultExpanded>
           <div>내용</div>
@@ -97,15 +95,14 @@ describe('BoardRow', () => {
       const button = screen.getByRole('button', { name: /제목/ });
       expect(button).toHaveAttribute('aria-expanded', 'true');
 
-      await user.click(button);
+      fireEvent.click(button);
 
       expect(button).toHaveAttribute('aria-expanded', 'false');
     });
   });
 
   describe('controlled mode 테스트', () => {
-    it('expanded prop이 있으면 controlled mode로 동작한다', async () => {
-      const user = userEvent.setup();
+    it('expanded prop이 있으면 controlled mode로 동작한다', () => {
       const handleChange = vi.fn();
 
       render(
@@ -117,7 +114,7 @@ describe('BoardRow', () => {
       const button = screen.getByRole('button', { name: /제목/ });
       expect(button).toHaveAttribute('aria-expanded', 'false');
 
-      await user.click(button);
+      fireEvent.click(button);
 
       expect(handleChange).toHaveBeenCalledWith(true);
       // controlled mode이므로 상태는 외부에서 관리
@@ -158,11 +155,15 @@ describe('BoardRow', () => {
 
       expect(button).toHaveAttribute('aria-expanded', 'false');
 
-      await user.keyboard('{Enter}');
+      await act(async () => {
+        await user.keyboard('{Enter}');
+      });
 
       expect(button).toHaveAttribute('aria-expanded', 'true');
 
-      await user.keyboard('{Enter}');
+      await act(async () => {
+        await user.keyboard('{Enter}');
+      });
 
       expect(button).toHaveAttribute('aria-expanded', 'false');
     });
@@ -180,11 +181,15 @@ describe('BoardRow', () => {
 
       expect(button).toHaveAttribute('aria-expanded', 'false');
 
-      await user.keyboard(' ');
+      await act(async () => {
+        await user.keyboard(' ');
+      });
 
       expect(button).toHaveAttribute('aria-expanded', 'true');
 
-      await user.keyboard(' ');
+      await act(async () => {
+        await user.keyboard(' ');
+      });
 
       expect(button).toHaveAttribute('aria-expanded', 'false');
     });
@@ -266,8 +271,7 @@ describe('BoardRow', () => {
       expect(button).toBeDisabled();
     });
 
-    it('disabled 상태에서는 클릭해도 펼쳐지지 않는다', async () => {
-      const user = userEvent.setup();
+    it('disabled 상태에서는 클릭해도 펼쳐지지 않는다', () => {
       render(
         <BoardRow title="제목" disabled>
           <div>내용</div>
@@ -277,7 +281,7 @@ describe('BoardRow', () => {
       const button = screen.getByRole('button', { name: /제목/ });
       expect(button).toHaveAttribute('aria-expanded', 'false');
 
-      await user.click(button);
+      fireEvent.click(button);
 
       // disabled이므로 클릭 이벤트가 발생하지 않음
       expect(button).toHaveAttribute('aria-expanded', 'false');
@@ -382,8 +386,7 @@ describe('BoardRow', () => {
   });
 
   describe('복합 시나리오 테스트', () => {
-    it('여러 BoardRow를 사용할 수 있다 (FAQ 예시)', async () => {
-      const user = userEvent.setup();
+    it('여러 BoardRow를 사용할 수 있다 (FAQ 예시)', () => {
       render(
         <div>
           <BoardRow title="질문 1">
@@ -402,13 +405,13 @@ describe('BoardRow', () => {
       expect(buttons).toHaveLength(3);
 
       // 첫 번째만 펼치기
-      await user.click(buttons[0]);
+      fireEvent.click(buttons[0]);
       expect(buttons[0]).toHaveAttribute('aria-expanded', 'true');
       expect(buttons[1]).toHaveAttribute('aria-expanded', 'false');
       expect(buttons[2]).toHaveAttribute('aria-expanded', 'false');
 
       // 두 번째도 펼치기 (다중 열림)
-      await user.click(buttons[1]);
+      fireEvent.click(buttons[1]);
       expect(buttons[0]).toHaveAttribute('aria-expanded', 'true');
       expect(buttons[1]).toHaveAttribute('aria-expanded', 'true');
       expect(buttons[2]).toHaveAttribute('aria-expanded', 'false');

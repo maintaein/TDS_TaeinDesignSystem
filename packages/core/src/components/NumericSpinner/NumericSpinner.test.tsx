@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import React, { createRef } from 'react';
@@ -422,35 +422,32 @@ describe('NumericSpinner', () => {
       expect(input).toHaveValue(0);
     });
 
-    it('증가 버튼 클릭 시 내부 상태가 업데이트된다', async () => {
-      const user = userEvent.setup();
+    it('증가 버튼 클릭 시 내부 상태가 업데이트된다', () => {
       render(<NumericSpinner label="수량" defaultValue={1} step={1} />);
 
       const input = screen.getByLabelText('수량');
       const incrementButton = screen.getByRole('button', { name: /증가/i });
 
       expect(input).toHaveValue(1);
-      await user.click(incrementButton);
+      fireEvent.click(incrementButton);
       expect(input).toHaveValue(2);
 
-      await user.click(incrementButton);
+      fireEvent.click(incrementButton);
       expect(input).toHaveValue(3);
     });
 
-    it('감소 버튼 클릭 시 내부 상태가 업데이트된다', async () => {
-      const user = userEvent.setup();
+    it('감소 버튼 클릭 시 내부 상태가 업데이트된다', () => {
       render(<NumericSpinner label="수량" defaultValue={5} step={1} />);
 
       const input = screen.getByLabelText('수량');
       const decrementButton = screen.getByRole('button', { name: /감소/i });
 
       expect(input).toHaveValue(5);
-      await user.click(decrementButton);
+      fireEvent.click(decrementButton);
       expect(input).toHaveValue(4);
     });
 
-    it('min/max 제약을 준수한다', async () => {
-      const user = userEvent.setup();
+    it('min/max 제약을 준수한다', () => {
       render(<NumericSpinner label="수량" defaultValue={5} min={1} max={10} />);
 
       const input = screen.getByLabelText('수량');
@@ -458,34 +455,29 @@ describe('NumericSpinner', () => {
       const decrementButton = screen.getByRole('button', { name: /감소/i });
 
       // max 초과 불가
-      await user.click(incrementButton); // 6
-      await user.click(incrementButton); // 7
-      await user.click(incrementButton); // 8
-      await user.click(incrementButton); // 9
-      await user.click(incrementButton); // 10
-      await user.click(incrementButton); // 10 (변하지 않음)
+      fireEvent.click(incrementButton); // 6
+      fireEvent.click(incrementButton); // 7
+      fireEvent.click(incrementButton); // 8
+      fireEvent.click(incrementButton); // 9
+      fireEvent.click(incrementButton); // 10
+      fireEvent.click(incrementButton); // 10 (변하지 않음)
       expect(input).toHaveValue(10);
 
       // min 이하로 감소 불가
       for (let i = 0; i < 15; i++) {
-        await user.click(decrementButton);
+        fireEvent.click(decrementButton);
       }
       expect(input).toHaveValue(1);
     });
 
-    it('onChange 콜백을 호출한다', async () => {
-      const user = userEvent.setup();
+    it('onChange 콜백을 호출한다', () => {
       const handleChange = vi.fn();
       render(
-        <NumericSpinner
-          label="수량"
-          defaultValue={1}
-          onChange={handleChange}
-        />
+        <NumericSpinner label="수량" defaultValue={1} onChange={handleChange} />
       );
 
       const incrementButton = screen.getByRole('button', { name: /증가/i });
-      await user.click(incrementButton);
+      fireEvent.click(incrementButton);
 
       expect(handleChange).toHaveBeenCalledTimes(1);
       expect(handleChange).toHaveBeenCalledWith(
@@ -542,7 +534,9 @@ describe('NumericSpinner', () => {
       );
 
       expect(consoleWarn).toHaveBeenCalledWith(
-        expect.stringContaining('value와 defaultValue를 동시에 사용할 수 없습니다')
+        expect.stringContaining(
+          'value와 defaultValue를 동시에 사용할 수 없습니다'
+        )
       );
 
       consoleWarn.mockRestore();
@@ -582,8 +576,7 @@ describe('NumericSpinner', () => {
       expect(input).toHaveValue(0);
     });
 
-    it('value와 onChange가 동시에 제공되면 제어 컴포넌트로 동작한다', async () => {
-      const user = userEvent.setup();
+    it('value와 onChange가 동시에 제공되면 제어 컴포넌트로 동작한다', () => {
       const ControlledSpinner = () => {
         const [value, setValue] = React.useState(0);
         return (
@@ -601,7 +594,7 @@ describe('NumericSpinner', () => {
 
       expect(input).toHaveValue(0);
 
-      await user.click(incrementButton);
+      fireEvent.click(incrementButton);
       expect(input).toHaveValue(1);
     });
   });

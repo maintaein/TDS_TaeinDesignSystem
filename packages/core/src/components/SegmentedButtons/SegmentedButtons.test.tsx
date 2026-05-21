@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { SegmentedButtons } from './SegmentedButtons';
 
@@ -621,8 +621,7 @@ describe('SegmentedButtons', () => {
       expect(option1).toBeChecked();
     });
 
-    it('클릭 시 내부 상태가 업데이트된다', async () => {
-      const user = userEvent.setup();
+    it('클릭 시 내부 상태가 업데이트된다', () => {
       render(<SegmentedButtons options={options} defaultValue="option1" />);
 
       const option1 = screen.getByRole('radio', { name: '옵션 1' });
@@ -632,14 +631,13 @@ describe('SegmentedButtons', () => {
 
       // option3의 label 클릭
       const option3Label = option3.closest('label');
-      if (option3Label) await user.click(option3Label);
+      if (option3Label) fireEvent.click(option3Label);
 
       expect(option3).toBeChecked();
       expect(option1).not.toBeChecked();
     });
 
-    it('onChange 콜백을 호출한다', async () => {
-      const user = userEvent.setup();
+    it('onChange 콜백을 호출한다', () => {
       const handleChange = vi.fn();
       render(
         <SegmentedButtons
@@ -651,7 +649,7 @@ describe('SegmentedButtons', () => {
 
       const option2 = screen.getByRole('radio', { name: '옵션 2' });
       const option2Label = option2.closest('label');
-      if (option2Label) await user.click(option2Label);
+      if (option2Label) fireEvent.click(option2Label);
 
       expect(handleChange).toHaveBeenCalledWith('option2');
     });
@@ -724,7 +722,9 @@ describe('SegmentedButtons', () => {
       );
 
       expect(consoleWarn).toHaveBeenCalledWith(
-        expect.stringContaining('value와 defaultValue를 동시에 사용할 수 없습니다')
+        expect.stringContaining(
+          'value와 defaultValue를 동시에 사용할 수 없습니다'
+        )
       );
 
       consoleWarn.mockRestore();

@@ -72,6 +72,13 @@ describe('BottomSheet', () => {
       expect(title).toHaveTextContent('Test Title');
     });
 
+    it('title을 dialog의 accessible name으로 사용한다', () => {
+      render(<BottomSheet {...defaultProps} title="Test Title" />);
+      expect(
+        screen.getByRole('dialog', { name: 'Test Title' })
+      ).toBeInTheDocument();
+    });
+
     it('aria-label이 있을 때 설정된다', () => {
       render(<BottomSheet {...defaultProps} aria-label="Custom Label" />);
       const sheet = screen.getByRole('dialog');
@@ -379,7 +386,9 @@ describe('BottomSheet', () => {
             <BottomSheet.Content>Content</BottomSheet.Content>
           </BottomSheet>
         );
-        expect(screen.getByRole('button', { name: /닫기/i })).toBeInTheDocument();
+        expect(
+          screen.getByRole('button', { name: /닫기/i })
+        ).toBeInTheDocument();
       });
 
       it('showClose 닫기 버튼 클릭 시 onClose가 호출된다', async () => {
@@ -446,8 +455,12 @@ describe('BottomSheet', () => {
             </BottomSheet.Content>
           </BottomSheet>
         );
-        expect(screen.getByRole('button', { name: '버튼 1' })).toBeInTheDocument();
-        expect(screen.getByRole('button', { name: '버튼 2' })).toBeInTheDocument();
+        expect(
+          screen.getByRole('button', { name: '버튼 1' })
+        ).toBeInTheDocument();
+        expect(
+          screen.getByRole('button', { name: '버튼 2' })
+        ).toBeInTheDocument();
       });
     });
 
@@ -463,7 +476,9 @@ describe('BottomSheet', () => {
         );
         expect(screen.getByText('제목')).toBeInTheDocument();
         expect(screen.getByText('내용')).toBeInTheDocument();
-        expect(screen.getByRole('button', { name: /닫기/i })).toBeInTheDocument();
+        expect(
+          screen.getByRole('button', { name: /닫기/i })
+        ).toBeInTheDocument();
       });
 
       it('showHandle과 함께 사용할 수 있다', () => {
@@ -476,7 +491,9 @@ describe('BottomSheet', () => {
           </BottomSheet>
         );
         const sheet = screen.getByRole('dialog');
-        const handle = sheet.querySelector('[data-testid="bottomsheet-handle"]');
+        const handle = sheet.querySelector(
+          '[data-testid="bottomsheet-handle"]'
+        );
         expect(handle).toBeInTheDocument();
       });
     });

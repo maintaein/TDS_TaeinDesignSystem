@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import { Avatar, AvatarGroup } from './Avatar';
 
 describe('Avatar', () => {
@@ -104,7 +104,9 @@ describe('Avatar', () => {
       const img = screen.getByRole('img');
 
       // 이미지 로딩 실패 시뮬레이션
-      img.dispatchEvent(new Event('error'));
+      await act(async () => {
+        img.dispatchEvent(new Event('error'));
+      });
 
       await waitFor(() => {
         expect(screen.getByText('홍')).toBeInTheDocument();
@@ -118,7 +120,9 @@ describe('Avatar', () => {
       );
 
       const img = screen.getByRole('img');
-      img.dispatchEvent(new Event('error'));
+      await act(async () => {
+        img.dispatchEvent(new Event('error'));
+      });
 
       await waitFor(() => {
         expect(handleError).toHaveBeenCalled();
