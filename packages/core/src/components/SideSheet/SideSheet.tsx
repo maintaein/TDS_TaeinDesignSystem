@@ -31,6 +31,12 @@ import {
 } from './SideSheet.css';
 import { IconButton } from '../IconButton';
 import { Icon } from '../Icon';
+import {
+  addDocumentListener,
+  getActiveHTMLElement,
+  getFocusableElements,
+  lockBodyScroll,
+} from '../../_internal/dom';
 
 interface SideSheetContextValue {
   onClose: () => void;
@@ -87,6 +93,7 @@ const SideSheetRoot = ({
   closeOnEscape = true,
   showClose = false,
   className,
+  'aria-labelledby': ariaLabelledby,
   ...props
 }: SideSheetProps) => {
   const sheetRef = useRef<HTMLDivElement>(null);
@@ -103,14 +110,12 @@ const SideSheetRoot = ({
   useEffect(() => {
     if (!open) return;
 
-    previousActiveElementRef.current = document.activeElement as HTMLElement;
+    previousActiveElementRef.current = getActiveHTMLElement();
     const sheet = sheetRef.current;
     if (!sheet) return;
 
     // 포커스 트랩 설정
-    const focusableElements = sheet.querySelectorAll<HTMLElement>(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    );
+    const focusableElements = getFocusableElements(sheet);
     if (focusableElements[0]) {
       focusableElements[0].focus();
     } else {
@@ -147,12 +152,12 @@ const SideSheetRoot = ({
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
-    document.body.style.overflow = 'hidden';
+    const removeKeyDownListener = addDocumentListener('keydown', handleKeyDown);
+    const restoreBodyScroll = lockBodyScroll();
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = '';
+      removeKeyDownListener();
+      restoreBodyScroll();
       previousActiveElementRef.current?.focus();
     };
   }, [open, closeOnEscape, onClose]);
@@ -183,6 +188,9 @@ const SideSheetRoot = ({
     return !open ? sideSheetExitRight : sideSheetEnterRight;
   };
 
+  const flatTitleId = title ? titleId : undefined;
+  const labelledby = ariaLabelledby ?? flatTitleId;
+
   const sheetContent = (
     <SideSheetContext.Provider value={contextValue}>
       <div className={sideSheetContainer}>
@@ -197,7 +205,7 @@ const SideSheetRoot = ({
           ref={sheetRef}
           role="dialog"
           aria-modal="true"
-          aria-labelledby={title ? titleId : undefined}
+          aria-labelledby={labelledby}
           onAnimationEnd={handleAnimationEnd}
           className={clsx(
             sideSheetStyle,
@@ -212,7 +220,7 @@ const SideSheetRoot = ({
           {title ? (
             <>
               <div className={header}>
-                <h2 id={titleId} className={titleStyle}>
+                <h2 id={flatTitleId} className={titleStyle}>
                   {title}
                 </h2>
                 {showClose && (

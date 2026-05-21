@@ -5,6 +5,7 @@ import {
   createContext,
   useContext,
   forwardRef,
+  useId,
   type ReactNode,
   type HTMLAttributes,
 } from 'react';
@@ -23,6 +24,12 @@ import {
   modalFooter as modalFooterStyle,
   footerAlignStyles,
 } from './Modal.css';
+import {
+  addDocumentListener,
+  getActiveHTMLElement,
+  getFocusableElements,
+  lockBodyScroll,
+} from '../../_internal/dom';
 
 // Context로 onClose 전달 (Header의 닫기 버튼에서 사용)
 interface ModalContextValue {
@@ -90,18 +97,17 @@ const ModalRoot = ({
 }: ModalProps) => {
   const dialogRef = useRef<HTMLDivElement>(null);
   const previousActiveElementRef = useRef<HTMLElement | null>(null);
+  const titleId = useId();
 
   useEffect(() => {
     if (!open) return;
 
-    previousActiveElementRef.current = document.activeElement as HTMLElement;
+    previousActiveElementRef.current = getActiveHTMLElement();
 
     const dialog = dialogRef.current;
     if (!dialog) return;
 
-    const focusableElements = dialog.querySelectorAll<HTMLElement>(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    );
+    const focusableElements = getFocusableElements(dialog);
     const firstFocusable = focusableElements[0];
     const lastFocusable = focusableElements[focusableElements.length - 1];
 
@@ -138,12 +144,12 @@ const ModalRoot = ({
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
-    document.body.style.overflow = 'hidden';
+    const removeKeyDownListener = addDocumentListener('keydown', handleKeyDown);
+    const restoreBodyScroll = lockBodyScroll();
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = '';
+      removeKeyDownListener();
+      restoreBodyScroll();
 
       if (previousActiveElementRef.current) {
         previousActiveElementRef.current.focus();
@@ -162,13 +168,17 @@ const ModalRoot = ({
   };
 
   const isFlat = !!(title || footer);
+  const flatTitleId = title ? titleId : undefined;
+  const labelledby = ariaLabelledby ?? flatTitleId;
 
   const content = isFlat ? (
     <>
       {title && (
         <header className={modalHeaderStyle}>
           <div className={modalHeaderContent}>
-            <h2 className={modalTitleStyle}>{title}</h2>
+            <h2 id={flatTitleId} className={modalTitleStyle}>
+              {title}
+            </h2>
           </div>
           {showClose && (
             <button
@@ -225,7 +235,7 @@ const ModalRoot = ({
           ref={dialogRef}
           role="dialog"
           aria-modal="true"
-          aria-labelledby={ariaLabelledby}
+          aria-labelledby={labelledby}
           aria-describedby={ariaDescribedby}
           aria-label={ariaLabel}
           className={clsx(modalDialog, sizeStyles[size], className)}

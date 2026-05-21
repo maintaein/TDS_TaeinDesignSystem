@@ -29,6 +29,12 @@ import {
 } from './BottomSheet.css';
 import { IconButton } from '../IconButton';
 import { Icon } from '../Icon';
+import {
+  addDocumentListener,
+  getActiveHTMLElement,
+  getFocusableElements,
+  lockBodyScroll,
+} from '../../_internal/dom';
 
 interface BottomSheetContextValue {
   onClose: () => void;
@@ -89,6 +95,7 @@ const BottomSheetRoot = ({
   showClose = false,
   enableDrag = true,
   className,
+  'aria-labelledby': ariaLabelledby,
   ...props
 }: BottomSheetProps) => {
   const sheetRef = useRef<HTMLDivElement>(null);
@@ -121,14 +128,12 @@ const BottomSheetRoot = ({
   useEffect(() => {
     if (!open) return;
 
-    previousActiveElementRef.current = document.activeElement as HTMLElement;
+    previousActiveElementRef.current = getActiveHTMLElement();
     const sheet = sheetRef.current;
     if (!sheet) return;
 
     // 포커스 트랩 설정
-    const focusableElements = sheet.querySelectorAll<HTMLElement>(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    );
+    const focusableElements = getFocusableElements(sheet);
     if (focusableElements[0]) {
       focusableElements[0].focus();
     } else {
@@ -143,12 +148,12 @@ const BottomSheetRoot = ({
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
-    document.body.style.overflow = 'hidden';
+    const removeKeyDownListener = addDocumentListener('keydown', handleKeyDown);
+    const restoreBodyScroll = lockBodyScroll();
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = '';
+      removeKeyDownListener();
+      restoreBodyScroll();
     };
   }, [open, closeOnEscape, onClose]);
 
@@ -285,6 +290,9 @@ const BottomSheetRoot = ({
     }
   };
 
+  const flatTitleId = title ? titleId : undefined;
+  const labelledby = ariaLabelledby ?? flatTitleId;
+
   const sheetContent = (
     <BottomSheetContext.Provider value={contextValue}>
       <div className={bottomSheetContainer}>
@@ -299,7 +307,7 @@ const BottomSheetRoot = ({
           ref={sheetRef}
           role="dialog"
           aria-modal="true"
-          aria-labelledby={title ? titleId : undefined}
+          aria-labelledby={labelledby}
           onAnimationEnd={handleAnimationEnd}
           className={clsx(
             bottomSheetStyle,
@@ -317,7 +325,7 @@ const BottomSheetRoot = ({
           {title ? (
             <>
               <div className={header}>
-                <h2 id={titleId} className={titleStyle}>
+                <h2 id={flatTitleId} className={titleStyle}>
                   {title}
                 </h2>
                 {showClose && (

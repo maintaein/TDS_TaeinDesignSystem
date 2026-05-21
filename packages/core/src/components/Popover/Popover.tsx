@@ -15,6 +15,10 @@ import {
   arrow as arrowStyle,
   arrowPositionStyles,
 } from './Popover.css';
+import {
+  addDocumentListener,
+  getFirstFocusableElement,
+} from '../../_internal/dom';
 
 /** 트리거 요소 근처에 떠 있는 콘텐츠를 표시하는 팝오버 컴포넌트. 제어/비제어 모드 지원 */
 export interface PopoverProps extends Omit<
@@ -96,10 +100,7 @@ export const Popover = ({
       }
     };
 
-    document.addEventListener('mousedown', handleOutsideClick);
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-    };
+    return addDocumentListener('mousedown', handleOutsideClick);
   }, [isOpen, closeOnOutsideClick, setOpen]);
 
   // ESC 키 감지
@@ -110,17 +111,14 @@ export const Popover = ({
       if (e.key === 'Escape') {
         setOpen(false);
         // 트리거로 포커스 복귀
-        const trigger = triggerRef.current?.querySelector<HTMLElement>(
-          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-        );
+        const trigger = triggerRef.current
+          ? getFirstFocusableElement(triggerRef.current)
+          : null;
         trigger?.focus();
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
+    return addDocumentListener('keydown', handleKeyDown);
   }, [isOpen, closeOnEscape, setOpen]);
 
   // 포커스 관리
@@ -132,9 +130,7 @@ export const Popover = ({
       const popoverEl = popoverRef.current;
       if (!popoverEl) return;
 
-      const focusable = popoverEl.querySelector<HTMLElement>(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-      );
+      const focusable = getFirstFocusableElement(popoverEl);
       if (focusable) {
         focusable.focus();
       }
