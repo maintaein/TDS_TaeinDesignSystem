@@ -87,21 +87,22 @@ export function IntroductionPage() {
               </svg>
             </div>
             <div className={styles.goalContent}>
-              <h3 className={styles.goalTitle}>일관성과 효율</h3>
+              <h3 className={styles.goalTitle}>작고 예측 가능한 API</h3>
               <p className={styles.goalDescription}>
-                디자인 토큰과 통일된 API 패턴으로 학습 비용을 줄이고 일관된 UI를
-                보장합니다.
+                빠르게 같은 방식으로 UI를 만들 수 있도록 컴포넌트 표면적을 작고
+                일관되게 유지합니다.
               </p>
               <ul className={styles.goalDetails}>
                 <li className={styles.goalDetailItem}>
-                  모든 컴포넌트가 동일한 API 패턴(variant, size, disabled)을
-                  따릅니다
+                  주요 컴포넌트에서 variant, size, disabled 같은 공통 네이밍을
+                  일관되게 사용합니다
                 </li>
                 <li className={styles.goalDetailItem}>
                   색상, 간격, 타이포그래피를 디자인 토큰으로 통합 관리합니다
                 </li>
                 <li className={styles.goalDetailItem}>
-                  Compound Component 패턴으로 유연한 조합이 가능합니다
+                  단순한 사용은 Flat API로, 세밀한 조합은 Compound API로 확장할
+                  수 있습니다
                 </li>
               </ul>
             </div>
@@ -128,15 +129,15 @@ export function IntroductionPage() {
               </svg>
             </div>
             <div className={styles.goalContent}>
-              <h3 className={styles.goalTitle}>초심자 친화</h3>
+              <h3 className={styles.goalTitle}>낮은 학습 비용</h3>
               <p className={styles.goalDescription}>
-                처음 디자인 시스템을 접하는 개발자도 바로 사용할 수 있도록
-                문서와 예제를 제공합니다.
+                거대한 범용 UI 프레임워크보다 좁은 범위에 집중해 처음 접하는
+                개발자도 빠르게 사용법을 익힐 수 있도록 합니다.
               </p>
               <ul className={styles.goalDetails}>
                 <li className={styles.goalDetailItem}>
-                  모든 컴포넌트 페이지에 사용법, Props 설명, 접근성 가이드를
-                  제공합니다
+                  컴포넌트 문서에서 사용법, Props 설명, 접근성 고려사항을 함께
+                  확인할 수 있습니다
                 </li>
                 <li className={styles.goalDetailItem}>
                   Best Practices와 주의사항을 함께 안내합니다
@@ -177,29 +178,26 @@ export function IntroductionPage() {
             <div className={styles.goalContent}>
               <h3 className={styles.goalTitle}>AI 친화</h3>
               <p className={styles.goalDescription}>
-                생성형 AI가 컴포넌트를 정확히 이해하고 코드를 생성할 수 있도록
-                설계했습니다.
+                작은 API 범위와 구조화된 문서로 생성형 AI가 컴포넌트 사용법을 더
+                안정적으로 참조할 수 있게 합니다.
               </p>
               <ul className={styles.goalDetails}>
                 <li className={styles.goalDetailItem}>
                   <strong>llms.txt</strong> — AI 도구(Cursor, Context7 등)가
-                  읽을 수 있는 구조화된 API 문서를 제공합니다. Cursor의 @Docs나
-                  Context7 인덱싱을 통해 AI가 컴포넌트 사용법을 정확히
-                  참조합니다
+                  읽을 수 있는 구조화된 API 문서를 제공합니다
                 </li>
                 <li className={styles.goalDetailItem}>
-                  <strong>JSDoc 주석</strong> — 모든 Props 인터페이스에 JSDoc을
-                  작성하여, npm 설치 후 .d.ts 파일을 통해 AI가 자동으로 타입과
-                  설명을 읽을 수 있습니다
+                  <strong>JSDoc 주석</strong> — Props 인터페이스에 설명을
+                  제공하여 타입 정보와 사용 의도를 함께 전달합니다
                 </li>
                 <li className={styles.goalDetailItem}>
-                  <strong>일관된 API</strong> — 30개 컴포넌트 모두 동일한
-                  패턴(variant, size, disabled)을 따르므로 AI가 하나의
-                  컴포넌트를 학습하면 나머지도 예측할 수 있습니다
+                  <strong>일관된 API</strong> — 주요 컴포넌트가 공통 네이밍과
+                  조합 패턴을 공유하므로 AI가 API 구조를 더 쉽게 예측할 수
+                  있습니다
                 </li>
                 <li className={styles.goalDetailItem}>
-                  <strong>엄격한 TypeScript</strong> — any 타입 없이 모든
-                  Props가 정확히 타이핑되어 AI 코드 생성의 정확도가 높아집니다
+                  <strong>TypeScript 기반</strong> — Props 타입을 명확히 제공해
+                  잘못된 조합을 줄이고 자동완성 경험을 개선합니다
                 </li>
               </ul>
             </div>
@@ -234,21 +232,22 @@ export function IntroductionPage() {
               </svg>
             </div>
             <div className={styles.goalContent}>
-              <h3 className={styles.goalTitle}>경량 번들</h3>
+              <h3 className={styles.goalTitle}>정적 CSS와 분리된 모듈</h3>
               <p className={styles.goalDescription}>
-                전체 라이브러리가 ~23KB(gzip)로, 성능 부담 없이 사용할 수
-                있습니다.
+                런타임 스타일 엔진보다 단순한 배포 구조를 지향하며, 스타일은
+                빌드 시점에 CSS 파일로 제공합니다.
               </p>
               <ul className={styles.goalDetails}>
                 <li className={styles.goalDetailItem}>
-                  런타임 의존성은 React, React-DOM 단 2개뿐입니다
+                  peer dependency는 React와 ReactDOM이며, 런타임 유틸 의존성은
+                  clsx입니다.
                 </li>
                 <li className={styles.goalDetailItem}>
-                  Vanilla Extract의 Zero-runtime CSS로 런타임 스타일 연산이
-                  없습니다
+                  Vanilla Extract로 컴포넌트 스타일을 정적 CSS로 생성합니다
                 </li>
                 <li className={styles.goalDetailItem}>
-                  Tree-shaking을 지원하여 사용하는 컴포넌트만 번들에 포함됩니다
+                  JS 모듈은 컴포넌트 단위로 분리되어 소비자 번들러의
+                  tree-shaking에 유리합니다
                 </li>
               </ul>
             </div>

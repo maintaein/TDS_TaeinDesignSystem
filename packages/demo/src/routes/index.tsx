@@ -186,11 +186,6 @@ const AccessibilityPage = lazy(() =>
     default: m.AccessibilityPage,
   }))
 );
-const PerformancePage = lazy(() =>
-  import('../pages/Guidelines/PerformancePage').then((m) => ({
-    default: m.PerformancePage,
-  }))
-);
 
 // ─── Suspense wrapper ──────────────────────────────────────────────
 
@@ -562,14 +557,6 @@ const router = createBrowserRouter([
             element: (
               <LazyPage>
                 <AccessibilityPage />
-              </LazyPage>
-            ),
-          },
-          {
-            path: 'performance',
-            element: (
-              <LazyPage>
-                <PerformancePage />
               </LazyPage>
             ),
           },

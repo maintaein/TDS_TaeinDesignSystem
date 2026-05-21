@@ -50,7 +50,7 @@ export const navigationData: NavigationItem[] = [
       { label: 'Tooltip', path: '/components/tooltip' },
     ],
   },
-    {
+  {
     label: '디자인 토큰',
     path: '/design-tokens',
     children: [
@@ -67,7 +67,6 @@ export const navigationData: NavigationItem[] = [
     children: [
       { label: '디자인 원칙', path: '/guidelines/design-principles' },
       { label: '접근성', path: '/guidelines/accessibility' },
-      { label: '성능', path: '/guidelines/performance' },
     ],
   },
 ];

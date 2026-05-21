@@ -19,10 +19,19 @@ export const searchIndex: SearchEntry[] = [
     pageTitle: '소개',
     path: '/',
     category: '시작하기',
-    description: 'TDS(Taein Design System) 소개. 가볍고 배우기 쉽고 AI와 함께 쓸 수 있는 React 디자인 시스템.',
+    description:
+      'TDS(Taein Design System) 소개. 가볍고 배우기 쉽고 AI와 함께 쓸 수 있는 React 디자인 시스템.',
     sections: [
-      { title: '왜 TDS인가?', content: '일관성과 효율, 초심자 친화, AI 친화, 경량 번들. 디자인 토큰, 일관된 API, CLAUDE.md, llms.txt 제공' },
-      { title: '한눈에 보는 TDS', content: '30개 컴포넌트, ~23KB 번들, 런타임 의존성 2개, Zero-runtime CSS' },
+      {
+        title: '왜 TDS인가?',
+        content:
+          '일관성과 효율, 초심자 친화, AI 친화, 경량 번들. 디자인 토큰, 일관된 API, CLAUDE.md, llms.txt 제공',
+      },
+      {
+        title: '한눈에 보는 TDS',
+        content:
+          '30개 컴포넌트, ~23KB 번들, 런타임 의존성 2개, Zero-runtime CSS',
+      },
     ],
   },
   {
@@ -32,8 +41,14 @@ export const searchIndex: SearchEntry[] = [
     category: '시작하기',
     description: '설치 방법과 기본 설정 가이드.',
     sections: [
-      { title: '설치', content: 'npm install @taein-designsystem/core, pnpm add, yarn add' },
-      { title: '기본 사용법', content: 'ThemeProvider로 감싸고 styles.css를 import하여 사용' },
+      {
+        title: '설치',
+        content: 'npm install @taein-designsystem/core, pnpm add, yarn add',
+      },
+      {
+        title: '기본 사용법',
+        content: 'ThemeProvider로 감싸고 styles.css를 import하여 사용',
+      },
     ],
   },
 
@@ -47,9 +62,18 @@ export const searchIndex: SearchEntry[] = [
     sections: [
       { title: 'Basic TextField', content: '기본적인 텍스트 입력 필드 사용법' },
       { title: 'Sizes', content: 'sm, md, lg 세 가지 크기를 지원합니다' },
-      { title: 'States', content: 'error, disabled, readOnly 상태를 지원합니다' },
-      { title: 'With Icons', content: 'leftIcon, rightIcon prop으로 아이콘을 배치할 수 있습니다' },
-      { title: 'Password', content: '비밀번호 입력 필드. type="password"로 설정' },
+      {
+        title: 'States',
+        content: 'error, disabled, readOnly 상태를 지원합니다',
+      },
+      {
+        title: 'With Icons',
+        content: 'leftIcon, rightIcon prop으로 아이콘을 배치할 수 있습니다',
+      },
+      {
+        title: 'Password',
+        content: '비밀번호 입력 필드. type="password"로 설정',
+      },
     ],
   },
   {
@@ -60,9 +84,18 @@ export const searchIndex: SearchEntry[] = [
     description: '여러 줄 텍스트 입력. 자동 높이 조절을 지원합니다.',
     sections: [
       { title: 'Basic TextArea', content: '기본적인 여러 줄 텍스트 입력' },
-      { title: 'Auto Resize', content: 'autoResize prop으로 내용에 따라 자동 높이 조절' },
-      { title: 'Character Count', content: 'maxLength와 함께 글자 수 카운터 표시' },
-      { title: 'States', content: 'error, disabled, readOnly 상태를 지원합니다' },
+      {
+        title: 'Auto Resize',
+        content: 'autoResize prop으로 내용에 따라 자동 높이 조절',
+      },
+      {
+        title: 'Character Count',
+        content: 'maxLength와 함께 글자 수 카운터 표시',
+      },
+      {
+        title: 'States',
+        content: 'error, disabled, readOnly 상태를 지원합니다',
+      },
     ],
   },
   {
@@ -73,9 +106,15 @@ export const searchIndex: SearchEntry[] = [
     description: '체크박스. indeterminate 상태를 지원합니다.',
     sections: [
       { title: 'Basic Checkbox', content: '기본 체크박스 사용법' },
-      { title: 'Indeterminate', content: '부분 선택 상태를 나타내는 indeterminate 모드' },
+      {
+        title: 'Indeterminate',
+        content: '부분 선택 상태를 나타내는 indeterminate 모드',
+      },
       { title: 'Sizes', content: 'sm, md, lg 크기를 지원합니다' },
-      { title: 'States', content: 'checked, unchecked, indeterminate, disabled, error 상태' },
+      {
+        title: 'States',
+        content: 'checked, unchecked, indeterminate, disabled, error 상태',
+      },
     ],
   },
   {
@@ -112,7 +151,10 @@ export const searchIndex: SearchEntry[] = [
     description: '세그먼트 버튼. 단일 선택 라디오 그룹입니다.',
     sections: [
       { title: 'Basic SegmentedButtons', content: '기본 세그먼트 버튼 사용법' },
-      { title: 'Controlled', content: 'value와 onChange로 제어되는 세그먼트 버튼' },
+      {
+        title: 'Controlled',
+        content: 'value와 onChange로 제어되는 세그먼트 버튼',
+      },
       { title: 'Sizes', content: 'sm, md, lg 크기를 지원합니다' },
     ],
   },
@@ -151,14 +193,32 @@ export const searchIndex: SearchEntry[] = [
     category: '버튼 & 텍스트',
     description: '버튼. 4가지 variant와 4가지 size를 지원합니다.',
     sections: [
-      { title: 'Basic Button', content: '기본 버튼 사용법. onClick 이벤트를 트리거합니다' },
-      { title: 'Variants (Fill)', content: 'primary, dark, danger, light 4가지 Fill 스타일 변형' },
-      { title: 'Variants (Weak)', content: 'buttonStyle="weak"로 채도가 낮은 배경색 사용' },
+      {
+        title: 'Basic Button',
+        content: '기본 버튼 사용법. onClick 이벤트를 트리거합니다',
+      },
+      {
+        title: 'Variants (Fill)',
+        content: 'primary, dark, danger, light 4가지 Fill 스타일 변형',
+      },
+      {
+        title: 'Variants (Weak)',
+        content: 'buttonStyle="weak"로 채도가 낮은 배경색 사용',
+      },
       { title: 'Sizes', content: 'sm, md, lg, xl 네 가지 크기를 지원합니다' },
-      { title: 'With Icons', content: 'leftIcon, rightIcon prop으로 아이콘 배치' },
-      { title: 'Loading', content: 'loading prop으로 로딩 스피너 표시. 자동 비활성화' },
+      {
+        title: 'With Icons',
+        content: 'leftIcon, rightIcon prop으로 아이콘 배치',
+      },
+      {
+        title: 'Loading',
+        content: 'loading prop으로 로딩 스피너 표시. 자동 비활성화',
+      },
       { title: 'Full Width', content: 'fullWidth prop으로 전체 너비 사용' },
-      { title: 'Custom Color', content: 'customColor prop으로 커스텀 색상 설정' },
+      {
+        title: 'Custom Color',
+        content: 'customColor prop으로 커스텀 색상 설정',
+      },
       { title: 'Disabled', content: 'disabled prop으로 비활성화 상태' },
     ],
   },
@@ -182,10 +242,17 @@ export const searchIndex: SearchEntry[] = [
     category: '버튼 & 텍스트',
     description: '텍스트 컴포넌트. 9가지 variant와 truncate를 지원합니다.',
     sections: [
-      { title: 'Typography Variants', content: 'headline, title, body, label, caption 등 9가지 타이포그래피 변형' },
+      {
+        title: 'Typography Variants',
+        content:
+          'headline, title, body, label, caption 등 9가지 타이포그래피 변형',
+      },
       { title: 'Truncate', content: 'truncate prop으로 텍스트 말줄임 처리' },
       { title: 'Color', content: 'color prop으로 텍스트 색상 변경' },
-      { title: 'As', content: 'as prop으로 HTML 태그 변경 (h1, h2, p, span 등)' },
+      {
+        title: 'As',
+        content: 'as prop으로 HTML 태그 변경 (h1, h2, p, span 등)',
+      },
     ],
   },
 
@@ -209,7 +276,8 @@ export const searchIndex: SearchEntry[] = [
     pageTitle: 'Loader',
     path: '/components/loader',
     category: '피드백 & 상태',
-    description: '고수준 로더. spinner/dots/bar 타입과 label/overlay를 지원합니다.',
+    description:
+      '고수준 로더. spinner/dots/bar 타입과 label/overlay를 지원합니다.',
     sections: [
       { title: 'Basic Loader', content: '기본 로더 사용법' },
       { title: 'Types', content: 'spinner, dots, bar 세 가지 로딩 타입' },
@@ -222,7 +290,8 @@ export const searchIndex: SearchEntry[] = [
     pageTitle: 'LoadingSpinner',
     path: '/components/loading-spinner',
     category: '피드백 & 상태',
-    description: '저수준 로딩 인디케이터. 커스텀 색상과 인라인 배치를 지원합니다.',
+    description:
+      '저수준 로딩 인디케이터. 커스텀 색상과 인라인 배치를 지원합니다.',
     sections: [
       { title: 'Basic LoadingSpinner', content: '기본 로딩 스피너' },
       { title: 'Sizes', content: 'sm, md, lg 크기를 지원합니다' },
@@ -277,7 +346,10 @@ export const searchIndex: SearchEntry[] = [
     sections: [
       { title: 'Basic Modal', content: '기본 모달 다이얼로그 사용법' },
       { title: 'Sizes', content: 'sm, md, lg 크기를 지원합니다' },
-      { title: 'With Header/Footer', content: 'Modal.Header, Modal.Body, Modal.Footer 컴파운드 패턴' },
+      {
+        title: 'With Header/Footer',
+        content: 'Modal.Header, Modal.Body, Modal.Footer 컴파운드 패턴',
+      },
       { title: 'Focus Trap', content: '포커스 트랩으로 키보드 접근성 보장' },
     ],
   },
@@ -302,7 +374,11 @@ export const searchIndex: SearchEntry[] = [
     sections: [
       { title: 'Basic SideSheet', content: '기본 사이드 시트 사용법' },
       { title: 'Sizes', content: 'sm, md, lg 크기를 지원합니다' },
-      { title: 'With Header/Footer', content: 'SideSheet.Header, SideSheet.Body, SideSheet.Footer 컴파운드 패턴' },
+      {
+        title: 'With Header/Footer',
+        content:
+          'SideSheet.Header, SideSheet.Body, SideSheet.Footer 컴파운드 패턴',
+      },
     ],
   },
   {
@@ -375,7 +451,10 @@ export const searchIndex: SearchEntry[] = [
     description: '아코디언. 펼침/접힘이 가능합니다.',
     sections: [
       { title: 'Basic BoardRow', content: '기본 아코디언 사용법' },
-      { title: 'Controlled', content: 'expanded와 onChange로 제어되는 아코디언' },
+      {
+        title: 'Controlled',
+        content: 'expanded와 onChange로 제어되는 아코디언',
+      },
       { title: 'Multiple', content: '여러 행을 동시에 펼칠 수 있는 모드' },
     ],
   },
@@ -415,7 +494,10 @@ export const searchIndex: SearchEntry[] = [
     description: '카드. header/content/footer 구조를 지원합니다.',
     sections: [
       { title: 'Basic Card', content: '기본 카드 사용법' },
-      { title: 'Compound Pattern', content: 'Card.Header, Card.Body, Card.Footer 컴파운드 패턴' },
+      {
+        title: 'Compound Pattern',
+        content: 'Card.Header, Card.Body, Card.Footer 컴파운드 패턴',
+      },
       { title: 'Clickable', content: 'onClick prop으로 클릭 가능한 카드' },
       { title: 'Elevation', content: 'elevation prop으로 그림자 수준 설정' },
     ],
@@ -427,7 +509,10 @@ export const searchIndex: SearchEntry[] = [
     category: '데이터 표시',
     description: 'SVG 아이콘. 5가지 내장 아이콘과 커스텀 색상을 지원합니다.',
     sections: [
-      { title: 'Built-in Icons', content: 'check, close, chevron, arrow, search 내장 아이콘' },
+      {
+        title: 'Built-in Icons',
+        content: 'check, close, chevron, arrow, search 내장 아이콘',
+      },
       { title: 'Sizes', content: 'sm, md, lg 크기를 지원합니다' },
       { title: 'Custom Color', content: 'color prop으로 아이콘 색상 변경' },
       { title: 'Custom SVG', content: 'children으로 커스텀 SVG 전달' },
@@ -440,11 +525,22 @@ export const searchIndex: SearchEntry[] = [
     pageTitle: '색상',
     path: '/design-tokens/colors',
     category: '디자인 토큰',
-    description: '디자인 시스템 색상 팔레트. Primary, Neutral, Semantic 색상을 제공합니다.',
+    description:
+      '디자인 시스템 색상 팔레트. Primary, Neutral, Semantic 색상을 제공합니다.',
     sections: [
-      { title: 'Primary Colors', content: 'Blue 기반 브랜드 색상. 50~900 단계' },
-      { title: 'Neutral Colors', content: 'Gray 계열 중립 색상. 배경, 테두리, 텍스트에 사용' },
-      { title: 'Semantic Colors', content: 'Success(Green), Warning(Amber), Error(Red), Info(Blue) 의미 색상' },
+      {
+        title: 'Primary Colors',
+        content: 'Blue 기반 브랜드 색상. 50~900 단계',
+      },
+      {
+        title: 'Neutral Colors',
+        content: 'Gray 계열 중립 색상. 배경, 테두리, 텍스트에 사용',
+      },
+      {
+        title: 'Semantic Colors',
+        content:
+          'Success(Green), Warning(Amber), Error(Red), Info(Blue) 의미 색상',
+      },
     ],
   },
   {
@@ -455,8 +551,14 @@ export const searchIndex: SearchEntry[] = [
     description: '폰트 크기, 굵기, 줄 높이 등 타이포그래피 토큰.',
     sections: [
       { title: 'Font Family', content: 'Pretendard Variable 기본 폰트' },
-      { title: 'Font Sizes', content: 'xs, sm, md, lg, xl, 2xl, 3xl 크기 단계' },
-      { title: 'Font Weights', content: 'regular, medium, semibold, bold 굵기' },
+      {
+        title: 'Font Sizes',
+        content: 'xs, sm, md, lg, xl, 2xl, 3xl 크기 단계',
+      },
+      {
+        title: 'Font Weights',
+        content: 'regular, medium, semibold, bold 굵기',
+      },
       { title: 'Line Heights', content: 'tight, normal, relaxed 줄 높이' },
     ],
   },
@@ -467,7 +569,11 @@ export const searchIndex: SearchEntry[] = [
     category: '디자인 토큰',
     description: '여백과 패딩에 사용되는 간격 토큰.',
     sections: [
-      { title: 'Spacing Scale', content: '4px 기반 간격 스케일. 0, 1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24' },
+      {
+        title: 'Spacing Scale',
+        content:
+          '4px 기반 간격 스케일. 0, 1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24',
+      },
     ],
   },
   {
@@ -477,7 +583,10 @@ export const searchIndex: SearchEntry[] = [
     category: '디자인 토큰',
     description: '박스 쉐도우 토큰. elevation 단계별 그림자를 제공합니다.',
     sections: [
-      { title: 'Elevation Levels', content: 'sm, md, lg, xl 단계의 box-shadow' },
+      {
+        title: 'Elevation Levels',
+        content: 'sm, md, lg, xl 단계의 box-shadow',
+      },
     ],
   },
   {
@@ -487,7 +596,10 @@ export const searchIndex: SearchEntry[] = [
     category: '디자인 토큰',
     description: '트랜지션 및 애니메이션 토큰.',
     sections: [
-      { title: 'Duration', content: 'fast(150ms), normal(300ms), slow(500ms) 지속 시간' },
+      {
+        title: 'Duration',
+        content: 'fast(150ms), normal(300ms), slow(500ms) 지속 시간',
+      },
       { title: 'Easing', content: 'ease-in, ease-out, ease-in-out 이징 함수' },
     ],
   },
@@ -500,8 +612,15 @@ export const searchIndex: SearchEntry[] = [
     category: '가이드라인',
     description: 'TDS의 핵심 디자인 원칙과 철학.',
     sections: [
-      { title: '접근성 우선', content: '모든 사용자가 불편 없이 사용할 수 있도록 접근성을 최우선으로 설계' },
-      { title: '일관성', content: '통일된 디자인 언어로 예측 가능한 사용 경험 제공' },
+      {
+        title: '접근성 우선',
+        content:
+          '모든 사용자가 불편 없이 사용할 수 있도록 접근성을 최우선으로 설계',
+      },
+      {
+        title: '일관성',
+        content: '통일된 디자인 언어로 예측 가능한 사용 경험 제공',
+      },
       { title: '단순성', content: '불필요한 복잡성을 제거하고 핵심에 집중' },
     ],
   },
@@ -512,22 +631,22 @@ export const searchIndex: SearchEntry[] = [
     category: '가이드라인',
     description: '접근성 가이드라인. 웹 접근성 표준(AA 등급)을 따릅니다.',
     sections: [
-      { title: '키보드 내비게이션', content: 'Tab, Arrow, Enter, Escape 키보드 조작 지원' },
-      { title: '스크린 리더', content: 'aria-label, aria-describedby, role 속성으로 스크린 리더 지원' },
-      { title: '색상 대비', content: '텍스트 4.5:1, UI 요소 3:1 이상 색상 대비 비율' },
-      { title: '포커스 관리', content: '포커스 인디케이터, 포커스 트랩, 포커스 복원' },
-    ],
-  },
-  {
-    id: 'performance',
-    pageTitle: '성능',
-    path: '/guidelines/performance',
-    category: '가이드라인',
-    description: '성능 최적화 가이드라인.',
-    sections: [
-      { title: '번들 크기', content: 'Tree-shaking, Code Splitting으로 번들 크기 최적화' },
-      { title: '렌더링 최적화', content: 'React.memo, useMemo, useCallback 활용' },
-      { title: '이미지 최적화', content: 'lazy loading, WebP 포맷, 적절한 크기 설정' },
+      {
+        title: '키보드 내비게이션',
+        content: 'Tab, Arrow, Enter, Escape 키보드 조작 지원',
+      },
+      {
+        title: '스크린 리더',
+        content: 'aria-label, aria-describedby, role 속성으로 스크린 리더 지원',
+      },
+      {
+        title: '색상 대비',
+        content: '텍스트 4.5:1, UI 요소 3:1 이상 색상 대비 비율',
+      },
+      {
+        title: '포커스 관리',
+        content: '포커스 인디케이터, 포커스 트랩, 포커스 복원',
+      },
     ],
   },
 ];
