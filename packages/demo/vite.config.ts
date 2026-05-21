@@ -1,31 +1,9 @@
-import { defineConfig, type Plugin } from 'vite';
+import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 
-function deferNonCriticalCss(patterns: string[]): Plugin {
-  return {
-    name: 'defer-non-critical-css',
-    apply: 'build',
-    transformIndexHtml(html) {
-      return html.replace(
-        /<link rel="stylesheet" crossorigin href="([^"]+)">/g,
-        (match, href) => {
-          if (patterns.some((p) => href.includes(p))) {
-            return `<link rel="preload" as="style" crossorigin href="${href}" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" crossorigin href="${href}"></noscript>`;
-          }
-          return match;
-        }
-      );
-    },
-  };
-}
-
 export default defineConfig({
-  plugins: [
-    react(),
-    vanillaExtractPlugin(),
-    deferNonCriticalCss(['design-system']),
-  ],
+  plugins: [react(), vanillaExtractPlugin()],
   server: {
     port: 3000,
     open: true,

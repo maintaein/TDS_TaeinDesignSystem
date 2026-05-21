@@ -302,7 +302,7 @@ function Example() {
               </div>
               <h3 className={styles.nextStepTitle}>가이드라인</h3>
               <p className={styles.nextStepDescription}>
-                접근성, 성능, 디자인 원칙을 확인하세요
+                접근성, 디자인 원칙을 확인하세요
               </p>
               <div className={styles.nextStepArrow}>&rarr;</div>
             </Card.Body>
