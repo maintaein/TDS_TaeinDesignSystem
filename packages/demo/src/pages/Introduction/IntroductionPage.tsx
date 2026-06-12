@@ -9,6 +9,15 @@ import {
   Switch,
   Chip,
 } from '@taein-designsystem/core';
+import {
+  Component,
+  CheckCircle2,
+  Bot,
+  Package,
+  ArrowRight,
+  Palette,
+  LayoutGrid,
+} from 'lucide-react';
 import { LivePreview } from '../../components/LivePreview';
 import * as styles from './IntroductionPage.css';
 
@@ -69,22 +78,12 @@ export function IntroductionPage() {
         <div className={styles.goalList}>
           {/* 일관성과 효율 */}
           <div className={styles.goalRow}>
-            <div className={styles.goalIcon}>
-              <svg
-                width="48"
-                height="48"
-                viewBox="0 0 48 48"
-                fill="none"
-                aria-hidden="true"
-              >
-                <rect width="48" height="48" rx="12" fill="#eff6ff" />
-                <path
-                  d="M14 24h20M24 14v20"
-                  stroke="#2563eb"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                />
-              </svg>
+            <div
+              className={styles.goalIcon}
+              style={{ backgroundColor: '#eff6ff' }}
+              aria-hidden="true"
+            >
+              <Component size={24} color="#2563eb" strokeWidth={2.5} />
             </div>
             <div className={styles.goalContent}>
               <h3 className={styles.goalTitle}>작고 예측 가능한 API</h3>
@@ -110,23 +109,12 @@ export function IntroductionPage() {
 
           {/* 초심자 친화 */}
           <div className={styles.goalRow}>
-            <div className={styles.goalIcon}>
-              <svg
-                width="48"
-                height="48"
-                viewBox="0 0 48 48"
-                fill="none"
-                aria-hidden="true"
-              >
-                <rect width="48" height="48" rx="12" fill="#f0fdf4" />
-                <path
-                  d="M16 24l5 5 10-10"
-                  stroke="#16a34a"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+            <div
+              className={styles.goalIcon}
+              style={{ backgroundColor: '#f0fdf4' }}
+              aria-hidden="true"
+            >
+              <CheckCircle2 size={24} color="#16a34a" strokeWidth={2.5} />
             </div>
             <div className={styles.goalContent}>
               <h3 className={styles.goalTitle}>낮은 학습 비용</h3>
@@ -151,29 +139,12 @@ export function IntroductionPage() {
 
           {/* AI 친화 */}
           <div className={styles.goalRow}>
-            <div className={styles.goalIcon}>
-              <svg
-                width="48"
-                height="48"
-                viewBox="0 0 48 48"
-                fill="none"
-                aria-hidden="true"
-              >
-                <rect width="48" height="48" rx="12" fill="#faf5ff" />
-                <circle
-                  cx="24"
-                  cy="21"
-                  r="6"
-                  stroke="#7c3aed"
-                  strokeWidth="2"
-                />
-                <path
-                  d="M19 31c0-2.8 2.2-5 5-5s5 2.2 5 5"
-                  stroke="#7c3aed"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              </svg>
+            <div
+              className={styles.goalIcon}
+              style={{ backgroundColor: '#faf5ff' }}
+              aria-hidden="true"
+            >
+              <Bot size={24} color="#7c3aed" strokeWidth={2} />
             </div>
             <div className={styles.goalContent}>
               <h3 className={styles.goalTitle}>AI 친화</h3>
@@ -205,31 +176,12 @@ export function IntroductionPage() {
 
           {/* 경량 번들 */}
           <div className={styles.goalRow}>
-            <div className={styles.goalIcon}>
-              <svg
-                width="48"
-                height="48"
-                viewBox="0 0 48 48"
-                fill="none"
-                aria-hidden="true"
-              >
-                <rect width="48" height="48" rx="12" fill="#fefce8" />
-                <path
-                  d="M24 14l8 12H16l8-12z"
-                  stroke="#ca8a04"
-                  strokeWidth="2"
-                  strokeLinejoin="round"
-                />
-                <line
-                  x1="24"
-                  y1="29"
-                  x2="24"
-                  y2="34"
-                  stroke="#ca8a04"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              </svg>
+            <div
+              className={styles.goalIcon}
+              style={{ backgroundColor: '#fefce8' }}
+              aria-hidden="true"
+            >
+              <Package size={24} color="#ca8a04" strokeWidth={2} />
             </div>
             <div className={styles.goalContent}>
               <h3 className={styles.goalTitle}>정적 CSS와 분리된 모듈</h3>
@@ -351,22 +303,8 @@ function Example() {
             className={styles.nextStepCard}
           >
             <Card.Body padding="lg">
-              <div className={styles.nextStepIcon}>
-                <svg
-                  width="32"
-                  height="32"
-                  viewBox="0 0 32 32"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M8 16h16M18 10l6 6-6 6"
-                    stroke="#2563eb"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+              <div className={styles.nextStepIcon} aria-hidden="true">
+                <ArrowRight size={32} color="#2563eb" strokeWidth={2.5} />
               </div>
               <h3 className={styles.nextStepTitle}>시작하기</h3>
               <p className={styles.nextStepDescription}>
@@ -382,23 +320,8 @@ function Example() {
             className={styles.nextStepCard}
           >
             <Card.Body padding="lg">
-              <div className={styles.nextStepIcon}>
-                <svg
-                  width="32"
-                  height="32"
-                  viewBox="0 0 32 32"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <circle
-                    cx="16"
-                    cy="16"
-                    r="8"
-                    stroke="#2563eb"
-                    strokeWidth="2.5"
-                  />
-                  <circle cx="16" cy="16" r="3" fill="#2563eb" />
-                </svg>
+              <div className={styles.nextStepIcon} aria-hidden="true">
+                <Palette size={32} color="#2563eb" strokeWidth={2.5} />
               </div>
               <h3 className={styles.nextStepTitle}>디자인 토큰</h3>
               <p className={styles.nextStepDescription}>
@@ -410,56 +333,13 @@ function Example() {
           </Card>
           <Card
             variant="interactive"
-            accentColor="#8b5cf6"
+            accentColor="#2563eb"
             onClick={() => navigate('/components/overview')}
             className={styles.nextStepCard}
           >
             <Card.Body padding="lg">
-              <div className={styles.nextStepIcon}>
-                <svg
-                  width="32"
-                  height="32"
-                  viewBox="0 0 32 32"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <rect
-                    x="6"
-                    y="6"
-                    width="8"
-                    height="8"
-                    rx="2"
-                    stroke="#8b5cf6"
-                    strokeWidth="2"
-                  />
-                  <rect
-                    x="18"
-                    y="6"
-                    width="8"
-                    height="8"
-                    rx="2"
-                    stroke="#8b5cf6"
-                    strokeWidth="2"
-                  />
-                  <rect
-                    x="6"
-                    y="18"
-                    width="8"
-                    height="8"
-                    rx="2"
-                    stroke="#8b5cf6"
-                    strokeWidth="2"
-                  />
-                  <rect
-                    x="18"
-                    y="18"
-                    width="8"
-                    height="8"
-                    rx="2"
-                    stroke="#8b5cf6"
-                    strokeWidth="2"
-                  />
-                </svg>
+              <div className={styles.nextStepIcon} aria-hidden="true">
+                <LayoutGrid size={32} color="#2563eb" strokeWidth={2} />
               </div>
               <h3 className={styles.nextStepTitle}>컴포넌트</h3>
               <p className={styles.nextStepDescription}>

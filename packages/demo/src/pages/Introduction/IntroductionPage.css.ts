@@ -140,6 +140,7 @@ export const goalIcon = style({
   flexShrink: 0,
   width: '48px',
   height: '48px',
+  borderRadius: '12px',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',

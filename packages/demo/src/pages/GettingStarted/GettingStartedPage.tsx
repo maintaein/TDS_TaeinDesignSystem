@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Button, Card, Text } from '@taein-designsystem/core';
+import { Palette, LayoutGrid, ClipboardList } from 'lucide-react';
 import { CodeBlock } from '../../components/CodeBlock';
 import * as styles from './GettingStartedPage.css';
 
@@ -183,23 +184,8 @@ function Example() {
             className={styles.nextStepCard}
           >
             <Card.Body padding="lg">
-              <div className={styles.nextStepIcon}>
-                <svg
-                  width="32"
-                  height="32"
-                  viewBox="0 0 32 32"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <circle
-                    cx="16"
-                    cy="16"
-                    r="8"
-                    stroke="#2563eb"
-                    strokeWidth="2.5"
-                  />
-                  <circle cx="16" cy="16" r="3" fill="#2563eb" />
-                </svg>
+              <div className={styles.nextStepIcon} aria-hidden="true">
+                <Palette size={32} color="#2563eb" strokeWidth={2.5} />
               </div>
               <h3 className={styles.nextStepTitle}>디자인 토큰</h3>
               <p className={styles.nextStepDescription}>
@@ -217,51 +203,8 @@ function Example() {
             className={styles.nextStepCard}
           >
             <Card.Body padding="lg">
-              <div className={styles.nextStepIcon}>
-                <svg
-                  width="32"
-                  height="32"
-                  viewBox="0 0 32 32"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <rect
-                    x="6"
-                    y="6"
-                    width="8"
-                    height="8"
-                    rx="2"
-                    stroke="#8b5cf6"
-                    strokeWidth="2"
-                  />
-                  <rect
-                    x="18"
-                    y="6"
-                    width="8"
-                    height="8"
-                    rx="2"
-                    stroke="#8b5cf6"
-                    strokeWidth="2"
-                  />
-                  <rect
-                    x="6"
-                    y="18"
-                    width="8"
-                    height="8"
-                    rx="2"
-                    stroke="#8b5cf6"
-                    strokeWidth="2"
-                  />
-                  <rect
-                    x="18"
-                    y="18"
-                    width="8"
-                    height="8"
-                    rx="2"
-                    stroke="#8b5cf6"
-                    strokeWidth="2"
-                  />
-                </svg>
+              <div className={styles.nextStepIcon} aria-hidden="true">
+                <LayoutGrid size={32} color="#8b5cf6" strokeWidth={2} />
               </div>
               <h3 className={styles.nextStepTitle}>컴포넌트</h3>
               <p className={styles.nextStepDescription}>
@@ -278,27 +221,8 @@ function Example() {
             className={styles.nextStepCard}
           >
             <Card.Body padding="lg">
-              <div className={styles.nextStepIcon}>
-                <svg
-                  width="32"
-                  height="32"
-                  viewBox="0 0 32 32"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M8 8h16v16H8z"
-                    stroke="#f59e0b"
-                    strokeWidth="2"
-                    rx="2"
-                  />
-                  <path
-                    d="M12 16h8M12 12h5M12 20h6"
-                    stroke="#f59e0b"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                </svg>
+              <div className={styles.nextStepIcon} aria-hidden="true">
+                <ClipboardList size={32} color="#f59e0b" strokeWidth={2} />
               </div>
               <h3 className={styles.nextStepTitle}>가이드라인</h3>
               <p className={styles.nextStepDescription}>
