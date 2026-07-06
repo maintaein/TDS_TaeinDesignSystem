@@ -24,18 +24,7 @@ pnpm add @taein-designsystem/core
 // 1. CSS import (앱 엔트리에서 한 번)
 import '@taein-designsystem/core/styles.css';
 
-// 2. ThemeProvider 설정
-import { ThemeProvider } from '@taein-designsystem/core';
-
-function App() {
-  return (
-    <ThemeProvider defaultTheme="light">
-      <YourApp />
-    </ThemeProvider>
-  );
-}
-
-// 3. 컴포넌트 사용
+// 2. 컴포넌트 사용
 import { Button, TextField, Card } from '@taein-designsystem/core';
 
 function LoginForm() {
@@ -54,11 +43,13 @@ function LoginForm() {
 ## 컴포넌트 목록
 
 ### 버튼
+
 - **Button** — 기본 버튼 (primary, secondary, light, danger, ghost)
 - **IconButton** — 아이콘 전용 버튼
 - **SegmentedButtons** — 세그먼트 선택 버튼 그룹
 
 ### 입력
+
 - **TextField** — 텍스트 입력 필드 (label, helperText, error 지원)
 - **TextArea** — 여러 줄 텍스트 입력
 - **Checkbox** — 체크박스 (indeterminate 지원)
@@ -67,6 +58,7 @@ function LoginForm() {
 - **NumericSpinner** — 숫자 증감 입력
 
 ### 표시
+
 - **Text** — 타이포그래피 컴포넌트 (h1~h6, body, caption 등)
 - **Badge** — 상태/수량 배지
 - **Chip** — 태그/필터 칩
@@ -74,6 +66,7 @@ function LoginForm() {
 - **Icon** — SVG 아이콘 래퍼
 
 ### 피드백
+
 - **Loader** — 로딩 바/스피너
 - **LoadingSpinner** — 회전 로딩 인디케이터
 - **Skeleton** — 콘텐츠 로딩 플레이스홀더
@@ -81,12 +74,14 @@ function LoginForm() {
 - **Tooltip** — 호버/포커스 시 툴팁
 
 ### 오버레이
+
 - **Modal** — 모달 다이얼로그 (Header, Body, Footer 서브컴포넌트)
 - **BottomSheet** — 하단 시트 (모바일)
 - **SideSheet** — 사이드 패널
 - **Popover** — 팝오버 (위치 자동 조정)
 
 ### 레이아웃
+
 - **Card** — 카드 컨테이너 (Header, Body, Footer 서브컴포넌트)
 - **List** — 리스트 (Item, ItemButton, Divider 서브컴포넌트)
 - **BoardRow** — 게시판 행
@@ -95,33 +90,23 @@ function LoginForm() {
 - **HeaderBar** — 상단 헤더 바
 
 ### 폼
+
 - **FormField** — 폼 필드 래퍼 (render prop 패턴)
 
 ## 디자인 토큰
 
 ```tsx
-import { themeContract, lightTheme, darkTheme } from '@taein-designsystem/core';
+import { themeContract } from '@taein-designsystem/core';
 ```
 
-| 토큰 | 경로 예시 |
-|------|-----------|
-| Colors | `themeContract.color.primary.main` |
-| Typography | `themeContract.font.size.md` |
-| Spacing | `themeContract.spacing[4]` |
-| Shadows | `themeContract.shadow.md` |
-| Border Radius | `themeContract.borderRadius.md` |
-| Animation | `themeContract.animation.duration.normal` |
-
-## 테마
-
-```tsx
-import { useTheme } from '@taein-designsystem/core';
-
-function ThemeToggle() {
-  const { theme, toggleTheme } = useTheme();
-  return <Button onClick={toggleTheme}>{theme === 'light' ? '다크 모드' : '라이트 모드'}</Button>;
-}
-```
+| 토큰          | 경로 예시                                 |
+| ------------- | ----------------------------------------- |
+| Colors        | `themeContract.color.primary.main`        |
+| Typography    | `themeContract.font.size.md`              |
+| Spacing       | `themeContract.spacing[4]`                |
+| Shadows       | `themeContract.shadow.md`                 |
+| Border Radius | `themeContract.borderRadius.md`           |
+| Animation     | `themeContract.animation.duration.normal` |
 
 ## API 패턴
 

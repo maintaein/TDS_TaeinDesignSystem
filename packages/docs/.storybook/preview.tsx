@@ -1,17 +1,12 @@
 import type { Preview } from '@storybook/react';
-import { ThemeProvider, lightTheme } from '@taein-designsystem/core';
 import '@taein-designsystem/core/styles.css';
 
 // Global styles 적용
 import '../stories/global.css';
 
-// Storybook Wrapper - 테마 클래스 적용
+// Story 래퍼 — 패딩만 적용 (테마 클래스 불필요: core의 CSS 변수가 :root에 전역 적용됨)
 function StoryWrapper({ children }: { children: React.ReactNode }) {
-  return (
-    <div className={lightTheme} style={{ padding: '2rem', minHeight: '100vh' }}>
-      {children}
-    </div>
-  );
+  return <div style={{ padding: '2rem', minHeight: '100vh' }}>{children}</div>;
 }
 
 const preview: Preview = {
@@ -26,25 +21,11 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => (
-      <ThemeProvider defaultTheme="light">
-        <StoryWrapper>
-          <Story />
-        </StoryWrapper>
-      </ThemeProvider>
+      <StoryWrapper>
+        <Story />
+      </StoryWrapper>
     ),
   ],
-  globalTypes: {
-    theme: {
-      description: 'Global theme for components',
-      defaultValue: 'light',
-      toolbar: {
-        title: 'Theme',
-        icon: 'circlehollow',
-        items: ['light', 'dark'],
-        dynamicTitle: true,
-      },
-    },
-  },
 };
 
 export default preview;

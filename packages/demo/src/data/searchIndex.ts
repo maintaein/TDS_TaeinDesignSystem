@@ -47,7 +47,7 @@ export const searchIndex: SearchEntry[] = [
       },
       {
         title: '기본 사용법',
-        content: 'ThemeProvider로 감싸고 styles.css를 import하여 사용',
+        content: 'styles.css를 import하여 사용',
       },
     ],
   },

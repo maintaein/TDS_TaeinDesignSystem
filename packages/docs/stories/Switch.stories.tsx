@@ -134,13 +134,11 @@ export const Disabled: Story = {
   },
 };
 
-
 // Settings Example
 const SettingsExampleComponent = () => {
   const [settings, setSettings] = useState({
     notifications: true,
     emailAlerts: false,
-    darkMode: false,
     autoSave: true,
   });
 
@@ -209,9 +207,6 @@ const SettingsExampleComponent = () => {
         </p>
         <p style={{ margin: 0 }}>
           • 이메일 알림: {settings.emailAlerts ? 'On' : 'Off'}
-        </p>
-        <p style={{ margin: 0 }}>
-          • 다크모드: {settings.darkMode ? 'On' : 'Off'}
         </p>
         <p style={{ margin: 0 }}>
           • 자동 저장: {settings.autoSave ? 'On' : 'Off'}

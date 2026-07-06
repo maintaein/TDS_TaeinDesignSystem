@@ -24,7 +24,7 @@ pnpm build
 packages/docs/
 ├── .storybook/
 │   ├── main.ts          # Storybook 설정
-│   └── preview.ts       # 글로벌 데코레이터 (ThemeProvider 등)
+│   └── preview.ts       # 글로벌 데코레이터 (전역 스타일 적용)
 ├── stories/
 │   ├── Introduction.mdx # 소개 문서
 │   ├── Button.stories.tsx

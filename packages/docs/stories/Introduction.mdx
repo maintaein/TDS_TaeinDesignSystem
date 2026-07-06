@@ -67,23 +67,7 @@ function App() {
 }
 ```
 
-### 2. 테마 사용
-
-```tsx
-import { useTheme } from '@taein-designsystem/core';
-
-function ThemeToggle() {
-  const { theme, toggleTheme } = useTheme();
-
-  return (
-    <Button onClick={toggleTheme}>
-      {theme === 'light' ? '🌙' : '☀️'}
-    </Button>
-  );
-}
-```
-
-### 3. 폼 컴포넌트
+### 2. 폼 컴포넌트
 
 ```tsx
 import { TextField, TextArea, Checkbox, Switch, Button } from '@designsystem/core';

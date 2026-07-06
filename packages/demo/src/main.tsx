@@ -2,7 +2,6 @@ import { StrictMode, startTransition } from 'react';
 import { createRoot } from 'react-dom/client';
 import { inject } from '@vercel/analytics';
 import '@taein-designsystem/core/styles.css';
-import { ThemeProvider } from '@taein-designsystem/core';
 import { AppRouter } from './routes';
 import './styles/global.css';
 
@@ -21,9 +20,7 @@ const root = createRoot(rootElement);
 startTransition(() => {
   root.render(
     <StrictMode>
-      <ThemeProvider>
-        <AppRouter />
-      </ThemeProvider>
+      <AppRouter />
     </StrictMode>
   );
 });

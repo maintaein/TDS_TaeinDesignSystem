@@ -1,8 +1,4 @@
-import {
-  Card,
-  List,
-  ListItem,
-} from '@taein-designsystem/core';
+import { Card, List, ListItem } from '@taein-designsystem/core';
 import { LivePreview } from '../../../components/LivePreview';
 import { CodeBlock } from '../../../components/CodeBlock';
 import { PropsTable } from '../../../components/PropsTable';
@@ -11,7 +7,6 @@ import { AccessibilitySection } from '../../../components/AccessibilitySection';
 import * as styles from './SwitchPage.css';
 
 export function SwitchPage() {
-
   const propsData: PropDefinition[] = [
     {
       name: 'label',
@@ -75,7 +70,8 @@ export function SwitchPage() {
       <header className={styles.header}>
         <h1 className={styles.title}>Switch</h1>
         <p className={styles.description}>
-          Switch 컴포넌트는 알림 설정, 다크모드, 기능 활성화 등 설정을 켜거나 끌 때 사용합니다.
+          Switch 컴포넌트는 알림 설정, 자동 저장, 기능 활성화 등 설정을 켜거나
+          끌 때 사용합니다.
         </p>
       </header>
 
@@ -279,27 +275,32 @@ export function SwitchPage() {
           {
             attribute: 'label',
             effect: '스크린 리더에서 스위치의 용도를 읽어줍니다.',
-            description: '레이블이 자동으로 연결되어 사용자가 무엇을 켜고 끄는지 명확히 알 수 있습니다.',
+            description:
+              '레이블이 자동으로 연결되어 사용자가 무엇을 켜고 끄는지 명확히 알 수 있습니다.',
           },
           {
             attribute: 'role="switch"',
             effect: '스크린 리더에서 "스위치"로 인식합니다.',
-            description: 'role="switch"와 aria-checked로 토글 상태를 명확히 전달합니다.',
+            description:
+              'role="switch"와 aria-checked로 토글 상태를 명확히 전달합니다.',
           },
           {
             attribute: 'required',
             effect: '필수 설정 항목임을 스크린 리더에 알려줍니다.',
-            description: 'aria-required="true"가 설정되어 필수 항목이라는 정보를 제공합니다.',
+            description:
+              'aria-required="true"가 설정되어 필수 항목이라는 정보를 제공합니다.',
           },
           {
             attribute: 'error + errorMessage',
             effect: '에러 메시지를 스크린 리더가 읽어줍니다.',
-            description: 'aria-describedby로 에러 메시지가 연결되어 사용자가 무엇이 잘못되었는지 알 수 있습니다.',
+            description:
+              'aria-describedby로 에러 메시지가 연결되어 사용자가 무엇이 잘못되었는지 알 수 있습니다.',
           },
           {
             attribute: 'disabled',
             effect: '비활성화 상태를 스크린 리더에서 알려줍니다.',
-            description: 'aria-disabled="true"가 설정되어 토글할 수 없는 상태임을 전달합니다.',
+            description:
+              'aria-disabled="true"가 설정되어 토글할 수 없는 상태임을 전달합니다.',
           },
         ]}
       />
@@ -337,10 +338,16 @@ export function SwitchPage() {
                 <h3 className={styles.practiceTitle}>Don't</h3>
               </div>
               <List spacing="sm" className={styles.practiceList}>
-                <ListItem>제출이 필요한 폼 입력에 사용하지 않기 (Checkbox 권장)</ListItem>
-                <ListItem>여러 옵션 중 하나를 선택하는 경우 사용하지 않기 (Radio 권장)</ListItem>
+                <ListItem>
+                  제출이 필요한 폼 입력에 사용하지 않기 (Checkbox 권장)
+                </ListItem>
+                <ListItem>
+                  여러 옵션 중 하나를 선택하는 경우 사용하지 않기 (Radio 권장)
+                </ListItem>
                 <ListItem>레이블 없이 아이콘만 사용하지 않기</ListItem>
-                <ListItem>상태 변경이 즉시 반영되지 않는 경우 사용하지 않기</ListItem>
+                <ListItem>
+                  상태 변경이 즉시 반영되지 않는 경우 사용하지 않기
+                </ListItem>
                 <ListItem>너무 많은 스위치를 한 화면에 나열하지 않기</ListItem>
               </List>
             </Card.Body>
