@@ -15,14 +15,9 @@ pnpm add @taein-designsystem/core
 ```tsx
 // main.tsx
 import '@taein-designsystem/core/styles.css';
-import { ThemeProvider } from '@taein-designsystem/core';
 
 function App() {
-  return (
-    <ThemeProvider>
-      <YourApp />
-    </ThemeProvider>
-  );
+  return <YourApp />;
 }
 ```
 

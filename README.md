@@ -42,21 +42,7 @@ yarn add @taein-designsystem/core
 import '@taein-designsystem/core/styles.css';
 ```
 
-### 2. ThemeProvider 설정
-
-```tsx
-import { ThemeProvider } from '@taein-designsystem/core';
-
-function App() {
-  return (
-    <ThemeProvider defaultTheme="light">
-      <YourApp />
-    </ThemeProvider>
-  );
-}
-```
-
-### 3. 컴포넌트 사용
+### 2. 컴포넌트 사용
 
 ```tsx
 import { Button, TextField, Card } from '@taein-designsystem/core';
@@ -76,28 +62,28 @@ function LoginForm() {
 
 ## 컴포넌트 목록
 
-| 카테고리 | 컴포넌트 |
-|----------|----------|
-| **버튼** | Button, IconButton, SegmentedButtons |
-| **입력** | TextField, TextArea, Checkbox, Switch, Slider, NumericSpinner |
-| **표시** | Text, Badge, Chip, Avatar, Icon |
-| **피드백** | Loader, LoadingSpinner, Skeleton, Snackbar, Tooltip |
-| **오버레이** | Modal, BottomSheet, SideSheet, Popover |
-| **레이아웃** | Card, List, BoardRow, Divider, Border, HeaderBar |
-| **폼** | FormField |
+| 카테고리     | 컴포넌트                                                      |
+| ------------ | ------------------------------------------------------------- |
+| **버튼**     | Button, IconButton, SegmentedButtons                          |
+| **입력**     | TextField, TextArea, Checkbox, Switch, Slider, NumericSpinner |
+| **표시**     | Text, Badge, Chip, Avatar, Icon                               |
+| **피드백**   | Loader, LoadingSpinner, Skeleton, Snackbar, Tooltip           |
+| **오버레이** | Modal, BottomSheet, SideSheet, Popover                        |
+| **레이아웃** | Card, List, BoardRow, Divider, Border, HeaderBar              |
+| **폼**       | FormField                                                     |
 
 ## 디자인 토큰
 
 Vanilla Extract 기반의 디자인 토큰 시스템을 제공합니다.
 
-| 토큰 | 설명 |
-|------|------|
-| **Colors** | Primary, Gray, Semantic (success, warning, error) |
-| **Typography** | Font family, size, weight, line-height |
-| **Spacing** | 8pt Grid 기반 (4px 단위) |
-| **Shadows** | 5단계 (sm, base, md, lg, xl) |
-| **Animation** | Duration, Easing |
-| **Border Radius** | 7단계 (none ~ full) |
+| 토큰              | 설명                                              |
+| ----------------- | ------------------------------------------------- |
+| **Colors**        | Primary, Gray, Semantic (success, warning, error) |
+| **Typography**    | Font family, size, weight, line-height            |
+| **Spacing**       | 8pt Grid 기반 (4px 단위)                          |
+| **Shadows**       | 5단계 (sm, base, md, lg, xl)                      |
+| **Animation**     | Duration, Easing                                  |
+| **Border Radius** | 7단계 (none ~ full)                               |
 
 ```tsx
 import { themeContract } from '@taein-designsystem/core';
@@ -126,14 +112,14 @@ designsystem/
 
 ## 기술 스택
 
-| 구분 | 기술 |
-|------|------|
-| UI | React 18/19 |
-| 언어 | TypeScript 5.9 (strict) |
-| 스타일링 | Vanilla Extract CSS |
-| 빌드 | Vite 7 |
-| 테스트 | Vitest + Testing Library |
-| 패키지 매니저 | pnpm workspace |
+| 구분          | 기술                     |
+| ------------- | ------------------------ |
+| UI            | React 18/19              |
+| 언어          | TypeScript 5.9 (strict)  |
+| 스타일링      | Vanilla Extract CSS      |
+| 빌드          | Vite 7                   |
+| 테스트        | Vitest + Testing Library |
+| 패키지 매니저 | pnpm workspace           |
 
 ## 로컬 개발
 
