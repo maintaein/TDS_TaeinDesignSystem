@@ -4,8 +4,10 @@
   "private": true,
   "type": "module",
   "description": "TDS - Taein Design System",
+  "packageManager": "pnpm@10.26.0",
   "scripts": {
     "dev": "pnpm --filter @taein-designsystem/demo dev",
+    "dev:full": "pnpm --parallel --filter @taein-designsystem/core --filter @taein-designsystem/demo dev",
     "dev:docs": "pnpm --filter @taein-designsystem/docs storybook",
     "build": "pnpm --filter @taein-designsystem/core build",
     "build:all": "pnpm -r build",
@@ -37,8 +39,11 @@
     "typescript-eslint": "^8.50.0"
   },
   "lint-staged": {
-    "*.{ts,tsx}": [
+    "!(*.css).{ts,tsx}": [
       "eslint --fix",
+      "prettier --write"
+    ],
+    "*.css.ts": [
       "prettier --write"
     ],
     "*.{json,md}": [

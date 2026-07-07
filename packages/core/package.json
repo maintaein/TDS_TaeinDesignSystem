@@ -43,7 +43,7 @@
   ],
   "scripts": {
     "dev": "vite build --watch",
-    "build": "vite build && tsc -p tsconfig.build.json --emitDeclarationOnly --outDir dist",
+    "build": "vite build && tsc -p tsconfig.build.json --outDir dist",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
