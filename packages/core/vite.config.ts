@@ -12,11 +12,28 @@ export default defineConfig({
       formats: ['es', 'cjs'],
       fileName: (format, entryName) => {
         const ext = format === 'es' ? 'mjs' : 'cjs';
-        return `${entryName}.${ext}`;
+        // vanilla-extract의 파일 감지 패턴(/\.css\.(js|cjs|mjs|...)$/)은 소스뿐 아니라
+        // 이미 컴파일된 산출물도 매칭한다. 소비자가 자기 빌드에도 vanilla-extract
+        // 플러그인을 쓰면, 이 산출물을 "새 소스"로 착각해 재처리하다 recipe()의
+        // 함수 export를 만나 실패한다(Invalid exports). 산출물 파일명에서 ".css"
+        // 접미사를 제거해 이 감지 패턴 자체를 피한다.
+        const safeName = entryName.endsWith('.css')
+          ? entryName.replace(/\.css$/, '.vanilla')
+          : entryName;
+        return `${safeName}.${ext}`;
       },
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime', 'clsx'],
+      external: (id) =>
+        ['react', 'react-dom', 'react/jsx-runtime', 'clsx'].includes(id) ||
+        // recipe()가 컴파일되면 @vanilla-extract/recipes의 런타임 헬퍼
+        // (createRuntimeFn)를 참조한다. external 목록에 없으면 Rollup이 이걸
+        // 번들에 포함시키면서 preserveModulesRoot('src') 밖에 있는 모듈이라
+        // pnpm 스토어의 로컬 절대 경로 구조를 그대로 dist에 복사해버린다
+        // (dist/node_modules/.pnpm/... 형태로 새어나감).
+        // 이 패키지는 이미 core의 dependencies에 선언되어 있으므로
+        // 번들링하지 않고 외부 참조로 남긴다.
+        id.includes('@vanilla-extract/recipes'),
       output: {
         preserveModules: true,
         preserveModulesRoot: 'src',
@@ -25,6 +42,17 @@ export default defineConfig({
           'react-dom': 'ReactDOM',
           'react/jsx-runtime': 'react/jsx-runtime',
         },
+        // 위에서 external 처리한 @vanilla-extract/recipes는 실제로는 로컬 절대/
+        // 상대 경로로 resolve되므로, 산출물의 import문에는 패키지명 그대로
+        // 남도록 재매핑한다. createRuntimeFn은 메인 진입점(".")이 아니라
+        // "@vanilla-extract/recipes/createRuntimeFn" 서브패스에서만 export되므로
+        // (package.json exports 확인함) 정확히 그 경로로 매핑해야 한다
+        // 메인 진입점으로 잘못 매핑하면 빌드는 성공해도 실제로는 존재하지 않는
+        // named export를 참조하게 된다.
+        paths: (id) =>
+          id.includes('@vanilla-extract/recipes')
+            ? '@vanilla-extract/recipes/createRuntimeFn'
+            : id,
       },
     },
     sourcemap: true,
