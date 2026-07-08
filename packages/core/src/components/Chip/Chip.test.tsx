@@ -2,6 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Chip } from './Chip';
+import * as styles from './Chip.css';
 
 describe('Chip', () => {
   describe('렌더링 테스트', () => {
@@ -34,25 +35,33 @@ describe('Chip', () => {
     it('size="sm"일 때 적절한 클래스가 적용된다', () => {
       const { container } = render(<Chip label="테스트" size="sm" />);
 
-      expect(container.firstChild).toHaveClass(/sizeStyles_sm/);
+      expect(container.firstChild).toHaveClass(
+        styles.chip({ size: 'sm', variant: 'filled', color: 'default' })
+      );
     });
 
     it('size="md"일 때 적절한 클래스가 적용된다', () => {
       const { container } = render(<Chip label="테스트" size="md" />);
 
-      expect(container.firstChild).toHaveClass(/sizeStyles_md/);
+      expect(container.firstChild).toHaveClass(
+        styles.chip({ size: 'md', variant: 'filled', color: 'default' })
+      );
     });
 
     it('size="lg"일 때 적절한 클래스가 적용된다', () => {
       const { container } = render(<Chip label="테스트" size="lg" />);
 
-      expect(container.firstChild).toHaveClass(/sizeStyles_lg/);
+      expect(container.firstChild).toHaveClass(
+        styles.chip({ size: 'lg', variant: 'filled', color: 'default' })
+      );
     });
 
     it('기본값은 "md"이다', () => {
       const { container } = render(<Chip label="테스트" />);
 
-      expect(container.firstChild).toHaveClass(/sizeStyles_md/);
+      expect(container.firstChild).toHaveClass(
+        styles.chip({ size: 'md', variant: 'filled', color: 'default' })
+      );
     });
   });
 
@@ -60,19 +69,25 @@ describe('Chip', () => {
     it('variant="filled"일 때 적절한 클래스가 적용된다', () => {
       const { container } = render(<Chip label="테스트" variant="filled" />);
 
-      expect(container.firstChild).toHaveClass(/variantStyles_filled/);
+      expect(container.firstChild).toHaveClass(
+        styles.chip({ size: 'md', variant: 'filled', color: 'default' })
+      );
     });
 
     it('variant="outlined"일 때 적절한 클래스가 적용된다', () => {
       const { container } = render(<Chip label="테스트" variant="outlined" />);
 
-      expect(container.firstChild).toHaveClass(/variantStyles_outlined/);
+      expect(container.firstChild).toHaveClass(
+        styles.chip({ size: 'md', variant: 'outlined', color: 'default' })
+      );
     });
 
     it('기본값은 "filled"이다', () => {
       const { container } = render(<Chip label="테스트" />);
 
-      expect(container.firstChild).toHaveClass(/variantStyles_filled/);
+      expect(container.firstChild).toHaveClass(
+        styles.chip({ size: 'md', variant: 'filled', color: 'default' })
+      );
     });
   });
 
@@ -80,37 +95,49 @@ describe('Chip', () => {
     it('color="default"일 때 적절한 클래스가 적용된다', () => {
       const { container } = render(<Chip label="테스트" color="default" />);
 
-      expect(container.firstChild).toHaveClass(/colorStyles_default/);
+      expect(container.firstChild).toHaveClass(
+        styles.chip({ size: 'md', variant: 'filled', color: 'default' })
+      );
     });
 
     it('color="primary"일 때 적절한 클래스가 적용된다', () => {
       const { container } = render(<Chip label="테스트" color="primary" />);
 
-      expect(container.firstChild).toHaveClass(/colorStyles_primary/);
+      expect(container.firstChild).toHaveClass(
+        styles.chip({ size: 'md', variant: 'filled', color: 'primary' })
+      );
     });
 
     it('color="success"일 때 적절한 클래스가 적용된다', () => {
       const { container } = render(<Chip label="테스트" color="success" />);
 
-      expect(container.firstChild).toHaveClass(/colorStyles_success/);
+      expect(container.firstChild).toHaveClass(
+        styles.chip({ size: 'md', variant: 'filled', color: 'success' })
+      );
     });
 
     it('color="error"일 때 적절한 클래스가 적용된다', () => {
       const { container } = render(<Chip label="테스트" color="error" />);
 
-      expect(container.firstChild).toHaveClass(/colorStyles_error/);
+      expect(container.firstChild).toHaveClass(
+        styles.chip({ size: 'md', variant: 'filled', color: 'error' })
+      );
     });
 
     it('color="warning"일 때 적절한 클래스가 적용된다', () => {
       const { container } = render(<Chip label="테스트" color="warning" />);
 
-      expect(container.firstChild).toHaveClass(/colorStyles_warning/);
+      expect(container.firstChild).toHaveClass(
+        styles.chip({ size: 'md', variant: 'filled', color: 'warning' })
+      );
     });
 
     it('기본값은 "default"이다', () => {
       const { container } = render(<Chip label="테스트" />);
 
-      expect(container.firstChild).toHaveClass(/colorStyles_default/);
+      expect(container.firstChild).toHaveClass(
+        styles.chip({ size: 'md', variant: 'filled', color: 'default' })
+      );
     });
   });
 
@@ -320,9 +347,9 @@ describe('Chip', () => {
         <Chip label="테스트" size="lg" color="primary" variant="outlined" />
       );
 
-      expect(container.firstChild).toHaveClass(/sizeStyles_lg/);
-      expect(container.firstChild).toHaveClass(/colorStyles_primary/);
-      expect(container.firstChild).toHaveClass(/variantStyles_outlined/);
+      expect(container.firstChild).toHaveClass(
+        styles.chip({ size: 'lg', variant: 'outlined', color: 'primary' })
+      );
     });
   });
 });

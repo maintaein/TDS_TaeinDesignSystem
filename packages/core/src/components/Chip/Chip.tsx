@@ -5,11 +5,6 @@ import { Icon } from '../Icon';
 import { themeContract } from '../../tokens/theme.css';
 import {
   chip,
-  sizeStyles,
-  variantStyles,
-  colorStyles,
-  filledColorStyles,
-  outlinedColorStyles,
   clickable as clickableStyle,
   selected as selectedStyle,
   disabled as disabledStyle,
@@ -60,12 +55,6 @@ export const Chip = ({
   onClick,
   className,
 }: ChipProps) => {
-  // variant와 color 조합에 따른 스타일
-  const colorStyleClass =
-    variant === 'filled'
-      ? filledColorStyles[color]
-      : outlinedColorStyles[color];
-
   // 선택된 상태일 때 색상별 boxShadow 계산
   const selectedBoxShadow = useMemo(() => {
     if (!selected) return undefined;
@@ -112,11 +101,7 @@ export const Chip = ({
   });
 
   const chipClasses = clsx(
-    chip,
-    sizeStyles[size],
-    variantStyles[variant],
-    colorStyles[color],
-    colorStyleClass,
+    chip({ size, variant, color }),
     {
       [clickableStyle]: isClickable,
       [selectedStyle]: selected,

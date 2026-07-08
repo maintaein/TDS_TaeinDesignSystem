@@ -1,117 +1,141 @@
-import { style, styleVariants, ComplexStyleRule } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
+import { recipe } from '@vanilla-extract/recipes';
 import { themeContract } from '../../tokens/theme.css';
 
-export const chip = style({
-  display: 'inline-flex',
-  alignItems: 'center',
-  gap: themeContract.spacing[1],
-  padding: `${themeContract.spacing[1]} ${themeContract.spacing[3]}`,
-  border: 'none',
-  borderRadius: themeContract.borderRadius.full,
-  fontWeight: themeContract.font.weight.medium,
-  fontSize: themeContract.font.size.sm,
-  lineHeight: 1,
-  userSelect: 'none',
-  transition: 'all 0.2s ease',
-  cursor: 'default',
-  whiteSpace: 'nowrap',
-});
-
-export const sizeStyles = styleVariants({
-  sm: {
-    padding: `${themeContract.spacing[1]} ${themeContract.spacing[2]}`,
-    fontSize: themeContract.font.size.xs,
+export const chip = recipe({
+  base: {
+    display: 'inline-flex',
+    alignItems: 'center',
     gap: themeContract.spacing[1],
-  },
-  md: {
     padding: `${themeContract.spacing[1]} ${themeContract.spacing[3]}`,
+    border: 'none',
+    borderRadius: themeContract.borderRadius.full,
+    fontWeight: themeContract.font.weight.medium,
     fontSize: themeContract.font.size.sm,
-    gap: themeContract.spacing[1],
+    lineHeight: 1,
+    userSelect: 'none',
+    transition: 'all 0.2s ease',
+    cursor: 'default',
+    whiteSpace: 'nowrap',
   },
-  lg: {
-    padding: `${themeContract.spacing[2]} ${themeContract.spacing[4]}`,
-    fontSize: themeContract.font.size.base,
-    gap: themeContract.spacing[2],
+
+  variants: {
+    size: {
+      sm: {
+        padding: `${themeContract.spacing[1]} ${themeContract.spacing[2]}`,
+        fontSize: themeContract.font.size.xs,
+        gap: themeContract.spacing[1],
+      },
+      md: {
+        padding: `${themeContract.spacing[1]} ${themeContract.spacing[3]}`,
+        fontSize: themeContract.font.size.sm,
+        gap: themeContract.spacing[1],
+      },
+      lg: {
+        padding: `${themeContract.spacing[2]} ${themeContract.spacing[4]}`,
+        fontSize: themeContract.font.size.base,
+        gap: themeContract.spacing[2],
+      },
+    },
+
+    variant: {
+      filled: {},
+      outlined: {},
+    },
+
+    color: {
+      default: {},
+      primary: {},
+      success: {},
+      error: {},
+      warning: {},
+    },
+  },
+
+  compoundVariants: [
+    {
+      variants: { variant: 'filled', color: 'default' },
+      style: {
+        backgroundColor: themeContract.color.surface.hover,
+        color: themeContract.color.text.primary,
+      },
+    },
+    {
+      variants: { variant: 'filled', color: 'primary' },
+      style: {
+        backgroundColor: themeContract.color.primary.main,
+        color: themeContract.color.primary.contrast,
+      },
+    },
+    {
+      variants: { variant: 'filled', color: 'success' },
+      style: {
+        backgroundColor: themeContract.color.success.main,
+        color: themeContract.color.success.contrast,
+      },
+    },
+    {
+      variants: { variant: 'filled', color: 'error' },
+      style: {
+        backgroundColor: themeContract.color.error.main,
+        color: themeContract.color.error.contrast,
+      },
+    },
+    {
+      variants: { variant: 'filled', color: 'warning' },
+      style: {
+        backgroundColor: themeContract.color.warning.main,
+        color: themeContract.color.warning.contrast,
+      },
+    },
+    {
+      variants: { variant: 'outlined', color: 'default' },
+      style: {
+        backgroundColor: 'transparent',
+        color: themeContract.color.text.primary,
+        border: `1px solid ${themeContract.color.border.default}`,
+      },
+    },
+    {
+      variants: { variant: 'outlined', color: 'primary' },
+      style: {
+        backgroundColor: 'transparent',
+        color: themeContract.color.primary.main,
+        border: `1px solid ${themeContract.color.primary.main}`,
+      },
+    },
+    {
+      variants: { variant: 'outlined', color: 'success' },
+      style: {
+        backgroundColor: 'transparent',
+        color: themeContract.color.success.main,
+        border: `1px solid ${themeContract.color.success.main}`,
+      },
+    },
+    {
+      variants: { variant: 'outlined', color: 'error' },
+      style: {
+        backgroundColor: 'transparent',
+        color: themeContract.color.error.main,
+        border: `1px solid ${themeContract.color.error.main}`,
+      },
+    },
+    {
+      variants: { variant: 'outlined', color: 'warning' },
+      style: {
+        backgroundColor: 'transparent',
+        color: themeContract.color.warning.main,
+        border: `1px solid ${themeContract.color.warning.main}`,
+      },
+    },
+  ],
+
+  defaultVariants: {
+    size: 'md',
+    variant: 'filled',
+    color: 'default',
   },
 });
-
-const createVariantStyle = (
-  backgroundColor: string,
-  color: string,
-  border?: string
-): ComplexStyleRule => ({
-  backgroundColor,
-  color,
-  border: border || 'none',
-});
-
-const filledVariants = {
-  default: createVariantStyle(
-    themeContract.color.surface.hover,
-    themeContract.color.text.primary
-  ),
-  primary: createVariantStyle(
-    themeContract.color.primary.main,
-    themeContract.color.primary.contrast
-  ),
-  success: createVariantStyle(
-    themeContract.color.success.main,
-    themeContract.color.success.contrast
-  ),
-  error: createVariantStyle(
-    themeContract.color.error.main,
-    themeContract.color.error.contrast
-  ),
-  warning: createVariantStyle(
-    themeContract.color.warning.main,
-    themeContract.color.warning.contrast
-  ),
-};
-
-const outlinedVariants = {
-  default: createVariantStyle(
-    'transparent',
-    themeContract.color.text.primary,
-    `1px solid ${themeContract.color.border.default}`
-  ),
-  primary: createVariantStyle(
-    'transparent',
-    themeContract.color.primary.main,
-    `1px solid ${themeContract.color.primary.main}`
-  ),
-  success: createVariantStyle(
-    'transparent',
-    themeContract.color.success.main,
-    `1px solid ${themeContract.color.success.main}`
-  ),
-  error: createVariantStyle(
-    'transparent',
-    themeContract.color.error.main,
-    `1px solid ${themeContract.color.error.main}`
-  ),
-  warning: createVariantStyle(
-    'transparent',
-    themeContract.color.warning.main,
-    `1px solid ${themeContract.color.warning.main}`
-  ),
-};
-
-export const variantStyles = styleVariants({
-  filled: {},
-  outlined: {},
-});
-
-export const colorStyles = styleVariants({
-  default: {},
-  primary: {},
-  success: {},
-  error: {},
-  warning: {},
-});
-
-export const filledColorStyles = styleVariants(filledVariants);
-
-export const outlinedColorStyles = styleVariants(outlinedVariants);
 
 export const clickable = style({
   cursor: 'pointer',
@@ -130,8 +154,7 @@ export const clickable = style({
   },
 });
 
-export const selected = style({
-});
+export const selected = style({});
 
 export const disabled = style({
   opacity: 0.5,
