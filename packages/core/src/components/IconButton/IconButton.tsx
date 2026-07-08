@@ -1,11 +1,8 @@
 import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
 import clsx from 'clsx';
 import {
-  buttonBase,
-  sizeVariants,
+  iconButton,
   iconSizeVariants,
-  fillVariants,
-  weakVariants,
   ghostBase,
   ghostSizeVariants,
 } from './IconButton.css';
@@ -64,8 +61,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 
     const isDisabled = disabled || loading;
 
-    const variantClass =
-      buttonStyle === 'fill' ? fillVariants[variant] : weakVariants[variant];
+    const variantClass = iconButton({ size, buttonStyle, variant });
 
     return (
       <button
@@ -77,9 +73,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledby}
         className={clsx(
-          ghost
-            ? [ghostBase, ghostSizeVariants[size]]
-            : [buttonBase, sizeVariants[size], variantClass],
+          ghost ? [ghostBase, ghostSizeVariants[size]] : variantClass,
           className
         )}
         {...props}
@@ -92,7 +86,9 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
             aria-label="로딩 중"
           />
         ) : (
-          <span aria-hidden="true" className={iconSizeVariants[size]}>{children}</span>
+          <span aria-hidden="true" className={iconSizeVariants[size]}>
+            {children}
+          </span>
         )}
       </button>
     );
