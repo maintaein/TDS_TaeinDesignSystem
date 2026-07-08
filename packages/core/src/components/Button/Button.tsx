@@ -1,14 +1,7 @@
-import {
-  forwardRef,
-  type ButtonHTMLAttributes,
-  type ReactNode,
-} from 'react';
+import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
 import clsx from 'clsx';
 import {
-  buttonBase,
-  sizeVariants,
-  fillVariants,
-  weakVariants,
+  button,
   customVariant,
   customOutlineVariant,
   fullWidth,
@@ -81,16 +74,18 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       ? isOutlineCustom
         ? customOutlineVariant
         : customVariant
-      : buttonStyle === 'fill'
-        ? fillVariants[variant]
-        : weakVariants[variant];
+      : button({ size, buttonStyle, variant });
 
     const mergedStyle = customColor
       ? isOutlineCustom
         ? {
             '--btn-color': customColor.bg,
-            ...(customColor.hoverBg && { '--btn-hover-bg': customColor.hoverBg }),
-            ...(customColor.activeBg && { '--btn-active-bg': customColor.activeBg }),
+            ...(customColor.hoverBg && {
+              '--btn-hover-bg': customColor.hoverBg,
+            }),
+            ...(customColor.activeBg && {
+              '--btn-active-bg': customColor.activeBg,
+            }),
             ...style,
           }
         : {
@@ -113,13 +108,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={isDisabled}
         aria-disabled={isDisabled}
         aria-busy={loading}
-        className={clsx(
-          buttonBase,
-          sizeVariants[size],
-          variantClass,
-          isFullWidth && fullWidth,
-          className
-        )}
+        className={clsx(variantClass, isFullWidth && fullWidth, className)}
         style={mergedStyle}
         {...props}
       >

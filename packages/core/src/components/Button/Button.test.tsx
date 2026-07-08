@@ -29,19 +29,21 @@ describe('Button', () => {
     it('기본 스타일(fill + primary + md) 클래스가 적용된다', () => {
       render(<Button>기본</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass(styles.buttonBase);
-      expect(button).toHaveClass(styles.fillVariants.primary);
-      expect(button).toHaveClass(styles.sizeVariants.md);
+      expect(button).toHaveClass(
+        styles.button({ size: 'md', buttonStyle: 'fill', variant: 'primary' })
+      );
     });
 
-    it('buttonStyle="weak"일 때 weakVariants 클래스가 적용된다', () => {
+    it('buttonStyle="weak"일 때 weak+danger 조합 클래스가 적용된다', () => {
       render(
         <Button buttonStyle="weak" variant="danger">
           삭제
         </Button>
       );
       const button = screen.getByRole('button');
-      expect(button).toHaveClass(styles.weakVariants.danger);
+      expect(button).toHaveClass(
+        styles.button({ size: 'md', buttonStyle: 'weak', variant: 'danger' })
+      );
     });
 
     it('모든 사이즈(sm, md, lg, xl) 클래스가 올바르게 적용된다', () => {
@@ -49,7 +51,7 @@ describe('Button', () => {
       sizes.forEach((size) => {
         const { unmount } = render(<Button size={size}>{size}</Button>);
         expect(screen.getByRole('button')).toHaveClass(
-          styles.sizeVariants[size]
+          styles.button({ size, buttonStyle: 'fill', variant: 'primary' })
         );
         unmount();
       });
@@ -162,7 +164,9 @@ describe('Button', () => {
       );
       const button = screen.getByRole('button');
       expect(button).toHaveClass(styles.customVariant);
-      expect(button).not.toHaveClass(styles.fillVariants.primary);
+      expect(button).not.toHaveClass(
+        styles.button({ size: 'md', buttonStyle: 'fill', variant: 'primary' })
+      );
     });
 
     it('color prop이 주어지면 CSS 변수가 style에 설정된다', () => {
@@ -246,7 +250,12 @@ describe('Button', () => {
       render(
         <Button
           variant="light"
-          customColor={{ bg: '#e11d48', text: '', hoverBg: '#fce7f3', activeBg: '#fbcfe8' }}
+          customColor={{
+            bg: '#e11d48',
+            text: '',
+            hoverBg: '#fce7f3',
+            activeBg: '#fbcfe8',
+          }}
         >
           아웃라인
         </Button>
@@ -261,7 +270,9 @@ describe('Button', () => {
     it('custom className이 주어지면 기본 클래스와 함께 적용된다', () => {
       render(<Button className="custom-class">커스텀</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass(styles.buttonBase);
+      expect(button).toHaveClass(
+        styles.button({ size: 'md', buttonStyle: 'fill', variant: 'primary' })
+      );
       expect(button).toHaveClass('custom-class');
     });
 

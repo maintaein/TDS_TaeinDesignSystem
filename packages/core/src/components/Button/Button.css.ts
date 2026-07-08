@@ -1,183 +1,203 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
+import { recipe } from '@vanilla-extract/recipes';
 import { themeContract } from '../../tokens/theme.css';
 import { primary, gray, error } from '../../tokens/colors.css';
 
-export const buttonBase = style({
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: themeContract.spacing[2],
-  fontFamily: themeContract.font.family.sans,
-  fontWeight: themeContract.font.weight.semibold,
-  border: 'none',
-  cursor: 'pointer',
-  transition: `all ${themeContract.animation.duration.base} ${themeContract.animation.easing.easeInOut}`,
-  userSelect: 'none',
-  textDecoration: 'none',
-  position: 'relative',
-  overflow: 'hidden',
+export const button = recipe({
+  base: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: themeContract.spacing[2],
+    fontFamily: themeContract.font.family.sans,
+    fontWeight: themeContract.font.weight.semibold,
+    border: 'none',
+    cursor: 'pointer',
+    transition: `all ${themeContract.animation.duration.base} ${themeContract.animation.easing.easeInOut}`,
+    userSelect: 'none',
+    textDecoration: 'none',
+    position: 'relative',
+    overflow: 'hidden',
 
-  ':disabled': {
-    cursor: 'not-allowed',
-    opacity: 0.5,
-  },
+    ':disabled': {
+      cursor: 'not-allowed',
+      opacity: 0.5,
+    },
 
-  ':focus-visible': {
-    outline: `2px solid ${themeContract.color.border.focus}`,
-    outlineOffset: '2px',
-  },
-});
-
-export const sizeVariants = styleVariants({
-  sm: {
-    height: '36px',
-    minWidth: '70px',
-    padding: `0 ${themeContract.spacing[4]}`,
-    fontSize: themeContract.font.size.sm,
-    borderRadius: themeContract.borderRadius.sm,
-  },
-  md: {
-    height: '44px',
-    minWidth: '100px',
-    padding: `0 ${themeContract.spacing[5]}`,
-    fontSize: themeContract.font.size.base,
-    borderRadius: themeContract.borderRadius.base,
-  },
-  lg: {
-    height: '52px',
-    minWidth: '120px',
-    padding: `0 ${themeContract.spacing[6]}`,
-    fontSize: themeContract.font.size.lg,
-    borderRadius: themeContract.borderRadius.base,
-  },
-  xl: {
-    height: '60px',
-    minWidth: '140px',
-    padding: `0 ${themeContract.spacing[8]}`,
-    fontSize: themeContract.font.size.xl,
-    borderRadius: themeContract.borderRadius.md,
-  },
-});
-
-export const fillVariants = styleVariants({
-  primary: {
-    backgroundColor: primary[600],
-    color: '#FFFFFF',
-
-    selectors: {
-      '&:hover:not(:disabled)': {
-        backgroundColor: primary[700],
-      },
-      '&:active:not(:disabled)': {
-        backgroundColor: primary[800],
-        transform: 'scale(0.98)',
-      },
+    ':focus-visible': {
+      outline: `2px solid ${themeContract.color.border.focus}`,
+      outlineOffset: '2px',
     },
   },
-  dark: {
-    backgroundColor: gray[700],
-    color: '#FFFFFF',
 
-    selectors: {
-      '&:hover:not(:disabled)': {
-        backgroundColor: gray[800],
+  variants: {
+    size: {
+      sm: {
+        height: '36px',
+        minWidth: '70px',
+        padding: `0 ${themeContract.spacing[4]}`,
+        fontSize: themeContract.font.size.sm,
+        borderRadius: themeContract.borderRadius.sm,
       },
-      '&:active:not(:disabled)': {
-        backgroundColor: gray[900],
-        transform: 'scale(0.98)',
+      md: {
+        height: '44px',
+        minWidth: '100px',
+        padding: `0 ${themeContract.spacing[5]}`,
+        fontSize: themeContract.font.size.base,
+        borderRadius: themeContract.borderRadius.base,
+      },
+      lg: {
+        height: '52px',
+        minWidth: '120px',
+        padding: `0 ${themeContract.spacing[6]}`,
+        fontSize: themeContract.font.size.lg,
+        borderRadius: themeContract.borderRadius.base,
+      },
+      xl: {
+        height: '60px',
+        minWidth: '140px',
+        padding: `0 ${themeContract.spacing[8]}`,
+        fontSize: themeContract.font.size.xl,
+        borderRadius: themeContract.borderRadius.md,
       },
     },
-  },
-  danger: {
-    backgroundColor: error[500],
-    color: '#FFFFFF',
 
-    selectors: {
-      '&:hover:not(:disabled)': {
-        backgroundColor: error[700],
-      },
-      '&:active:not(:disabled)': {
-        opacity: 0.9,
-        transform: 'scale(0.98)',
-      },
+    // buttonStyle과 variant는 여기서는 빈 키만 선언한다.
+    // 실제 색상 값은 두 축이 만나는 지점(compoundVariants)에서만 정해진다.
+    buttonStyle: {
+      fill: {},
+      weak: {},
+    },
+
+    variant: {
+      primary: {},
+      dark: {},
+      danger: {},
+      light: {},
     },
   },
-  light: {
-    backgroundColor: '#FFFFFF',
-    color: primary[600],
-    border: `2px solid ${primary[600]}`,
 
-    selectors: {
-      '&:hover:not(:disabled)': {
+  compoundVariants: [
+    {
+      variants: { buttonStyle: 'fill', variant: 'primary' },
+      style: {
+        backgroundColor: primary[600],
+        color: '#FFFFFF',
+        selectors: {
+          '&:hover:not(:disabled)': { backgroundColor: primary[700] },
+          '&:active:not(:disabled)': {
+            backgroundColor: primary[800],
+            transform: 'scale(0.98)',
+          },
+        },
+      },
+    },
+    {
+      variants: { buttonStyle: 'fill', variant: 'dark' },
+      style: {
+        backgroundColor: gray[700],
+        color: '#FFFFFF',
+        selectors: {
+          '&:hover:not(:disabled)': { backgroundColor: gray[800] },
+          '&:active:not(:disabled)': {
+            backgroundColor: gray[900],
+            transform: 'scale(0.98)',
+          },
+        },
+      },
+    },
+    {
+      variants: { buttonStyle: 'fill', variant: 'danger' },
+      style: {
+        backgroundColor: error[500],
+        color: '#FFFFFF',
+        selectors: {
+          '&:hover:not(:disabled)': { backgroundColor: error[700] },
+          '&:active:not(:disabled)': { opacity: 0.9, transform: 'scale(0.98)' },
+        },
+      },
+    },
+    {
+      variants: { buttonStyle: 'fill', variant: 'light' },
+      style: {
+        backgroundColor: '#FFFFFF',
+        color: primary[600],
+        border: `2px solid ${primary[600]}`,
+        selectors: {
+          '&:hover:not(:disabled)': { backgroundColor: primary[50] },
+          '&:active:not(:disabled)': {
+            backgroundColor: primary[100],
+            transform: 'scale(0.98)',
+          },
+        },
+      },
+    },
+    {
+      variants: { buttonStyle: 'weak', variant: 'primary' },
+      style: {
         backgroundColor: primary[50],
-      },
-      '&:active:not(:disabled)': {
-        backgroundColor: primary[100],
-        transform: 'scale(0.98)',
+        color: primary[700],
+        selectors: {
+          '&:hover:not(:disabled)': { backgroundColor: primary[100] },
+          '&:active:not(:disabled)': {
+            backgroundColor: primary[200],
+            transform: 'scale(0.98)',
+          },
+        },
       },
     },
+    {
+      variants: { buttonStyle: 'weak', variant: 'dark' },
+      style: {
+        backgroundColor: gray[200],
+        color: gray[800],
+        selectors: {
+          '&:hover:not(:disabled)': { backgroundColor: gray[300] },
+          '&:active:not(:disabled)': {
+            backgroundColor: gray[400],
+            transform: 'scale(0.98)',
+          },
+        },
+      },
+    },
+    {
+      variants: { buttonStyle: 'weak', variant: 'danger' },
+      style: {
+        backgroundColor: error[50],
+        color: error[700],
+        selectors: {
+          '&:hover:not(:disabled)': { backgroundColor: error[100] },
+          '&:active:not(:disabled)': {
+            backgroundColor: error[100],
+            transform: 'scale(0.98)',
+          },
+        },
+      },
+    },
+    {
+      variants: { buttonStyle: 'weak', variant: 'light' },
+      style: {
+        backgroundColor: primary[100],
+        color: primary[700],
+        selectors: {
+          '&:hover:not(:disabled)': { backgroundColor: primary[200] },
+          '&:active:not(:disabled)': {
+            backgroundColor: primary[300],
+            transform: 'scale(0.98)',
+          },
+        },
+      },
+    },
+  ],
+
+  defaultVariants: {
+    size: 'md',
+    buttonStyle: 'fill',
+    variant: 'primary',
   },
 });
 
-export const weakVariants = styleVariants({
-  primary: {
-    backgroundColor: primary[50],
-    color: primary[700],
-
-    selectors: {
-      '&:hover:not(:disabled)': {
-        backgroundColor: primary[100],
-      },
-      '&:active:not(:disabled)': {
-        backgroundColor: primary[200],
-        transform: 'scale(0.98)',
-      },
-    },
-  },
-  dark: {
-    backgroundColor: gray[200],
-    color: gray[800],
-
-    selectors: {
-      '&:hover:not(:disabled)': {
-        backgroundColor: gray[300],
-      },
-      '&:active:not(:disabled)': {
-        backgroundColor: gray[400],
-        transform: 'scale(0.98)',
-      },
-    },
-  },
-  danger: {
-    backgroundColor: error[50],
-    color: error[700],
-
-    selectors: {
-      '&:hover:not(:disabled)': {
-        backgroundColor: error[100],
-      },
-      '&:active:not(:disabled)': {
-        backgroundColor: error[100],
-        transform: 'scale(0.98)',
-      },
-    },
-  },
-  light: {
-    backgroundColor: primary[100],
-    color: primary[700],
-
-    selectors: {
-      '&:hover:not(:disabled)': {
-        backgroundColor: primary[200],
-      },
-      '&:active:not(:disabled)': {
-        backgroundColor: primary[300],
-        transform: 'scale(0.98)',
-      },
-    },
-  },
-});
-
+// customColor prop 전용 — variant 조합 시스템 밖의 예외 경로이므로 recipe에 넣지 않는다.
 export const customVariant = style({
   backgroundColor: 'var(--btn-bg)',
   color: 'var(--btn-color)',
