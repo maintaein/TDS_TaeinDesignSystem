@@ -78,7 +78,7 @@ All components follow consistent patterns:
 ## Design Tokens
 
 TDS uses a theme contract (`themeContract`) for consistent styling:
-- **Color** — primary, text (primary/secondary/disabled), background, surface, border, semantic (success/error/warning/info)
+- **Color** — primary, text (primary/secondary/disabled), background, surface, border, semantic (success/error/warning)
 - **Spacing** — 8pt grid system (4px to 160px)
 - **Typography** — font family, sizes (xs to 4xl), weights, line heights
 - **Border Radius** — none, sm, base, md, lg, xl, full

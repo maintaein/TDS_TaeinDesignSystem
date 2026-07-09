@@ -48,10 +48,3 @@ export const error = {
   500: '#F44336',
   700: '#D32F2F',
 } as const;
-
-export const info = {
-  50: '#E3F2FD',
-  100: '#BBDEFB',
-  500: '#2196F3',
-  700: '#1976D2',
-} as const;

@@ -29,9 +29,3 @@ export const lineHeight = {
   normal: '1.5',
   relaxed: '1.75',
 } as const;
-
-export const letterSpacing = {
-  tight: '-0.025em',
-  normal: '0',
-  wide: '0.025em',
-} as const;
