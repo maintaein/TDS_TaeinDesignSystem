@@ -1,5 +1,9 @@
 import type { HTMLAttributes } from 'react';
 import clsx from 'clsx';
+// 원본 팔레트를 직접 참조하는 이유: 아래 color prop은 테마 role(예: 'primary')이
+// 아니라 임의의 CSS 색상 문자열을 받는 범용 설계다(타입이 string인 것도 이를
+// 명시). 그 prop의 기본값으로 자연스러운 raw 색상 하나를 쓸 뿐, themeContract를
+// 우회하는 것이 아니다 — 애초에 theme role을 받는 prop이 아니기 때문.
 import { primary } from '../../tokens/colors.css';
 import {
   container,

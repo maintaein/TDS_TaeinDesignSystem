@@ -11,6 +11,11 @@ import {
   colorStyles,
 } from './Loader.css';
 import { LoadingSpinner } from '../LoadingSpinner';
+// 원본 팔레트를 직접 참조하는 이유: type="bar" 렌더 경로는 themeContract 기반
+// colorStyles를 쓰지만(아래), spinner/dots 경로는 LoadingSpinner에 위임하며
+// getColorValue()로 raw 값을 만들어 넘긴다. LoadingSpinner의 color prop 자체가
+// 테마 role이 아니라 임의의 CSS 색상 문자열을 받도록 설계돼 있어(해당 파일 참고),
+// 그 prop에 맞춰 raw 값을 전달하는 것이 자연스럽다.
 import { primary, gray } from '../../tokens/colors.css';
 
 /** 로딩 상태를 표시하는 컴포넌트. 스피너, 점, 바 타입 지원 */
