@@ -70,11 +70,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const isOutlineCustom = customColor && variant === 'light';
 
-    const variantClass = customColor
-      ? isOutlineCustom
-        ? customOutlineVariant
-        : customVariant
-      : button({ size, buttonStyle, variant });
+    const variantClass = clsx(
+      button({ size, buttonStyle, variant }),
+      customColor && (isOutlineCustom ? customOutlineVariant : customVariant)
+    );
 
     const mergedStyle = customColor
       ? isOutlineCustom

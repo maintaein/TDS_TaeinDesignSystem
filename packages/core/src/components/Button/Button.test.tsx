@@ -158,13 +158,13 @@ describe('Button', () => {
   });
 
   describe('커스텀 색상 (color prop)', () => {
-    it('color prop이 주어지면 customVariant 클래스가 적용된다', () => {
+    it('color prop이 주어지면 customVariant 클래스와 기본 구조 클래스가 함께 적용된다', () => {
       render(
         <Button customColor={{ bg: '#8b5cf6', text: '#fff' }}>커스텀</Button>
       );
       const button = screen.getByRole('button');
       expect(button).toHaveClass(styles.customVariant);
-      expect(button).not.toHaveClass(
+      expect(button).toHaveClass(
         styles.button({ size: 'md', buttonStyle: 'fill', variant: 'primary' })
       );
     });
@@ -224,7 +224,7 @@ describe('Button', () => {
       expect(button.style.marginTop).toBe('10px');
     });
 
-    it('variant="light" + customColor이면 customOutlineVariant 클래스가 적용된다', () => {
+    it('variant="light" + customColor이면 customOutlineVariant 클래스와 기본 구조 클래스가 함께 적용된다', () => {
       render(
         <Button variant="light" customColor={{ bg: '#e11d48', text: '' }}>
           아웃라인
@@ -233,6 +233,9 @@ describe('Button', () => {
       const button = screen.getByRole('button');
       expect(button).toHaveClass(styles.customOutlineVariant);
       expect(button).not.toHaveClass(styles.customVariant);
+      expect(button).toHaveClass(
+        styles.button({ size: 'md', buttonStyle: 'fill', variant: 'light' })
+      );
     });
 
     it('variant="light" + customColor이면 --btn-color에 bg 값이 설정된다', () => {
