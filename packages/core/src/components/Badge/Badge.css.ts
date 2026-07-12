@@ -1,12 +1,5 @@
 import { style, styleVariants } from '@vanilla-extract/css';
 import { themeContract } from '../../tokens/theme.css';
-import {
-  primary,
-  gray,
-  success,
-  error,
-  warning,
-} from '../../tokens/colors.css';
 
 export const badge = style({
   display: 'inline-flex',
@@ -23,23 +16,23 @@ export const badge = style({
 
 export const variantStyles = styleVariants({
   primary: {
-    backgroundColor: `var(--badge-color, ${primary[600]})`,
+    backgroundColor: `var(--badge-color, ${themeContract.color.primary.main})`,
     color: themeContract.color.primary.contrast,
   },
   secondary: {
-    backgroundColor: `var(--badge-color, ${gray[600]})`,
+    backgroundColor: `var(--badge-color, ${themeContract.palette.gray[600]})`,
     color: themeContract.color.primary.contrast,
   },
   success: {
-    backgroundColor: `var(--badge-color, ${success[500]})`,
+    backgroundColor: `var(--badge-color, ${themeContract.color.success.main})`,
     color: themeContract.color.success.contrast,
   },
   error: {
-    backgroundColor: `var(--badge-color, ${error[500]})`,
+    backgroundColor: `var(--badge-color, ${themeContract.color.error.main})`,
     color: themeContract.color.error.contrast,
   },
   warning: {
-    backgroundColor: `var(--badge-color, ${warning[500]})`,
+    backgroundColor: `var(--badge-color, ${themeContract.color.warning.main})`,
     color: themeContract.color.warning.contrast,
   },
 });
