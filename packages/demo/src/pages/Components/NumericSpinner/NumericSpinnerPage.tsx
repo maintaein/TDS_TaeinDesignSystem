@@ -1,8 +1,4 @@
-import {
-  Card,
-  List,
-  ListItem,
-} from '@taein-designsystem/core';
+import { Card, List, ListItem } from '@taein-designsystem/core';
 import { LivePreview } from '../../../components/LivePreview';
 import { CodeBlock } from '../../../components/CodeBlock';
 import { PropsTable } from '../../../components/PropsTable';
@@ -11,7 +7,6 @@ import { AccessibilitySection } from '../../../components/AccessibilitySection';
 import * as styles from './NumericSpinnerPage.css';
 
 export function NumericSpinnerPage() {
-
   const propsData: PropDefinition[] = [
     {
       name: 'label',
@@ -99,7 +94,8 @@ export function NumericSpinnerPage() {
       <header className={styles.header}>
         <h1 className={styles.title}>NumericSpinner</h1>
         <p className={styles.description}>
-          NumericSpinner 컴포넌트는 수량, 인원수, 페이지 번호 등 숫자를 버튼으로 증감할 때 사용합니다.
+          NumericSpinner 컴포넌트는 수량, 인원수, 페이지 번호 등 숫자를 버튼으로
+          증감할 때 사용합니다.
         </p>
       </header>
 
@@ -122,7 +118,7 @@ export function NumericSpinnerPage() {
               code={`<NumericSpinner
   label="수량"
   value={value}
-  onChange={(e) => setValue(Number(e.target.value))}
+  onChange={setValue}
   min={0}
   max={10}
 />`}
@@ -152,7 +148,7 @@ export function NumericSpinnerPage() {
 <NumericSpinner
   label="수량"
   value={value}
-  onChange={(e) => setValue(Number(e.target.value))}
+  onChange={setValue}
 />`}
           />
         </div>
@@ -169,7 +165,7 @@ export function NumericSpinnerPage() {
 <NumericSpinner
   label="수량"
   value={value}
-  onChange={(e) => setValue(Number(e.target.value))}
+  onChange={setValue}
   min={0}
   max={10}
   helperText={\`현재 값: \${value}\`}
@@ -210,19 +206,19 @@ const [lgValue, setLgValue] = useState(1);
     label="Small"
     size="sm"
     value={smValue}
-    onChange={(e) => setSmValue(Number(e.target.value))}
+    onChange={setSmValue}
   />
   <NumericSpinner
     label="Medium (기본)"
     size="md"
     value={mdValue}
-    onChange={(e) => setMdValue(Number(e.target.value))}
+    onChange={setMdValue}
   />
   <NumericSpinner
     label="Large"
     size="lg"
     value={lgValue}
-    onChange={(e) => setLgValue(Number(e.target.value))}
+    onChange={setLgValue}
   />
 </div>`}
           />
@@ -240,7 +236,7 @@ const [lgValue, setLgValue] = useState(1);
 <NumericSpinner
   label="수량 선택"
   value={value}
-  onChange={(e) => setValue(Number(e.target.value))}
+  onChange={setValue}
   min={1}
   max={10}
   helperText="1개에서 10개까지 선택 가능합니다"
@@ -260,7 +256,7 @@ const [lgValue, setLgValue] = useState(1);
 <NumericSpinner
   label="가격 (원)"
   value={value}
-  onChange={(e) => setValue(Number(e.target.value))}
+  onChange={setValue}
   min={0}
   max={100}
   step={10}
@@ -283,7 +279,7 @@ const [lgValue, setLgValue] = useState(1);
   required
   helperText="최소 1명 이상 입력해야 합니다"
   value={value}
-  onChange={(e) => setValue(Number(e.target.value))}
+  onChange={setValue}
   min={1}
   max={100}
 />`}
@@ -306,18 +302,18 @@ const [value3, setValue3] = useState(0);
     label="비활성화된 입력"
     disabled
     value={value1}
-    onChange={(e) => setValue1(Number(e.target.value))}
+    onChange={setValue1}
   />
   <NumericSpinner
     label="최대값 도달"
     value={value2}
-    onChange={(e) => setValue2(Number(e.target.value))}
+    onChange={setValue2}
     max={10}
   />
   <NumericSpinner
     label="최소값 도달"
     value={value3}
-    onChange={(e) => setValue3(Number(e.target.value))}
+    onChange={setValue3}
     min={0}
   />
 </div>`}
@@ -339,7 +335,7 @@ const [value3, setValue3] = useState(0);
   error
   errorMessage="최소 1개 이상 주문해야 합니다"
   value={value}
-  onChange={(e) => setValue(Number(e.target.value))}
+  onChange={setValue}
   min={1}
   max={100}
 />`}
@@ -358,7 +354,7 @@ const [value3, setValue3] = useState(0);
 <NumericSpinner
   label="수량"
   value={value}
-  onChange={(e) => setValue(Number(e.target.value))}
+  onChange={setValue}
   min={1}
   max={100}
   fullWidth
@@ -379,13 +375,13 @@ const [value3, setValue3] = useState(0);
   <NumericSpinner
     label="좁은 너비 (60px)"
     value={value}
-    onChange={(e) => setValue(Number(e.target.value))}
+    onChange={setValue}
     inputWidth="60px"
   />
   <NumericSpinner
     label="넓은 너비 (150px)"
     value={value}
-    onChange={(e) => setValue(Number(e.target.value))}
+    onChange={setValue}
     inputWidth="150px"
   />
 </div>`}
@@ -414,38 +410,45 @@ const [value3, setValue3] = useState(0);
           {
             attribute: 'label',
             effect: '스크린 리더에서 입력 필드의 용도를 읽어줍니다.',
-            description: '레이블이 input과 자동으로 연결되어 사용자가 무엇을 입력해야 하는지 명확히 알 수 있습니다.',
+            description:
+              '레이블이 input과 자동으로 연결되어 사용자가 무엇을 입력해야 하는지 명확히 알 수 있습니다.',
           },
           {
             attribute: 'aria-label (버튼)',
             effect: '증가/감소 버튼의 역할을 스크린 리더에 알립니다.',
-            description: '"값 증가", "값 감소" 레이블이 각 버튼에 설정되어 버튼의 기능을 명확히 전달합니다.',
+            description:
+              '"값 증가", "값 감소" 레이블이 각 버튼에 설정되어 버튼의 기능을 명확히 전달합니다.',
           },
           {
             attribute: 'min + max',
             effect: '입력 가능한 범위를 스크린 리더에서 알립니다.',
-            description: 'min, max 속성으로 값의 범위가 명확히 전달되어 사용자가 유효한 값을 입력할 수 있습니다.',
+            description:
+              'min, max 속성으로 값의 범위가 명확히 전달되어 사용자가 유효한 값을 입력할 수 있습니다.',
           },
           {
             attribute: 'required',
             effect: '필수 입력 항목임을 스크린 리더에 알립니다.',
-            description: 'aria-required="true"가 설정되어 필수 입력 필드라는 정보를 제공합니다.',
+            description:
+              'aria-required="true"가 설정되어 필수 입력 필드라는 정보를 제공합니다.',
           },
           {
             attribute: 'error + errorMessage',
             effect: '에러 메시지를 스크린 리더가 읽어줍니다.',
-            description: 'aria-describedby로 에러 메시지가 연결되어 사용자가 무엇이 잘못되었는지 알 수 있습니다.',
+            description:
+              'aria-describedby로 에러 메시지가 연결되어 사용자가 무엇이 잘못되었는지 알 수 있습니다.',
           },
           {
             attribute: 'disabled',
             effect: '비활성화 상태를 스크린 리더에서 알립니다.',
-            description: 'aria-disabled="true"가 설정되어 입력할 수 없는 상태임을 전달합니다.',
+            description:
+              'aria-disabled="true"가 설정되어 입력할 수 없는 상태임을 전달합니다.',
           },
         ]}
         additionalGuidance={[
           {
             title: '명확한 레이블 제공하기',
-            description: '숫자가 무엇을 의미하는지 명확한 레이블을 제공해주세요.',
+            description:
+              '숫자가 무엇을 의미하는지 명확한 레이블을 제공해주세요.',
             examples: [
               {
                 code: `// Good ✓
@@ -461,13 +464,15 @@ const [value3, setValue3] = useState(0);
   label="값"
   value={5}
 />`,
-                explanation: '단위와 의미가 명확한 레이블이 사용자 경험을 개선합니다.',
+                explanation:
+                  '단위와 의미가 명확한 레이블이 사용자 경험을 개선합니다.',
               },
             ],
           },
           {
             title: '적절한 범위 설정하기',
-            description: 'min, max를 사용해 유효한 값의 범위를 명확히 제한해주세요.',
+            description:
+              'min, max를 사용해 유효한 값의 범위를 명확히 제한해주세요.',
             examples: [
               {
                 code: `// Good ✓
@@ -484,7 +489,8 @@ const [value3, setValue3] = useState(0);
   label="나이"
   value={25}
 />`,
-                explanation: '범위 제한이 있으면 잘못된 입력을 미리 방지할 수 있습니다.',
+                explanation:
+                  '범위 제한이 있으면 잘못된 입력을 미리 방지할 수 있습니다.',
               },
             ],
           },
@@ -524,7 +530,9 @@ const [value3, setValue3] = useState(0);
                 <h3 className={styles.practiceTitle}>Don't</h3>
               </div>
               <List spacing="sm" className={styles.practiceList}>
-                <ListItem>큰 범위의 숫자 입력에 사용하지 않기 (TextField 권장)</ListItem>
+                <ListItem>
+                  큰 범위의 숫자 입력에 사용하지 않기 (TextField 권장)
+                </ListItem>
                 <ListItem>소수점이 필요한 경우 신중하게 사용</ListItem>
                 <ListItem>step 값을 너무 크게 설정하지 않기</ListItem>
                 <ListItem>레이블 없이 아이콘만 사용하지 않기</ListItem>

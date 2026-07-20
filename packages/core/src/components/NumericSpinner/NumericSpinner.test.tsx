@@ -480,11 +480,7 @@ describe('NumericSpinner', () => {
       fireEvent.click(incrementButton);
 
       expect(handleChange).toHaveBeenCalledTimes(1);
-      expect(handleChange).toHaveBeenCalledWith(
-        expect.objectContaining({
-          target: expect.objectContaining({ value: '2' }),
-        })
-      );
+      expect(handleChange).toHaveBeenCalledWith(2);
     });
   });
 
@@ -580,11 +576,7 @@ describe('NumericSpinner', () => {
       const ControlledSpinner = () => {
         const [value, setValue] = React.useState(0);
         return (
-          <NumericSpinner
-            label="수량"
-            value={value}
-            onChange={(e) => setValue(Number(e.target.value))}
-          />
+          <NumericSpinner label="수량" value={value} onChange={setValue} />
         );
       };
 

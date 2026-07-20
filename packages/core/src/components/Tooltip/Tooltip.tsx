@@ -64,9 +64,6 @@ export const Tooltip = ({
   const isControlled = controlledOpen !== undefined;
   const isOpen = isControlled ? controlledOpen : uncontrolledOpen;
 
-  // 개발 환경 경고 - useEffect 밖으로 이동하면 매 렌더마다 실행됨
-  // React Hook 규칙을 지키기 위해 컴포넌트 최상위에 배치
-
   useEffect(() => {
     return () => {
       if (timerRef.current) {

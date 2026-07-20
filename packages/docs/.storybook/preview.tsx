@@ -1,5 +1,5 @@
 import type { Preview } from '@storybook/react';
-import '@taein-designsystem/core/styles.css';
+import '@taein-designsystem/core';
 
 // Global styles 적용
 import '../stories/global.css';

@@ -1,4 +1,10 @@
-import { forwardRef, useId, useCallback, useState, type ChangeEvent } from 'react';
+import {
+  forwardRef,
+  useId,
+  useCallback,
+  useState,
+  type ChangeEvent,
+} from 'react';
 import type { InputHTMLAttributes } from 'react';
 import { clsx } from 'clsx';
 import * as styles from './NumericSpinner.css';
@@ -7,7 +13,7 @@ import { Icon } from '../Icon';
 /** 증감 버튼이 있는 숫자 입력 컴포넌트. 제어/비제어 모드 지원 */
 export interface NumericSpinnerProps extends Omit<
   InputHTMLAttributes<HTMLInputElement>,
-  'size' | 'type' | 'readOnly' | 'defaultValue'
+  'size' | 'type' | 'readOnly' | 'defaultValue' | 'onChange'
 > {
   /** 레이블 텍스트 */
   label: string;
@@ -16,7 +22,7 @@ export interface NumericSpinnerProps extends Omit<
   /** 제어 모드: 현재 값 */
   value?: number;
   /** 제어 모드: 값 변경 핸들러 */
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (value: number) => void;
 
   // 비제어 모드
   /** 비제어 모드: 초기값 */
@@ -76,7 +82,9 @@ export const NumericSpinner = forwardRef<HTMLInputElement, NumericSpinnerProps>(
 
     // 제어/비제어 판단
     const isControlled = controlledValue !== undefined;
-    const currentValue = isControlled ? Number(controlledValue) : uncontrolledValue;
+    const currentValue = isControlled
+      ? Number(controlledValue)
+      : uncontrolledValue;
 
     // 개발 환경에서 검증
     if (process.env.NODE_ENV === 'development') {
@@ -104,7 +112,7 @@ export const NumericSpinner = forwardRef<HTMLInputElement, NumericSpinnerProps>(
         }
 
         // onChange 호출 (있는 경우)
-        onChange?.(e);
+        onChange?.(newValue);
       },
       [isControlled, onChange]
     );
@@ -124,13 +132,7 @@ export const NumericSpinner = forwardRef<HTMLInputElement, NumericSpinnerProps>(
       }
 
       // onChange 호출 (있는 경우)
-      if (onChange) {
-        const event = {
-          target: { value: String(newValue) },
-          currentTarget: { value: String(newValue) },
-        } as ChangeEvent<HTMLInputElement>;
-        onChange(event);
-      }
+      onChange?.(newValue);
     }, [currentValue, step, max, disabled, isControlled, onChange]);
 
     // 감소 버튼 클릭 핸들러
@@ -148,13 +150,7 @@ export const NumericSpinner = forwardRef<HTMLInputElement, NumericSpinnerProps>(
       }
 
       // onChange 호출 (있는 경우)
-      if (onChange) {
-        const event = {
-          target: { value: String(newValue) },
-          currentTarget: { value: String(newValue) },
-        } as ChangeEvent<HTMLInputElement>;
-        onChange(event);
-      }
+      onChange?.(newValue);
     }, [currentValue, step, min, disabled, isControlled, onChange]);
 
     // 증가 버튼 비활성화 여부

@@ -221,7 +221,7 @@ import { NumericSpinner } from '@taein-designsystem/core';
 <NumericSpinner
   label="수량"
   value={qty}
-  onChange={(e) => setQty(Number(e.target.value))}
+  onChange={setQty}
   min={1}
   max={99}
   step={1}
