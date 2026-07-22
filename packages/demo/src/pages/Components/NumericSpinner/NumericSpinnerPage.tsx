@@ -86,6 +86,19 @@ export function NumericSpinnerPage() {
       default: 'undefined',
       description: '현재 값 (controlled)',
     },
+    {
+      name: 'onChange',
+      type: '(value: number) => void',
+      default: 'undefined',
+      description:
+        '값 변경 핸들러. 이벤트 객체가 아닌 변경된 숫자 값을 직접 전달합니다.',
+    },
+    {
+      name: 'defaultValue',
+      type: 'number',
+      default: 'undefined',
+      description: '초기값 (uncontrolled)',
+    },
   ];
 
   return (
