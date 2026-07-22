@@ -1,14 +1,9 @@
-import {
-  forwardRef,
-  useId,
-  useCallback,
-  useState,
-  type ChangeEvent,
-} from 'react';
+import { forwardRef, useCallback, useState, type ChangeEvent } from 'react';
 import type { InputHTMLAttributes } from 'react';
 import { clsx } from 'clsx';
 import * as styles from './NumericSpinner.css';
 import { Icon } from '../Icon';
+import { FormField } from '../FormField';
 
 /** 증감 버튼이 있는 숫자 입력 컴포넌트. 제어/비제어 모드 지원 */
 export interface NumericSpinnerProps extends Omit<
@@ -72,9 +67,6 @@ export const NumericSpinner = forwardRef<HTMLInputElement, NumericSpinnerProps>(
     },
     ref
   ) => {
-    const inputId = useId();
-    const helperId = useId();
-
     // 비제어 모드용 내부 상태
     const [uncontrolledValue, setUncontrolledValue] = useState<number>(
       defaultValue ?? 0
@@ -163,95 +155,81 @@ export const NumericSpinner = forwardRef<HTMLInputElement, NumericSpinnerProps>(
       disabled ||
       (min !== undefined && currentValue !== undefined && currentValue <= min);
 
-    // helperText 또는 errorMessage 표시
-    const showHelper = !error && helperText;
-    const showError = error && errorMessage;
-
     return (
-      <div className={clsx(styles.wrapper, fullWidth && styles.fullWidth)}>
-        {/* Label */}
-        <label htmlFor={inputId} className={styles.label}>
-          {label}
-          {required && <span className={styles.required}>*</span>}
-        </label>
-
-        {/* Input Container */}
-        <div
-          className={clsx(
-            styles.inputContainer,
-            styles.size[size],
-            error && styles.error
-          )}
-        >
-          {/* Decrement Button */}
-          <button
-            type="button"
-            aria-label="값 감소"
-            disabled={isDecrementDisabled}
-            onClick={handleDecrement}
+      <FormField
+        label={label}
+        helperText={helperText}
+        error={error}
+        errorMessage={errorMessage}
+        required={required}
+        fullWidth={fullWidth}
+      >
+        {({ inputId, helperId, hasHelper, isError }) => (
+          <div
             className={clsx(
-              styles.button,
-              styles.decrementButton,
-              styles.buttonSize[size]
+              styles.inputContainer,
+              styles.size[size],
+              isError && styles.error
             )}
           >
-            <Icon name="minus" size="sm" />
-          </button>
+            {/* Decrement Button */}
+            <button
+              type="button"
+              aria-label="값 감소"
+              disabled={isDecrementDisabled}
+              onClick={handleDecrement}
+              className={clsx(
+                styles.button,
+                styles.decrementButton,
+                styles.buttonSize[size]
+              )}
+            >
+              <Icon name="minus" size="sm" />
+            </button>
 
-          {/* Number Input */}
-          <input
-            ref={ref}
-            id={inputId}
-            type="number"
-            min={min}
-            max={max}
-            step={step}
-            value={currentValue}
-            onChange={handleChange}
-            required={required}
-            disabled={disabled}
-            readOnly
-            aria-invalid={error}
-            aria-disabled={disabled}
-            aria-describedby={showHelper || showError ? helperId : undefined}
-            style={inputWidth ? { width: inputWidth } : undefined}
-            className={clsx(
-              styles.input,
-              styles.inputSize[size],
-              error && styles.error,
-              className
-            )}
-            {...rest}
-          />
+            {/* Number Input */}
+            <input
+              ref={ref}
+              id={inputId}
+              type="number"
+              min={min}
+              max={max}
+              step={step}
+              value={currentValue}
+              onChange={handleChange}
+              required={required}
+              disabled={disabled}
+              readOnly
+              aria-invalid={isError}
+              aria-disabled={disabled}
+              aria-describedby={hasHelper ? helperId : undefined}
+              style={inputWidth ? { width: inputWidth } : undefined}
+              className={clsx(
+                styles.input,
+                styles.inputSize[size],
+                isError && styles.error,
+                className
+              )}
+              {...rest}
+            />
 
-          {/* Increment Button */}
-          <button
-            type="button"
-            aria-label="값 증가"
-            disabled={isIncrementDisabled}
-            onClick={handleIncrement}
-            className={clsx(
-              styles.button,
-              styles.incrementButton,
-              styles.buttonSize[size]
-            )}
-          >
-            <Icon name="plus" size="sm" />
-          </button>
-        </div>
-
-        {/* Helper Text or Error Message */}
-        {showHelper && (
-          <span id={helperId} className={styles.helperText}>
-            {helperText}
-          </span>
+            {/* Increment Button */}
+            <button
+              type="button"
+              aria-label="값 증가"
+              disabled={isIncrementDisabled}
+              onClick={handleIncrement}
+              className={clsx(
+                styles.button,
+                styles.incrementButton,
+                styles.buttonSize[size]
+              )}
+            >
+              <Icon name="plus" size="sm" />
+            </button>
+          </div>
         )}
-        {showError && (
-          <span id={helperId} className={styles.errorMessage}>
-            {errorMessage}
-          </span>
-        )}
-      </div>
+      </FormField>
     );
   }
 );

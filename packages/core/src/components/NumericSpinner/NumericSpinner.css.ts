@@ -1,31 +1,6 @@
 import { keyframes, style, styleVariants } from '@vanilla-extract/css';
 import { themeContract } from '../../tokens/theme.css';
 
-// wrapper 스타일
-export const wrapper = style({
-  display: 'inline-flex',
-  flexDirection: 'column',
-  gap: '0.5rem',
-  width: 'fit-content',
-});
-
-export const fullWidth = style({
-  width: '100%',
-});
-
-// label 스타일
-export const label = style({
-  fontSize: '0.875rem',
-  fontWeight: 500,
-  color: themeContract.color.text.primary,
-  marginBottom: '0.25rem',
-});
-
-export const required = style({
-  color: themeContract.color.error.main,
-  marginLeft: '0.25rem',
-});
-
 // input container 스타일
 export const inputContainer = style({
   position: 'relative',
@@ -83,7 +58,8 @@ export const input = style({
   padding: '0.5rem 0',
   margin: '0 8px',
   borderRadius: '6px',
-  transition: 'transform 0.6s cubic-bezier(0.25, 0.8, 0.5, 1), background-color 0.2s ease, color 0.2s ease',
+  transition:
+    'transform 0.6s cubic-bezier(0.25, 0.8, 0.5, 1), background-color 0.2s ease, color 0.2s ease',
 
   selectors: {
     [`${inputContainer}:has(button:active:not(:disabled)) &`]: {
@@ -164,7 +140,6 @@ export const button = style({
   },
 });
 
-
 export const buttonSize = styleVariants({
   sm: {
     width: '20px',
@@ -193,17 +168,4 @@ export const error = style({
       boxShadow: '0 0 0 3px rgba(240, 68, 82, 0.1)',
     },
   },
-});
-
-// helperText / errorMessage 스타일
-export const helperText = style({
-  fontSize: '0.75rem',
-  color: themeContract.color.text.secondary,
-  marginLeft: '0.25rem',
-});
-
-export const errorMessage = style({
-  fontSize: '0.75rem',
-  color: themeContract.color.error.main,
-  marginLeft: '0.25rem',
 });
