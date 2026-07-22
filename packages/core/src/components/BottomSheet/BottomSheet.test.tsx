@@ -270,6 +270,52 @@ describe('BottomSheet', () => {
     });
   });
 
+  describe('포커스 트랩 테스트', () => {
+    it('마지막 요소에서 Tab을 누르면 첫 요소로 순환한다', () => {
+      render(
+        <BottomSheet {...defaultProps}>
+          <div>
+            <button>Button 1</button>
+            <button>Button 2</button>
+            <button>Button 3</button>
+          </div>
+        </BottomSheet>
+      );
+
+      const button1 = screen.getByText('Button 1');
+      const button3 = screen.getByText('Button 3');
+
+      button3.focus();
+      expect(button3).toHaveFocus();
+
+      fireEvent.keyDown(document, { key: 'Tab' });
+
+      expect(button1).toHaveFocus();
+    });
+
+    it('첫 요소에서 Shift+Tab을 누르면 마지막 요소로 순환한다', () => {
+      render(
+        <BottomSheet {...defaultProps}>
+          <div>
+            <button>Button 1</button>
+            <button>Button 2</button>
+            <button>Button 3</button>
+          </div>
+        </BottomSheet>
+      );
+
+      const button1 = screen.getByText('Button 1');
+      const button3 = screen.getByText('Button 3');
+
+      button1.focus();
+      expect(button1).toHaveFocus();
+
+      fireEvent.keyDown(document, { key: 'Tab', shiftKey: true });
+
+      expect(button3).toHaveFocus();
+    });
+  });
+
   describe('Body scroll 테스트', () => {
     it('열릴 때 body scroll이 비활성화된다', async () => {
       render(<BottomSheet {...defaultProps} />);

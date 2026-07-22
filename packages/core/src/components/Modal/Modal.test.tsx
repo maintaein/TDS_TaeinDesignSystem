@@ -182,7 +182,7 @@ describe('Modal', () => {
   });
 
   describe('포커스 트랩 테스트', () => {
-    it('Tab 키 이벤트가 처리된다', () => {
+    it('마지막 요소에서 Tab을 누르면 첫 요소로 순환한다', () => {
       render(
         <Modal {...defaultProps}>
           <div>
@@ -194,16 +194,17 @@ describe('Modal', () => {
       );
 
       const button1 = screen.getByText('Button 1');
-      expect(button1).toHaveFocus();
+      const button3 = screen.getByText('Button 3');
 
-      const tabEvent = new KeyboardEvent('keydown', {
-        key: 'Tab',
-        bubbles: true,
-      });
-      document.dispatchEvent(tabEvent);
+      button3.focus();
+      expect(button3).toHaveFocus();
+
+      fireEvent.keyDown(document, { key: 'Tab' });
+
+      expect(button1).toHaveFocus();
     });
 
-    it('Shift+Tab 키 이벤트가 처리된다', () => {
+    it('첫 요소에서 Shift+Tab을 누르면 마지막 요소로 순환한다', () => {
       render(
         <Modal {...defaultProps}>
           <div>
@@ -215,14 +216,14 @@ describe('Modal', () => {
       );
 
       const button1 = screen.getByText('Button 1');
+      const button3 = screen.getByText('Button 3');
+
+      button1.focus();
       expect(button1).toHaveFocus();
 
-      const shiftTabEvent = new KeyboardEvent('keydown', {
-        key: 'Tab',
-        shiftKey: true,
-        bubbles: true,
-      });
-      document.dispatchEvent(shiftTabEvent);
+      fireEvent.keyDown(document, { key: 'Tab', shiftKey: true });
+
+      expect(button3).toHaveFocus();
     });
   });
 

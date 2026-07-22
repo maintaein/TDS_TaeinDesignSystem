@@ -4,8 +4,6 @@ import {
   useState,
   useMemo,
   useId,
-  createContext,
-  useContext,
   forwardRef,
   type ReactNode,
   type HTMLAttributes,
@@ -29,30 +27,15 @@ import {
 } from './BottomSheet.css';
 import { IconButton } from '../IconButton';
 import { Icon } from '../Icon';
-import {
-  addDocumentListener,
-  getActiveHTMLElement,
-  getFocusableElements,
-  lockBodyScroll,
-} from '../../_internal/dom';
+import { useFocusTrap } from '../../_internal/useFocusTrap';
+import { createOverlayContext } from '../../_internal/createOverlayContext';
 
 interface BottomSheetContextValue {
   onClose: () => void;
 }
 
-const BottomSheetContext = createContext<BottomSheetContextValue | null>(null);
-
-const useBottomSheetContext = () => {
-  const context = useContext(BottomSheetContext);
-  if (process.env.NODE_ENV === 'development') {
-    if (!context) {
-      console.error(
-        'BottomSheet 서브 컴포넌트는 BottomSheet 내부에서 사용되어야 합니다'
-      );
-    }
-  }
-  return context;
-};
+const [BottomSheetContext, useBottomSheetContext] =
+  createOverlayContext<BottomSheetContextValue>('BottomSheet');
 
 /** 화면 하단에서 올라오는 시트 컴포넌트. Compound 패턴(BottomSheet.Header/Content) 또는 Flat 패턴(title prop) 지원 */
 export interface BottomSheetProps extends Omit<
@@ -99,7 +82,6 @@ const BottomSheetRoot = ({
   ...props
 }: BottomSheetProps) => {
   const sheetRef = useRef<HTMLDivElement>(null);
-  const previousActiveElementRef = useRef<HTMLElement | null>(null);
   const titleId = useId();
 
   const startYRef = useRef<number>(0);
@@ -124,38 +106,16 @@ const BottomSheetRoot = ({
     }
   }, [open]);
 
-  //접근성 및 스크롤 제어
-  useEffect(() => {
-    if (!open) return;
-
-    previousActiveElementRef.current = getActiveHTMLElement();
-    const sheet = sheetRef.current;
-    if (!sheet) return;
-
-    // 포커스 트랩 설정
-    const focusableElements = getFocusableElements(sheet);
-    if (focusableElements[0]) {
-      focusableElements[0].focus();
-    } else {
-      sheet.setAttribute('tabindex', '-1');
-      sheet.focus();
-    }
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && closeOnEscape) {
-        e.stopPropagation();
-        onClose();
-      }
-    };
-
-    const removeKeyDownListener = addDocumentListener('keydown', handleKeyDown);
-    const restoreBodyScroll = lockBodyScroll();
-
-    return () => {
-      removeKeyDownListener();
-      restoreBodyScroll();
-    };
-  }, [open, closeOnEscape, onClose]);
+  // 접근성(포커스 트랩 + ESC) 및 스크롤 제어 — 애니메이션 종료 후 포커스를
+  // 복원해야 하므로 restoreFocusOnClose는 false로 두고, handleAnimationEnd에서
+  // previousActiveElementRef를 직접 사용해 복원한다(기존 타이밍 그대로 유지).
+  const { previousActiveElementRef } = useFocusTrap({
+    open,
+    onClose,
+    closeOnEscape,
+    containerRef: sheetRef,
+    restoreFocusOnClose: false,
+  });
 
   //드래그 제어 로직
   useEffect(() => {

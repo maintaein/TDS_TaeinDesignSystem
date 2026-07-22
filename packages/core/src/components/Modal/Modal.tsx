@@ -1,11 +1,8 @@
 import {
-  useEffect,
-  useRef,
   useMemo,
-  createContext,
-  useContext,
   forwardRef,
   useId,
+  useRef,
   type ReactNode,
   type HTMLAttributes,
 } from 'react';
@@ -24,24 +21,16 @@ import {
   modalFooter as modalFooterStyle,
   footerAlignStyles,
 } from './Modal.css';
-import {
-  addDocumentListener,
-  getActiveHTMLElement,
-  getFocusableElements,
-  lockBodyScroll,
-} from '../../_internal/dom';
+import { useFocusTrap } from '../../_internal/useFocusTrap';
+import { createOverlayContext } from '../../_internal/createOverlayContext';
 
 // Context로 onClose 전달 (Header의 닫기 버튼에서 사용)
 interface ModalContextValue {
   onClose: () => void;
 }
 
-const ModalContext = createContext<ModalContextValue | null>(null);
-
-const useModalContext = () => {
-  const context = useContext(ModalContext);
-  return context;
-};
+const [ModalContext, useModalContext] =
+  createOverlayContext<ModalContextValue>('Modal');
 
 /** 모달 다이얼로그 컴포넌트. Compound 패턴(Modal.Header/Content/Footer) 또는 Flat 패턴(title/footer prop) 지원 */
 export interface ModalProps extends Omit<
@@ -96,66 +85,9 @@ const ModalRoot = ({
   ...props
 }: ModalProps) => {
   const dialogRef = useRef<HTMLDivElement>(null);
-  const previousActiveElementRef = useRef<HTMLElement | null>(null);
   const titleId = useId();
 
-  useEffect(() => {
-    if (!open) return;
-
-    previousActiveElementRef.current = getActiveHTMLElement();
-
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-
-    const focusableElements = getFocusableElements(dialog);
-    const firstFocusable = focusableElements[0];
-    const lastFocusable = focusableElements[focusableElements.length - 1];
-
-    if (firstFocusable) {
-      firstFocusable.focus();
-    } else {
-      dialog.setAttribute('tabindex', '-1');
-      dialog.focus();
-    }
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && closeOnEscape) {
-        onClose();
-        return;
-      }
-
-      if (e.key === 'Tab') {
-        if (focusableElements.length === 0) {
-          e.preventDefault();
-          return;
-        }
-
-        if (e.shiftKey) {
-          if (document.activeElement === firstFocusable) {
-            e.preventDefault();
-            lastFocusable?.focus();
-          }
-        } else {
-          if (document.activeElement === lastFocusable) {
-            e.preventDefault();
-            firstFocusable?.focus();
-          }
-        }
-      }
-    };
-
-    const removeKeyDownListener = addDocumentListener('keydown', handleKeyDown);
-    const restoreBodyScroll = lockBodyScroll();
-
-    return () => {
-      removeKeyDownListener();
-      restoreBodyScroll();
-
-      if (previousActiveElementRef.current) {
-        previousActiveElementRef.current.focus();
-      }
-    };
-  }, [open, closeOnEscape, onClose]);
+  useFocusTrap({ open, onClose, closeOnEscape, containerRef: dialogRef });
 
   const contextValue = useMemo(() => ({ onClose }), [onClose]);
 

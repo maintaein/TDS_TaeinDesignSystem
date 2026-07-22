@@ -1,11 +1,8 @@
 import {
-  useEffect,
   useRef,
   useState,
   useMemo,
   useId,
-  createContext,
-  useContext,
   forwardRef,
   type ReactNode,
   type HTMLAttributes,
@@ -31,30 +28,15 @@ import {
 } from './SideSheet.css';
 import { IconButton } from '../IconButton';
 import { Icon } from '../Icon';
-import {
-  addDocumentListener,
-  getActiveHTMLElement,
-  getFocusableElements,
-  lockBodyScroll,
-} from '../../_internal/dom';
+import { useFocusTrap } from '../../_internal/useFocusTrap';
+import { createOverlayContext } from '../../_internal/createOverlayContext';
 
 interface SideSheetContextValue {
   onClose: () => void;
 }
 
-const SideSheetContext = createContext<SideSheetContextValue | null>(null);
-
-const useSideSheetContext = () => {
-  const context = useContext(SideSheetContext);
-  if (process.env.NODE_ENV === 'development') {
-    if (!context) {
-      console.error(
-        'SideSheet 서브 컴포넌트는 SideSheet 내부에서 사용되어야 합니다'
-      );
-    }
-  }
-  return context;
-};
+const [SideSheetContext, useSideSheetContext] =
+  createOverlayContext<SideSheetContextValue>('SideSheet');
 
 /** 화면 좌/우에서 슬라이드되는 시트 컴포넌트. Compound 패턴(SideSheet.Header/Content) 또는 Flat 패턴(title prop) 지원 */
 export interface SideSheetProps extends Omit<
@@ -97,7 +79,6 @@ const SideSheetRoot = ({
   ...props
 }: SideSheetProps) => {
   const sheetRef = useRef<HTMLDivElement>(null);
-  const previousActiveElementRef = useRef<HTMLElement | null>(null);
   const titleId = useId();
 
   const [shouldRender, setShouldRender] = useState(open);
@@ -106,61 +87,7 @@ const SideSheetRoot = ({
     setShouldRender(true);
   }
 
-  // 접근성 및 스크롤 제어
-  useEffect(() => {
-    if (!open) return;
-
-    previousActiveElementRef.current = getActiveHTMLElement();
-    const sheet = sheetRef.current;
-    if (!sheet) return;
-
-    // 포커스 트랩 설정
-    const focusableElements = getFocusableElements(sheet);
-    if (focusableElements[0]) {
-      focusableElements[0].focus();
-    } else {
-      sheet.setAttribute('tabindex', '-1');
-      sheet.focus();
-    }
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && closeOnEscape) {
-        onClose();
-        return;
-      }
-
-      if (e.key === 'Tab') {
-        if (focusableElements.length === 0) {
-          e.preventDefault();
-          return;
-        }
-
-        const firstFocusable = focusableElements[0];
-        const lastFocusable = focusableElements[focusableElements.length - 1];
-
-        if (e.shiftKey) {
-          if (document.activeElement === firstFocusable) {
-            e.preventDefault();
-            lastFocusable?.focus();
-          }
-        } else {
-          if (document.activeElement === lastFocusable) {
-            e.preventDefault();
-            firstFocusable?.focus();
-          }
-        }
-      }
-    };
-
-    const removeKeyDownListener = addDocumentListener('keydown', handleKeyDown);
-    const restoreBodyScroll = lockBodyScroll();
-
-    return () => {
-      removeKeyDownListener();
-      restoreBodyScroll();
-      previousActiveElementRef.current?.focus();
-    };
-  }, [open, closeOnEscape, onClose]);
+  useFocusTrap({ open, onClose, closeOnEscape, containerRef: sheetRef });
 
   // 애니메이션 종료 처리
   const handleAnimationEnd = (e: React.AnimationEvent) => {
