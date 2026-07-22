@@ -10,6 +10,7 @@ describe('Snackbar', () => {
 
   afterEach(() => {
     vi.restoreAllMocks();
+    vi.useRealTimers();
   });
 
   describe('렌더링 테스트', () => {
