@@ -69,7 +69,7 @@ jobs:
 
       - name: 커버리지 리포트 업로드
         if: matrix.node-version == '20'
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v6
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./packages/core/coverage/coverage-final.json
