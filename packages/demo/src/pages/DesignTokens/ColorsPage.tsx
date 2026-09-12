@@ -32,6 +32,7 @@ const grayColors = [
   { name: 'gray-300', hex: '#E0E0E0', description: 'border.default' },
   { name: 'gray-400', hex: '#BDBDBD', description: 'text.disabled' },
   { name: 'gray-500', hex: '#9E9E9E', description: '' },
+  { name: 'gray-550', hex: '#878787', description: 'border.strong' },
   { name: 'gray-600', hex: '#717171', description: 'text.secondary' },
   { name: 'gray-700', hex: '#616161', description: '' },
   { name: 'gray-800', hex: '#424242', description: '' },
@@ -128,6 +129,13 @@ const roleColors: RoleColor[] = [
     onWhite: 1.32,
     onPaper: 1.26,
     usage: '장식적 구분선',
+  },
+  {
+    token: 'border.strong',
+    hex: '#878787',
+    onWhite: 3.59,
+    onPaper: 3.44,
+    usage: '정보를 전달하는 경계선 (1.4.11 통과)',
   },
   {
     token: 'success.main',

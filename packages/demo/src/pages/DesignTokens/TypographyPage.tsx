@@ -2,6 +2,7 @@ import { CodeBlock } from '../../components/CodeBlock';
 import * as styles from './TypographyPage.css';
 
 const fontSizes = [
+  { name: '2xs', value: '0.625rem', px: '10px' },
   { name: 'xs', value: '0.75rem', px: '12px' },
   { name: 'sm', value: '0.875rem', px: '14px' },
   { name: 'base', value: '1rem', px: '16px' },
@@ -21,6 +22,12 @@ const fontWeights = [
 
 // 같은 자릿수의 숫자를 세로로 쌓아 정렬이 어긋나는지 눈으로 비교한다.
 const numericSamples = ['1,111,111', '8,888,888', '1,010,101', '9,999,999'];
+
+const letterSpacings = [
+  { name: 'tight', value: '-0.02em', description: '좁은 열의 숫자' },
+  { name: 'normal', value: '0', description: '본문 기본값' },
+  { name: 'wide', value: '0.04em', description: '짧은 대문자 라벨 (Badge)' },
+];
 
 const lineHeights = [
   { name: 'tight', value: '1.25', description: '제목, 헤드라인' },
@@ -132,6 +139,33 @@ export function TypographyPage() {
                 The quick brown fox jumps over the lazy dog
               </p>
               <p className={styles.weightDescription}>{weight.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Line Height */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>Letter Spacing</h2>
+        <p className={styles.sectionDescription}>
+          숫자 열은 좁을 때 tight가 읽기 쉽고, 짧은 대문자 라벨은 기본 자간에서
+          글자가 뭉쳐 wide가 필요합니다.
+        </p>
+
+        <div className={styles.lineHeightGrid}>
+          {letterSpacings.map((ls) => (
+            <div key={ls.name} className={styles.lineHeightCard}>
+              <div className={styles.lineHeightHeader}>
+                <span className={styles.lineHeightName}>{ls.name}</span>
+                <span className={styles.lineHeightValue}>{ls.value}</span>
+              </div>
+              <p
+                className={styles.lineHeightSample}
+                style={{ letterSpacing: ls.value }}
+              >
+                RISK_REJECTED 1,234,567
+              </p>
+              <p className={styles.lineHeightDescription}>{ls.description}</p>
             </div>
           ))}
         </div>
