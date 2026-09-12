@@ -7,6 +7,8 @@ export const badge = style({
   justifyContent: 'center',
   fontFamily: themeContract.font.family.sans,
   fontWeight: themeContract.font.weight.semibold,
+  // 짧은 대문자 라벨(SIZED, RISK_REJECTED 등)은 기본 자간에서 글자가 뭉친다.
+  letterSpacing: themeContract.font.letterSpacing.wide,
   borderRadius: '12px',
   whiteSpace: 'nowrap',
   transition: `all ${themeContract.animation.duration.base} ${themeContract.animation.easing.easeInOut}`,
@@ -43,19 +45,19 @@ export const variantStyles = styleVariants({
 
 export const sizeStyles = styleVariants({
   sm: {
-    fontSize: '0.625rem',
+    fontSize: themeContract.font.size['2xs'],
     padding: '2px 6px',
     minWidth: '16px',
     height: '16px',
   },
   md: {
-    fontSize: '0.75rem',
+    fontSize: themeContract.font.size.xs,
     padding: '3px 8px',
     minWidth: '20px',
     height: '20px',
   },
   lg: {
-    fontSize: '0.875rem',
+    fontSize: themeContract.font.size.sm,
     padding: '4px 10px',
     minWidth: '24px',
     height: '24px',

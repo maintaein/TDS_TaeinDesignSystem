@@ -155,7 +155,7 @@ export const closeButton = style({
   border: 'none',
   background: 'transparent',
   color: 'inherit',
-  fontSize: '16px',
+  fontSize: themeContract.font.size.base,
   lineHeight: 1,
   cursor: 'pointer',
   opacity: 0.8,
