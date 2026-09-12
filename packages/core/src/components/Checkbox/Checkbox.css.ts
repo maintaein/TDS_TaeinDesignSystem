@@ -62,7 +62,7 @@ export const checkbox = style({
 export const checkmark = style({
   width: '100%',
   height: '100%',
-  border: `2px solid ${themeContract.color.border.default}`,
+  border: `2px solid ${themeContract.color.text.secondary}`,
   borderRadius: '4px',
   backgroundColor: themeContract.color.background.paper,
   transition: 'all 150ms ease-in-out',
@@ -73,7 +73,7 @@ export const checkmark = style({
 
   selectors: {
     '&:hover': {
-      borderColor: themeContract.color.text.disabled,
+      borderColor: themeContract.color.text.primary,
     },
 
     'input:checked + &': {

@@ -28,7 +28,7 @@ export const size = styleVariants({
 export const input = style({
   width: '100%',
   padding: '0 1rem',
-  border: `1px solid ${themeContract.color.border.default}`,
+  border: `1px solid ${themeContract.color.text.secondary}`,
   borderRadius: '8px',
   backgroundColor: themeContract.color.background.paper,
   color: themeContract.color.text.primary,
@@ -38,18 +38,23 @@ export const input = style({
 
   selectors: {
     '&::placeholder': {
-      color: themeContract.color.text.disabled,
+      color: themeContract.color.text.secondary,
     },
     '&:hover:not(:disabled)': {
-      borderColor: themeContract.color.text.disabled,
+      borderColor: themeContract.color.primary.main,
     },
     '&:disabled': {
       backgroundColor: themeContract.color.surface.default,
       color: themeContract.color.text.disabled,
+      borderColor: themeContract.color.border.default,
       cursor: 'not-allowed',
+    },
+    '&:disabled::placeholder': {
+      color: themeContract.color.text.disabled,
     },
     '&:read-only': {
       backgroundColor: themeContract.color.surface.default,
+      borderColor: themeContract.color.border.default,
       cursor: 'default',
     },
   },

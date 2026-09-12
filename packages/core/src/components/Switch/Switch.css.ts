@@ -64,7 +64,7 @@ const baseSizeContainer = {
 export const size = styleVariants(baseSizeContainer, (baseStyle) => [
   baseStyle,
   {
-    backgroundColor: themeContract.color.border.default,
+    backgroundColor: themeContract.color.text.secondary,
     border: '2px solid transparent',
     transition: 'all 150ms ease-in-out',
     position: 'relative',
@@ -90,34 +90,37 @@ export const size = styleVariants(baseSizeContainer, (baseStyle) => [
 ]);
 
 // Thumb Size Variants
-export const thumbSize = styleVariants({
-  sm: { width: '16px', height: '16px', offset: '14px' },
-  md: { width: '20px', height: '20px', offset: '18px' },
-  lg: { width: '24px', height: '24px', offset: '22px' },
-}, (config) => ({
-  position: 'absolute',
-  top: '50%',
-  left: '2px',
-  transform: 'translateY(-50%)',
-  width: config.width,
-  height: config.height,
-  borderRadius: '50%',
-  backgroundColor: themeContract.color.background.paper,
-  transition: 'all 150ms ease-in-out',
-  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-
-  selectors: {
-    [`input:checked + &`]: {
-      transform: `translate(${config.offset}, -50%)`,
-    },
-
-    [`input:disabled + &`]: {
-      backgroundColor: themeContract.color.background.paper,
-      boxShadow: 'none',
-      opacity: 0.8,
-    },
+export const thumbSize = styleVariants(
+  {
+    sm: { width: '16px', height: '16px', offset: '14px' },
+    md: { width: '20px', height: '20px', offset: '18px' },
+    lg: { width: '24px', height: '24px', offset: '22px' },
   },
-}));
+  (config) => ({
+    position: 'absolute',
+    top: '50%',
+    left: '2px',
+    transform: 'translateY(-50%)',
+    width: config.width,
+    height: config.height,
+    borderRadius: '50%',
+    backgroundColor: themeContract.color.background.paper,
+    transition: 'all 150ms ease-in-out',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+
+    selectors: {
+      [`input:checked + &`]: {
+        transform: `translate(${config.offset}, -50%)`,
+      },
+
+      [`input:disabled + &`]: {
+        backgroundColor: themeContract.color.background.paper,
+        boxShadow: 'none',
+        opacity: 0.8,
+      },
+    },
+  })
+);
 
 // Error State
 export const error = style({
