@@ -21,18 +21,24 @@ export const gray = {
   300: '#E0E0E0',
   400: '#BDBDBD',
   500: '#9E9E9E',
-  600: '#757575',
+  // text.secondary가 쓰는 값. Material의 #757575는 흰 배경에서 4.60:1로 AA를
+  // 통과하지만 background.paper(#FAFAFA) 위에서는 4.41:1로 미달한다. Card 안의
+  // 보조 텍스트가 조용히 기준을 밑돌지 않게 한 단계 어둡게 잡았다(4.88/4.67).
+  600: '#717171',
   700: '#616161',
   800: '#424242',
   900: '#212121',
 } as const;
 
 // Semantic 색상
+// 500/700은 배경·UI 요소용(대비 3:1 기준), 800은 흰 배경 위 본문 텍스트용
+// (대비 4.5:1 기준)이다. 500번대를 텍스트로 쓰면 AA를 통과하지 못한다.
 export const success = {
   50: '#E8F5E9',
   100: '#C8E6C9',
   500: '#4CAF50',
   700: '#388E3C',
+  800: '#2E7D32',
 } as const;
 
 export const warning = {
@@ -40,6 +46,7 @@ export const warning = {
   100: '#FFE0B2',
   500: '#FF9800',
   700: '#F57C00',
+  800: '#A65200',
 } as const;
 
 export const error = {
