@@ -85,9 +85,9 @@ TDS uses a theme contract (`themeContract`) for consistent styling. 라이트 �
 테마이며 `:root`의 전역 CSS 변수로 선언된다 (`ThemeProvider`·다크 테마 없음).
 
 - **Color** — primary, text (primary/secondary/disabled), background, surface, border, semantic (success/warning/error/info)
-  semantic은 main(UI, 3:1) / light(배경) / dark(본문 텍스트, 4.5:1) / contrast 4슬롯
+  semantic은 main(면, contrast와 4.5:1) / light(배경) / dark(본문 텍스트·단독 도형, 4.5:1) / contrast 4슬롯
 - **Spacing** — 8pt grid, 12단계 (0.25rem = 4px ~ 5rem = 80px). 중간 번호는 비어 있음
-- **Typography** — sizes 8단계 (xs ~ 4xl), weights, line heights, variantNumeric(tabular-nums)
+- **Typography** — sizes 9단계 (2xs ~ 4xl), weights, line heights, variantNumeric(tabular-nums)
 - **Border Radius** — none, sm, base, md, lg, xl, full
 - **Shadow** — none, sm, base, md, lg, xl, 2xl, inner
 - **Animation** — durations (fast/base/slow/slower), easings
@@ -122,7 +122,8 @@ TDS uses a theme contract (`themeContract`) for consistent styling. 라이트 �
 - Target size: WCAG 2.2 AA(2.5.8)의 최소 요구치는 **24x24 CSS px**이고
   44x44는 AAA(2.5.5) 수준의 TDS 자체 권장치다. 인터랙티브 컴포넌트는 기본으로
   44x44를 확보하되, 좁은 화면에서 줄일 때 24x24가 AA 하한선이다.
-- `prefers-reduced-motion: reduce`에서 모든 애니메이션 duration이 0.01ms가 된다
+- `prefers-reduced-motion: reduce`에서 duration 토큰과 전역 `*` 규칙이 함께
+  적용돼 애니메이션·트랜지션이 멈춘다 (무한 반복도 1회로 끊긴다)
 
 ## Links
 

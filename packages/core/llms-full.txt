@@ -1091,15 +1091,19 @@ TDS uses `themeContract` for type-safe, theme-aware styling. 테마는 라이트
 - `themeContract.color.surface.default` — #FFFFFF — 표면 기본
 - `themeContract.color.surface.hover` — #F5F5F5 — 표면 hover
 - `themeContract.color.surface.active` — #EEEEEE — 표면 active
-- `themeContract.color.border.default` — #E0E0E0 — 흰 배경 대비 1.32:1 — UI 요소 기준 3:1 미달이므로 구분선·비활성 테두리처럼 정보를 전달하지 않는 자리에만 쓴다. 폼 컨트롤 테두리는 `text.secondary`를 쓴다
+- `themeContract.color.border.default` — #E0E0E0 — 흰 배경 대비 1.32:1 — UI 요소 기준 3:1 미달이므로 구분선·비활성 테두리처럼 정보를 전달하지 않는 자리에만 쓴다. 경계가 정보를 전달하면 `border.strong`
+- `themeContract.color.border.strong` — #878787 — 흰 배경 대비 3.59:1 — 1.4.11의 3:1을 넘긴다. 폼 컨트롤·카드 경계처럼 있고 없고가 의미를 바꾸는 자리에 쓴다
 - `themeContract.color.border.focus` — #1976D2 — 포커스 링 색
 
 ### Color — Semantic
 
 Semantic 색상은 역할별 4슬롯이다. 슬롯을 바꿔 쓰면 대비가 깨진다:
-- `main` — 배경·아이콘 등 UI 요소용 (기준 3:1). **본문 텍스트로 쓰지 말 것**
+- `main` — 글자(`contrast`)를 얹는 면. 판정 기준은 페이지 배경이 아니라
+  `contrast`와의 대비 4.5:1이다. 배경과의 3:1은 보장 대상이 아니다
+  (`success.main` 2.77, `warning.main` 2.15). **본문 텍스트로 쓰지 말 것**
 - `light` — 연한 배경용. 위에는 `color.text.primary`를 얹는다
-- `dark` — 흰 배경 위 본문 텍스트용 (기준 4.5:1)
+- `dark` — 흰 배경 위 본문 텍스트용 (기준 4.5:1). 글자를 얹지 않는 도형
+  (아이콘 단독·차트 마커·상태 점)도 이 슬롯을 쓴다 — 1.4.11의 3:1을 넘긴다
 - `contrast` — `main` 위에 얹는 글자색
 
 - `themeContract.color.success.main` — #4CAF50 — 2.77:1 on white / 2.66:1 on paper — decorative only — fails AA
@@ -1137,7 +1141,7 @@ Semantic 색상은 역할별 4슬롯이다. 슬롯을 바꿔 쓰면 대비가 �
 ### Typography
 - `font.family.sans` — "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif
 - `font.family.mono` — "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace
-- `font.size` — xs (0.75rem = 12px), sm (0.875rem = 14px), base (1rem = 16px), lg (1.125rem = 18px), xl (1.25rem = 20px), 2xl (1.5rem = 24px), 3xl (1.875rem = 30px), 4xl (2.25rem = 36px)
+- `font.size` — 2xs (0.625rem = 10px), xs (0.75rem = 12px), sm (0.875rem = 14px), base (1rem = 16px), lg (1.125rem = 18px), xl (1.25rem = 20px), 2xl (1.5rem = 24px), 3xl (1.875rem = 30px), 4xl (2.25rem = 36px)
 - `font.weight` — regular (400), medium (500), semibold (600), bold (700)
 - `font.lineHeight` — tight (1.25), normal (1.5), relaxed (1.75)
 - `font.variantNumeric` — normal (normal), tabular (tabular-nums)
@@ -1153,8 +1157,10 @@ Semantic 색상은 역할별 4슬롯이다. 슬롯을 바꿔 쓰면 대비가 �
 ### Animation
 - `animation.duration` — fast (150ms), base (200ms), slow (300ms), slower (500ms)
 - `animation.easing` — ease (ease), easeIn (ease-in), easeOut (ease-out), easeInOut (ease-in-out), linear (linear)
-- `prefers-reduced-motion: reduce`이면 네 duration이 모두 `0.01ms`로 덮어써진다.
-  컴포넌트가 토큰을 쓰면 별도 처리 없이 따라온다.
+- `prefers-reduced-motion: reduce`이면 네 duration이 모두 `0.01ms`로 덮어써지고,
+  전역 규칙이 `*, *::before, *::after`의 animation/transition duration과
+  반복 횟수까지 함께 내린다. 토큰을 안 쓰고 초를 리터럴로 박은 애니메이션
+  (Skeleton의 무한 wave/pulse 등)도 멈춘다.
 
 ### Z-Index
 - `themeContract.zIndex` — base (0), dropdown (1000), sticky (1100), overlay (1200), modal (1300), popover (1400), toast (1500), tooltip (1600)
@@ -1245,5 +1251,11 @@ All components follow WCAG 2.2 AA standards:
 
 ### Reduced motion
 
-- `prefers-reduced-motion: reduce`에서 `animation.duration` 네 값이 모두
-  `0.01ms`로 덮어써진다. 컴포넌트가 duration 토큰을 쓰면 별도 처리 없이 따라온다.
+- `prefers-reduced-motion: reduce`에서 두 겹으로 처리된다.
+  1. `animation.duration` 네 값이 `0.01ms`로 덮어써진다. duration 토큰을 쓰는
+     컴포넌트와, 그 토큰을 참조하는 소비자 스타일이 함께 따라온다.
+  2. 전역 규칙이 `*, *::before, *::after`의 `animation-duration` ·
+     `transition-duration`을 `0.01ms`로, `animation-iteration-count`를 `1`로
+     내린다. 토큰을 안 쓰고 초를 리터럴로 박은 애니메이션도 여기서 멈춘다.
+- 2번이 필요한 이유는 무한 반복 애니메이션이다. `Skeleton`의 wave/pulse는
+  `infinite`라 duration만 줄이면 더 빨리 깜빡일 뿐 멈추지 않는다.

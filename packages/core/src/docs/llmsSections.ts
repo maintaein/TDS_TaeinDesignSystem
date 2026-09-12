@@ -132,9 +132,12 @@ const SEMANTIC_NAMES = ['success', 'warning', 'error', 'info'] as const;
 export function renderTokenReference(): string {
   const semanticNote = [
     'Semantic 색상은 역할별 4슬롯이다. 슬롯을 바꿔 쓰면 대비가 깨진다:',
-    '- `main` — 배경·아이콘 등 UI 요소용 (기준 3:1). **본문 텍스트로 쓰지 말 것**',
+    '- `main` — 글자(`contrast`)를 얹는 면. 판정 기준은 페이지 배경이 아니라',
+    '  `contrast`와의 대비 4.5:1이다. 배경과의 3:1은 보장 대상이 아니다',
+    '  (`success.main` 2.77, `warning.main` 2.15). **본문 텍스트로 쓰지 말 것**',
     '- `light` — 연한 배경용. 위에는 `color.text.primary`를 얹는다',
-    '- `dark` — 흰 배경 위 본문 텍스트용 (기준 4.5:1)',
+    '- `dark` — 흰 배경 위 본문 텍스트용 (기준 4.5:1). 글자를 얹지 않는 도형',
+    '  (아이콘 단독·차트 마커·상태 점)도 이 슬롯을 쓴다 — 1.4.11의 3:1을 넘긴다',
     '- `contrast` — `main` 위에 얹는 글자색',
   ].join('\n');
 
@@ -201,7 +204,18 @@ export function renderTokenReference(): string {
         color.border.default,
         color.background.default
       ).toFixed(2)}:1 — UI 요소 기준 3:1 미달이므로 구분선·비활성 테두리처럼 ` +
-        '정보를 전달하지 않는 자리에만 쓴다. 폼 컨트롤 테두리는 `text.secondary`를 쓴다'
+        '정보를 전달하지 않는 자리에만 쓴다. 경계가 정보를 전달하면 `border.strong`'
+    ),
+    plainLine(
+      'themeContract.color.border.strong',
+      color.border.strong,
+      `흰 배경 대비 ${contrastRatio(
+        color.border.strong,
+        color.background.default
+      ).toFixed(
+        2
+      )}:1 — 1.4.11의 3:1을 넘긴다. 폼 컨트롤·카드 경계처럼 있고 없고가 ` +
+        '의미를 바꾸는 자리에 쓴다'
     ),
     plainLine(
       'themeContract.color.border.focus',
@@ -249,8 +263,10 @@ export function renderTokenReference(): string {
     '### Animation',
     `- \`animation.duration\` — ${scaleLines(animation.duration)}`,
     `- \`animation.easing\` — ${scaleLines(animation.easing)}`,
-    '- `prefers-reduced-motion: reduce`이면 네 duration이 모두 `0.01ms`로 덮어써진다.',
-    '  컴포넌트가 토큰을 쓰면 별도 처리 없이 따라온다.',
+    '- `prefers-reduced-motion: reduce`이면 네 duration이 모두 `0.01ms`로 덮어써지고,',
+    '  전역 규칙이 `*, *::before, *::after`의 animation/transition duration과',
+    '  반복 횟수까지 함께 내린다. 토큰을 안 쓰고 초를 리터럴로 박은 애니메이션',
+    '  (Skeleton의 무한 wave/pulse 등)도 멈춘다.',
     '',
     '### Z-Index',
     `- \`themeContract.zIndex\` — ${scaleLines(zIndex)}`,
@@ -283,7 +299,7 @@ export function renderTokenSummary(): string {
     '테마이며 `:root`의 전역 CSS 변수로 선언된다 (`ThemeProvider`·다크 테마 없음).',
     '',
     `- **Color** — primary, text (${Object.keys(color.text).join('/')}), background, surface, border, semantic (${SEMANTIC_NAMES.join('/')})`,
-    '  semantic은 main(UI, 3:1) / light(배경) / dark(본문 텍스트, 4.5:1) / contrast 4슬롯',
+    '  semantic은 main(면, contrast와 4.5:1) / light(배경) / dark(본문 텍스트·단독 도형, 4.5:1) / contrast 4슬롯',
     `- **Spacing** — 8pt grid, 12단계 (${spacing[1]} = 4px ~ ${spacing[20]} = 80px). 중간 번호는 비어 있음`,
     `- **Typography** — sizes ${sizeKeys.length}단계 (${sizeKeys[0]} ~ ${sizeKeys[sizeKeys.length - 1]}), weights, line heights, variantNumeric(tabular-nums)`,
     `- **Border Radius** — ${Object.keys(borderRadius).join(', ')}`,

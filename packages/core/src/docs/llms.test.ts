@@ -117,6 +117,7 @@ describe('발행 문서와 소스 일치 검사', () => {
 
   it('삭제된 API를 쓰도록 안내하거나 없는 토큰 경로를 적지 않는다', () => {
     // v0.1.0 문서가 실제로 안내하던, 지금은 undefined를 반환하는 경로들.
+    // `border.strong`은 이 목록에 있었으나 실제 토큰으로 추가되면서 빠졌다.
     // API 이름은 "쓰는 형태"만 금지한다. 문서에는 "ThemeProvider는 없다"처럼
     // 없다고 알리는 문장이 있어야 하므로 이름 자체를 금지하면 안 된다.
     const removed = [
@@ -125,7 +126,6 @@ describe('발행 문서와 소스 일치 검사', () => {
       'createTheme(',
       'useTheme(',
       'color.semantic.',
-      'border.strong',
       'duration.normal',
       'spacing[11]',
     ];
