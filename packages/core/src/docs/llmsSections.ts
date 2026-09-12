@@ -1,0 +1,332 @@
+/**
+ * llms.txt / llms-full.txt의 토큰 문서를 소스에서 생성한다.
+ *
+ * 이 파일이 존재하는 이유: 토큰 문서를 손으로 적으면 반드시 어긋난다.
+ * 실제로 발행된 v0.1.0 문서에는 `color.semantic.success`, `color.border.strong`,
+ * `duration.normal`처럼 계약에 없는 경로가 적혀 있었고 borderRadius 값 4개가
+ * 전부 틀렸다. 문서를 보고 코드를 쓴 소비자는 `undefined`를 받는다.
+ *
+ * `themeContract`를 읽으면 값이 아니라 `var(--...)` 문자열이 나오므로
+ * 값의 출처인 `themeTokens`(tokens/contract.ts)를 직접 읽는다.
+ *
+ * 이 모듈은 `src/index.ts`에서 export하지 않는다. 빌드 진입점에서 도달할 수
+ * 없으므로 dist에 포함되지 않고 공개 API 표면이나 컴포넌트 개수에도 영향이 없다.
+ */
+import { themeTokens } from '../tokens/contract';
+import { breakpoint, mediaQuery } from '../tokens/breakpoints.css';
+
+/** 대비 계산의 상대편으로 쓰는 기준 배경색 */
+const WHITE = themeTokens.color.background.default;
+const PAPER = themeTokens.color.background.paper;
+
+/** WCAG 2.2 본문 텍스트 최소 대비 */
+export const AA_TEXT = 4.5;
+/** WCAG 2.2 UI 요소·큰 텍스트 최소 대비 */
+export const AA_UI = 3;
+
+function channelLuminance(value: number): number {
+  const c = value / 255;
+  return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+}
+
+/** WCAG 2.1 상대 휘도. hex는 `#RGB` 또는 `#RRGGBB`. */
+export function relativeLuminance(hex: string): number {
+  const raw = hex.replace('#', '');
+  const full =
+    raw.length === 3
+      ? raw
+          .split('')
+          .map((c) => c + c)
+          .join('')
+      : raw;
+  const [r, g, b] = [0, 2, 4].map((i) =>
+    channelLuminance(parseInt(full.slice(i, i + 2), 16))
+  );
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+/** 두 색의 WCAG 대비비(1~21). 둘째 자리에서 내림해 과대 보고를 막는다. */
+export function contrastRatio(fg: string, bg: string): number {
+  const [lighter, darker] = [relativeLuminance(fg), relativeLuminance(bg)].sort(
+    (a, b) => b - a
+  );
+  const ratio = (lighter + 0.05) / (darker + 0.05);
+  return Math.floor(ratio * 100) / 100;
+}
+
+function ratioLabel(fg: string): string {
+  const onWhite = contrastRatio(fg, WHITE);
+  const onPaper = contrastRatio(fg, PAPER);
+  // 판정은 더 불리한 쪽(paper)을 기준으로 한다. 흰 배경만 보고 통과라고
+  // 적으면 Card 위에서 조용히 기준을 밑돈다.
+  const verdict =
+    onPaper >= AA_TEXT
+      ? 'AA text'
+      : onPaper >= AA_UI
+        ? 'AA UI only — not for body text'
+        : 'decorative only — fails AA';
+  return `${onWhite.toFixed(2)}:1 on white / ${onPaper.toFixed(2)}:1 on paper — ${verdict}`;
+}
+
+/**
+ * 슬롯의 역할에 맞는 대비만 적는다.
+ *
+ * 배경용 슬롯(`light`, `background.*`, `surface.*`)에 "흰 배경 위 텍스트 대비"를
+ * 붙이면 숫자는 맞아도 무의미하고, `contrast`는 흰 배경이 아니라 `main` 위에
+ * 얹히는 색이다. 역할과 다른 기준으로 판정한 줄이 섞이면 문서가 오히려
+ * 오해를 만든다.
+ */
+function foregroundLine(path: string, hex: string): string {
+  return `- \`${path}\` — ${hex} — ${ratioLabel(hex)}`;
+}
+
+function plainLine(path: string, hex: string, note: string): string {
+  return `- \`${path}\` — ${hex} — ${note}`;
+}
+
+/** semantic 4슬롯 한 벌. 슬롯마다 기준이 다르므로 따로 만든다. */
+function semanticLines(name: string, slots: Record<string, string>): string[] {
+  const base = `themeContract.color.${name}`;
+  const onLight = contrastRatio(color.text.primary, slots.light).toFixed(2);
+  const onMain = contrastRatio(slots.contrast, slots.main).toFixed(2);
+  return [
+    foregroundLine(`${base}.main`, slots.main),
+    plainLine(
+      `${base}.light`,
+      slots.light,
+      `배경용 — 위에 \`text.primary\`를 얹으면 ${onLight}:1`
+    ),
+    foregroundLine(`${base}.dark`, slots.dark),
+    plainLine(
+      `${base}.contrast`,
+      slots.contrast,
+      `\`${name}.main\` 위 글자색 — ${onMain}:1`
+    ),
+  ];
+}
+
+function scaleLines(entries: Record<string, string>): string {
+  return Object.entries(entries)
+    .map(([key, value]) => `${key} (${value})`)
+    .join(', ');
+}
+
+/** rem 값에 16px 기준 px 환산을 덧붙인다. */
+function withPx(entries: Record<string, string>): string {
+  return Object.entries(entries)
+    .map(([key, value]) => {
+      const rem = value.endsWith('rem') ? parseFloat(value) * 16 : null;
+      return rem === null
+        ? `${key} (${value})`
+        : `${key} (${value} = ${rem}px)`;
+    })
+    .join(', ');
+}
+
+const { color, spacing, borderRadius, shadow, font, animation, zIndex } =
+  themeTokens;
+
+const SEMANTIC_NAMES = ['success', 'warning', 'error', 'info'] as const;
+
+/** llms-full.txt의 `## Design Tokens` 본문 */
+export function renderTokenReference(): string {
+  const semanticNote = [
+    'Semantic 색상은 역할별 4슬롯이다. 슬롯을 바꿔 쓰면 대비가 깨진다:',
+    '- `main` — 배경·아이콘 등 UI 요소용 (기준 3:1). **본문 텍스트로 쓰지 말 것**',
+    '- `light` — 연한 배경용. 위에는 `color.text.primary`를 얹는다',
+    '- `dark` — 흰 배경 위 본문 텍스트용 (기준 4.5:1)',
+    '- `contrast` — `main` 위에 얹는 글자색',
+  ].join('\n');
+
+  return [
+    'TDS uses `themeContract` for type-safe, theme-aware styling. 테마는 라이트',
+    '단일 테마 하나뿐이며 `:root`에 전역 CSS 변수로 선언된다. `ThemeProvider`,',
+    '`useTheme`, `createTheme`, 다크 테마는 존재하지 않는다 — import하면 실패한다.',
+    '',
+    '아래 값과 대비비는 모두 소스(`tokens/contract.ts`)에서 생성되므로 코드와',
+    '어긋날 수 없다.',
+    '',
+    '### Color — Brand & Neutral',
+    '',
+    '판정 기준은 흰 배경이 아니라 더 불리한 `background.paper`다.',
+    '',
+    foregroundLine('themeContract.color.primary.main', color.primary.main),
+    foregroundLine('themeContract.color.primary.light', color.primary.light),
+    foregroundLine('themeContract.color.primary.dark', color.primary.dark),
+    plainLine(
+      'themeContract.color.primary.contrast',
+      color.primary.contrast,
+      `\`primary.main\` 위 글자색 — ${contrastRatio(
+        color.primary.contrast,
+        color.primary.main
+      ).toFixed(2)}:1`
+    ),
+    foregroundLine('themeContract.color.text.primary', color.text.primary),
+    foregroundLine('themeContract.color.text.secondary', color.text.secondary),
+    plainLine(
+      'themeContract.color.text.disabled',
+      color.text.disabled,
+      '비활성 표시용. 대비가 낮으므로 색만으로 상태를 전달하지 않는다 ' +
+        '(`disabled`/`aria-disabled`를 함께 쓴다)'
+    ),
+    plainLine(
+      'themeContract.color.background.default',
+      color.background.default,
+      '페이지 배경'
+    ),
+    plainLine(
+      'themeContract.color.background.paper',
+      color.background.paper,
+      '카드·패널 배경. 대비 판정의 기준 배경이다'
+    ),
+    plainLine(
+      'themeContract.color.surface.default',
+      color.surface.default,
+      '표면 기본'
+    ),
+    plainLine(
+      'themeContract.color.surface.hover',
+      color.surface.hover,
+      '표면 hover'
+    ),
+    plainLine(
+      'themeContract.color.surface.active',
+      color.surface.active,
+      '표면 active'
+    ),
+    plainLine(
+      'themeContract.color.border.default',
+      color.border.default,
+      `흰 배경 대비 ${contrastRatio(
+        color.border.default,
+        color.background.default
+      ).toFixed(2)}:1 — UI 요소 기준 3:1 미달이므로 구분선·비활성 테두리처럼 ` +
+        '정보를 전달하지 않는 자리에만 쓴다. 폼 컨트롤 테두리는 `text.secondary`를 쓴다'
+    ),
+    plainLine(
+      'themeContract.color.border.focus',
+      color.border.focus,
+      '포커스 링 색'
+    ),
+    '',
+    '### Color — Semantic',
+    '',
+    semanticNote,
+    '',
+    ...SEMANTIC_NAMES.flatMap((name) => semanticLines(name, color[name])),
+    '',
+    `\`color.info\`는 값이 \`color.primary\`와 같다(${color.info.main}). 의도한 것이며`,
+    '정보 알림을 브랜드 블루로 표현한다. 그래도 `primary`를 빌려 쓰지 말고 `info`를',
+    '쓴다 — 브랜드 색을 바꿀 때 알림 색이 따라 바뀌지 않으려면 어휘가 분리되어',
+    '있어야 한다.',
+    '',
+    '### Color — Raw Palette',
+    '`themeContract.palette.{primary,gray,error}[50..900]` — hover/active처럼 4슬롯으로',
+    '표현되지 않는 미세 단계가 필요할 때만 쓴다. 역할이 있는 자리에는 위의 역할',
+    '토큰을 쓴다.',
+    '',
+    '### Spacing (8pt grid)',
+    `- \`themeContract.spacing[n]\` — ${withPx(spacing)}`,
+    '- 12단계에서 닫혀 있다. `spacing[7]`, `[9]`, `[11]`, `[13]`–`[15]`, `[17]`–`[19]`는',
+    '  정의되지 않았고 `undefined`를 반환한다. 최대값은 80px이다.',
+    '',
+    '### Typography',
+    `- \`font.family.sans\` — ${font.family.sans}`,
+    `- \`font.family.mono\` — ${font.family.mono}`,
+    `- \`font.size\` — ${withPx(font.size)}`,
+    `- \`font.weight\` — ${scaleLines(font.weight)}`,
+    `- \`font.lineHeight\` — ${scaleLines(font.lineHeight)}`,
+    `- \`font.variantNumeric\` — ${scaleLines(font.variantNumeric)}`,
+    '  숫자를 세로로 비교하는 표·지표에는 `tabular`를 쓴다. 비례 폰트는 `1`이 `8`보다',
+    '  좁아서 자릿수가 행마다 어긋난다. `Text`는 `tabularNums` prop으로 노출한다.',
+    '',
+    '### Border Radius',
+    `- \`themeContract.borderRadius\` — ${withPx(borderRadius)}`,
+    '',
+    '### Shadow',
+    `- \`themeContract.shadow\` — ${Object.keys(shadow).join(', ')}`,
+    '',
+    '### Animation',
+    `- \`animation.duration\` — ${scaleLines(animation.duration)}`,
+    `- \`animation.easing\` — ${scaleLines(animation.easing)}`,
+    '- `prefers-reduced-motion: reduce`이면 네 duration이 모두 `0.01ms`로 덮어써진다.',
+    '  컴포넌트가 토큰을 쓰면 별도 처리 없이 따라온다.',
+    '',
+    '### Z-Index',
+    `- \`themeContract.zIndex\` — ${scaleLines(zIndex)}`,
+    '- 층 이름으로 참조한다. 숫자를 직접 쓰면 소비자가 자기 오버레이를 안전하게',
+    '  얹을 값을 알 수 없다.',
+    '- `sticky` HeaderBar · `overlay` 배경 딤 · `modal` Modal/BottomSheet/SideSheet/',
+    '  Loader(fullScreen) · `popover` Popover · `toast` Snackbar · `tooltip` Tooltip.',
+    '- `popover`/`tooltip`/`toast`가 `modal`보다 위인 것은 의도다. 모달 안에서 툴팁을',
+    '  띄우거나 모달 위에 Snackbar를 올리는 조합이 흔하다.',
+    '',
+    '### Breakpoints',
+    `- \`breakpoint\` — ${Object.entries(breakpoint)
+      .map(([k, v]) => `${k} (${v}px)`)
+      .join(', ')}`,
+    `- \`mediaQuery.up.md\` — \`${mediaQuery.up.md}\``,
+    `- \`mediaQuery.down.md\` — \`${mediaQuery.down.md}\``,
+    '- `themeContract`에 없다. CSS 변수는 `@media` 조건에서 동작하지 않으므로',
+    '  (`@media (min-width: var(--x))`는 무효) 브레이크포인트는 빌드 타임 상수이며',
+    '  테마로 바꿀 수 없다. `mediaQuery`를 import해 `.css.ts`의 `@media` 키에 그대로',
+    '  넣는다. `down`이 1px이 아니라 0.02px을 빼는 것은 소수 픽셀 폭에서 `up`과',
+    '  사이에 틈이 생기지 않게 하기 위함이다.',
+  ].join('\n');
+}
+
+/** llms.txt의 `## Design Tokens` 본문 (요약판) */
+export function renderTokenSummary(): string {
+  const sizeKeys = Object.keys(font.size);
+  return [
+    'TDS uses a theme contract (`themeContract`) for consistent styling. 라이트 단일',
+    '테마이며 `:root`의 전역 CSS 변수로 선언된다 (`ThemeProvider`·다크 테마 없음).',
+    '',
+    `- **Color** — primary, text (${Object.keys(color.text).join('/')}), background, surface, border, semantic (${SEMANTIC_NAMES.join('/')})`,
+    '  semantic은 main(UI, 3:1) / light(배경) / dark(본문 텍스트, 4.5:1) / contrast 4슬롯',
+    `- **Spacing** — 8pt grid, 12단계 (${spacing[1]} = 4px ~ ${spacing[20]} = 80px). 중간 번호는 비어 있음`,
+    `- **Typography** — sizes ${sizeKeys.length}단계 (${sizeKeys[0]} ~ ${sizeKeys[sizeKeys.length - 1]}), weights, line heights, variantNumeric(tabular-nums)`,
+    `- **Border Radius** — ${Object.keys(borderRadius).join(', ')}`,
+    `- **Shadow** — ${Object.keys(shadow).join(', ')}`,
+    `- **Animation** — durations (${Object.keys(animation.duration).join('/')}), easings`,
+    `- **Z-Index** — ${Object.keys(zIndex).join(' < ')}`,
+    `- **Breakpoints** — ${Object.entries(breakpoint)
+      .map(([k, v]) => `${k} ${v}px`)
+      .join(', ')} (계약 밖의 빌드 타임 상수)`,
+    '',
+    '전체 값과 대비비는 [Full API Reference](/llms-full.txt)의 Design Tokens 절 참고.',
+  ].join('\n');
+}
+
+/**
+ * `## <제목>` 절의 본문을 교체한다. 다음 `## ` 또는 문서 끝까지가 한 절이다.
+ * 절이 없으면 문서 구조가 예상과 다르다는 뜻이므로 조용히 넘기지 않고 던진다.
+ */
+export function replaceSection(
+  text: string,
+  heading: string,
+  body: string
+): string {
+  const marker = `## ${heading}\n`;
+  const start = text.indexOf(marker);
+  if (start === -1) {
+    throw new Error(`'## ${heading}' 절을 찾을 수 없습니다`);
+  }
+  const next = text.indexOf('\n## ', start + marker.length);
+  const end = next === -1 ? text.length : next + 1;
+  return `${text.slice(0, start)}${marker}\n${body}\n\n${text.slice(end)}`;
+}
+
+/**
+ * 문서에 나타난 컴포넌트 `## 제목` 집합(정렬). 컴포넌트 이름은 PascalCase 한
+ * 단어라서 `## Design Tokens`처럼 공백이 있는 산문 제목과는 자동으로 구분되고,
+ * 한 단어인 산문 제목만 따로 제외한다.
+ */
+const PROSE_HEADINGS = new Set(['Installation', 'Setup']);
+
+export function componentHeadings(text: string): string[] {
+  return [...text.matchAll(/^## (.+)$/gm)]
+    .map((m) => m[1].trim())
+    .filter((h) => /^[A-Z][A-Za-z]*$/.test(h) && !PROSE_HEADINGS.has(h))
+    .sort();
+}

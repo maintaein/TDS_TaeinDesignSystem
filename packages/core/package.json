@@ -1,7 +1,7 @@
 {
   "name": "@taein-designsystem/core",
   "version": "0.1.0",
-  "description": "TDS_TaeinDesignSystem - React 기반 — 30개 컴포넌트, Zero-runtime CSS, Tree-shakable",
+  "description": "TDS_TaeinDesignSystem - React 기반 — 컴포넌트 패밀리 30개, Zero-runtime CSS, Tree-shakable, RSC 호환",
   "keywords": [
     "design-system",
     "react",

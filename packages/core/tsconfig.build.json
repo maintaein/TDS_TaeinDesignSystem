@@ -15,6 +15,7 @@
     "dist",
     "**/*.test.ts",
     "**/*.test.tsx",
-    "src/test"
+    "src/test",
+    "src/docs"
   ]
 }
