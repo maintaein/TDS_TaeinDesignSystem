@@ -2,6 +2,10 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import { resolve } from 'path';
+import {
+  USE_CLIENT_DIRECTIVE,
+  needsUseClientDirective,
+} from './scripts/useClientDirective';
 
 export default defineConfig({
   plugins: [react(), vanillaExtractPlugin()],
@@ -53,6 +57,24 @@ export default defineConfig({
           id.includes('@vanilla-extract/recipes')
             ? '@vanilla-extract/recipes/createRuntimeFn'
             : id,
+        // Next.js App Router는 모든 모듈을 서버 컴포넌트로 취급하므로, 훅이나
+        // 컨텍스트를 쓰는 청크는 'use client' 지시문이 없으면 렌더 시점에 터진다.
+        // 주입은 renderChunk 대신 banner로 한다. renderChunk에서 코드 앞에 한 줄을
+        // 붙이면 모든 매핑이 한 줄씩 밀려 sourcemap이 깨지고(Rollup이 경고를 낸다)
+        // 이를 보정하려면 magic-string 의존성이 필요한데, banner는 Rollup이
+        // sourcemap 오프셋을 알아서 보정해준다. 또 banner는 import문보다 먼저
+        // 출력되므로 "지시문이 첫 줄"이라는 요건도 자연히 충족된다.
+        // preserveModules 덕에 청크 = 소스 모듈 1:1이므로, chunk.modules의 코드가
+        // 곧 그 모듈의 코드다. 판별 로직은 scripts/useClientDirective.ts 참고.
+        banner: (chunk) => {
+          const code = Object.values(chunk.modules)
+            .map((module) => module.code ?? '')
+            .join('\n');
+
+          return needsUseClientDirective(chunk.fileName, code)
+            ? USE_CLIENT_DIRECTIVE
+            : '';
+        },
       },
     },
     sourcemap: true,
