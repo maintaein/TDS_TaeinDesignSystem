@@ -7,6 +7,8 @@ export const fontFamily = {
 } as const;
 
 export const fontSize = {
+  // 10px. Badge처럼 짧은 대문자 라벨 전용이다. 본문에 쓰면 읽기 어렵다.
+  '2xs': '0.625rem', // 10px
   xs: '0.75rem', // 12px
   sm: '0.875rem', // 14px
   base: '1rem', // 16px
@@ -22,6 +24,14 @@ export const fontWeight = {
   medium: '500',
   semibold: '600',
   bold: '700',
+} as const;
+
+// 자간. 숫자 열은 좁은 열에서 tight가 읽기 쉽고, 짧은 대문자 라벨(Badge 등)은
+// 기본 자간으로 두면 글자가 뭉쳐서 wide가 필요하다.
+export const letterSpacing = {
+  tight: '-0.02em',
+  normal: '0',
+  wide: '0.04em',
 } as const;
 
 export const lineHeight = {

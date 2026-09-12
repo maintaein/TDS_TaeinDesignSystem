@@ -3,6 +3,7 @@ import {
   fontFamily,
   fontSize,
   fontWeight,
+  letterSpacing,
   lineHeight,
   fontVariantNumeric,
 } from './typography.css';
@@ -43,12 +44,18 @@ export const themeTokens = {
     },
     border: {
       default: gray[300],
+      // 정보를 전달하는 경계선용. default(#E0E0E0)는 1.32:1이라 1.4.11의 3:1에
+      // 못 미친다. 폼 컨트롤·카드 경계처럼 있고 없고가 의미를 바꾸는 자리에 쓴다.
+      strong: gray[550],
       focus: primary[700],
     },
     // semantic 4슬롯의 역할 구분:
-    // - main    배경·UI 요소용 (대비 3:1 기준)
+    // - main    글자(contrast)를 얹는 면. 판정 기준은 페이지 배경이 아니라
+    //           contrast와의 대비 4.5:1이다. success/warning은 흰 배경 대비가
+    //           2.77/2.15라 배경과의 3:1은 보장하지 않는다
     // - light   연한 배경용. 위에 text.primary를 얹는다
-    // - dark    흰 배경 위 본문 텍스트용 (대비 4.5:1 기준)
+    // - dark    흰 배경 위 본문 텍스트용 (대비 4.5:1 기준). 글자를 얹지 않는
+    //           도형(아이콘 단독·차트 마커·상태 점)도 이 슬롯을 쓴다
     // - contrast main 위에 얹는 글자색
     success: {
       main: success[500],
@@ -95,6 +102,7 @@ export const themeTokens = {
     size: fontSize,
     weight: fontWeight,
     lineHeight,
+    letterSpacing,
     variantNumeric: fontVariantNumeric,
   },
   animation: {
