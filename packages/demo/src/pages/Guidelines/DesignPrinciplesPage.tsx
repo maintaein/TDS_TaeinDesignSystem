@@ -180,9 +180,12 @@ export function DesignPrinciplesPage() {
           <div className={styles.guidelineRow}>
             <h3 className={styles.guidelineTitle}>터치 영역</h3>
             <p className={styles.guidelineText}>
-              버튼, 체크박스, 스위치 등 터치 대상은 최소 44x44px 이상의 영역을
-              확보합니다. 모바일에서 손가락으로 정확하게 누를 수 있도록
-              보장합니다.
+              터치 대상의 하한은 WCAG 2.2 AA 2.5.8 Target Size (Minimum)가
+              요구하는 24&times;24 CSS px입니다. TDS 권장 기준은 여기서 더
+              나아간 44&times;44로, AAA 2.5.5 Target Size (Enhanced)에
+              가깝습니다. 좁은 화면에서 버튼이나 아이콘을 줄여야 한다면
+              44&times;44는 양보할 수 있지만 24&times;24 아래로는 내려가지 않게
+              합니다.
             </p>
           </div>
         </div>

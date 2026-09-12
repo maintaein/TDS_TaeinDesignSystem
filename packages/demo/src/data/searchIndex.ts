@@ -30,7 +30,7 @@ export const searchIndex: SearchEntry[] = [
       {
         title: '한눈에 보는 TDS',
         content:
-          '30개 컴포넌트, ~23KB 번들, 런타임 의존성 2개, Zero-runtime CSS',
+          '컴포넌트 패밀리 30개(top-level export 48개), ~23KB 번들, 런타임 의존성 2개, Zero-runtime CSS',
       },
     ],
   },
@@ -539,7 +539,12 @@ export const searchIndex: SearchEntry[] = [
       {
         title: 'Semantic Colors',
         content:
-          'Success(Green), Warning(Amber), Error(Red), Info(Blue) 의미 색상',
+          'Success(Green), Warning(Amber), Error(Red), Info(Blue) 의미 색상. main/light/dark/contrast 4슬롯',
+      },
+      {
+        title: '역할 토큰과 실측 대비',
+        content:
+          '역할 토큰의 hex 값과 흰 배경·paper 배경 위 WCAG 대비 실측치. 본문 4.5:1, UI 요소 3:1 기준 판정. success.main, warning.main, primary.light는 본문 텍스트 금지이며 본문에는 dark 슬롯 사용',
       },
     ],
   },
@@ -560,6 +565,11 @@ export const searchIndex: SearchEntry[] = [
         content: 'regular, medium, semibold, bold 굵기',
       },
       { title: 'Line Heights', content: 'tight, normal, relaxed 줄 높이' },
+      {
+        title: 'Numeric Variant',
+        content:
+          'font-variant-numeric 토큰. normal과 tabular(tabular-nums). 표·금액·지표처럼 숫자를 세로로 비교하는 자리에서 자릿수를 맞춤',
+      },
     ],
   },
   {
@@ -572,7 +582,17 @@ export const searchIndex: SearchEntry[] = [
       {
         title: 'Spacing Scale',
         content:
-          '4px 기반 간격 스케일. 0, 1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24',
+          '4px 기반 간격 스케일. 0, 1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20의 12단계로 닫혀 있음(7, 9, 11 등은 undefined)',
+      },
+      {
+        title: 'Breakpoints',
+        content:
+          '브레이크포인트 토큰. sm 360px, md 768px, lg 1024px, xl 1280px. mediaQuery.up / mediaQuery.down. themeContract에 없는 빌드 타임 상수로 테마 교체 불가',
+      },
+      {
+        title: '터치 타겟',
+        content:
+          'WCAG 2.2 AA 2.5.8 최소 24x24 CSS px, TDS 권장 기준 44x44(AAA 2.5.5에 가까움)',
       },
     ],
   },
@@ -587,6 +607,11 @@ export const searchIndex: SearchEntry[] = [
         title: 'Elevation Levels',
         content: 'sm, md, lg, xl 단계의 box-shadow',
       },
+      {
+        title: 'Z-Index 레이어',
+        content:
+          'z-index 층 이름 스케일. base, dropdown, sticky(HeaderBar), overlay(배경 딤), modal(Modal·BottomSheet·SideSheet), popover(Popover), toast(Snackbar), tooltip(Tooltip) 순서로 쌓임',
+      },
     ],
   },
   {
@@ -598,7 +623,8 @@ export const searchIndex: SearchEntry[] = [
     sections: [
       {
         title: 'Duration',
-        content: 'fast(150ms), normal(300ms), slow(500ms) 지속 시간',
+        content:
+          'fast(150ms), base(200ms), slow(300ms), slower(500ms) 지속 시간',
       },
       { title: 'Easing', content: 'ease-in, ease-out, ease-in-out 이징 함수' },
     ],

@@ -382,8 +382,11 @@ export function AccessibilityPage() {
           <div className={styles.guidelineRow}>
             <span className={styles.guidelineTitle}>최소 크기</span>
             <span className={styles.guidelineText}>
-              주요 액션 버튼은 충분한 클릭 영역을 제공하고, 작은 폼 컨트롤은
-              label과 함께 사용할 때 조작 영역을 확보해야 합니다.
+              WCAG 2.2 AA 2.5.8 Target Size (Minimum)의 요구치는 24&times;24 CSS
+              px입니다. TDS 권장 기준인 44&times;44는 그보다 높은, AAA 2.5.5
+              Target Size (Enhanced)에 가까운 값입니다. 좁은 화면에서 타겟을
+              줄일 때 44&times;44는 포기할 수 있어도 24&times;24는 지켜야
+              합니다.
             </span>
           </div>
           <div className={styles.guidelineRow}>

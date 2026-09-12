@@ -169,6 +169,59 @@ export const weightDescription = style({
   color: '#6b7280',
 });
 
+export const numericGrid = style({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+  gap: '1.5rem',
+  marginBottom: '1.5rem',
+});
+
+export const numericCard = style({
+  padding: '1.5rem',
+  backgroundColor: '#ffffff',
+  borderRadius: '0.75rem',
+  border: '1px solid #e5e7eb',
+});
+
+export const numericHeader = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginBottom: '1rem',
+});
+
+export const numericName = style({
+  fontSize: '0.875rem',
+  fontWeight: 600,
+  color: '#2563eb',
+  fontFamily: 'monospace',
+});
+
+export const numericValue = style({
+  fontSize: '0.75rem',
+  color: '#6b7280',
+  fontFamily: 'monospace',
+});
+
+export const numericList = style({
+  listStyle: 'none',
+  margin: 0,
+  padding: 0,
+  fontSize: '1.25rem',
+  color: '#111827',
+  marginBottom: '0.5rem',
+});
+
+export const numericItem = style({
+  textAlign: 'right',
+  lineHeight: 1.5,
+});
+
+export const numericDescription = style({
+  fontSize: '0.875rem',
+  color: '#6b7280',
+});
+
 export const lineHeightGrid = style({
   display: 'grid',
   gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',

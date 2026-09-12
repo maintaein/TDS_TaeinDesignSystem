@@ -19,6 +19,9 @@ const fontWeights = [
   { name: 'bold', value: '700', description: '강한 강조' },
 ];
 
+// 같은 자릿수의 숫자를 세로로 쌓아 정렬이 어긋나는지 눈으로 비교한다.
+const numericSamples = ['1,111,111', '8,888,888', '1,010,101', '9,999,999'];
+
 const lineHeights = [
   { name: 'tight', value: '1.25', description: '제목, 헤드라인' },
   { name: 'normal', value: '1.5', description: '본문, 단락' },
@@ -38,7 +41,8 @@ export function TypographyPage() {
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>Font Family</h2>
         <p className={styles.sectionDescription}>
-          기본 폰트로 Pretendard를 사용하며, 폰트가 로드되지 않은 환경에서는 시스템 폰트로 자연스럽게 대체됩니다.
+          기본 폰트로 Pretendard를 사용하며, 폰트가 로드되지 않은 환경에서는
+          시스템 폰트로 자연스럽게 대체됩니다.
         </p>
 
         <div className={styles.fontFamilyGrid}>
@@ -59,10 +63,16 @@ export function TypographyPage() {
 
           <div className={styles.fontFamilyCard}>
             <h3 className={styles.fontFamilyTitle}>Monospace (Code)</h3>
-            <p className={styles.fontFamilySample} style={{ fontFamily: 'monospace' }}>
+            <p
+              className={styles.fontFamilySample}
+              style={{ fontFamily: 'monospace' }}
+            >
               The quick brown fox jumps over the lazy dog
             </p>
-            <p className={styles.fontFamilyKorean} style={{ fontFamily: 'monospace' }}>
+            <p
+              className={styles.fontFamilyKorean}
+              style={{ fontFamily: 'monospace' }}
+            >
               가나다라마바사아자차카타파하
             </p>
             <CodeBlock
@@ -145,14 +155,82 @@ export function TypographyPage() {
                 className={styles.lineHeightSample}
                 style={{ lineHeight: lh.value }}
               >
-                TDS는 React 기반의 포괄적인 디자인 시스템입니다. 일관성,
-                접근성, 개발자 경험을 최우선으로 설계되었습니다. 27개의 검증된
-                컴포넌트를 제공합니다.
+                TDS는 React 기반의 포괄적인 디자인 시스템입니다. 일관성, 접근성,
+                개발자 경험을 최우선으로 설계되었습니다. 30개의 컴포넌트
+                패밀리를 제공합니다.
               </p>
               <p className={styles.lineHeightDescription}>{lh.description}</p>
             </div>
           ))}
         </div>
+      </section>
+
+      {/* Numeric Variant */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>Numeric Variant</h2>
+        <p className={styles.sectionDescription}>
+          비례 폰트에서는 1이 8보다 좁습니다. 그래서 숫자를 세로로 쌓으면 행마다
+          자릿수가 조금씩 어긋나고, 표를 위아래로 훑을 때 금액 비교가
+          어려워집니다. tabular는 모든 숫자 글리프에 같은 폭을 줘서 자릿수를
+          세로로 맞춥니다. 표, 금액, 지표처럼 숫자를 세로로 비교하는 자리에는
+          tabular를 사용하세요.
+        </p>
+
+        <div className={styles.numericGrid}>
+          <div className={styles.numericCard}>
+            <div className={styles.numericHeader}>
+              <span className={styles.numericName}>variantNumeric.normal</span>
+              <span className={styles.numericValue}>normal</span>
+            </div>
+            <ul
+              className={styles.numericList}
+              style={{ fontVariantNumeric: 'normal' }}
+            >
+              {numericSamples.map((sample) => (
+                <li key={sample} className={styles.numericItem}>
+                  {sample}
+                </li>
+              ))}
+            </ul>
+            <p className={styles.numericDescription}>
+              문장 안에 섞여 흐르는 숫자에 적합합니다. 기본값입니다.
+            </p>
+          </div>
+
+          <div className={styles.numericCard}>
+            <div className={styles.numericHeader}>
+              <span className={styles.numericName}>variantNumeric.tabular</span>
+              <span className={styles.numericValue}>tabular-nums</span>
+            </div>
+            <ul
+              className={styles.numericList}
+              style={{ fontVariantNumeric: 'tabular-nums' }}
+            >
+              {numericSamples.map((sample) => (
+                <li key={sample} className={styles.numericItem}>
+                  {sample}
+                </li>
+              ))}
+            </ul>
+            <p className={styles.numericDescription}>
+              쉼표와 자릿수가 행마다 같은 위치에 옵니다. 표의 숫자 열, 합계,
+              카운터에 사용합니다.
+            </p>
+          </div>
+        </div>
+
+        <CodeBlock
+          code={`import { style } from '@vanilla-extract/css';
+import { themeContract } from '@taein-designsystem/core';
+
+// 표의 금액 열: 자릿수를 세로로 맞춘다
+export const amountCell = style({
+  fontVariantNumeric: themeContract.font.variantNumeric.tabular,
+  textAlign: 'right',
+});`}
+          language="typescript"
+          showLineNumbers={false}
+        />
       </section>
 
       {/* Usage Guidelines */}

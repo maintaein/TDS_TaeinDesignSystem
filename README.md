@@ -10,7 +10,7 @@ https://tds-taein-design-system.vercel.app/
 
 ## 특징
 
-- **30개 컴포넌트** — Button, Modal, Card 등 실무에 필요한 UI 컴포넌트
+- **컴포넌트 패밀리 30개** — Button, Modal, Card 등 실무에 필요한 UI 컴포넌트. 패키지의 top-level export는 48개로, 차이는 개별 import도 가능한 하위 컴포넌트입니다(`ModalHeader`, `CardBody`, `AvatarGroup`, `ListItem` 등)
 - **~23KB 번들** — 런타임 의존성 2개(vanilla-extract, clsx)만 사용
 - **Zero-runtime CSS** — Vanilla Extract 기반, 빌드 타임에 CSS 생성
 - **Tree-shakable** — 사용하는 컴포넌트만 번들에 포함
@@ -74,16 +74,19 @@ function LoginForm() {
 
 ## 디자인 토큰
 
-Vanilla Extract 기반의 디자인 토큰 시스템을 제공합니다.
+Vanilla Extract 기반의 디자인 토큰 시스템을 제공합니다. 테마는 `:root`에 선언된
+라이트 테마 하나뿐이며, Provider나 훅 없이 CSS import만으로 적용됩니다.
 
-| 토큰              | 설명                                              |
-| ----------------- | ------------------------------------------------- |
-| **Colors**        | Primary, Gray, Semantic (success, warning, error) |
-| **Typography**    | Font family, size, weight, line-height            |
-| **Spacing**       | 8pt Grid 기반 (4px 단위)                          |
-| **Shadows**       | 5단계 (sm, base, md, lg, xl)                      |
-| **Animation**     | Duration, Easing                                  |
-| **Border Radius** | 7단계 (none ~ full)                               |
+| 토큰              | 설명                                                                                                           |
+| ----------------- | -------------------------------------------------------------------------------------------------------------- |
+| **Colors**        | Primary, Gray, Semantic (success, warning, error, info) — 각 semantic은 main/light/dark/contrast 4슬롯         |
+| **Typography**    | Font family, size, weight, line-height, variantNumeric (tabular-nums)                                          |
+| **Spacing**       | 8pt Grid 기반 (4px 단위). 12단계로 닫혀 있음 (0~20, 중간 번호는 미정의)                                        |
+| **Shadows**       | 8단계 (none, sm, base, md, lg, xl, 2xl, inner)                                                                 |
+| **Animation**     | Duration, Easing                                                                                               |
+| **Border Radius** | 7단계 (none ~ full)                                                                                            |
+| **Z-Index**       | 층 이름 스케일 (base, dropdown, sticky, overlay, modal, popover, toast, tooltip)                               |
+| **Breakpoints**   | sm 360 / md 768 / lg 1024 / xl 1280 (px). `@media`에 CSS 변수를 쓸 수 없어 `themeContract` 밖의 빌드 타임 상수 |
 
 ```tsx
 import { themeContract } from '@taein-designsystem/core';

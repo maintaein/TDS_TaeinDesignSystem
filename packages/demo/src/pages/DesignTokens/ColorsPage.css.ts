@@ -73,6 +73,95 @@ export const semanticSubtitle = style({
   marginBottom: '1rem',
 });
 
+export const contrastTableWrapper = style({
+  overflowX: 'auto',
+  marginBottom: '1.5rem',
+  border: '1px solid #e5e7eb',
+  borderRadius: '0.75rem',
+  backgroundColor: '#ffffff',
+});
+
+export const contrastTable = style({
+  width: '100%',
+  borderCollapse: 'collapse',
+  fontSize: '0.875rem',
+});
+
+export const contrastCaption = style({
+  captionSide: 'top',
+  textAlign: 'left',
+  padding: '1rem 1rem 0.5rem',
+  fontSize: '0.8125rem',
+  color: '#6b7280',
+});
+
+export const contrastTh = style({
+  textAlign: 'left',
+  padding: '0.75rem 1rem',
+  fontWeight: 600,
+  color: '#111827',
+  borderBottom: '1px solid #e5e7eb',
+  whiteSpace: 'nowrap',
+});
+
+export const contrastThNumeric = style([
+  contrastTh,
+  {
+    textAlign: 'right',
+  },
+]);
+
+export const contrastTd = style({
+  padding: '0.75rem 1rem',
+  color: '#6b7280',
+  borderBottom: '1px solid #f3f4f6',
+  verticalAlign: 'middle',
+});
+
+// 대비 수치는 세로로 비교하는 값이므로 자릿수를 맞춘다(tabular-nums).
+export const contrastTdNumeric = style([
+  contrastTd,
+  {
+    textAlign: 'right',
+    fontVariantNumeric: 'tabular-nums',
+    whiteSpace: 'nowrap',
+  },
+]);
+
+export const contrastTokenCell = style([
+  contrastTd,
+  {
+    textAlign: 'left',
+    fontFamily: 'monospace',
+    fontWeight: 600,
+    color: '#2563eb',
+    whiteSpace: 'nowrap',
+  },
+]);
+
+export const contrastValue = style({
+  display: 'inline-flex',
+  alignItems: 'center',
+  gap: '0.5rem',
+  fontFamily: 'monospace',
+  whiteSpace: 'nowrap',
+});
+
+export const contrastSwatch = style({
+  width: '1rem',
+  height: '1rem',
+  borderRadius: '0.25rem',
+  border: '1px solid #e5e7eb',
+  flexShrink: 0,
+});
+
+export const contrastNote = style({
+  fontSize: '0.875rem',
+  color: '#6b7280',
+  lineHeight: 1.7,
+  margin: '1.5rem 0 2.5rem',
+});
+
 export const guidelineList = style({
   display: 'flex',
   flexDirection: 'column',

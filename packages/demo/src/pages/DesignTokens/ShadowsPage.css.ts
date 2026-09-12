@@ -169,6 +169,10 @@ export const useCaseBox = style({
   color: '#111827',
 });
 
+export const zIndexCode = style({
+  margin: '1.5rem 0',
+});
+
 export const guidelineList = style({
   display: 'flex',
   flexDirection: 'column',

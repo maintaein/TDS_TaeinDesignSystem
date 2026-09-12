@@ -1,7 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import type { CSSProperties } from 'react';
 import { Card, Divider, Badge, Text } from '@taein-designsystem/core';
-import { componentsData, categoryLabels, categoryColors } from '../../data/components';
+import {
+  componentsData,
+  categoryLabels,
+  categoryColors,
+} from '../../data/components';
 import type { ComponentInfo } from '../../data/components';
 import * as styles from './ComponentsOverviewPage.css';
 
@@ -10,21 +14,28 @@ export function ComponentsOverviewPage() {
 
   const groupedComponents = componentsData.reduce<
     Record<ComponentInfo['category'], ComponentInfo[]>
-  >((acc, component) => {
-    if (!acc[component.category]) {
-      acc[component.category] = [];
-    }
-    acc[component.category].push(component);
-    return acc;
-  }, {} as Record<ComponentInfo['category'], ComponentInfo[]>);
+  >(
+    (acc, component) => {
+      if (!acc[component.category]) {
+        acc[component.category] = [];
+      }
+      acc[component.category].push(component);
+      return acc;
+    },
+    {} as Record<ComponentInfo['category'], ComponentInfo[]>
+  );
 
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <Text variant="h1" className={styles.title}>컴포넌트</Text>
+        <Text variant="h1" className={styles.title}>
+          컴포넌트
+        </Text>
         <p className={styles.description}>
-          30개의 컴포넌트 모두 React와 TypeScript로 작성되었으며, 접근성과 반응형을
-          지원합니다.
+          컴포넌트 패밀리 30개를 제공합니다. 패키지의 top-level export는
+          48개인데, 차이는 개별로도 import할 수 있는 하위
+          컴포넌트입니다(ModalHeader, CardBody, AvatarGroup, ListItem 등). 모두
+          React와 TypeScript로 작성되었으며, 접근성과 반응형을 지원합니다.
         </p>
       </header>
 
@@ -38,9 +49,12 @@ export function ComponentsOverviewPage() {
               variant="primary"
               size="md"
               className={styles.categoryBadgeCustom}
-              style={{
-                '--badge-color': categoryColors[category as ComponentInfo['category']]
-              } as CSSProperties}
+              style={
+                {
+                  '--badge-color':
+                    categoryColors[category as ComponentInfo['category']],
+                } as CSSProperties
+              }
             >
               {components.length}개
             </Badge>
@@ -58,7 +72,9 @@ export function ComponentsOverviewPage() {
                 <Card.Body padding="lg">
                   <div className={styles.componentIcon}>{component.icon}</div>
                   <h3 className={styles.componentName}>{component.name}</h3>
-                  <p className={styles.componentDescription}>{component.description}</p>
+                  <p className={styles.componentDescription}>
+                    {component.description}
+                  </p>
                   <div className={styles.componentArrow}>→</div>
                 </Card.Body>
               </Card>
@@ -67,7 +83,11 @@ export function ComponentsOverviewPage() {
         </section>
       ))}
 
-      <Divider variant="solid" spacing="lg" className={styles.ctaSectionDivider} />
+      <Divider
+        variant="solid"
+        spacing="lg"
+        className={styles.ctaSectionDivider}
+      />
     </div>
   );
 }

@@ -1,8 +1,4 @@
-import {
-  Card,
-  List,
-  ListItem,
-} from '@taein-designsystem/core';
+import { Card, List, ListItem } from '@taein-designsystem/core';
 import { LivePreview } from '../../../components/LivePreview';
 import { CodeBlock } from '../../../components/CodeBlock';
 import { PropsTable } from '../../../components/PropsTable';
@@ -11,7 +7,6 @@ import { AccessibilitySection } from '../../../components/AccessibilitySection';
 import * as styles from './TextPage.css';
 
 export function TextPage() {
-
   const propsData: PropDefinition[] = [
     {
       name: 'children',
@@ -22,7 +17,8 @@ export function TextPage() {
       name: 'variant',
       type: "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body1' | 'body2' | 'body3'",
       default: "'body1'",
-      description: '텍스트 variant (heading/body). variant에 따라 기본 HTML 태그가 자동 결정됨',
+      description:
+        '텍스트 variant (heading/body). variant에 따라 기본 HTML 태그가 자동 결정됨',
     },
     {
       name: 'as',
@@ -31,8 +27,9 @@ export function TextPage() {
     },
     {
       name: 'color',
-      type: "'primary' | 'secondary' | 'success' | 'error' | 'disabled'",
-      description: '텍스트 색상',
+      type: "'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info' | 'disabled'",
+      description:
+        '텍스트 색상. semantic 색은 계약의 dark 슬롯을 사용합니다(main은 UI 요소용이라 본문 대비가 부족합니다)',
     },
     {
       name: 'weight',
@@ -50,6 +47,12 @@ export function TextPage() {
       description: '텍스트 줄 수 제한 (넘치면 말줄임)',
     },
     {
+      name: 'tabularNums',
+      type: 'boolean',
+      description:
+        '숫자를 고정폭으로 렌더 (표·지표처럼 자릿수를 세로로 맞춰야 할 때)',
+    },
+    {
       name: 'className',
       type: 'string',
       description: '추가 CSS 클래스',
@@ -62,7 +65,8 @@ export function TextPage() {
       <header className={styles.header}>
         <h1 className={styles.title}>Text</h1>
         <p className={styles.description}>
-          Text 컴포넌트는 제목, 본문, 캡션 등 텍스트의 크기와 스타일을 일관되게 적용할 때 사용합니다.
+          Text 컴포넌트는 제목, 본문, 캡션 등 텍스트의 크기와 스타일을 일관되게
+          적용할 때 사용합니다.
         </p>
       </header>
 
@@ -104,7 +108,8 @@ export function TextPage() {
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>Heading Variants</h2>
           <p className={styles.sectionDescription}>
-            h1~h6 variant는 각각 대응하는 HTML heading 태그를 자동으로 사용합니다.
+            h1~h6 variant는 각각 대응하는 HTML heading 태그를 자동으로
+            사용합니다.
           </p>
         </div>
 
@@ -131,7 +136,8 @@ export function TextPage() {
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>Body Variants</h2>
           <p className={styles.sectionDescription}>
-            본문 텍스트를 위한 3가지 크기를 제공합니다. 모두 p 태그로 렌더링됩니다.
+            본문 텍스트를 위한 3가지 크기를 제공합니다. 모두 p 태그로
+            렌더링됩니다.
           </p>
         </div>
 
@@ -163,14 +169,16 @@ export function TextPage() {
           <h3 className={styles.exampleTitle}>Color Variants</h3>
           <LivePreview
             title="텍스트 색상"
-            description="primary(검정), secondary(회색), success(초록), error(빨강), disabled(연한 회색) 5가지 의미론적 색상을 제공합니다."
+            description="7가지 의미론적 색상을 제공합니다. semantic 색(success/warning/error/info)은 계약의 dark 슬롯을 써서 흰 배경과 paper 배경 모두에서 AA(4.5:1)를 만족합니다. main 슬롯은 UI 요소용이라 본문 텍스트로는 대비가 부족합니다."
             editable
             code={`<div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-  <Text color="primary">Primary - 주요 텍스트 (#000)</Text>
-  <Text color="secondary">Secondary - 보조 텍스트 (#666)</Text>
-  <Text color="success">Success - 성공 상태 (#00C73C)</Text>
-  <Text color="error">Error - 에러 상태 (#F04452)</Text>
-  <Text color="disabled">Disabled - 비활성화 (#CCC)</Text>
+  <Text color="primary">Primary - 주요 텍스트 (text.primary)</Text>
+  <Text color="secondary">Secondary - 보조 텍스트 (text.secondary)</Text>
+  <Text color="success">Success - 성공 상태 (success.dark)</Text>
+  <Text color="warning">Warning - 주의 상태 (warning.dark)</Text>
+  <Text color="error">Error - 에러 상태 (error.dark)</Text>
+  <Text color="info">Info - 정보 안내 (info.dark)</Text>
+  <Text color="disabled">Disabled - 비활성화 (text.disabled)</Text>
 </div>`}
           />
         </div>
@@ -278,7 +286,8 @@ export function TextPage() {
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>Custom Element</h2>
           <p className={styles.sectionDescription}>
-            as prop으로 렌더링할 HTML 태그를 직접 지정할 수 있습니다. variant보다 우선합니다.
+            as prop으로 렌더링할 HTML 태그를 직접 지정할 수 있습니다.
+            variant보다 우선합니다.
           </p>
         </div>
 
@@ -302,7 +311,8 @@ export function TextPage() {
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>Combinations</h2>
           <p className={styles.sectionDescription}>
-            variant, color, weight를 조합하여 다양한 UI 패턴을 구성하는 예시입니다.
+            variant, color, weight를 조합하여 다양한 UI 패턴을 구성하는
+            예시입니다.
           </p>
         </div>
 
@@ -328,13 +338,13 @@ export function TextPage() {
             description="color와 weight를 조합하여 상태 메시지를 표현합니다."
             editable
             code={`<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-  <div style={{ padding: '0.75rem 1rem', backgroundColor: '#f0fdf4', borderRadius: '0.5rem', borderLeft: '3px solid #00C73C' }}>
+  <div style={{ padding: '0.75rem 1rem', backgroundColor: '#E8F5E9', borderRadius: '0.5rem', borderLeft: '3px solid #4CAF50' }}>
     <Text color="success" weight="semibold">저장이 완료되었습니다.</Text>
   </div>
-  <div style={{ padding: '0.75rem 1rem', backgroundColor: '#fef2f2', borderRadius: '0.5rem', borderLeft: '3px solid #F04452' }}>
+  <div style={{ padding: '0.75rem 1rem', backgroundColor: '#FFEBEE', borderRadius: '0.5rem', borderLeft: '3px solid #D32F2F' }}>
     <Text color="error" weight="semibold">필수 항목을 입력해주세요.</Text>
   </div>
-  <div style={{ padding: '0.75rem 1rem', backgroundColor: '#f9fafb', borderRadius: '0.5rem', borderLeft: '3px solid #ccc' }}>
+  <div style={{ padding: '0.75rem 1rem', backgroundColor: '#FAFAFA', borderRadius: '0.5rem', borderLeft: '3px solid #BDBDBD' }}>
     <Text color="disabled">이 기능은 현재 사용할 수 없습니다.</Text>
   </div>
 </div>`}
@@ -363,23 +373,27 @@ export function TextPage() {
           {
             attribute: '시맨틱 태그 자동 선택',
             effect: 'heading은 h1~h6, body는 p 태그로 렌더링됩니다.',
-            description: 'variant에 따라 적절한 HTML 태그가 자동으로 선택되어 문서 구조를 올바르게 전달합니다.',
+            description:
+              'variant에 따라 적절한 HTML 태그가 자동으로 선택되어 문서 구조를 올바르게 전달합니다.',
           },
           {
             attribute: 'as prop',
             effect: '시맨틱 태그를 직접 지정할 수 있습니다.',
-            description: '필요한 경우 as prop으로 렌더링 태그를 변경하여 문서 구조에 맞게 조정할 수 있습니다.',
+            description:
+              '필요한 경우 as prop으로 렌더링 태그를 변경하여 문서 구조에 맞게 조정할 수 있습니다.',
           },
           {
             attribute: '색상 대비',
             effect: '텍스트 가독성이 보장됩니다.',
-            description: 'primary(#000), secondary(#666) 등 웹 접근성 색상 대비 기준을 충족하는 색상을 제공합니다.',
+            description:
+              'primary(#000), secondary(#666) 등 웹 접근성 색상 대비 기준을 충족하는 색상을 제공합니다.',
           },
         ]}
         additionalGuidance={[
           {
             title: 'Heading 순서 지키기',
-            description: '문서의 heading은 건너뛰지 않고 순서대로 사용해야 합니다.',
+            description:
+              '문서의 heading은 건너뛰지 않고 순서대로 사용해야 합니다.',
             examples: [
               {
                 code: `// Good
@@ -390,13 +404,15 @@ export function TextPage() {
 // Bad - h2를 건너뜀
 <Text variant="h1">페이지 제목</Text>
 <Text variant="h3">하위 섹션</Text>`,
-                explanation: 'heading 레벨을 건너뛰면 스크린 리더 사용자가 문서 구조를 파악하기 어렵습니다.',
+                explanation:
+                  'heading 레벨을 건너뛰면 스크린 리더 사용자가 문서 구조를 파악하기 어렵습니다.',
               },
             ],
           },
           {
             title: '시각적 크기와 시맨틱 분리',
-            description: '시각적으로 작은 heading이 필요하면 as prop으로 시맨틱은 유지하고 스타일만 변경하세요.',
+            description:
+              '시각적으로 작은 heading이 필요하면 as prop으로 시맨틱은 유지하고 스타일만 변경하세요.',
             examples: [
               {
                 code: `// Good - 시맨틱 h2, 시각적으로 h4 크기
@@ -404,7 +420,8 @@ export function TextPage() {
 
 // Bad - 시맨틱이 깨짐
 <Text variant="h4">작은 크기의 섹션 제목</Text>`,
-                explanation: '문서 구조상 h2여야 하지만 크기를 작게 하고 싶을 때 as prop을 활용하세요.',
+                explanation:
+                  '문서 구조상 h2여야 하지만 크기를 작게 하고 싶을 때 as prop을 활용하세요.',
               },
             ],
           },
@@ -430,7 +447,9 @@ export function TextPage() {
               <List spacing="sm" className={styles.practiceList}>
                 <ListItem>heading 순서를 h1 → h2 → h3 순으로 유지</ListItem>
                 <ListItem>body1은 주요 본문, body2는 보조 설명에 사용</ListItem>
-                <ListItem>의미에 맞는 color 사용 (error는 오류, success는 성공)</ListItem>
+                <ListItem>
+                  의미에 맞는 color 사용 (error는 오류, success는 성공)
+                </ListItem>
                 <ListItem>긴 텍스트에 truncate로 레이아웃 일관성 유지</ListItem>
                 <ListItem>시맨틱과 스타일이 다를 때 as prop 활용</ListItem>
               </List>
@@ -445,10 +464,16 @@ export function TextPage() {
               </div>
               <List spacing="sm" className={styles.practiceList}>
                 <ListItem>heading 레벨을 건너뛰지 않기 (h1 → h3 금지)</ListItem>
-                <ListItem>스타일 목적으로만 heading variant 사용하지 않기</ListItem>
+                <ListItem>
+                  스타일 목적으로만 heading variant 사용하지 않기
+                </ListItem>
                 <ListItem>color를 장식 목적으로 사용하지 않기</ListItem>
-                <ListItem>truncate 없이 고정 높이 컨테이너에 긴 텍스트 넣지 않기</ListItem>
-                <ListItem>같은 영역에서 너무 많은 variant를 혼용하지 않기</ListItem>
+                <ListItem>
+                  truncate 없이 고정 높이 컨테이너에 긴 텍스트 넣지 않기
+                </ListItem>
+                <ListItem>
+                  같은 영역에서 너무 많은 variant를 혼용하지 않기
+                </ListItem>
               </List>
             </Card.Body>
           </Card>
