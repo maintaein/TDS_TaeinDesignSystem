@@ -44,6 +44,10 @@ export const textarea = style({
     '&:hover:not(:disabled)': {
       borderColor: themeContract.color.primary.main,
     },
+    '&:focus-visible': {
+      borderColor: themeContract.color.border.focus,
+      boxShadow: '0 0 0 3px rgba(25, 118, 210, 0.16)',
+    },
     '&:disabled': {
       backgroundColor: themeContract.color.surface.default,
       color: themeContract.color.text.disabled,

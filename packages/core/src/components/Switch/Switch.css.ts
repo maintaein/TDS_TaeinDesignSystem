@@ -77,6 +77,11 @@ export const size = styleVariants(baseSizeContainer, (baseStyle) => [
         backgroundColor: themeContract.color.primary.main,
       },
 
+      [`&:has(input:focus-visible)`]: {
+        outline: `2px solid ${themeContract.color.border.focus}`,
+        outlineOffset: '2px',
+      },
+
       [`&:has(input:disabled)`]: {
         backgroundColor: themeContract.color.surface.default,
         cursor: 'not-allowed',

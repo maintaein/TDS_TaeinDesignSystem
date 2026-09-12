@@ -76,6 +76,11 @@ export const checkmark = style({
       borderColor: themeContract.color.text.primary,
     },
 
+    'input:focus-visible + &': {
+      outline: `2px solid ${themeContract.color.border.focus}`,
+      outlineOffset: '2px',
+    },
+
     'input:checked + &': {
       backgroundColor: themeContract.color.primary.main,
       borderColor: themeContract.color.primary.main,

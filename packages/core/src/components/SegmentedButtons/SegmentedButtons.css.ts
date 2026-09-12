@@ -74,6 +74,11 @@ export const button = style({
       color: themeContract.color.text.primary,
     },
 
+    '&:focus-visible': {
+      outline: `2px solid ${themeContract.color.border.focus}`,
+      outlineOffset: '2px',
+    },
+
     // ✅ 중첩 대신 조합형 selector로 표현
     '&.selected': {
       color: themeContract.color.primary.contrast,
