@@ -80,14 +80,14 @@ export const button = recipe({
     {
       variants: { buttonStyle: 'fill', variant: 'primary' },
       style: {
-        backgroundColor: themeContract.palette.primary[600],
+        backgroundColor: themeContract.color.primary.main,
         color: '#FFFFFF',
         selectors: {
           '&:hover:not(:disabled)': {
-            backgroundColor: themeContract.palette.primary[700],
+            backgroundColor: themeContract.palette.primary[800],
           },
           '&:active:not(:disabled)': {
-            backgroundColor: themeContract.palette.primary[800],
+            backgroundColor: themeContract.palette.primary[900],
             transform: 'scale(0.98)',
           },
         },
@@ -112,11 +112,11 @@ export const button = recipe({
     {
       variants: { buttonStyle: 'fill', variant: 'danger' },
       style: {
-        backgroundColor: themeContract.palette.error[500],
+        backgroundColor: themeContract.color.error.main,
         color: '#FFFFFF',
         selectors: {
           '&:hover:not(:disabled)': {
-            backgroundColor: themeContract.palette.error[700],
+            backgroundColor: themeContract.palette.error[800],
           },
           '&:active:not(:disabled)': { opacity: 0.9, transform: 'scale(0.98)' },
         },
@@ -126,8 +126,8 @@ export const button = recipe({
       variants: { buttonStyle: 'fill', variant: 'light' },
       style: {
         backgroundColor: '#FFFFFF',
-        color: themeContract.palette.primary[600],
-        border: `2px solid ${themeContract.palette.primary[600]}`,
+        color: themeContract.color.primary.main,
+        border: `2px solid ${themeContract.color.primary.main}`,
         selectors: {
           '&:hover:not(:disabled)': {
             backgroundColor: themeContract.palette.primary[50],
@@ -143,7 +143,7 @@ export const button = recipe({
       variants: { buttonStyle: 'weak', variant: 'primary' },
       style: {
         backgroundColor: themeContract.palette.primary[50],
-        color: themeContract.palette.primary[700],
+        color: themeContract.palette.primary[800],
         selectors: {
           '&:hover:not(:disabled)': {
             backgroundColor: themeContract.palette.primary[100],
@@ -175,7 +175,7 @@ export const button = recipe({
       variants: { buttonStyle: 'weak', variant: 'danger' },
       style: {
         backgroundColor: themeContract.palette.error[50],
-        color: themeContract.palette.error[700],
+        color: themeContract.palette.error[800],
         selectors: {
           '&:hover:not(:disabled)': {
             backgroundColor: themeContract.palette.error[100],
@@ -191,7 +191,7 @@ export const button = recipe({
       variants: { buttonStyle: 'weak', variant: 'light' },
       style: {
         backgroundColor: themeContract.palette.primary[100],
-        color: themeContract.palette.primary[700],
+        color: themeContract.palette.primary[900],
         selectors: {
           '&:hover:not(:disabled)': {
             backgroundColor: themeContract.palette.primary[200],

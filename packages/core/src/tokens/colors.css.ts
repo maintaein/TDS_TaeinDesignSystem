@@ -47,4 +47,5 @@ export const error = {
   100: '#FFCDD2',
   500: '#F44336',
   700: '#D32F2F',
+  800: '#C62828',
 } as const;

@@ -9,7 +9,7 @@ import { duration, easing } from './animation.css';
 export const themeContract = createGlobalTheme(':root', {
   color: {
     primary: {
-      main: primary[600],
+      main: primary[700],
       light: primary[400],
       dark: primary[800],
       contrast: '#FFFFFF',
@@ -30,20 +30,20 @@ export const themeContract = createGlobalTheme(':root', {
     },
     border: {
       default: gray[300],
-      focus: primary[600],
+      focus: primary[700],
     },
     success: {
       main: success[500],
       light: success[100],
-      contrast: '#FFFFFF',
+      contrast: gray[900],
     },
     warning: {
       main: warning[500],
       light: warning[100],
-      contrast: '#FFFFFF',
+      contrast: gray[900],
     },
     error: {
-      main: error[500],
+      main: error[700],
       light: error[100],
       contrast: '#FFFFFF',
     },

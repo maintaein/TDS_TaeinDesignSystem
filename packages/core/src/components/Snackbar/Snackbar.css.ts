@@ -69,6 +69,7 @@ export const snackbar = style({
 export const severityStyles = styleVariants({
   success: {
     backgroundColor: themeContract.color.success.main,
+    color: themeContract.color.success.contrast,
   },
   error: {
     backgroundColor: themeContract.color.error.main,
