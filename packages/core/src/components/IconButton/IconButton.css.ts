@@ -30,8 +30,8 @@ export const iconButton = recipe({
   variants: {
     size: {
       sm: {
-        width: '36px',
-        height: '36px',
+        width: '44px',
+        height: '44px',
         borderRadius: themeContract.borderRadius.base,
       },
       md: {
@@ -220,6 +220,8 @@ export const ghostBase = style({
   borderRadius: themeContract.borderRadius.base,
   color: themeContract.palette.gray[600],
   flexShrink: 0,
+  minWidth: '44px',
+  minHeight: '44px',
 
   selectors: {
     '&:hover:not(:disabled)': {

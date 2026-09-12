@@ -14,6 +14,8 @@ export const switchLabel = style({
   display: 'flex',
   alignItems: 'center',
   gap: '0.75rem',
+  minWidth: '44px',
+  minHeight: '44px',
   cursor: 'pointer',
   userSelect: 'none',
 });

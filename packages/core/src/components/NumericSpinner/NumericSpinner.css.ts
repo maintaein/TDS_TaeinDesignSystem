@@ -117,6 +117,8 @@ export const button = style({
   cursor: 'pointer',
   transition: 'all 150ms ease-in-out',
   flexShrink: 0,
+  minWidth: '44px',
+  minHeight: '44px',
   padding: '0.5rem',
   borderRadius: '4px',
 

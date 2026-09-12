@@ -77,7 +77,7 @@ export const sliderFillTrack = style({
 // Slider Input
 export const slider = style({
   width: '100%',
-  height: '20px',
+  height: '44px',
   backgroundColor: 'transparent',
   appearance: 'none',
   WebkitAppearance: 'none',

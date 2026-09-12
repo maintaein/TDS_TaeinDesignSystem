@@ -32,7 +32,7 @@ export const button = recipe({
   variants: {
     size: {
       sm: {
-        height: '36px',
+        height: '44px',
         minWidth: '70px',
         padding: `0 ${themeContract.spacing[4]}`,
         fontSize: themeContract.font.size.sm,

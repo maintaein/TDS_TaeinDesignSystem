@@ -11,6 +11,8 @@ export const checkboxLabel = style({
   display: 'inline-flex',
   alignItems: 'center',
   gap: '0.5rem',
+  minWidth: '44px',
+  minHeight: '44px',
   cursor: 'pointer',
   userSelect: 'none',
 

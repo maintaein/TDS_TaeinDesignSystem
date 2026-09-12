@@ -11,7 +11,7 @@ export const inputContainer = style({
 // size variants
 export const size = styleVariants({
   sm: {
-    height: '36px',
+    height: '44px',
     fontSize: '0.875rem',
   },
   md: {

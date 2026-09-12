@@ -32,7 +32,7 @@ export const activeIndicator = style({
 // Size Variants
 export const sizeVariants = styleVariants({
   sm: {
-    height: '36px',
+    height: '44px',
   },
   md: {
     height: '44px',
@@ -100,7 +100,7 @@ export const button = style({
       transform: 'none',
     },
     '&.iconOnly': {
-      minWidth: '40px',
+      minWidth: '44px',
       padding: '0 12px',
     },
   },
