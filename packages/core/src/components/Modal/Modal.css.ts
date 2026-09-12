@@ -42,7 +42,7 @@ export const backdrop = style({
   right: 0,
   bottom: 0,
   backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  animation: `${fadeIn} 0.2s ${themeContract.animation.easing.easeOut}`,
+  animation: `${fadeIn} ${themeContract.animation.duration.base} ${themeContract.animation.easing.easeOut}`,
   zIndex: -1,
 });
 
@@ -52,7 +52,7 @@ export const modalDialog = style({
   borderRadius: themeContract.borderRadius.lg,
   boxShadow: themeContract.shadow.xl,
   maxWidth: '100%',
-  animation: `${slideIn} 0.25s ${themeContract.animation.easing.easeOut}`,
+  animation: `${slideIn} ${themeContract.animation.duration.slow} ${themeContract.animation.easing.easeOut}`,
   outline: 'none',
   margin: 'auto 0',
 

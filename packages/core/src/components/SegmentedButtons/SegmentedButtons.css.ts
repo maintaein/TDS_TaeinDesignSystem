@@ -22,9 +22,9 @@ export const activeIndicator = style({
   backgroundColor: themeContract.color.primary.main,
   boxShadow: '0 2px 8px rgba(0, 102, 255, 0.25)',
   transition: `
-    transform 0.25s cubic-bezier(0.25, 1, 0.5, 1),
-    width 0.25s cubic-bezier(0.25, 1, 0.5, 1),
-    box-shadow 0.25s ease
+    transform ${themeContract.animation.duration.slow} cubic-bezier(0.25, 1, 0.5, 1),
+    width ${themeContract.animation.duration.slow} cubic-bezier(0.25, 1, 0.5, 1),
+    box-shadow ${themeContract.animation.duration.slow} ease
   `,
   zIndex: 0,
 });
@@ -67,7 +67,7 @@ export const button = style({
   height: '85%',
   userSelect: 'none',
   outline: 'none',
-  transition: 'color 0.25s ease, transform 0.15s ease',
+  transition: `color ${themeContract.animation.duration.slow} ease, transform ${themeContract.animation.duration.fast} ease`,
 
   selectors: {
     '&:hover:not(.disabled):not(.selected)': {
@@ -84,7 +84,7 @@ export const button = style({
       color: themeContract.color.primary.contrast,
       fontWeight: themeContract.font.weight.semibold,
       transform: 'scale(1)',
-      transition: 'transform 0.25s ease, text-shadow 0.25s ease',
+      transition: `transform ${themeContract.animation.duration.slow} ease, text-shadow ${themeContract.animation.duration.slow} ease`,
     },
     '&.selected:hover': {
       textShadow: '0 0 8px rgba(255, 255, 255, 0.5)',

@@ -88,34 +88,34 @@ export const positionStyles = styleVariants({
   'top-left': {
     top: themeContract.spacing[6],
     left: themeContract.spacing[6],
-    animation: `${slideInFromTop} 0.3s ${themeContract.animation.easing.easeOut}`,
+    animation: `${slideInFromTop} ${themeContract.animation.duration.slow} ${themeContract.animation.easing.easeOut}`,
   },
   'top-center': {
     top: themeContract.spacing[6],
     left: '50%',
     transform: 'translateX(-50%)',
-    animation: `${slideInFromTopCenter} 0.3s ${themeContract.animation.easing.easeOut}`,
+    animation: `${slideInFromTopCenter} ${themeContract.animation.duration.slow} ${themeContract.animation.easing.easeOut}`,
   },
   'top-right': {
     top: themeContract.spacing[6],
     right: themeContract.spacing[6],
-    animation: `${slideInFromTop} 0.3s ${themeContract.animation.easing.easeOut}`,
+    animation: `${slideInFromTop} ${themeContract.animation.duration.slow} ${themeContract.animation.easing.easeOut}`,
   },
   'bottom-left': {
     bottom: themeContract.spacing[6],
     left: themeContract.spacing[6],
-    animation: `${slideInFromBottom} 0.3s ${themeContract.animation.easing.easeOut}`,
+    animation: `${slideInFromBottom} ${themeContract.animation.duration.slow} ${themeContract.animation.easing.easeOut}`,
   },
   'bottom-center': {
     bottom: themeContract.spacing[6],
     left: '50%',
     transform: 'translateX(-50%)',
-    animation: `${slideInFromBottomCenter} 0.3s ${themeContract.animation.easing.easeOut}`,
+    animation: `${slideInFromBottomCenter} ${themeContract.animation.duration.slow} ${themeContract.animation.easing.easeOut}`,
   },
   'bottom-right': {
     bottom: themeContract.spacing[6],
     right: themeContract.spacing[6],
-    animation: `${slideInFromBottom} 0.3s ${themeContract.animation.easing.easeOut}`,
+    animation: `${slideInFromBottom} ${themeContract.animation.duration.slow} ${themeContract.animation.easing.easeOut}`,
   },
 });
 

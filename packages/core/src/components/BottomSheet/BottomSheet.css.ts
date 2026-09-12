@@ -52,11 +52,11 @@ export const backdrop = style({
 });
 
 export const backdropEnter = style({
-  animation: `${fadeIn} 0.2s ${themeContract.animation.easing.easeOut}`,
+  animation: `${fadeIn} ${themeContract.animation.duration.base} ${themeContract.animation.easing.easeOut}`,
 });
 
 export const backdropExit = style({
-  animation: `${fadeOut} 0.2s ${themeContract.animation.easing.easeOut} forwards`,
+  animation: `${fadeOut} ${themeContract.animation.duration.base} ${themeContract.animation.easing.easeOut} forwards`,
 });
 
 export const bottomSheet = style({
@@ -78,11 +78,11 @@ export const bottomSheet = style({
 });
 
 export const bottomSheetEnter = style({
-  animation: `${slideUp} 0.3s ${themeContract.animation.easing.easeOut}`,
+  animation: `${slideUp} ${themeContract.animation.duration.slow} ${themeContract.animation.easing.easeOut}`,
 });
 
 export const bottomSheetExit = style({
-  animation: `${slideDown} 0.3s ${themeContract.animation.easing.easeOut} forwards`,
+  animation: `${slideDown} ${themeContract.animation.duration.slow} ${themeContract.animation.easing.easeOut} forwards`,
 });
 
 export const heightStyles = styleVariants({

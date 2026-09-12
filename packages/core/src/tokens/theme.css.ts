@@ -1,4 +1,4 @@
-import { createGlobalTheme } from '@vanilla-extract/css';
+import { createGlobalTheme, globalStyle } from '@vanilla-extract/css';
 import { primary, gray, success, warning, error } from './colors.css';
 import { fontFamily, fontSize, fontWeight, lineHeight } from './typography.css';
 import { spacing, borderRadius } from './spacing.css';
@@ -69,5 +69,18 @@ export const themeContract = createGlobalTheme(':root', {
   animation: {
     duration,
     easing,
+  },
+});
+
+globalStyle(':root', {
+  '@media': {
+    '(prefers-reduced-motion: reduce)': {
+      vars: {
+        [themeContract.animation.duration.fast]: '0.01ms',
+        [themeContract.animation.duration.base]: '0.01ms',
+        [themeContract.animation.duration.slow]: '0.01ms',
+        [themeContract.animation.duration.slower]: '0.01ms',
+      },
+    },
   },
 });
