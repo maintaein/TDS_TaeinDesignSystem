@@ -29,3 +29,11 @@ export const lineHeight = {
   normal: '1.5',
   relaxed: '1.75',
 } as const;
+
+// 숫자 글리프 폭. 기본 비례 폰트는 '1'이 '8'보다 좁아서 숫자를 세로로 쌓으면
+// 자릿수가 행마다 어긋난다. 표·지표처럼 숫자를 비교하는 자리에는 tabular를
+// 쓴다. Pretendard Variable이 이 기능을 지원한다.
+export const fontVariantNumeric = {
+  normal: 'normal',
+  tabular: 'tabular-nums',
+} as const;
