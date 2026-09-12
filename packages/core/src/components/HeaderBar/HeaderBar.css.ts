@@ -1,5 +1,6 @@
 import { style, styleVariants } from '@vanilla-extract/css';
 import { themeContract } from '../../tokens/theme.css';
+import { mediaQuery } from '../../tokens/breakpoints.css';
 
 export const headerBar = style({
   display: 'flex',
@@ -8,13 +9,13 @@ export const headerBar = style({
   gap: themeContract.spacing[4],
   padding: `${themeContract.spacing[4]} ${themeContract.spacing[6]}`,
   transition: `box-shadow ${themeContract.animation.duration.base} ${themeContract.animation.easing.easeInOut}`,
-  zIndex: 100,
+  zIndex: themeContract.zIndex.sticky,
   transform: 'translateZ(0)',
   willChange: 'transform, backdrop-filter',
   backfaceVisibility: 'hidden',
 
   '@media': {
-    '(max-width: 768px)': {
+    [mediaQuery.down.md]: {
       padding: `${themeContract.spacing[3]} ${themeContract.spacing[4]}`,
       gap: themeContract.spacing[3],
     },
@@ -82,7 +83,7 @@ export const logo = style({
   maxHeight: '32px',
 
   '@media': {
-    '(max-width: 768px)': {
+    [mediaQuery.down.md]: {
       maxHeight: '28px',
     },
   },
@@ -95,7 +96,7 @@ export const title = style({
   margin: 0,
 
   '@media': {
-    '(max-width: 768px)': {
+    [mediaQuery.down.md]: {
       fontSize: themeContract.font.size.base,
     },
   },
@@ -109,7 +110,7 @@ export const centerSection = style({
   justifyContent: 'center',
 
   '@media': {
-    '(max-width: 768px)': {
+    [mediaQuery.down.md]: {
       gap: themeContract.spacing[2],
     },
   },
@@ -122,7 +123,7 @@ export const rightSection = style({
   flexShrink: 0,
 
   '@media': {
-    '(max-width: 768px)': {
+    [mediaQuery.down.md]: {
       gap: themeContract.spacing[2],
     },
   },

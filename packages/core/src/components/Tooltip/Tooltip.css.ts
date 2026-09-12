@@ -20,7 +20,7 @@ export const tooltipContainer = style({
 // 기본 툴팁 스타일
 export const tooltip = style({
   position: 'absolute',
-  zIndex: 1500,
+  zIndex: themeContract.zIndex.tooltip,
   padding: `${themeContract.spacing[1]} ${themeContract.spacing[2]}`,
   backgroundColor: themeContract.color.text.primary,
   color: themeContract.color.background.paper,

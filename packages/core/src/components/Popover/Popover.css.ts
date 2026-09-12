@@ -15,7 +15,7 @@ export const popoverContainer = style({
 // 팝오버 본체
 export const popover = style({
   position: 'absolute',
-  zIndex: 1500,
+  zIndex: themeContract.zIndex.popover,
   backgroundColor: themeContract.color.background.paper,
   borderRadius: themeContract.borderRadius.md,
   boxShadow: themeContract.shadow.lg,

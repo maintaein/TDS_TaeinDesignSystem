@@ -42,7 +42,7 @@ export const fullScreenStyles = style({
   bottom: 0,
   backgroundColor: themeContract.color.background.default,
   opacity: 0.9,
-  zIndex: 9999,
+  zIndex: themeContract.zIndex.modal,
 });
 
 export const overlayStyles = style({
