@@ -35,6 +35,10 @@ export const variantStyles = styleVariants({
     backgroundColor: `var(--badge-color, ${themeContract.color.warning.main})`,
     color: themeContract.color.warning.contrast,
   },
+  info: {
+    backgroundColor: `var(--badge-color, ${themeContract.color.info.main})`,
+    color: themeContract.color.info.contrast,
+  },
 });
 
 export const sizeStyles = styleVariants({

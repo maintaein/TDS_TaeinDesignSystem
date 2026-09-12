@@ -59,6 +59,11 @@ export const variant = styleVariants({
 });
 
 // color 스타일
+//
+// semantic 색상은 main이 아니라 dark 슬롯을 쓴다. main은 배경·UI 요소 기준(3:1)
+// 이라서 흰 배경 위 본문 텍스트로 쓰면 대비가 부족하다. 특히 success.main
+// (#4CAF50)은 2.78:1, warning.main(#FF9800)은 2.16:1로 AA(4.5:1)에 크게 못 미친다.
+// dark 슬롯은 본문 텍스트용으로 잡은 값이다.
 export const color = styleVariants({
   primary: {
     color: themeContract.color.text.primary,
@@ -67,14 +72,27 @@ export const color = styleVariants({
     color: themeContract.color.text.secondary,
   },
   success: {
-    color: themeContract.color.success.main,
+    color: themeContract.color.success.dark,
+  },
+  warning: {
+    color: themeContract.color.warning.dark,
   },
   error: {
-    color: themeContract.color.error.main,
+    color: themeContract.color.error.dark,
+  },
+  info: {
+    color: themeContract.color.info.dark,
   },
   disabled: {
     color: themeContract.color.text.disabled,
   },
+});
+
+// 고정폭 숫자.
+// 비례 폰트는 '1'이 '8'보다 좁아서 숫자를 여러 행에 쌓으면 자릿수가 행마다
+// 어긋난다. 표·지표·카운터처럼 숫자를 위아래로 비교하는 자리에 쓴다.
+export const tabularNums = style({
+  fontVariantNumeric: themeContract.font.variantNumeric.tabular,
 });
 
 // weight 스타일

@@ -10,7 +10,7 @@ export interface BadgeProps extends Omit<
   /** 배지에 표시할 내용. 숫자일 경우 max 초과 시 "max+" 형태로 표시 */
   children?: ReactNode;
   /** 배지 색상 테마 @default 'primary' */
-  variant?: 'primary' | 'secondary' | 'success' | 'error' | 'warning';
+  variant?: 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info';
   /** 배지 크기 @default 'md' */
   size?: 'sm' | 'md' | 'lg';
   /** 숫자 최대값. 초과 시 "99+" 형태로 표시 @default 99 */

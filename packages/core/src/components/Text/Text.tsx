@@ -20,13 +20,22 @@ export interface TextProps {
   /** HTML 태그 (variant보다 우선) */
   as?: ElementType;
   /** 텍스트 색상 */
-  color?: 'primary' | 'secondary' | 'success' | 'error' | 'disabled';
+  color?:
+    | 'primary'
+    | 'secondary'
+    | 'success'
+    | 'warning'
+    | 'error'
+    | 'info'
+    | 'disabled';
   /** 폰트 굵기 */
   weight?: 'regular' | 'medium' | 'semibold' | 'bold';
   /** 텍스트 정렬 */
   align?: 'left' | 'center' | 'right';
   /** 텍스트 줄 수 제한 (1~3) */
   truncate?: 1 | 2 | 3;
+  /** 숫자를 고정폭으로 렌더링 (표·지표처럼 자릿수를 세로로 맞춰야 할 때) */
+  tabularNums?: boolean;
   /** 추가 CSS 클래스 */
   className?: string;
 }
@@ -52,6 +61,7 @@ export function Text({
   weight,
   align,
   truncate,
+  tabularNums,
   className,
 }: TextProps) {
   // children이 없으면 렌더링하지 않음
@@ -70,6 +80,7 @@ export function Text({
     weight && styles.weight[weight],
     align && styles.align[align],
     truncate && styles.truncate,
+    tabularNums && styles.tabularNums,
     className
   );
 

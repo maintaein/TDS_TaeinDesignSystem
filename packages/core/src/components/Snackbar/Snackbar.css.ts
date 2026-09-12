@@ -50,7 +50,7 @@ const slideInFromBottomCenter = keyframes({
 // 기본 스타일
 export const snackbar = style({
   position: 'fixed',
-  zIndex: 1400,
+  zIndex: themeContract.zIndex.toast,
   display: 'flex',
   alignItems: 'center',
   padding: themeContract.spacing[3],
@@ -78,8 +78,11 @@ export const severityStyles = styleVariants({
     backgroundColor: themeContract.color.warning.main,
     color: themeContract.color.warning.contrast,
   },
+  // 값은 primary와 같지만 어휘를 계약에 맞춘다. primary를 빌려 쓰면 브랜드 색을
+  // 바꿀 때 정보 알림 색까지 따라 바뀐다.
   info: {
-    backgroundColor: themeContract.color.primary.main,
+    backgroundColor: themeContract.color.info.main,
+    color: themeContract.color.info.contrast,
   },
 });
 

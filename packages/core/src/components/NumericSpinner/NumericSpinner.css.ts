@@ -52,6 +52,8 @@ export const input = style({
   color: themeContract.color.text.primary,
   fontFamily: 'inherit',
   textAlign: 'center',
+  // 값이 오를 때 '1'과 '8'의 폭 차이로 숫자가 좌우로 흔들리는 것을 막는다.
+  fontVariantNumeric: themeContract.font.variantNumeric.tabular,
   appearance: 'textfield',
   fontSize: '0.875rem',
   fontWeight: 500,

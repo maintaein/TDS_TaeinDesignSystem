@@ -119,10 +119,36 @@ describe('Text', () => {
       expect(element.className).toContain('color_error');
     });
 
+    it('warning color를 적용한다', () => {
+      render(<Text color="warning">Warning 텍스트</Text>);
+      const element = screen.getByText('Warning 텍스트');
+      expect(element.className).toContain('color_warning');
+    });
+
+    it('info color를 적용한다', () => {
+      render(<Text color="info">Info 텍스트</Text>);
+      const element = screen.getByText('Info 텍스트');
+      expect(element.className).toContain('color_info');
+    });
+
     it('disabled color를 적용한다', () => {
       render(<Text color="disabled">Disabled 텍스트</Text>);
       const element = screen.getByText('Disabled 텍스트');
       expect(element.className).toContain('color_disabled');
+    });
+  });
+
+  describe('tabularNums prop 테스트', () => {
+    it('기본값에서는 tabular 클래스를 적용하지 않는다', () => {
+      render(<Text>1,234</Text>);
+      const element = screen.getByText('1,234');
+      expect(element.className).not.toContain('tabularNums');
+    });
+
+    it('tabularNums가 true면 고정폭 숫자 클래스를 적용한다', () => {
+      render(<Text tabularNums>1,234</Text>);
+      const element = screen.getByText('1,234');
+      expect(element.className).toContain('tabularNums');
     });
   });
 

@@ -83,6 +83,12 @@ describe('Badge', () => {
       expect(badge.className).toContain('error');
     });
 
+    it('info variant를 렌더링한다', () => {
+      render(<Badge variant="info">5</Badge>);
+      const badge = screen.getByText('5');
+      expect(badge.className).toContain('info');
+    });
+
     it('warning variant를 렌더링한다', () => {
       render(<Badge variant="warning">5</Badge>);
       const badge = screen.getByText('5');
